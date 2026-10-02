@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-CA" data-panel-page="content" data-panel-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content | TPTC staff panel (demo)</title>
+<meta name="description" content="Demo staff panel for Thornhill Park Tennis Club: Content. Sample data; nothing is saved to a server or charged.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../assets/brand/favicon.svg" type="image/svg+xml">
+<script src="../js/boot.js"></script>
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../css/panel.css">
+<link rel="stylesheet" href="../css/content.css">
+</head>
+<body class="pn pn--content" data-shell="content">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="pn-app">
+  <aside class="pn-side" data-shell-side></aside>
+  <div class="pn-body">
+    <div data-shell-top></div>
+    <main id="main" class="pn-main" tabindex="-1">
+      <header class="pn-head">
+        <div class="pn-head__words">
+          <p class="pn-kicker">Content <span class="pn-sample">Sample data</span></p>
+          <h1 class="pn-title">News, cards and <em>season dates</em></h1>
+          <p class="pn-lede">What the public site says this week: the club&rsquo;s news posts, the What&rsquo;s happening cards on Home and the dates of the two seasons, previewed in the site&rsquo;s own markup. Edits stay in this browser.</p>
+        </div>
+        <div class="pn-head__actions">
+          <button class="pn-btn pn-btn--quiet" type="button" data-ct-restore-all>Restore the club&rsquo;s text</button>
+          <button class="pn-btn pn-btn--ink" type="button" data-ct-new>Write a news post</button>
+        </div>
+      </header>
+
+      <p class="pn-note ct-rolenote" data-ct-rolenote hidden></p>
+
+      <section class="pn-section ct-glance" aria-labelledby="ct-glance-h">
+        <h2 class="sr-only" id="ct-glance-h">At a glance</h2>
+        <div class="pn-kpis" data-ct-kpis></div>
+      </section>
+
+      <section class="pn-section ct-work" aria-labelledby="ct-work-h">
+        <h2 class="sr-only" id="ct-work-h">Edit and preview</h2>
+        <div class="pn-tabs" role="tablist" aria-label="Content">
+          <button type="button" role="tab" id="ct-tab-news" aria-controls="ct-panel-news" aria-selected="true">News posts <span class="ct-tabcount" data-ct-count="news"></span></button>
+          <button type="button" role="tab" id="ct-tab-cards" aria-controls="ct-panel-cards" aria-selected="false" tabindex="-1">What&rsquo;s happening <span class="ct-tabcount" data-ct-count="card"></span></button>
+          <button type="button" role="tab" id="ct-tab-seasons" aria-controls="ct-panel-seasons" aria-selected="false" tabindex="-1">Season dates <span class="ct-tabcount" data-ct-count="season"></span></button>
+        </div>
+        <div class="ct-panel" role="tabpanel" id="ct-panel-news" aria-labelledby="ct-tab-news" data-ct-panel="news" tabindex="-1"></div>
+        <div class="ct-panel" role="tabpanel" id="ct-panel-cards" aria-labelledby="ct-tab-cards" data-ct-panel="card" tabindex="-1" hidden></div>
+        <div class="ct-panel" role="tabpanel" id="ct-panel-seasons" aria-labelledby="ct-tab-seasons" data-ct-panel="season" tabindex="-1" hidden></div>
+      </section>
+
+      <section class="pn-section ct-log" aria-labelledby="ct-log-h">
+        <div class="pn-section__head">
+          <h2 class="pn-h2" id="ct-log-h">Edits in this browser</h2>
+          <p class="pn-muted">Kept in this browser only. The public site is not changed, and nothing is sent to a server. Reset demo, in the menu, clears every module.</p>
+        </div>
+        <div data-ct-log></div>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="../js/facts.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/content.js"></script>
+</body>
+</html>

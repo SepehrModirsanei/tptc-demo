@@ -1,0 +1,104 @@
+/* Facilities only. Tokens only; no raw colour values. */
+
+/* 1. The spec sheet: four figures, then the details still to confirm, ruled like a scorecard. */
+.spec-facts { margin-top: clamp(32px, 4vw, 56px); }
+.spec { margin: clamp(32px, 4vw, 56px) 0 0; display: grid; border-top: 1px solid var(--rule-strong); }
+.spec > div { display: grid; gap: 6px 24px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.spec dt { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.spec dd { margin: 0; }
+@media (min-width: 640px) { .spec > div { grid-template-columns: 12rem minmax(0, 1fr); align-items: baseline; } }
+@media (min-width: 1000px) {
+  .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-6); }
+  .spec > div { grid-template-columns: 9.5rem minmax(0, 1fr); }
+}
+.courts-photo { margin-top: clamp(40px, 5vw, 72px); }
+
+/* 2. Two seasons, one drawing.
+   Story: a bubble is inflated from the ground up, so the dome rises from its footing over the
+   four nets (scaleY from the ground line, 600ms, --ease-out) and settles back down for summer.
+   The nets are drawn true: posts outside the sidelines, the cord sagging to the centre strap.
+   The temperature hangs inside the dome only while it is up. */
+.seasons { display: grid; gap: var(--sp-6); }
+@media (min-width: 1000px) { .seasons { grid-template-columns: 5fr 7fr; column-gap: var(--sp-8); align-items: end; } }
+.seasons__words { display: grid; gap: var(--sp-5); align-content: start; }
+.seasons__now { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; font-size: 15px; line-height: 1.5; color: var(--fg-muted); max-width: 46ch; }
+.seasons__switch { display: grid; gap: 10px; justify-items: start; }
+.seasons__fig { margin: 0; display: grid; gap: var(--sp-3); }
+.seasons__draw { position: relative; }
+.elev { display: block; width: 100%; height: auto; overflow: visible; }
+.elev__ground { stroke: var(--fg); stroke-width: 1; vector-effect: non-scaling-stroke; }
+/* The court slab uses the same surface as every placeholder court, so it reads in both themes. */
+.elev__court { fill: color-mix(in srgb, var(--ph-ground), var(--ph-court-mix) var(--ph-court-amt)); }
+.elev__post { stroke: var(--fg); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.elev__mesh { fill: var(--fg); fill-opacity: 0.08; }
+.elev__cord { fill: none; stroke: var(--red); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.elev__skin { fill: var(--surface); }
+.elev__arc { fill: none; stroke: var(--fg); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.elev__dome { transform-box: fill-box; transform-origin: 50% 100%; }
+html.motion .elev__dome { transition: transform 600ms var(--ease-out), opacity 600ms var(--ease-out); }
+.seasons__fig[data-season="outdoor"] .elev__dome { transform: scaleY(0.04); opacity: 0; }
+.seasons__temp, .seasons__sky { position: absolute; left: 50%; top: 38%; transform: translateX(-50%);
+  font: 200 clamp(1.75rem, 1.2rem + 2vw, 3.25rem)/1 var(--font-serif); letter-spacing: -0.01em; white-space: nowrap; }
+.seasons__sky { font-style: italic; color: var(--fg-muted); }
+.seasons__temp[hidden], .seasons__sky[hidden] { display: none; }
+.seasons__cap { font-size: 14px; line-height: 1.5; color: var(--fg-muted); display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+
+.season-panel { margin-top: clamp(40px, 5vw, 64px); }
+.season-fields { max-width: none; }
+.season-more { margin-top: var(--sp-4); }
+@media (min-width: 1000px) { .season-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-6); display: grid; } }
+
+/* 3. Off court */
+.amen { display: grid; gap: var(--sp-6); }
+@media (min-width: 1000px) { .amen { grid-template-columns: 4fr 8fr; column-gap: var(--sp-8); align-items: start; } }
+.amen .strengths li > :not(.icon) { grid-column: 2; }
+.amen .strengths p + p { margin-top: 6px; }
+
+/* 4. The hand-over.
+   Story: a booked hour changes hands like players changing ends: you wait at the gate for the
+   half hour or the hour, the first buzzer gives three minutes, then the court is clear for the
+   next pair. The hour is one chalk line drawn left to right (Chalk), its three marks set like
+   posts; nothing loops and nothing counts. */
+.handover { margin: clamp(32px, 4vw, 56px) 0 0; display: grid; gap: var(--sp-4); }
+.handover__bar { position: relative; height: 14px; }
+.handover__line { position: absolute; left: 0; right: 0; top: 6px; height: 1.5px; background: var(--fg); transform-origin: 0 50%; }
+.handover__tick { position: absolute; top: 0; width: 1.5px; height: 14px; background: var(--fg); transform-origin: 50% 100%; }
+.handover__tick--in { left: 0; }
+.handover__tick--buzz { left: 95%; background: var(--red); }
+.handover__tick--out { right: 0; }
+.handover__marks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.handover__mark { display: grid; gap: 4px; align-content: start; font-size: 16px; line-height: 1.5; color: var(--fg-muted); max-width: 34ch; }
+.handover__t { font: 300 var(--step-3)/1.2 var(--font-serif); color: var(--fg); }
+.handover__mark--buzz .handover__t { color: var(--fg); }
+@media (min-width: 800px) {
+  .handover__marks { grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); row-gap: var(--sp-4); }
+  .handover__mark--in { grid-row: 1 / span 2; }
+  .handover__mark--buzz, .handover__mark--out { grid-column: 2; text-align: right; justify-self: end; padding-right: 14px; border-right: 1.5px solid var(--fg); }
+  /* Each label hangs from its own post: the buzzer note ends under the red 57-minute tick (95%), Time under the last one. */
+  .handover { container-type: inline-size; }
+  .handover__mark--buzz { margin-right: calc(5cqw - 1.5px); border-right-color: var(--red); }
+}
+@media (max-width: 799px) {
+  .handover__bar { display: none; }
+  .handover__marks { border-left: 1.5px solid var(--fg); padding-left: 18px; }
+  .handover__mark { position: relative; }
+  .handover__mark::before { content: ""; position: absolute; left: -24px; top: 10px; width: 10px; height: 1.5px; background: var(--fg); }
+  .handover__mark--buzz::before { background: var(--red); }
+}
+
+.rules { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; display: grid; border-top: 1px solid var(--rule-strong); }
+.rules li { display: grid; gap: 4px 24px; padding: 16px 0; border-bottom: 1px solid var(--rule); font-size: 16px; line-height: 1.5; }
+.rules__k { font: 600 var(--step-6)/1.6 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+@media (min-width: 640px) { .rules li { grid-template-columns: 9rem minmax(0, 1fr); align-items: baseline; } }
+@media (min-width: 1000px) { .rules { grid-template-columns: 1fr 1fr; column-gap: var(--sp-6); } }
+.rules__more { margin-top: var(--sp-5); }
+
+/* 5. Three locations, numbered like courts; only the first is ours, and it is ruled in ink. */
+.locs { list-style: none; margin: clamp(32px, 4vw, 56px) 0 0; padding: 0; display: grid; gap: var(--sp-4); }
+@media (min-width: 900px) { .locs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.loc { display: grid; gap: 10px; align-content: start; padding: var(--sp-4) 0 var(--sp-4); border-top: 1px solid var(--rule); }
+.loc--home { border-top: 2px solid var(--fg); }
+.loc__n { font: 300 var(--step-3)/1 var(--font-serif); color: var(--fg-muted); }
+.loc__name { font: 300 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.15 var(--font-serif); }
+.loc__what, .loc__addr { font-size: 16px; line-height: 1.5; color: var(--fg-muted); max-width: 36ch; }
+.loc__addr { color: var(--fg); }

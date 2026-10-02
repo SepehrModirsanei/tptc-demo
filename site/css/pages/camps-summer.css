@@ -1,0 +1,121 @@
+/* Summer Camps: which camp, where, when and for how much. Tokens only.
+   The camp family (.camp-status, .campcards, .extras, .policies) is shared in components.css
+   since integration; this file keeps only what is Summer's own. */
+
+/* ---------- Where and when: the court sheet ----------
+   Story: a club pins up a court sheet, one column per court. Here each column is a camp location
+   and each row a camp; a filled cell carries a ball mark and the first week, an empty cell only a
+   short centre-line tick. */
+.sheet-wrap { margin-top: var(--sp-6); }
+.sheet { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 15px; }
+.sheet caption { text-align: left; font-size: 14px; color: var(--fg-muted); padding-bottom: 14px; }
+.sheet th, .sheet td { padding: 16px 14px; border: 1px solid var(--rule); vertical-align: middle; }
+.sheet thead th { text-align: left; border-bottom: 2px solid var(--fg); vertical-align: bottom; }
+.sheet__place { display: block; font: 300 clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)/1.15 var(--font-serif); }
+.sheet__sub { display: block; margin-top: 4px; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.sheet thead th:first-child { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.sheet tbody th { text-align: left; font-weight: 500; width: 30%; }
+.sheet tbody th span { display: block; margin-top: 4px; font-weight: 400; font-size: 14px; color: var(--fg-muted); }
+.sheet__on { background: var(--bg); }
+.sheet__on .num { display: block; font: 400 19px/1.2 var(--font-serif); font-variant-numeric: lining-nums; }
+.sheet__on small { display: block; margin-top: 4px; font-size: 13px; color: var(--fg-muted); }
+.sheet__mark { display: block; width: 10px; height: 10px; margin-bottom: 10px; border-radius: 50%; background: var(--fg); }
+.sheet__off { position: relative; }
+/* An empty cell is a bare baseline with its centre mark: lined, but no play here. Drawn as a court
+   line (a short baseline and the 4 in centre mark standing on it), so it never reads as a dash. */
+.sheet__off::after { content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 1px; margin-left: -11px; background: var(--rule-strong); }
+.sheet__off::before { content: ""; position: absolute; left: 50%; top: 50%; width: 1px; height: 6px; margin: -6px 0 0 -0.5px; background: var(--rule-strong); }
+
+/* ---------- Twelve weeks of summer ----------
+   Story: a scoreboard of games. Each box is one camp week, filled in order like games won, once.
+   The Jul 1 week keeps a gap on its Wednesday: four days, not five. */
+.weeks { margin: var(--sp-7) 0 0; display: grid; gap: var(--sp-4); }
+.weeks__cap { display: grid; gap: 4px; }
+.weeks__title { font: 400 var(--step-3)/1.3 var(--font-serif); }
+.weeks__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px 4px; align-items: center; }
+.weeks__corner { display: none; }
+.weeks__head { font: 500 10px/1.2 var(--font-sans); color: var(--fg-muted); text-align: center; padding-bottom: 4px; }
+.weeks__place { grid-column: 1 / -1; display: grid; gap: 2px; margin-top: 10px; font-size: 14px; }
+.weeks__place strong { font: 500 16px/1.3 var(--font-sans); }
+.weeks__place span { color: var(--fg-muted); }
+.weeks__box { position: relative; height: 26px; border: 1px solid var(--rule-strong); }
+.weeks__box.is-on::after { content: ""; position: absolute; inset: 9px 3px; background: var(--fg); transform-origin: 0 50%; }
+.weeks__box.is-short::after { background: linear-gradient(90deg, var(--fg) 0 38%, transparent 38% 62%, var(--fg) 62% 100%); }
+html.motion .weeks__grid .weeks__box.is-on::after { transition: transform 420ms var(--ease-out) calc(var(--i) * 45ms); }
+html.motion .weeks__grid:not(.is-drawn) .weeks__box.is-on::after { transform: scaleX(0); }
+.weeks__key { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; color: var(--fg-muted); }
+.weeks__key-box { position: relative; display: inline-block; width: 28px; height: 16px; border: 1px solid var(--rule-strong); }
+.weeks__key-box.is-on::after { content: ""; position: absolute; inset: 2px; background: var(--fg); }
+.weeks__key-box.is-short::after { background: linear-gradient(90deg, var(--fg) 0 38%, transparent 38% 62%, var(--fg) 62% 100%); }
+.weeks__key { gap: 8px 22px; }
+.weeks__key-item { display: inline-flex; align-items: center; gap: 10px; }
+/* Phones: every week head is month over day, so Jul 6 stands like Jun 15, never on one line */
+@media (max-width: 799px) { .weeks__head { inline-size: min-content; margin-inline: auto; font-size: 11px; } }
+@media (min-width: 800px) {
+  .weeks__grid { grid-template-columns: minmax(200px, 3fr) repeat(12, minmax(0, 1fr)); gap: 8px 6px; }
+  .weeks__corner { display: block; }
+  .weeks__head { font-size: 12px; }
+  .weeks__place { grid-column: 1; margin-top: 0; padding-right: 16px; }
+  .weeks__box { height: 34px; }
+}
+.where-notes { display: grid; gap: var(--sp-4); margin-top: var(--sp-7); }
+.where-notes .confirm--tight { margin-left: 4px; }
+@media (min-width: 900px) { .where-notes { grid-template-columns: 1fr 1fr; column-gap: var(--sp-6); } }
+
+/* ---------- Prices: three windows on one baseline ----------
+   Story: the same baseline as the Camps hub's camp year, with a mark for each window in the order
+   they open. All three windows of Summer 2026 are past, so every mark is hollow: none is lit with
+   the live colour. The line draws once, left to right. */
+.windows { position: relative; list-style: none; margin: var(--sp-6) 0 var(--sp-7); padding: 0 0 0 28px; display: grid; gap: var(--sp-5); }
+.windows::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: var(--fg); transform-origin: 50% 0; }
+html.motion .windows::before { transition: transform 900ms var(--ease-out); }
+html.motion .windows:not(.is-drawn)::before { transform: scaleY(0); }
+.windows__pt { position: relative; display: grid; gap: 4px; }
+.windows__tick { position: absolute; left: -28px; top: 4px; width: 13px; height: 13px; border-radius: 50%; border: 1px solid var(--fg); background: var(--bg); }
+.windows__name { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.windows__when { font: 300 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.15 var(--font-serif); font-variant-numeric: lining-nums; }
+.windows__note { font-size: 15px; line-height: 1.5; color: var(--fg-muted); max-width: 40ch; }
+@media (min-width: 800px) {
+  .windows { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-5); padding: 28px 0 0; }
+  .windows::before { left: 0; right: 0; top: 6px; bottom: auto; width: auto; height: 1px; transform-origin: 0 50%; }
+  html.motion .windows:not(.is-drawn)::before { transform: scaleX(0); }
+  .windows__tick { left: 0; top: -28px; }
+  .windows__pt { padding-right: var(--sp-4); }
+}
+
+.camp-rates { min-width: 560px; }
+.camp-rates caption .confirm--tight { margin-left: 4px; }
+.camp-rates__group th { padding-top: 26px; font: 300 clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)/1.2 var(--font-serif); border-bottom-color: var(--rule-strong); }
+.camp-rates__group th span { margin-top: 4px; font: 400 14px/1.3 var(--font-sans); }
+.camp-rates tbody tr:not(.camp-rates__group) th { font-weight: 400; color: var(--fg-muted); font-size: 15px; }
+/* Time spans inside row headers stay inline: the shared .rates span block style is for group sublines only. */
+.camp-rates tbody th .nobr { display: inline; font: inherit; color: inherit; }
+.camp-rates td.tnum { font-family: var(--font-serif); font-variant-numeric: lining-nums tabular-nums; }
+
+/* Phones: the court sheet folds into one list per location, the same ball marks */
+.sheet-list { display: grid; gap: var(--sp-5); margin-top: var(--sp-6); }
+.sheet-list__cap { color: var(--fg-muted); }
+.sheet-list__name { padding-bottom: 10px; border-bottom: 2px solid var(--fg); font: 300 1.5rem/1.15 var(--font-serif); }
+.sheet-list__name span { display: block; margin-top: 4px; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.sheet-list ul { list-style: none; margin: 0; padding: 0; }
+.sheet-list li { display: grid; grid-template-columns: 22px 1fr; gap: 2px 0; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 16px; }
+.sheet-list li .sheet__mark { margin: 7px 0 0; grid-row: span 2; }
+.sheet-list li .num { color: var(--fg-muted); font-size: 15px; }
+@media (max-width: 699px) { .sheet-wrap { display: none; } }
+@media (min-width: 700px) { .sheet-list { display: none; } }
+
+/* Phones: the price table reads as a scorecard per row, not a table cut off at the right edge.
+   Each row keeps its session on one line and the three windows beneath it, each labelled. */
+@media (max-width: 699px) {
+  .camp-rates, .camp-rates tbody { display: block; min-width: 0; width: 100%; }
+  .camp-rates caption { display: block; }
+  .camp-rates thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .camp-rates tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 12px; border-bottom: 1px solid var(--rule); padding-block: 14px; }
+  .camp-rates tr > * { border: 0; padding: 0; }
+  .camp-rates tbody tr:not(.camp-rates__group) th { grid-column: 1 / -1; padding-bottom: 8px; }
+  .camp-rates td.tnum { display: grid; gap: 4px; align-content: space-between; text-align: left; font-size: 19px; }
+  .camp-rates td.tnum::before { content: attr(data-label); font: 600 11px/1.3 var(--font-sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-muted); }
+  .camp-rates__group { padding-top: 26px; border-bottom: 1px solid var(--rule-strong); }
+  .camp-rates__group th { grid-column: 1 / -1; padding-top: 0; }
+}
+

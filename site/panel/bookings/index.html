@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en-CA" data-panel-page="bookings" data-panel-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bookings | TPTC staff panel (demo)</title>
+<meta name="description" content="Demo staff panel for Thornhill Park Tennis Club: Bookings. Sample data; nothing is saved to a server or charged.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../assets/brand/favicon.svg" type="image/svg+xml">
+<script src="../js/boot.js"></script>
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../css/panel.css">
+<link rel="stylesheet" href="../css/bookings.css">
+</head>
+<body class="pn pn--bookings" data-shell="bookings">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="pn-app">
+  <aside class="pn-side" data-shell-side></aside>
+  <div class="pn-body">
+    <div data-shell-top></div>
+    <main id="main" class="pn-main" tabindex="-1">
+      <header class="pn-head">
+        <div class="pn-head__words">
+          <p class="pn-kicker">Bookings <span class="pn-sample">Sample data</span></p>
+          <h1 class="pn-title">The four courts, <em>by day and week</em></h1>
+          <p class="pn-lede">Who is on which court, in the club's own fee bands. Members book their own courts online; the desk books walk-ins, holds and lessons, and cancels for non-compliance.</p>
+        </div>
+        <div class="pn-head__actions" data-bk-actions></div>
+      </header>
+
+      <section class="pn-section bk-glance" aria-labelledby="bk-glance-h">
+        <h2 class="sr-only" id="bk-glance-h">The selected day at a glance</h2>
+        <div class="pn-kpis" data-bk-kpis></div>
+      </section>
+
+      <section class="pn-section bk-cal" aria-labelledby="bk-cal-h">
+        <div class="pn-section__head">
+          <h2 class="pn-h2" id="bk-cal-h" data-bk-cal-title>Order of play</h2>
+          <p class="pn-muted bk-season" data-bk-season></p>
+        </div>
+        <div class="bk-window" data-bk-window></div>
+        <div class="pn-toolbar bk-toolbar">
+          <div class="bk-nav" role="group" aria-label="Choose the date">
+            <button class="pn-iconbtn bk-nav__prev" type="button" data-bk-step="-1" aria-label="Previous day"></button>
+            <p class="bk-nav__date" aria-live="polite" data-bk-date></p>
+            <button class="pn-iconbtn bk-nav__next" type="button" data-bk-step="1" aria-label="Next day"></button>
+            <button class="pn-btn pn-btn--quiet pn-btn--sm" type="button" data-bk-today>Today</button>
+            <label class="bk-nav__pick"><span class="sr-only">Go to a date</span><input class="pn-input" type="date" data-bk-pick></label>
+          </div>
+          <div class="pn-seg bk-seasonjump" role="group" aria-label="Season" data-bk-seasonjump></div>
+          <div class="pn-seg" role="group" aria-label="Show" data-bk-filter></div>
+        </div>
+        <div class="pn-tabs bk-tabs" role="tablist" aria-label="Calendar view">
+          <button role="tab" type="button" id="bk-tab-day" aria-controls="bk-panel-day" aria-selected="true" data-bk-view="day">Day</button>
+          <button role="tab" type="button" id="bk-tab-week" aria-controls="bk-panel-week" aria-selected="false" tabindex="-1" data-bk-view="week">Week</button>
+        </div>
+        <div class="bk-legend" data-bk-legend></div>
+        <div role="tabpanel" id="bk-panel-day" aria-labelledby="bk-tab-day" data-bk-panel="day"></div>
+        <div role="tabpanel" id="bk-panel-week" aria-labelledby="bk-tab-week" data-bk-panel="week" hidden></div>
+        <p class="pn-note bk-keys" data-bk-keys></p>
+      </section>
+
+      <div class="pn-grid pn-grid--2 bk-lower">
+        <section class="pn-section bk-public" aria-labelledby="bk-public-h">
+          <div class="pn-section__head"><h2 class="pn-h2" id="bk-public-h">From the public site</h2></div>
+          <div data-bk-public></div>
+        </section>
+        <section class="pn-section bk-strikes" aria-labelledby="bk-strikes-h">
+          <div class="pn-section__head"><h2 class="pn-h2" id="bk-strikes-h">Three strikes watch</h2><span class="pn-sample">Sample data</span></div>
+          <div data-bk-strikes></div>
+        </section>
+      </div>
+
+      <div class="pn-grid pn-grid--2 bk-lower">
+        <section class="pn-section bk-rules" aria-labelledby="bk-rules-h">
+          <div class="pn-section__head"><h2 class="pn-h2" id="bk-rules-h">The rules the desk applies</h2><p class="pn-muted">The club's own words, from Court Bookings.</p></div>
+          <dl class="pn-dl" data-bk-rules></dl>
+        </section>
+        <section class="pn-section bk-log" aria-labelledby="bk-log-h">
+          <div class="pn-section__head"><h2 class="pn-h2" id="bk-log-h">What the desk did</h2><p class="pn-muted">In this browser only. Reset demo clears it.</p></div>
+          <div data-bk-log></div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="../js/facts.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/bookings.js"></script>
+</body>
+</html>

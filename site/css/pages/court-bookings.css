@@ -1,0 +1,143 @@
+/* Court Bookings: How do I book a court?
+   Page CSS, tokens only. Stories (logs/batch2-access.md): the booking window drawn as a dimension
+   line, the way a court plan marks its length; the indoor court day as the club's booking sheet,
+   ticked where a booking may start (the half hour on weekdays, the hour at weekends), prime time the
+   heavier band, the lit evening hours under the dome. */
+
+/* 2. Members and non-members: one question per row, two answers side by side */
+.cb-compare { margin-top: var(--sp-7); border-top: 1px solid var(--rule-strong); }
+.cb-compare__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px var(--sp-5); padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.cb-compare__q { grid-column: 1 / -1; font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.cb-compare__row--head { padding: 14px 0; border-bottom-color: var(--rule-strong); }
+.cb-compare__row--head .cb-compare__q { display: none; }
+.cb-compare__who { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.cb-compare__a { display: grid; gap: 8px; align-content: start; }
+.cb-compare__v { font-size: var(--step-4); line-height: 1.5; }
+.cb-compare__a .confirm { margin-top: 2px; }
+@media (min-width: 800px) {
+  .cb-compare__row { grid-template-columns: 13rem minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-6); align-items: baseline; }
+  .cb-compare__q { grid-column: auto; }
+  .cb-compare__row--head .cb-compare__q { display: block; }
+}
+
+/* The dimension line: end ticks, a hairline between, the figure set in the middle like a plan */
+.cb-dim { --w: calc(var(--span) / 7 * 100%); position: relative; display: block; width: var(--w); height: 26px; }
+.cb-dim--short .cb-dim__n { left: 0; transform: none; padding-left: 0; }
+.cb-dim__line { position: absolute; left: 0; right: 0; top: 18px; height: 1px; background: var(--fg); }
+.cb-dim__line::before, .cb-dim__line::after { content: ""; position: absolute; top: -6px; width: 1px; height: 13px; background: var(--fg); }
+.cb-dim__line::before { left: 0; }
+.cb-dim__line::after { right: 0; }
+.cb-dim__n { position: absolute; left: 50%; top: 0; transform: translateX(-50%); padding: 0 6px; background: var(--bg); font: 600 12px/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; white-space: nowrap; }
+
+/* 3. Season switch and ledger */
+.cb-ledger { margin-top: var(--sp-6); }
+.cb-switch { display: grid; gap: var(--sp-3); margin-top: var(--sp-7); max-width: 40rem; }
+.cb-season { margin-top: var(--sp-6); }
+
+/* The court day: one track per day type, 6am to 12am */
+.cb-day { margin: 0 0 var(--sp-7); display: grid; gap: 14px; }
+.cb-day__row { display: grid; gap: 6px; }
+.cb-day__label { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.cb-day__track { position: relative; height: 44px; border-bottom: 1px solid var(--rule-strong); }
+.cb-day__band { position: absolute; top: 4px; bottom: 10px; left: var(--s); width: calc(var(--e) - var(--s)); display: flex; align-items: center; padding-left: 10px; }
+.cb-day__band--regular { border: 1px solid var(--fg); background: var(--bg); }
+.cb-day__band--prime { background: var(--fg); color: var(--bg); }
+.cb-day__band--regular + .cb-day__band--prime { border-left: 0; }
+.cb-day__fee { font: 400 16px/1 var(--font-serif); font-variant-numeric: lining-nums; }
+.cb-day__ticks { position: absolute; bottom: 0; height: 7px; left: var(--s); width: calc(var(--e) - var(--s)); border-right: 1px solid var(--fg); background-image: linear-gradient(to right, var(--fg) 1px, transparent 1px); background-size: calc(100% / var(--n)) 100%; background-repeat: repeat-x; }
+.cb-day__ticks--half { height: 5px; }
+.cb-day__axis { position: relative; height: 18px; margin-top: -6px; }
+.cb-day__axis span { position: absolute; left: var(--at); transform: translateX(-50%); font: 500 12px/1 var(--font-sans); color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+.cb-day__axis span:first-child { transform: none; }
+.cb-day__axis span:last-child { transform: translateX(-100%); }
+.cb-day__key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--fg-muted); margin-top: 6px; }
+.cb-day__swatch { display: inline-block; width: 22px; height: 12px; border: 1px solid var(--fg); }
+.cb-day__swatch--prime { background: var(--fg); margin-left: 8px; }
+.cb-day__tickkey { flex-basis: 100%; }
+@media (min-width: 800px) {
+  .cb-day__row { grid-template-columns: 9rem 1fr; align-items: end; gap: var(--sp-5); }
+  .cb-day__label { padding-bottom: 14px; }
+  .cb-day__axis { margin-left: calc(9rem + var(--sp-5)); }
+  .cb-day__key { margin-left: calc(9rem + var(--sp-5)); }
+  .cb-day__fee { font-size: 18px; }
+}
+@media (max-width: 599px) {
+  .cb-day__axis span:nth-child(even) { display: none; }
+}
+
+/* Fee rows and their notes */
+.cb-fees { display: grid; gap: var(--sp-6); align-items: start; }
+@media (min-width: 1000px) { .cb-fees { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--sp-8); } }
+.cb-sub { display: block; font-weight: 400; font-size: 14px; color: var(--fg-muted); margin-top: 2px; }
+.cb-fees__notes { display: grid; gap: var(--sp-4); align-content: start; }
+
+/* Outdoor: last summer's open court times */
+.cb-out { display: grid; gap: var(--sp-6); align-items: start; margin-bottom: var(--sp-6); }
+@media (min-width: 900px) { .cb-out { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--sp-8); } }
+.cb-out__lead { display: grid; gap: var(--sp-4); }
+.cb-out__head { font: 300 var(--step-2)/var(--lh-head) var(--font-serif); max-width: 20ch; }
+.cb-out__rows .srow { grid-template-columns: 11rem 1fr; }
+@media (max-width: 599px) { .cb-out__rows .srow { grid-template-columns: 1fr; } }
+
+/* 4. Rules: five headed groups, ruled like a programme */
+.cb-rules { display: grid; gap: 0; margin-top: var(--sp-7); border-top: 1px solid var(--rule-strong); }
+.cb-rule { padding: var(--sp-5) 0; border-bottom: 1px solid var(--rule); }
+.cb-rule__h { display: flex; align-items: center; gap: 12px; font: 400 var(--step-3)/1.25 var(--font-serif); margin-bottom: var(--sp-3); }
+.cb-rule__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cb-rule__list li { position: relative; padding-left: 20px; font-size: var(--step-4); line-height: 1.5; max-width: 52ch; }
+/* Marker: a ball mark, the small oval a ball leaves on the court, not a dash. */
+.cb-rule__list li::before { content: ""; position: absolute; left: 0; top: calc(0.75em - 3px); width: 9px; height: 5px; box-sizing: border-box; border: 1.25px solid var(--fg-muted); border-radius: 50%; transform: rotate(-12deg); }
+@media (min-width: 900px) {
+  .cb-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-8); }
+}
+@media (min-width: 1200px) {
+  .cb-rules { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.cb-all { margin-top: var(--sp-7); }
+.cb-all__list { margin: 0 0 var(--sp-5); padding-left: 1.5em; display: grid; gap: 10px; max-width: 70ch; font-size: var(--step-4); line-height: 1.55; }
+.cb-all__list li::marker { font-variant-numeric: tabular-nums; color: var(--fg-muted); }
+
+/* 5. Friday public hours */
+.cb-public { display: grid; gap: var(--sp-6); }
+@media (min-width: 900px) {
+  .cb-public { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-8); align-items: start; }
+  .cb-public__act { grid-column: 2; }
+}
+.cb-public__when { display: grid; gap: 6px; font: 400 var(--step-3)/1.3 var(--font-serif); margin-top: var(--sp-3); }
+@media (max-width: 799px) {
+  .cb-fees .srow__what { grid-column: 1; grid-row: 1; }
+  .cb-fees .srow__when { grid-column: 1; grid-row: 2; }
+  .cb-fees .srow__price { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+
+/* Review: the booking window beside the compact hero. The club's court sheet, one column per day
+   from today; the members' bar covers today and 7 days ahead, the non-members' today and tomorrow.
+   Bars are ink rules with end ticks, the same dimension-line language as the comparison below. */
+.cb-window { max-width: var(--page); margin: 0 auto; padding: 0 var(--gutter) clamp(40px, 6vw, 72px); }
+.cb-window__lead { margin: 10px 0 var(--sp-4); font-size: var(--step-5); color: var(--fg-muted); }
+.cb-window__lead .num { color: var(--fg); }
+.cb-window__days { --cols: 8; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); }
+.cb-window__days li { display: grid; gap: 2px; padding: 10px 0 10px 8px; border-left: 1px solid var(--rule); min-width: 0; }
+.cb-window__days li:first-child { border-left: 0; padding-left: 0; }
+.cb-window__dow { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); white-space: nowrap; overflow: hidden; text-overflow: clip; }
+.cb-window__d { font: 300 clamp(1.05rem, 0.7rem + 1vw, 1.5rem)/1.1 var(--font-serif); color: var(--fg); white-space: nowrap; }
+.cb-window__days .is-today .cb-window__dow { color: var(--fg); }
+.cb-window__bars { margin: var(--sp-4) 0 0; display: grid; gap: 14px; }
+.cb-window__bar { display: grid; gap: 4px; }
+.cb-window__bar dt { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.cb-window__bar dd { margin: 0; font-size: var(--step-5); color: var(--fg-muted); }
+.cb-window__bar::before { content: ""; order: 2; display: block; width: calc(var(--n) / 8 * 100%); height: 9px; box-sizing: border-box;
+  border-left: 1px solid var(--fg); border-right: 1px solid var(--fg);
+  background: linear-gradient(var(--fg), var(--fg)) 0 50% / 100% 1px no-repeat; }
+.cb-window__bar--member::before { background-size: 100% 3px; }
+.cb-window__bar dd { order: 3; }
+@media (min-width: 1000px) {
+  .cb-hero .hero__grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: end; max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; }
+  .page-court-bookings .cb-hero .hero__words { max-width: none; margin: 0; }
+  .cb-window { margin: 0; padding: 0 var(--gutter) clamp(48px, 6vw, 96px) 0; }
+}
+@media (max-width: 420px) {
+  .cb-window__days li { padding-left: 4px; }
+  .cb-window__dow { font-size: 10px; letter-spacing: 0.04em; }
+}

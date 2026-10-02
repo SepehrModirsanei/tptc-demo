@@ -1,0 +1,147 @@
+/* Register: How do I register? One process.
+   Page CSS, tokens only. Stories (logs/batch2-help.md):
+   - The progress court: registering is the first serve of your season. The ball's ground shadow
+     travels the true diagonal from the deuce court into the opposite service box; the ball rides
+     above its shadow by its height, descending, and meets it at the bounce (step 3).
+   - Each choice is a ball mark: hollow until your choice lands, then filled, and the line it
+     stands on is drawn like a baseline.
+   - The route inside the registration system is a rally of hits: each stop a small mark on one
+     ruled line, read left to right. */
+
+/* ---------- Layout: the flow beside the court ---------- */
+.reg__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-7); }
+@media (min-width: 1000px) {
+  .reg__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--sp-9); align-items: start; }
+  .pc { position: sticky; top: calc(var(--header-h) + var(--sp-6)); }
+}
+@media (max-width: 999px) {
+  /* On a phone the court rides along as a small strip under the header while you choose, so
+     the toss, the net and the bounce are seen as they happen, not above the fold you left. It
+     releases at the end of the flow (sticky inside .reg__grid). */
+  .pc { order: -1; position: sticky; top: var(--header-h); z-index: 2; background: var(--bg);
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); align-items: center; gap: var(--sp-4);
+    margin: 0 calc(var(--gutter) * -1); padding: var(--sp-2) var(--gutter); border-bottom: 1px solid var(--rule); }
+  .pc .pc__svg { max-width: 11rem; }
+  .pc__tag { display: none; }
+}
+.reg__flow { display: grid; gap: var(--sp-7); min-width: 0; }
+.reg__context { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.reg__context[hidden] { display: none; }
+.reg__context-label { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+
+/* ---------- Steps ---------- */
+.reg-step { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: var(--sp-4); }
+.reg-step__legend { display: flex; align-items: baseline; gap: 14px; padding: 0; margin: 0 0 var(--sp-4); }
+.reg-step__n { font: 200 40px/0.9 var(--font-serif); font-variant-numeric: lining-nums; min-width: 1ch; }
+.reg-step__q { font: 400 var(--step-2)/1.2 var(--font-serif); }
+.reg-step[disabled] .reg-step__n, .reg-step[disabled] .reg-step__q { color: var(--fg-muted); }
+.reg-step__wait[hidden] { display: none; }
+
+/* Options: a hairline row each; the mark is a ball, hollow until chosen */
+.reg-opts { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--rule-strong); }
+@media (min-width: 640px) { .reg-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-5); } }
+.reg-opt { position: relative; display: block; cursor: pointer; border-bottom: 1px solid var(--rule); }
+.reg-opt[hidden] { display: none; }
+.reg-opt input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.reg-opt__body { position: relative; display: grid; grid-template-columns: 22px minmax(0, 1fr); grid-template-areas: "m n" "m t"; column-gap: 14px; row-gap: 2px; padding: 16px 0; min-height: 64px; align-content: center; }
+.reg-opt__body > .icon { display: none; }
+.reg-opt__body::before { content: ""; grid-area: m; align-self: start; margin-top: 4px; width: 14px; height: 14px; border-radius: 50%; box-shadow: inset 0 0 0 1.25px var(--fg-muted); transition: box-shadow var(--dur-ui) var(--ease-ui); }
+.reg-opt__body::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--fg); transform: scaleX(0); transform-origin: 0 50%; transition: transform var(--dur-ui) var(--ease-ui); }
+.reg-opt__name { grid-area: n; font: 400 19px/1.3 var(--font-serif); color: var(--fg); }
+.reg-opt__meta { grid-area: t; font-size: 15px; line-height: 1.45; color: var(--fg-muted); }
+.reg-opt:hover .reg-opt__body::before { box-shadow: inset 0 0 0 1.25px var(--fg); }
+.reg-opt input:checked + .reg-opt__body::before { box-shadow: inset 0 0 0 7px var(--fg); }
+.reg-opt input:checked + .reg-opt__body::after { transform: scaleX(1); }
+.reg-opt input:focus-visible + .reg-opt__body { outline: 2px solid var(--focus); outline-offset: 2px; }
+.reg-step[disabled] .reg-opt { cursor: not-allowed; }
+.reg-step[disabled] .reg-opts { opacity: 0.5; }
+
+/* ---------- Step 3: the handoff ---------- */
+.reg-go { border-top: 1px solid var(--rule-strong); padding-top: var(--sp-5); }
+.reg-go__panel { display: grid; gap: var(--sp-4); justify-items: start; }
+.reg-go__panel[hidden] { display: none; }
+.reg-go__wait { font: 400 var(--step-3)/1.4 var(--font-serif); color: var(--fg-muted); max-width: 32ch; }
+.reg-go__kicker { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.reg-go__title { font: 400 var(--step-2)/1.2 var(--font-serif); max-width: 24ch; }
+.reg-go__where { font-size: 15px; color: var(--fg-muted); }
+.reg-go__panel > p { max-width: 56ch; }
+.reg-go__status { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.reg-go__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: var(--sp-2); }
+.reg-go__acts .btn .icon { margin-left: 10px; }
+.reg-go__note { margin-top: var(--sp-5); max-width: 60ch; }
+
+/* The route inside the system: stops on one ruled line */
+.reg-path { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; width: 100%; counter-reset: p; border-left: 1px solid var(--rule-strong); }
+.reg-path li { position: relative; padding: 8px 0 8px 22px; font-size: 16px; line-height: 1.45; color: var(--fg); counter-increment: p; }
+.reg-path li::before { content: ""; position: absolute; left: -5px; top: 15px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 0 0 1.25px var(--fg); }
+.reg-path li:last-child::before { background: var(--fg); }
+
+/* Requirement callouts */
+.reg-need { display: grid; gap: 8px; align-content: start; padding: var(--sp-4) 0 0; border-top: 2px solid var(--fg); }
+.reg-need__title { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+.reg-need p:not(.reg-need__title) { font-size: 16px; line-height: 1.55; color: var(--fg-muted); max-width: 52ch; }
+.reg-need--gate { width: 100%; padding: var(--sp-4) var(--sp-4) var(--sp-4); border: 1px solid var(--rule-strong); border-top: 2px solid var(--fg); background: var(--surface); }
+.reg-needs { list-style: none; margin: var(--sp-7) 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); }
+@media (min-width: 720px) { .reg-needs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .reg-needs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* ---------- The progress court ---------- */
+.pc { margin: 0; display: grid; gap: var(--sp-3); }
+.pc__svg { width: 100%; height: auto; display: block; }
+@media (max-width: 999px) { .pc__svg { max-width: 30rem; } }
+.pc__surface { fill: var(--surface-alt); }
+.section--chalk .pc__surface { fill: var(--bg); }
+.pc__box { fill: var(--fg); opacity: 0; transition: opacity var(--dur-ui) var(--ease-ui); }
+.pc[data-at="3"] .pc__box { opacity: 0.08; }
+.pc__lines { fill: none; stroke: var(--fg); stroke-width: 2; }
+.pc__lines path { stroke-width: 1.5; }
+.pc__net { stroke: var(--red); stroke-width: 4; }
+.pc__post { fill: var(--fg); }
+.pc__track { fill: none; stroke: var(--fg-muted); stroke-width: 1.5; stroke-dasharray: 2 9; stroke-linecap: round; }
+.pc__after { fill: none; stroke: var(--fg-muted); stroke-width: 1.5; stroke-dasharray: 2 9; stroke-linecap: round; opacity: 0; transition: opacity var(--dur-ui) var(--ease-ui); }
+.pc[data-at="3"] .pc__after { opacity: 1; }
+.pc__shadow ellipse { fill: var(--fg); opacity: 0.22; }
+.pc__ball circle { fill: var(--fg); }
+.pc__tag { font: 600 22px/1 var(--font-sans); fill: var(--fg-muted); }
+.pc__cap { color: var(--fg-muted); max-width: 44ch; }
+/* Shadow on the ground, ball above it by its height (screen up). Positions in court units. */
+.pc__shadow, .pc__ball { transition: transform 560ms var(--ease-out); }
+.pc[data-at="0"] .pc__shadow { transform: translate(-14px, 200px); }
+.pc[data-at="0"] .pc__ball { transform: translate(-14px, 188px); }
+.pc[data-at="1"] .pc__shadow { transform: translate(-14px, 200px); }
+.pc[data-at="1"] .pc__ball { transform: translate(-14px, 128px); }
+.pc[data-at="2"] .pc__shadow { transform: translate(390px, 144px); }
+.pc[data-at="2"] .pc__ball { transform: translate(390px, 106px); }
+.pc[data-at="3"] .pc__shadow { transform: translate(560px, 120px); }
+.pc[data-at="3"] .pc__ball { transform: translate(560px, 120px); }
+
+/* ---------- How registration works ---------- */
+.reg-how { display: grid; gap: var(--sp-7); }
+@media (min-width: 1000px) { .reg-how { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-9); align-items: start; } .reg-how__head { position: sticky; top: calc(var(--header-h) + var(--sp-6)); } }
+.reg-how__head .select-label { margin-top: var(--sp-4); }
+.reg-steps [hidden] { display: none; }
+
+/* ---------- Open now ---------- */
+.opens { list-style: none; margin: var(--sp-7) 0 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.open-row { display: grid; gap: var(--sp-3); padding: var(--sp-5) 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 900px) { .open-row { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--sp-7); align-items: start; } }
+.open-row__what h3 { font: 400 var(--step-3)/1.3 var(--font-serif); }
+.open-row__what p { margin-top: 6px; font-size: 15.5px; line-height: 1.5; color: var(--fg-muted); max-width: 56ch; }
+.open-row__when { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+
+/* ---------- Refunds ---------- */
+.reg-ref { display: grid; gap: var(--sp-6); }
+@media (min-width: 1000px) { .reg-ref { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--sp-9); } .reg-ref__more { grid-column: 2; } }
+.reg-ref__rows { margin: 0; border-top: 1px solid var(--rule-strong); }
+.reg-ref__rows > div { display: grid; gap: 2px 20px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 640px) { .reg-ref__rows > div { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: baseline; } }
+.reg-ref__rows dt { font: 400 18px/1.35 var(--font-serif); color: var(--fg); }
+.reg-ref__rows dd { margin: 0; font-size: 15.5px; color: var(--fg-muted); }
+.reg-ref__more { display: grid; gap: var(--sp-3); justify-items: start; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pc__shadow, .pc__ball, .pc__box, .pc__after, .reg-opt__body::before, .reg-opt__body::after { transition: none; }
+}
+
+/* The context chip carries a whole sentence on a phone: let it wrap */
+.reg-go__note { display: grid; gap: 4px; justify-items: start; }

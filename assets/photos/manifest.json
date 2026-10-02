@@ -1,0 +1,97 @@
+{
+  "grade": "lifted blacks 0.05, contrast 0.93, saturation 0.90, R*1.02 B*0.97",
+  "source": {
+    "post": "/news/our-majors-team-takes-1st-place-big-congratulations/",
+    "post_title": "OUR MAJORS TEAM TAKES 1ST PLACE!! BIG CONGRATULATIONS!!",
+    "published": "2022-08-31",
+    "post_says": "The club's Majors team won 1st place in the toughest inter-county division. Captains credited in the post: Josh & Nancy.",
+    "taken": "Pixel filename timestamps are 2022-08-31 01:06 to 01:11 UTC, which is the evening of 30 Aug 2022 in Toronto.",
+    "not_stated": "The post does not say where the photos were taken or who each person is. Do not caption the location, names or ages."
+  },
+  "photos": [
+    {
+      "name": "majors-team-group",
+      "original": "original/PXL_20220831_010645853-2-scaled.jpg",
+      "files": [
+        { "file": "majors-team-group-2400.jpg", "width": 2400, "height": 1721 },
+        { "file": "majors-team-group-1600.jpg", "width": 1600, "height": 1148 },
+        { "file": "majors-team-group-900.jpg", "width": 900, "height": 645 }
+      ],
+      "shows": "Twelve people posed on a floodlit blue hard court at night, nine standing with arms round shoulders, three kneeling in front. No trophy. Floodlight flare in the sky.",
+      "alt": "The Majors team after winning first place in their inter-county division, posed on a floodlit court at night, 2022.",
+      "orientation": "landscape",
+      "identifiable_people": true,
+      "possible_minors": true,
+      "possible_minors_note": "Three people may be under 18: the young man in the orange shirt, the young woman in green and the young woman in the white jacket. Club to confirm ages and consent before public use.",
+      "suggested_use": "Community band, Interclub card on Leagues & Events or Adult Programs. Widest framing. Posed phone shot, not hero quality.",
+      "notes": "Graded. The original JPEG is truncated (grey fill from row ~1856 down); cropped to 2560x1836 before resizing, so this one is 1.39:1, not 4:3."
+    },
+    {
+      "name": "majors-team-trophy",
+      "original": "original/PXL_20220831_010821410-1-scaled.jpg",
+      "files": [
+        { "file": "majors-team-trophy-2400.jpg", "width": 2400, "height": 1800 },
+        { "file": "majors-team-trophy-1600.jpg", "width": 1600, "height": 1200 },
+        { "file": "majors-team-trophy-900.jpg", "width": 900, "height": 675 }
+      ],
+      "shows": "The same twelve, closer and tighter, the kneeling young woman in green holding a crystal trophy with a black plaque (plaque text is illegible). A lit, framed structure and bunting at the left edge.",
+      "alt": "The Majors team with their first place trophy, inter-county division, 2022.",
+      "orientation": "landscape",
+      "identifiable_people": true,
+      "possible_minors": true,
+      "possible_minors_note": "Three people may be under 18: the young man in the orange shirt, the young woman in green (holding the trophy) and the young woman in the white jacket. Club to confirm ages and consent before public use.",
+      "suggested_use": "The trophy moment: Interclub story on Leagues & Events, or a Strong Tennis Community card on Home.",
+      "notes": "Graded."
+    },
+    {
+      "name": "majors-team-celebration",
+      "original": "original/PXL_20220831_010823117-scaled.jpg",
+      "files": [
+        { "file": "majors-team-celebration-2400.jpg", "width": 2400, "height": 1800 },
+        { "file": "majors-team-celebration-1600.jpg", "width": 1600, "height": 1200 },
+        { "file": "majors-team-celebration-900.jpg", "width": 900, "height": 675 }
+      ],
+      "shows": "Same group and trophy a moment later, the kneeling man in the red cap holding one finger up for first place. The most animated of the four.",
+      "alt": "The Majors team celebrating first place in their inter-county division, 2022.",
+      "orientation": "landscape",
+      "identifiable_people": true,
+      "possible_minors": true,
+      "possible_minors_note": "Three people may be under 18: the young man in the orange shirt, the young woman in green (holding the trophy) and the young woman in the white jacket. Club to confirm ages and consent before public use.",
+      "suggested_use": "Best pick when only one group shot is used. Energetic community moment.",
+      "notes": "Graded. Near duplicate of majors-team-trophy; do not use both on one page."
+    },
+    {
+      "name": "majors-team-selfie",
+      "original": "original/PXL_20220831_011107668-scaled.jpg",
+      "files": [
+        { "file": "majors-team-selfie-2400.jpg", "width": 1800, "height": 2400 },
+        { "file": "majors-team-selfie-1600.jpg", "width": 1200, "height": 1600 },
+        { "file": "majors-team-selfie-900.jpg", "width": 675, "height": 900 }
+      ],
+      "shows": "Close selfie of the young woman in the white jacket holding the crystal trophy, beside a smiling man in a grey cap and US Open 2021 T-shirt. Floodlights and fenced courts behind.",
+      "alt": "Two members of the Majors team with the first place trophy, 2022.",
+      "orientation": "portrait",
+      "identifiable_people": true,
+      "possible_minors": true,
+      "possible_minors_note": "The young woman in the white jacket may be under 18. Club to confirm her age and consent before public use.",
+      "suggested_use": "Tall crop for a mobile feature or a community card. Face-forward, informal. The US Open logo is prominent; crop or avoid where it would read as an affiliation.",
+      "notes": "Graded."
+    }
+  ],
+  "reference_only": [
+    {
+      "file": "original/ProgramsPro-National-Group-868-250.png",
+      "size": "868x250",
+      "shows": "A real club photo: about 18 juniors in a row with racquets, inside the indoor bubble. Used on the current High Performance and Recreational Group Lessons pages with alt text 'Pro-National / Bianca'.",
+      "why_not_processed": "Far too small for any slot in the demo, and it shows many minors.",
+      "action": "Ask the club for the full-resolution original. It is their only photo of the Pro National group and of the bubble interior."
+    },
+    {
+      "file": "original/camp.png",
+      "size": "619x790",
+      "shows": "The club's Summer Camp Open House flyer (Sunday February 8, 2026). Its photo is a professional player on grass, third-party imagery, plus a QR code.",
+      "why_not_processed": "Not a club photo; the player image is not the club's to reuse.",
+      "action": "None. Keep as reference for the club's own flyer styling only."
+    }
+  ]
+}

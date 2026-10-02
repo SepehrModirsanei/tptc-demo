@@ -1,0 +1,50 @@
+/* High Performance only (loaded by that page alone): the "who it is for" statement and the
+   Pro National academy band. The hero (performance), pathway, fields, steps, contact card and
+   next doors are shared components in site.css. */
+
+
+
+/* Pro National band: the dome tint. One Blazer block per page (the hero), so the band no
+   longer flips the theme mid-scroll (design-taste 4.11). */
+.academy { background: var(--surface-alt); color: var(--fg); padding-block: var(--section); }
+.academy__head { display: grid; gap: var(--sp-4); align-content: start; }
+.academy__side { display: grid; gap: var(--sp-5); }
+.academy .frame { --ar: 21 / 9; }
+.academy__grid { display: grid; gap: var(--sp-6); margin-top: clamp(40px, 5vw, 72px); }
+.academy__title { max-width: 14ch; }
+.academy__facts { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--rule-strong); }
+.academy__facts li { display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--rule); font-size: 17px; line-height: 1.45; }
+.academy__facts .icon { color: var(--fg-muted); }
+@media (max-width: 899px) { .academy .frame { --ar: 3 / 2 !important; --pos: 88% 50% !important; } .academy .ph__ratio { display: none; } }
+@media (min-width: 1000px) { .academy__grid { grid-template-columns: 5fr 7fr; column-gap: var(--sp-8); } }
+
+
+/* Moved from inline styles */
+.intro__note { margin-top: var(--sp-4); }
+.section--path { padding-top: 0; }
+
+/* The court grows with the player. A true plan of the 78 x 36 ft court seen from above: the full
+   court in fine lines, the three-quarter court Little Champs play on drawn heavier inside it, the
+   net in club red (red is the net). Under the Hold the active step lights its own court; the
+   change is opacity only. Without the Hold (phones, reduced motion) both courts read at once. */
+.courtplan { margin: var(--sp-2) 0 0; display: grid; gap: 14px; max-width: 340px; }
+.courtplan__svg { max-width: 280px; }
+@media (min-width: 1000px) { .courtplan__svg { max-width: 220px; } }
+.courtplan__svg { display: block; width: 100%; height: auto; overflow: visible; color: var(--fg); }
+.cp-full { stroke-width: 1px; color: var(--fg-muted); transition: opacity var(--dur-ui) var(--ease-ui), color var(--dur-ui) var(--ease-ui); }
+.cp-three { stroke-width: 2.25px; color: var(--fg); transition: opacity var(--dur-ui) var(--ease-ui); }
+.cp-net { stroke: var(--brand); stroke-width: 2px; }
+.courtplan__key { display: grid; gap: 8px; font-size: var(--step-5); line-height: 1.45; color: var(--fg-muted); }
+.cp-key { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: baseline; transition: color var(--dur-ui) var(--ease-ui); }
+.cp-key i { display: block; height: 0; border-top: 1px solid var(--fg-muted); transform: translateY(-4px); transition: opacity var(--dur-ui) var(--ease-ui); }
+.cp-key--three i { border-top: 2px solid var(--fg); }
+/* The Hold's state, set by js/pages/high-performance.js from the active step */
+.courtplan[data-at="0"] .cp-full { opacity: 0.35; }
+.courtplan[data-at="0"] .cp-key--full i { opacity: 0.35; }
+.courtplan[data-at="0"] .cp-key--three { color: var(--fg); }
+.courtplan[data-at="1"] .cp-three, .courtplan[data-at="2"] .cp-three { opacity: 0; }
+.courtplan[data-at="1"] .cp-full, .courtplan[data-at="2"] .cp-full { color: var(--fg); }
+/* The key's words never dim (AA): only the swatch fades, and the lit court's words go to full ink */
+.courtplan[data-at="1"] .cp-key--three i, .courtplan[data-at="2"] .cp-key--three i { opacity: 0.35; }
+.courtplan[data-at="1"] .cp-key--full, .courtplan[data-at="2"] .cp-key--full { color: var(--fg); }
+@media (prefers-reduced-motion: reduce) { .cp-full, .cp-three, .cp-key, .cp-key i { transition: none; } }

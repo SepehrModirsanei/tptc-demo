@@ -1,0 +1,70 @@
+/* TPTC staff panel: the demo sign-in (shared, owned by the foundation). Tokens only.
+   Left, the court at night in the club navy with the three staff places; right, the paper form. */
+.pn--sign-in { min-height: 100vh; display: flex; flex-direction: column; }
+.si { flex: 1; display: grid; outline: none; }
+@media (min-width: 960px) { .si { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
+
+/* ---------- The court side ---------- */
+.si__court {
+  --bg: var(--blazer); --fg: var(--chalk); --fg-muted: var(--mist); --rule: var(--line-chalk); --focus: var(--chalk);
+  background: var(--blazer); color: var(--chalk);
+}
+.si__court-inner { display: grid; gap: 28px; align-content: space-between; height: 100%; padding: 28px var(--pn-pad) 32px; max-width: 760px; }
+@media (min-width: 960px) { .si__court-inner { padding: 40px 56px 48px; margin-left: auto; width: 100%; } }
+.si__logo { justify-self: start; display: inline-block; }
+.si__logo img { width: 210px; height: auto; }
+.si__words { display: grid; gap: 14px; }
+.si__kicker { color: var(--mist); }
+.si__title { font: 300 clamp(2.25rem, 1.6rem + 2.4vw, 3.75rem)/1.04 var(--font-serif); letter-spacing: -0.01em; text-wrap: balance; }
+.si__title em { font-style: italic; }
+.si__lede { font: 400 var(--step-3)/1.5 var(--font-serif); color: var(--mist); max-width: 34rem; text-wrap: pretty; }
+
+.si__plan { width: 100%; max-width: 620px; }
+.si__plan .cplan__lines { stroke: var(--mist); }
+.si__fence { stroke-dasharray: 2 2; opacity: 0.7; }
+.si__post { fill: var(--red); }
+.si__gate { stroke: var(--mist); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.si__who { fill: var(--blazer); stroke: var(--mist); stroke-width: 1.5px; vector-effect: non-scaling-stroke; transition: fill var(--dur-ui) var(--ease-ui), stroke var(--dur-ui) var(--ease-ui); }
+.si__basket { stroke: var(--mist); }
+.si__tag { font: 600 3.1px/1 var(--font-sans); letter-spacing: 0.06em; fill: var(--mist); text-transform: uppercase; transition: fill var(--dur-ui) var(--ease-ui); }
+.si__spot.is-on .si__who { fill: var(--chalk); stroke: var(--chalk); }
+.si__spot.is-on .si__basket { stroke: var(--chalk); }
+.si__spot.is-on .si__tag { fill: var(--chalk); }
+@media (max-width: 599.98px) {
+  .si__court-inner { gap: 20px; padding-bottom: 20px; }
+  .si__lede { display: none; }
+  .si__logo img { width: 180px; }
+}
+
+/* ---------- The form side ---------- */
+.si__form-side { display: grid; align-items: center; padding: 32px var(--pn-pad) 48px; }
+@media (min-width: 960px) { .si__form-side { padding: 48px 56px; } }
+.si__form { display: grid; gap: 20px; width: 100%; max-width: 460px; }
+@media (min-width: 960px) { .si__form { margin-right: auto; } }
+.si__form-title { font: 300 clamp(1.75rem, 1.5rem + 0.8vw, 2.25rem)/1.1 var(--font-serif); }
+.si__roles { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; min-width: 0; }
+.si__roles legend { padding: 0; margin-bottom: 10px; }
+.si__role {
+  position: relative; display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; cursor: pointer;
+  border: 1px solid var(--rule); border-radius: var(--radius); background: var(--bg);
+  transition: border-color var(--dur-ui) var(--ease-ui), background-color var(--dur-ui) var(--ease-ui);
+}
+.si__role:hover { border-color: var(--rule-strong); }
+.si__role input {
+  appearance: none; -webkit-appearance: none; flex: none; width: 20px; height: 20px; margin: 2px 0 0; border: 1px solid var(--fg); border-radius: 50%;
+  display: grid; place-content: center; background: var(--bg); cursor: pointer;
+}
+.si__role input::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--fg); transform: scale(0); transition: transform var(--dur-ui) var(--ease-ui); }
+.si__role input:checked::after { transform: scale(1); }
+.si__role input:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.si__role:has(input:checked) { border-color: var(--fg); background: var(--bg-alt); box-shadow: inset 0 0 0 1px var(--fg); }
+.si__role-body { display: grid; gap: 4px; }
+.si__role-name { font: 400 21px/1.2 var(--font-serif); }
+.si__role-what { font-size: 14.5px; line-height: 1.45; color: var(--fg-muted); }
+.si__role-start { font: 600 11px/1.3 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg); margin-top: 4px; }
+.si__go { min-height: 48px; width: 100%; font-size: 14px; }
+.si__small { font-size: 13.5px; color: var(--fg-muted); line-height: 1.5; }
+
+@media (prefers-reduced-motion: reduce) {
+  .si__who, .si__tag, .si__role, .si__role input::after { transition: none; }
+}

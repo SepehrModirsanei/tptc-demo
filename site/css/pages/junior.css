@@ -1,0 +1,71 @@
+/* Junior Recreational: age first, then level, then register.
+   Stories: the court grows with the child (half, three-quarter, full: progressive tennis in the
+   club's own words); every level is a rally you can watch for, drawn shot by shot on that age's
+   court. Court plans are true 78 x 36 ft geometry, generated in logs/programs-gen/gen.py. */
+
+/* The stage court: the playing area scales about the centre mark as the age band changes.
+   Half court, three-quarter court, full court: the same ratio, a bigger court. */
+.cplan--stage .cplan__area {
+  transform-box: view-box; transform-origin: 39px 18px;
+  transform: scale(var(--k, 0.5));
+  transition: transform var(--dur-turn) var(--ease-out);
+}
+.jr-court[data-stage="half"] { --k: 0.5; }
+.jr-court[data-stage="three"] { --k: 0.75; }
+.jr-court[data-stage="full"] { --k: 1; }
+
+/* ---------- This season ---------- */
+.jr-season__grid { display: grid; gap: var(--sp-5); }
+.jr-season__title { margin-top: 14px; font: 300 var(--step-2)/1.15 var(--font-serif); max-width: 22ch; text-wrap: balance; }
+.jr-season__rows .srow__when { display: grid; gap: 6px; font-size: 16px; }
+.jr-season__rows .srow__when strong { color: var(--fg); font-weight: 500; }
+.jr-season__rows .srow__price { font: inherit; }
+@media (min-width: 1000px) {
+  .jr-season__grid { grid-template-columns: 5fr 7fr; align-items: start; gap: var(--sp-8); }
+}
+
+/* ---------- Step 1: the age and its court ---------- */
+.jr-age { display: grid; gap: var(--sp-6); align-items: center; }
+.jr-age__words .h2 { margin-top: 14px; }
+.jr-age__words .body { margin-top: 16px; max-width: 46ch; }
+.jr-age__select { margin-top: var(--sp-5); display: grid; gap: 10px; }
+.jr-court { margin: 0; display: grid; gap: var(--sp-3); }
+.jr-court__plan { padding: clamp(12px, 2vw, 24px); background: var(--surface); border: 1px solid var(--rule); }
+.jr-court__name { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.jr-court__cap .small { margin-top: 8px; font-size: 16px; max-width: 52ch; }
+@media (min-width: 1000px) {
+  .jr-age { grid-template-columns: 5fr 7fr; gap: var(--sp-8); }
+}
+
+/* ---------- Step 2: the levels for that age ---------- */
+.jr-levels { margin-top: var(--section); }
+.jr-levels__head { display: grid; gap: 14px; max-width: 60ch; margin-bottom: var(--sp-6); }
+.jr-levels__note { margin-top: var(--sp-5); font-size: 16px; }
+
+/* ---------- Placement ---------- */
+.jr-place .sect-head, .jr-where .sect-head { margin-bottom: var(--sp-6); }
+.jr-place__grid { display: grid; gap: var(--sp-5); }
+@media (min-width: 900px) { .jr-place__grid { grid-template-columns: 7fr 5fr; gap: var(--sp-8); } }
+.jr-place__mail { display: inline-flex; align-items: center; gap: 10px; min-height: var(--target); color: var(--fg); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; overflow-wrap: anywhere; }
+
+/* ---------- Locations by season ---------- */
+.jr-where__chips { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.loc { display: inline-flex; align-items: center; gap: 8px; color: var(--fg); font-size: 16px; }
+.loc .icon { width: 18px; height: 18px; flex: none; }
+.jr-where__rows .srow__price { font: inherit; text-align: left; align-self: start; }
+@media (min-width: 800px) { .jr-where__rows .srow { grid-template-columns: 240px 1fr minmax(0, 280px); } }
+@media (max-width: 799px) { .jr-where__rows .srow { grid-template-columns: 1fr; } .jr-where__rows .srow__price { grid-row: auto; } }
+
+/* ---------- Level FAQ ---------- */
+.jr-faq__grid { display: grid; gap: var(--sp-6); }
+@media (min-width: 1000px) { .jr-faq__grid { grid-template-columns: 4fr 8fr; gap: var(--sp-8); } }
+.jr-faq__levels { display: grid; margin: 0 0 16px; border-top: 1px solid var(--rule); }
+.jr-faq__levels > div { display: grid; gap: 4px 20px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.jr-faq__levels dt { font-weight: 600; }
+@media (min-width: 640px) { .jr-faq__levels > div { grid-template-columns: 140px 1fr; } }
+
+/* ---------- HP crossover ---------- */
+.jr-hp { padding-top: 0; }
+
+/* Paper section into the paper closing band: the band's own top padding is the gap (the HP line runs straight into the closing band). */
+.jr-hp { padding-bottom: 0; }

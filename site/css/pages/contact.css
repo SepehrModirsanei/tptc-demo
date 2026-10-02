@@ -1,0 +1,151 @@
+/* Contact: How do I reach you, find you, and park?
+   Page CSS, tokens only. Stories (logs/batch2-help.md):
+   - The desk card is half a court: two service boxes split by the centre service line (the
+     front desk, the inbox), the service line under them, the address in the backcourt.
+   - Who to ask about what reads like an order of play: one line per question, ruled.
+   - The ticket queue is a coach feeding from the basket: in order, one ball at a time, over the net.
+   - The plan marks the club with a court drawn true (78 x 36 ft, singles lines, service boxes),
+     lying along Yonge St, at the crossing, because the source does not say which corner. */
+
+/* ---------- Hero with the desk card ---------- */
+.ct-hero .hero__words.ct-hero__grid { display: grid; gap: var(--sp-7); align-items: end; }
+.ct-hero__words { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+@media (min-width: 1000px) {
+  .ct-hero .hero__words.ct-hero__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--sp-9); }
+}
+.desk { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); width: 100%; }
+.desk__box, .desk__back { display: grid; gap: 6px; align-content: start; padding: var(--sp-4) 0; min-width: 0; }
+.desk__box + .desk__box { border-top: 1px solid var(--rule); }
+.desk__back { border-top: 1px solid var(--rule-strong); }
+@media (min-width: 640px) {
+  .desk { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .desk__box { padding: var(--sp-5) var(--sp-5) var(--sp-5) 0; }
+  /* the centre service line between the two boxes */
+  .desk__box + .desk__box { border-top: 0; border-left: 1px solid var(--rule-strong); padding-left: var(--sp-5); padding-right: 0; }
+  .desk__back { grid-column: 1 / -1; padding: var(--sp-5) 0; }
+}
+.desk__label { display: inline-flex; align-items: center; gap: 8px; font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.desk__label .icon { width: 16px; height: 16px; }
+.desk__big { font: 300 clamp(30px, 1.4rem + 1.4vw, 40px)/1.1 var(--font-serif); color: var(--fg); text-decoration: none; min-height: var(--target); display: inline-flex; align-items: center; justify-self: start; white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; }
+.desk__mail { font: 400 17px/1.35 var(--font-serif); color: var(--fg); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--rule-strong); min-height: var(--target); display: inline-flex; align-items: center; overflow-wrap: anywhere; justify-self: start; }
+.desk__big:hover, .desk__mail:hover { text-decoration: underline; text-decoration-color: currentColor; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.desk__note { font-size: 14.5px; line-height: 1.45; color: var(--fg-muted); }
+.desk__addr { font: 400 var(--step-3)/1.4 var(--font-serif); font-style: normal; color: var(--fg); }
+
+/* ---------- Who to ask about what ---------- */
+.routes { list-style: none; margin: var(--sp-7) 0 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.route { display: grid; gap: var(--sp-3); padding: var(--sp-5) 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 900px) {
+  .route { grid-template-columns: minmax(0, 5fr) minmax(0, 2fr) minmax(0, 4fr); gap: var(--sp-6); align-items: start; }
+}
+.route__what h3 { font: 400 var(--step-3)/1.3 var(--font-serif); color: var(--fg); max-width: 30ch; }
+.route__what p { margin-top: 6px; font-size: 15.5px; line-height: 1.5; color: var(--fg-muted); max-width: 46ch; }
+.route__who { display: grid; gap: 4px; align-content: start; justify-items: start; }
+.route__label { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+.route__name { font-size: 16px; color: var(--fg-muted); }
+.route__how { display: grid; gap: 2px; align-content: start; justify-items: start; min-width: 0; }
+.route__line { display: inline-flex; align-items: center; gap: 10px; min-height: var(--target); color: var(--fg); font-size: 17px; text-decoration: none; overflow-wrap: anywhere; }
+.route__line .icon { width: 18px; height: 18px; color: var(--fg-muted); }
+.route__line span { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--rule-strong); }
+.route__line:hover span { text-decoration-color: currentColor; }
+.route__how .confirm { margin-top: 4px; }
+.route--first .route__what h3 { font-weight: 400; }
+
+/* ---------- The ticket and the feed ---------- */
+.ct-ticket__grid { display: grid; gap: var(--sp-8); align-items: center; }
+@media (min-width: 1000px) { .ct-ticket__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--sp-9); } }
+.ct-ticket__words { display: grid; gap: var(--sp-4); justify-items: start; }
+.ct-ticket__words .notice { margin-top: var(--sp-2); }
+.ct-ticket__act { display: grid; gap: 6px; margin-top: var(--sp-2); }
+.ct-ticket__small { max-width: 44ch; }
+
+.feed { margin: 0; display: grid; gap: var(--sp-3); justify-items: start; }
+/* A fixed 320px strip so the flight is exact: the ball clears the net band at its apex */
+.feed__court { position: relative; width: 320px; max-width: 100%; height: 100px; border-bottom: 1px solid var(--fg); overflow: hidden; }
+/* The net, side on: the post and the band at the top */
+.feed__net { position: absolute; left: 200px; bottom: 0; width: 2px; height: 36px; background: var(--red); }
+.feed__net::after { content: ""; position: absolute; left: -3px; top: 0; width: 8px; height: 2px; background: var(--red); }
+.feed__balls { position: absolute; inset: 0; }
+.feed__balls i { position: absolute; bottom: 0; width: 12px; height: 12px; }
+.feed__balls i::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--fg); }
+.feed__balls i:nth-child(1) { left: 20px; }
+.feed__balls i:nth-child(2) { left: 46px; }
+.feed__balls i:nth-child(3) { left: 72px; }
+.feed__balls i:nth-child(4) { left: 98px; }
+.feed__balls i:nth-child(5) { left: 124px; }
+.feed__balls i:nth-child(6) { left: 150px; }
+.feed__cap { color: var(--fg-muted); }
+@media (prefers-reduced-motion: no-preference) {
+  /* Fed: the front ball travels at an even pace (x) while it rises and falls (y), a parabola
+     whose top is over the net; it lands once on the far side and is gone. The line steps up. */
+  .feed.is-fed .feed__first { animation: feed-x 640ms linear both, feed-out 200ms linear 600ms both; }
+  .feed.is-fed .feed__first::before { animation: feed-y 640ms both; }
+  .feed.is-fed .feed__balls i:not(.feed__first) { animation: feed-step 420ms var(--ease-out) 520ms both; }
+}
+@keyframes feed-x { from { translate: 0 0; } to { translate: 104px 0; } }
+@keyframes feed-y {
+  0% { transform: translateY(0); animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1); }
+  45% { transform: translateY(-64px); animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.34); }
+  100% { transform: translateY(0); }
+}
+@keyframes feed-out { to { opacity: 0; } }
+@keyframes feed-step { from { translate: 0 0; } to { translate: 26px 0; } }
+
+/* ---------- Location and the plan ---------- */
+.ct-loc { display: grid; gap: var(--sp-8); align-items: start; }
+@media (min-width: 1000px) { .ct-loc { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-9); } }
+.ct-loc__words { display: grid; gap: var(--sp-6); justify-items: start; }
+.ct-loc__words .fields { width: 100%; }
+.plan { margin: 0; display: grid; gap: var(--sp-3); }
+/* The plan is cropped to the crossing (viewBox 380 x 440) so its labels stay readable at 390;
+   on wide screens it keeps a map's size, not a poster's. */
+@media (min-width: 1000px) { .plan { width: 100%; max-width: 30rem; justify-self: end; } }
+.plan__svg { width: 100%; height: auto; display: block; background: var(--surface-alt); border: 1px solid var(--rule); }
+.plan__roads rect { fill: var(--bg); }
+.plan__kerbs path { fill: none; stroke: var(--line-ink-soft); stroke-width: 1; }
+.plan__kerbs .plan__lane { stroke-dasharray: 8 8; }
+.plan__street { font: 600 13px/1 var(--font-sans); letter-spacing: 0.18em; fill: var(--fg-muted); }
+.plan__dash { fill: none; stroke: var(--fg); stroke-width: 1.25; stroke-dasharray: 4 5; }
+.plan__head { fill: none; stroke: var(--fg); stroke-width: 1.25; }
+.plan__tag { fill: var(--bg); stroke: var(--rule-strong); }
+.plan__diamond, .plan__arc { fill: none; stroke: var(--fg); stroke-width: 1.25; }
+.plan__label { font: 400 22px/1 var(--font-serif); fill: var(--fg); }
+.plan__sub { font: 500 15px/1 var(--font-sans); fill: var(--fg-muted); }
+.plan__ring { fill: var(--bg); stroke: var(--fg); stroke-width: 1.25; }
+.plan__court { fill: var(--surface-alt); stroke: var(--fg); stroke-width: 1; }
+.plan__lines { fill: none; stroke: var(--fg); stroke-width: 0.75; }
+.plan__netline { stroke: var(--red); stroke-width: 1.5; }
+.plan__north path { fill: var(--fg); }
+.plan__north text { font: 600 14px/1 var(--font-sans); fill: var(--fg); }
+.plan__cap { color: var(--fg-muted); }
+
+/* ---------- Parking ---------- */
+.ct-park { display: grid; gap: var(--sp-7); }
+@media (min-width: 1000px) { .ct-park { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-9); align-items: start; } }
+.ct-park__lead { max-width: 30ch; }
+.parkrules { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.parkrules li { display: grid; gap: 4px 24px; padding: var(--sp-4) 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 640px) { .parkrules li { grid-template-columns: 9rem minmax(0, 1fr); } }
+.parkrules__who { font: 600 var(--step-6)/1.6 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+.parkrules p { font-size: 16px; line-height: 1.55; color: var(--fg-muted); max-width: 52ch; }
+
+/* ---------- Hours and social ---------- */
+.ct-hours { display: grid; gap: var(--sp-9); }
+@media (min-width: 1000px) { .ct-hours { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
+.ct-hours__col { display: grid; gap: var(--sp-6); align-content: start; min-width: 0; }
+.ct-hours .srow { grid-template-columns: minmax(0, 1fr) auto; }
+/* On a phone a row carrying a confirm slot stacks: label whole on top, chip below it. */
+@media (max-width: 799px) { .ct-hours .srow:has(.confirm) { grid-template-columns: minmax(0, 1fr); } }
+.ct-hours__more { max-width: 46ch; }
+.social { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.social a { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "n i" "h i"; gap: 2px 16px; align-items: center; padding: 14px 0; min-height: var(--target); color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.social__name { grid-area: n; font: 400 var(--step-3)/1.25 var(--font-serif); }
+.social__handle { grid-area: h; font-size: 15px; color: var(--fg-muted); }
+.social a .icon { grid-area: i; width: 18px; height: 18px; transition: transform var(--dur-ui) var(--ease-ui); }
+.social a:hover .social__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.social a:hover .icon { transform: translate(2px, -2px); }
+.social a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .social a .icon { transition: none; }
+}

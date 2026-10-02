@@ -1,0 +1,55 @@
+/* Membership: How do I become a member?
+   Page CSS, tokens only. Stories (logs/batch2-access.md): the seven benefits drawn in the one
+   court-line icon family; the 15 set like the first point on a scoreboard (fifteen-love: residents
+   start a point up); the rates ruled like the lines of a court, resident column first. */
+
+/* 2. Why: heading beside the list from 900px; the list in two columns from 1200px */
+.mem-why { display: grid; gap: var(--sp-7); }
+.mem-why__list li p { max-width: 52ch; }
+.mem-why__list .inline-link { white-space: nowrap; }
+@media (min-width: 900px) {
+  .mem-why { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-8); align-items: start; }
+  .mem-why__head { position: sticky; top: calc(var(--header-h) + var(--sp-6)); }
+}
+
+/* 3. Seasons and rates */
+.mem-ledger { margin-top: var(--sp-7); }
+.mem-switch { display: grid; gap: var(--sp-3); margin-top: var(--sp-7); max-width: 40rem; }
+.mem-season { margin-top: var(--sp-6); }
+.mem-rates { display: grid; gap: var(--sp-6); align-items: start; }
+@media (min-width: 900px) {
+  .mem-rates { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--sp-8); }
+}
+.mem-rates__lead { display: grid; gap: var(--sp-3); align-content: start; }
+.mem-rates__head { font-family: var(--font-serif); font-weight: 300; font-size: var(--step-2); line-height: var(--lh-head); max-width: 18ch; }
+
+/* The 15, set like a scoreboard numeral: tabular, lining, a hairline baseline under it */
+.mem-pct { display: flex; align-items: flex-start; gap: 2px; padding-bottom: var(--sp-2); border-bottom: 1px solid var(--rule-strong); width: max-content; }
+.mem-pct__n { font: 200 clamp(5rem, 3.6rem + 5vw, 8.5rem)/0.82 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.04em; color: var(--fg); }
+.mem-pct__sign { font: 300 var(--step-2)/1 var(--font-serif); margin-top: 6px; color: var(--fg); }
+.mem-pct__score { color: var(--fg-muted); margin-top: calc(var(--sp-2) * -1); }
+
+/* The rates table: resident first and heavier, non-resident beside it in the quieter ink */
+.mem-table { min-width: 0; }
+.mem-table td.mem-table__res { color: var(--fg); font-size: clamp(1.1875rem, 1rem + 0.6vw, 1.5rem); }
+.mem-table td:last-child { color: var(--fg-muted); }
+.mem-table tbody th { font-family: var(--font-serif); font-weight: 400; font-size: 20px; }
+.mem-table tbody th span { font-family: var(--font-sans); }
+.mem-return { margin-top: var(--sp-5); max-width: 44rem; }
+@media (max-width: 599px) {
+  .mem-table th, .mem-table td { padding-right: 10px; }
+  .mem-table thead th { letter-spacing: 0.08em; }
+  .mem-table td.tnum { font-size: 17px; }
+  .mem-table td.mem-table__res { font-size: 19px; }
+}
+
+/* 4. The fine print: short headed terms, two columns from 900px, ruled like a programme */
+.mem-fine { display: grid; gap: var(--sp-6); }
+.mem-terms { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--rule-strong); margin: 0; }
+.mem-terms > div { display: grid; gap: 4px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.mem-terms dt { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.mem-terms dd { margin: 0; font-size: var(--step-4); line-height: 1.55; max-width: 52ch; }
+@media (min-width: 900px) {
+  .mem-terms { grid-template-columns: 1fr 1fr; column-gap: var(--sp-8); }
+  .mem-terms > div { grid-template-columns: 11rem 1fr; gap: var(--sp-4); align-items: baseline; }
+}

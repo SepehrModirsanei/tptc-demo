@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en-CA" data-panel-page="dashboard" data-panel-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard | TPTC staff panel (demo)</title>
+<meta name="description" content="Demo staff panel for Thornhill Park Tennis Club: the dashboard the club asked for. Camps filling, court usage by time band and day, registrations within programs, renewals and revenue by line. Sample data; nothing is saved to a server or charged.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../assets/brand/favicon.svg" type="image/svg+xml">
+<script src="../js/boot.js"></script>
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../css/panel.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body class="pn pn--dashboard" data-shell="dashboard">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="pn-app">
+  <aside class="pn-side" data-shell-side></aside>
+  <div class="pn-body">
+    <div data-shell-top></div>
+    <main id="main" class="pn-main" tabindex="-1">
+      <header class="pn-head">
+        <div class="pn-head__words">
+          <p class="pn-kicker">Dashboard <span class="pn-sample">Sample data</span></p>
+          <h1 class="pn-title">Camps, courts and <em>registrations</em></h1>
+          <p class="pn-lede">The numbers the club asked to track: how full the camps ran, when the four courts are used, registrations within each program, renewals and revenue by line.</p>
+        </div>
+        <div class="pn-head__actions">
+          <button class="pn-btn pn-btn--quiet" type="button" data-db-digest>Monday digest</button>
+          <button class="pn-btn pn-btn--ink" type="button" data-db-export>Export as CSV</button>
+        </div>
+      </header>
+
+      <p class="pn-note db-asof" data-db-asof></p>
+
+      <section class="pn-section" aria-labelledby="db-glance">
+        <h2 class="sr-only" id="db-glance">At a glance</h2>
+        <div class="pn-kpis db-kpis" data-db-kpis></div>
+      </section>
+
+      <section class="pn-section db-sec" id="courts" aria-labelledby="db-courts-h">
+        <div class="pn-section__head">
+          <div>
+            <p class="db-eyebrow">The club asked: court usage times</p>
+            <h2 class="pn-h2" id="db-courts-h">Court usage, by hour and day</h2>
+          </div>
+          <p class="pn-muted db-sec__aside" data-db-courts-sum></p>
+        </div>
+        <div class="pn-tabs" role="tablist" aria-label="Season" data-db-court-tabs>
+          <button role="tab" type="button" id="db-tab-indoor" aria-controls="db-panel-courts" aria-selected="true" data-db-season="indoor">This week in the dome</button>
+          <button role="tab" type="button" id="db-tab-outdoor" aria-controls="db-panel-courts" aria-selected="false" tabindex="-1" data-db-season="outdoor">Outdoor 2026 season</button>
+        </div>
+        <div id="db-panel-courts" role="tabpanel" aria-labelledby="db-tab-indoor" data-db-court-panel>
+          <div class="db-courts">
+            <div class="db-courts__heat" data-db-heat></div>
+            <div class="db-courts__side">
+              <div class="db-card" data-db-now></div>
+              <div class="db-card" data-db-bands></div>
+            </div>
+          </div>
+          <details class="db-tableview" data-db-heat-table></details>
+        </div>
+      </section>
+
+      <section class="pn-section db-sec" id="camps" aria-labelledby="db-camps-h">
+        <div class="pn-section__head">
+          <div>
+            <p class="db-eyebrow">The club asked: track our camps</p>
+            <h2 class="pn-h2" id="db-camps-h">Summer Camps 2026, week by week</h2>
+          </div>
+          <p class="pn-muted db-sec__aside" data-db-camps-sum></p>
+        </div>
+        <div data-db-camps></div>
+        <details class="db-tableview" data-db-camps-table></details>
+      </section>
+
+      <section class="pn-section db-sec" id="programs" aria-labelledby="db-prog-h">
+        <div class="pn-section__head">
+          <div>
+            <p class="db-eyebrow">The club asked: registration numbers within programs</p>
+            <h2 class="pn-h2" id="db-prog-h">Registrations within programs</h2>
+          </div>
+          <p class="pn-muted db-sec__aside" data-db-prog-sum></p>
+        </div>
+        <div data-db-programs></div>
+        <details class="db-tableview" data-db-prog-table></details>
+      </section>
+
+      <section class="pn-section db-sec" id="renewals" aria-labelledby="db-mem-h">
+        <div class="pn-section__head">
+          <div>
+            <p class="db-eyebrow">Memberships, indoor 2026/27</p>
+            <h2 class="pn-h2" id="db-mem-h">Renewals and new members</h2>
+          </div>
+          <div class="pn-row db-sec__actions" data-db-mem-actions></div>
+        </div>
+        <div class="db-mem" data-db-members></div>
+        <details class="db-tableview" data-db-mem-table></details>
+      </section>
+
+      <section class="pn-section db-sec" id="revenue" aria-labelledby="db-rev-h">
+        <div class="pn-section__head">
+          <div>
+            <p class="db-eyebrow">Payments, 2026 to date</p>
+            <h2 class="pn-h2" id="db-rev-h">Revenue by line</h2>
+          </div>
+          <p class="pn-muted db-sec__aside" data-db-rev-sum></p>
+        </div>
+        <div data-db-revenue></div>
+        <details class="db-tableview" data-db-rev-table></details>
+      </section>
+
+      <section class="pn-section db-sec db-sources" aria-labelledby="db-src-h">
+        <h2 class="pn-h2" id="db-src-h">Where these numbers come from</h2>
+        <div data-db-sources></div>
+      </section>
+
+      <div class="db-tip" role="tooltip" id="db-tip" hidden></div>
+    </main>
+  </div>
+</div>
+<script src="../js/facts.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+/* FAQ: one central place for the club's questions.
+   Page CSS, tokens only. Stories (logs/batch2-help.md):
+   - The topic index is a centre service line: the topic you are reading is marked by the short
+     centre mark, the line that tells a server where they stand.
+   - The search field carries a ball: you are feeding the club a question.
+   - "What level should I choose?": each level is a rally you can hold, drawn as hits alternating
+     across a net, growing outward from it. Hollow balls are the "up to" end of a range.
+   - An answer you jump to by link lands with a hairline that draws like a line being chalked. */
+
+.faqx { padding-top: 0; }
+.faqx__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); }
+@media (min-width: 1000px) {
+  .faqx__grid { grid-template-columns: 220px minmax(0, 1fr); gap: var(--sp-9); align-items: start; }
+}
+.faqx__main { display: grid; gap: var(--sp-6); min-width: 0; }
+.faqx__list { max-width: none; }
+
+/* ---------- Topic index: the centre service line ---------- */
+.faqidx { position: sticky; top: var(--header-h); z-index: var(--z-base); background: var(--bg); margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter); border-bottom: 1px solid var(--rule); }
+.faqidx__label { display: none; }
+.faqidx ol { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--sp-1); overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+.faqidx ol::-webkit-scrollbar { display: none; }
+.faqidx li { flex: none; scroll-snap-align: start; }
+/* Phone: the strip runs on like a baseline past the edge; a soft fade on the right says there is more, and a trailing gap lets the last topic clear the fade. */
+.faqidx ol { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
+.faqidx ol::after { content: ""; flex: none; width: 40px; }
+.faqidx a { position: relative; display: inline-flex; align-items: center; gap: 10px; min-height: var(--target); padding: 0 12px; color: var(--fg-muted); text-decoration: none; font: 500 15px/1 var(--font-sans); white-space: nowrap; }
+.faqidx a .icon { width: 18px; height: 18px; }
+.faqidx a:hover, .faqidx a[aria-current="true"] { color: var(--fg); }
+.faqidx__n { font-size: 13px; color: var(--fg-muted); font-variant-numeric: tabular-nums lining-nums; }
+.faqidx a.is-empty { opacity: 0.45; }
+/* The centre mark: a short tick standing on the line, where the server stands */
+.faqidx a::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: 2px; height: 10px; margin-left: -1px; background: var(--fg); transform: scaleY(0); transform-origin: 50% 100%; transition: transform var(--dur-ui) var(--ease-ui); }
+.faqidx a[aria-current="true"]::after { transform: scaleY(1); }
+
+@media (min-width: 1000px) {
+  .faqidx { top: calc(var(--header-h) + var(--sp-6)); margin: 0; padding: 0; border-bottom: 0; background: none; }
+  .faqidx__label { display: block; font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); margin-bottom: var(--sp-3); }
+  .faqidx ol { display: grid; gap: 0; overflow: visible; border-left: 1px solid var(--rule-strong); }
+  .faqidx ol { -webkit-mask-image: none; mask-image: none; }
+  .faqidx ol::after { content: none; }
+  .faqidx a { display: grid; grid-template-columns: 18px 1fr auto; width: 100%; padding: 0 0 0 20px; min-height: 48px; font-size: 16px; }
+  .faqidx a::after { left: -1px; top: 50%; bottom: auto; width: 10px; height: 2px; margin: -1px 0 0; transform: scaleX(0); transform-origin: 0 50%; }
+  .faqidx a[aria-current="true"]::after { transform: scaleX(1); }
+}
+
+/* ---------- Search ---------- */
+.faqsearch { display: grid; gap: var(--sp-2); max-width: 40rem; }
+/* In the hero, in the place of the actions (site.css .hero__actions spacing) */
+.faq-hero__search { margin-top: clamp(24px, 2.8vw, 40px); width: 100%; max-width: 34rem; }
+.faqsearch__box { position: relative; display: flex; align-items: center; }
+.faqsearch__box > .icon { position: absolute; left: 16px; width: 20px; height: 20px; color: var(--fg-muted); pointer-events: none; }
+.faqsearch__input { width: 100%; padding-left: 48px; padding-right: 52px; -webkit-appearance: none; appearance: none; }
+.faqsearch__input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.faqsearch__clear { position: absolute; right: 0; width: var(--target); height: var(--target); display: grid; place-items: center; background: none; border: 0; color: var(--fg); cursor: pointer; }
+.faqsearch__clear .icon { width: 18px; height: 18px; }
+.faqsearch__clear:focus-visible { outline: 2px solid var(--focus); outline-offset: -4px; }
+.faqsearch__status { color: var(--fg-muted); min-height: 1.5em; }
+
+/* ---------- Groups ---------- */
+.faqx .faq__group { scroll-margin-top: calc(var(--header-h) + 64px); }
+.faqx .faq__group[hidden] { display: none; }
+.faqx .faq__topic { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; color: var(--fg); }
+.faqx .faq__topic .icon { width: 18px; height: 18px; color: var(--fg-muted); }
+.faq__count { font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--fg-muted); }
+/* One column: the sticky index already names the topic beside the answers */
+.faqx .faq__group { display: block; padding-top: var(--sp-6); }
+.faqx .faq__topic { margin: 0; padding: 0 0 var(--sp-2); border-right: 0; }
+.faqx .faq__group:first-child { padding-top: var(--sp-4); }
+.faqx .acc__item { scroll-margin-top: calc(var(--header-h) + 72px); border-bottom: 1px solid var(--rule); position: relative; }
+.faqx .acc__item:last-child { border-bottom: 0; }
+.faqx .acc__item[hidden] { display: none; }
+.faqx .acc__panel { padding-right: 0; color: var(--fg); }
+.faqx .acc__panel p { color: var(--fg-muted); }
+@media (min-width: 720px) { .faqx .acc__panel { padding-right: 56px; } }
+
+/* A linked answer lands with a hairline chalked along its top, baseline to baseline */
+.faqx .acc__item::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--fg); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
+.faqx .acc__item.is-target::before { animation: faq-line 560ms var(--ease-out) forwards, faq-fade 900ms var(--ease-ui) 1.6s forwards; }
+@keyframes faq-line { to { transform: scaleX(1); } }
+@keyframes faq-fade { to { opacity: 0; transform: scaleX(1); } }
+
+/* Search highlight */
+.faqx mark { background: var(--tag-bg); color: var(--tag-fg); padding: 0 2px; border-radius: 2px; }
+
+/* Copy link: the answer, once, then the link */
+.faq-copy { display: inline-flex; align-items: center; gap: 8px; min-height: var(--target); padding: 0; background: none; border: 0; color: var(--fg-muted); font: 500 14.5px/1 var(--font-sans); cursor: pointer; }
+.faq-copy:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+.faq-copy:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.faq-copy .icon { width: 16px; height: 16px; }
+.faq-copy[data-done] { color: var(--fg); }
+
+/* Mini rows inside an answer (camp ages, refund notice) */
+.minirows { display: grid; margin: 0; width: 100%; max-width: 40rem; border-top: 1px solid var(--rule); }
+.minirows > div { display: grid; gap: 2px 20px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 640px) { .minirows > div { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; } }
+.minirows dt { color: var(--fg); font-size: 15.5px; }
+.minirows dd { margin: 0; color: var(--fg-muted); font-size: 15.5px; }
+.rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-width: 60ch; }
+.rules li { position: relative; padding-left: 22px; color: var(--fg-muted); }
+.rules li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 12px; height: 1px; background: var(--fg); }
+
+/* ---------- The rally ladder ---------- */
+.rally { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 44rem; border-top: 1px solid var(--rule); }
+.rally li { display: grid; gap: 4px 20px; padding: 12px 0; border-bottom: 1px solid var(--rule); align-items: center; }
+@media (min-width: 640px) { .rally li { grid-template-columns: 9.5rem minmax(0, 1fr) auto; } }
+.rally__name { font-family: var(--font-serif); font-size: 19px; color: var(--fg); }
+.rally__test { font-size: 15px; color: var(--fg-muted); }
+.rally__balls { display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 26px; width: 12rem; max-width: 100%;
+  /* the ground: a hairline the rally is played over */
+  background: linear-gradient(var(--rule), var(--rule)) 0 100% / 100% 1px no-repeat; }
+.rally__balls--none { display: none; }
+@media (min-width: 640px) { .rally__balls--none { display: inline-flex; background: none; } }
+.rally__balls i { width: 8px; height: 8px; border-radius: 50%; background: var(--fg); flex: none; }
+.rally__balls i.is-more { background: none; box-shadow: inset 0 0 0 1px var(--fg); }
+/* The net, side on: a post standing on the ground with the tape on top. Red, as the net is
+   everywhere on the site. Every row is centred in the same width, so each net stands in one
+   column: one court, longer rallies. */
+.rally__net { align-self: flex-end; width: 2px; height: 18px; margin: 0 7px; background: var(--red); position: relative; flex: none; }
+.rally__net::before { content: ""; position: absolute; left: -2px; top: 0; width: 6px; height: 2px; background: var(--red); }
+/* On open, the hits appear in rally order: one side, then the other, outward from the net */
+@media (prefers-reduced-motion: no-preference) {
+  .acc__panel:not([hidden]) .rally__balls i { animation: rally-hit 220ms var(--ease-out) both; animation-delay: calc(var(--h) * 70ms + 120ms); }
+}
+@keyframes rally-hit { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
+
+/* ---------- Empty state ---------- */
+.faqx__empty[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .faqidx a::after { transition: none; }
+  .faqx .acc__item.is-target::before { animation: none; }
+}

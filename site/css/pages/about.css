@@ -1,0 +1,89 @@
+/* Our Club only. Tokens only; no raw colour values.
+   The opening statement (.intro__grid) is shared in components.css since integration. */
+
+
+/* 1. Who we are: a short letter, then the figures */
+.about-letter { display: grid; gap: var(--sp-4); }
+.about-letter .body a { color: var(--fg); text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.about-facts { margin-top: clamp(48px, 6vw, 96px); }
+
+/* 2. Vision and mission: two ends of one court.
+   Story: the club plays both ends of the court at once. Vision is the city's end (social and
+   physical health in Vaughan), mission is the player's end (every age and level, all year). The
+   red net between them is strung the way a net goes up: the cord runs post to post, then the
+   posts are set (Chalk). On a phone the court turns end-on and the net runs across. */
+.ends { position: relative; display: grid; gap: 0; margin-top: clamp(40px, 5vw, 72px);
+  border-block: 1px solid var(--rule-strong); }
+.ends__half { margin: 0; display: grid; gap: var(--sp-3); align-content: start; padding: clamp(28px, 4vw, 64px) 0; }
+.ends__label { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.ends__text { margin: 0; }
+.ends__text p { font: 300 clamp(1.5rem, 1.1rem + 1.4vw, 2.375rem)/1.24 var(--font-serif); max-width: 24ch; text-wrap: pretty; }
+.ends__net { position: relative; display: block; height: 1.5px; }
+.ends__cord { position: absolute; inset: 0; background: var(--red); transform-origin: 0 50%; }
+.ends__post { position: absolute; top: 50%; width: 6px; height: 6px; margin-top: -3px; background: var(--red); }
+.ends__post--a { left: -3px; }
+.ends__post--b { right: -3px; }
+/* the net drawn across on phones: scaleX, not scaleY */
+html.motion .ends[data-chalk] .ends__cord { transform: scaleX(0); }
+html.motion .ends[data-chalk].is-drawn .ends__cord { transform: none; }
+@media (min-width: 900px) {
+  .ends { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); column-gap: clamp(40px, 6vw, 112px); }
+  .ends__net { width: 1.5px; height: auto; }
+  .ends__cord { transform-origin: 50% 0; }
+  .ends__post { top: auto; left: 50% !important; right: auto; margin: 0 0 0 -3px; }
+  .ends__post--a { top: -4px; }
+  .ends__post--b { bottom: -4px; }
+  html.motion .ends[data-chalk] .ends__cord { transform: scaleY(0); }
+  .ends__half:last-child { justify-items: start; }
+}
+
+/* 3. Community photograph */
+.about-community { display: grid; gap: var(--sp-6); }
+.about-community .sect-head { align-content: start; }
+.about-community .frame__cap { display: grid; gap: 8px; margin-top: var(--sp-3); }
+.about-community .frame__cap em { font: italic 300 var(--step-3)/1.4 var(--font-serif); color: var(--fg); max-width: 34ch; }
+@media (min-width: 1000px) {
+  .about-community { grid-template-columns: 4fr 7fr; column-gap: var(--sp-8); align-items: start; }
+}
+
+/* 4. Board: a ruled roll, role in small capitals, name in the club's voice.
+   Story: the people who run the club, named in the open, in the order the club publishes. */
+.board-grid { display: grid; gap: var(--sp-7); }
+.board-head { display: grid; gap: var(--sp-5); align-content: start; }
+.board { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); counter-reset: seat; }
+.board li { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 4px 16px; padding: 18px 0; border-bottom: 1px solid var(--rule); counter-increment: seat; }
+.board li::before { content: counter(seat, decimal-leading-zero); grid-row: span 2; font: 400 14px/1.6 var(--font-serif); color: var(--fg-muted); font-variant-numeric: lining-nums tabular-nums; }
+.board__role { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.board__name { font: 300 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.15 var(--font-serif); }
+@media (min-width: 640px) {
+  .board li { grid-template-columns: 2.5rem minmax(0, 15rem) minmax(0, 1fr); align-items: baseline; }
+  .board li::before { grid-row: auto; }
+}
+@media (min-width: 1000px) {
+  .board-grid { grid-template-columns: 5fr 7fr; column-gap: var(--sp-8); align-items: start; }
+}
+.docs { display: grid; gap: 8px; }
+.docs__title { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.docs__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.docs__list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.doclink--pending { cursor: default; }
+.doclink--pending .link__text { font-size: 17px; }
+
+/* 5. Three doors in one row from 900px; the History door holds the year, not a photograph.
+   Story: the year is the club's only ornament, so the door to its history is the year itself,
+   folded across the net; it carries into the History hero on the page change (Turn). */
+@media (min-width: 900px) {
+  .doors--about { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.frame--year .frame__media { display: grid; place-items: center; background: var(--surface-alt); }
+.section--chalk .frame--year .frame__media { background: var(--surface); }
+.numeral--door { font-size: clamp(2.25rem, 1.2rem + 3.2vw, 5.5rem); color: var(--fg); }
+.door--year .frame { --ar: 1 / 1 !important; }
+@media (min-width: 600px) and (max-width: 899px) { .door--year .frame { --ar: 4 / 5 !important; } }
+@media (min-width: 900px) { .door--year .frame { --ar: 3 / 4 !important; } }
+.door--year .numeral__net { margin-block: -6px; }
+@media (max-width: 599px) { .numeral--door { gap: 8px; } .door--year .numeral__net::before, .door--year .numeral__net::after { width: 4px; height: 4px; left: -1.25px; } }
+@media (hover: hover) and (pointer: fine) {
+  .door--year .numeral--door { transition: transform 900ms var(--ease-out); }
+  .door--year:hover .numeral--door { transform: scale(1.04); }
+}

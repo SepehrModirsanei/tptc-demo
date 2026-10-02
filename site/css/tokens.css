@@ -1,0 +1,255 @@
+/* TPTC Direction C, "Whites": design tokens.
+   Every colour, size, space and motion value on the site comes from here.
+   Colours are defined only on :root (spec rule 16). */
+
+@font-face {
+  font-family: "Spectral";
+  src: url("../fonts/spectral-latin-200-normal.woff2") format("woff2");
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Spectral";
+  src: url("../fonts/spectral-latin-300-normal.woff2") format("woff2");
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Spectral";
+  src: url("../fonts/spectral-latin-300-italic.woff2") format("woff2");
+  font-weight: 300; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Spectral";
+  src: url("../fonts/spectral-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Spectral";
+  src: url("../fonts/spectral-latin-400-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Schibsted Grotesk";
+  src: url("../fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"),
+       url("../fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 900; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* ---------- Colour: six named values (frontend-design pass) ----------
+     Whites and Blazer are the club's two grounds; red is the net and the registration
+     button; Ball is a dot on things with a real clock behind them. No grey ground anywhere. */
+  --white:  #FFFFFF;   /* Whites. Paper. The only ground red text may sit on (4.56:1). */
+  --dome:   #EDF1F6;   /* Dome. The winter dome's cold light: the one secondary surface. */
+  --blazer: #14254A;   /* Blazer. The club navy: High Performance, the closing band, the footer. */
+  --ink:    #15191F;   /* Ink. Text on paper. */
+  --red:    #DF3124;   /* Club red. The net, and Register. Nothing else. */
+  --night-deep: #0B1322; /* the dome's fabric after dark: night ground, and the Register hover fill at night */
+  --ball:   #D4F03C;   /* Ball. A 8px live dot, never a fill, never text. */
+
+  /* Working names kept so every component reads the palette through one place */
+  --chalk:  var(--dome);
+  --night:  var(--blazer);
+  --optic:  var(--ball);
+  --stone:  #566072;   /* secondary text: 6.34:1 on white, 5.59:1 on dome */
+  --mist:   #AEB9CC;   /* secondary text on blazer, 7.62:1 */
+
+  /* Derived lines */
+  --line-ink:        rgba(21, 25, 31, 0.14);
+  --line-ink-soft:   rgba(21, 25, 31, 0.08);
+  --line-ink-strong: rgba(21, 25, 31, 0.72);
+  --line-chalk:      rgba(237, 241, 246, 0.18);
+  --line-chalk-soft: rgba(237, 241, 246, 0.09);
+  --line-chalk-strong: rgba(237, 241, 246, 0.72);
+  --night-raised:    #1C3160;  /* chip and field fill on blazer */
+  --scrim:           rgba(10, 20, 42, 0.55); /* photographic scrim only, blazer-tinted */
+
+  /* Semantic, paper theme (default). Components read only these; the palette above never
+     changes, and the night theme below swaps only the semantic layer. */
+  --surface:     var(--white);   /* the page ground */
+  --surface-alt: var(--dome);    /* the one tinted section ground */
+  --on-photo:    var(--white);   /* type set on a photograph */
+  --tag-bg:      rgba(255, 255, 255, 0.94);
+  --tag-fg:      var(--ink);
+  --chip-live-bg: var(--ink);
+  --chip-live-fg: var(--white);
+  --photo-filter: none;
+  --logo:        var(--red);   /* the lockup: one-colour red on paper, reversed to chalk at night */
+  --logo-ball:   currentColor;
+  --shadow-tint: rgba(20, 37, 74, 0.10);  /* blazer-tinted, never black */
+  --bg:        var(--surface);
+  --bg-alt:    var(--chalk);
+  --fg:        var(--ink);
+  --fg-muted:  var(--stone);
+  --rule:      var(--line-ink);
+  --rule-soft: var(--line-ink-soft);
+  --rule-strong: var(--line-ink-strong);
+  --brand:     var(--red);
+  --on-brand:  var(--white);
+  --live:      var(--optic);
+  --focus:     var(--ink);
+  --ph-ground: var(--chalk);
+  --ph-line:   rgba(255, 255, 255, 0.86); /* white lines on a Blazer court, as on a real court; never a grey box */
+  --ph-court-mix: var(--blazer);          /* the court surface: the ground mixed this far toward this colour */
+  --ph-court-amt: 100%;
+  --ph-text:   var(--ink);
+  --ph-muted:  var(--stone);
+
+  /* ---------- Type ---------- */
+  --font-serif: "Spectral", ui-serif, serif;
+  --font-sans:  "Schibsted Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  /* Seven steps, no more (spec rule 12) */
+  --step-display: clamp(3rem, 1.05rem + 6.3vw, 7rem);      /* 48 to 112: one display moment per page */
+  --step-1:       clamp(2.25rem, 1.55rem + 2.4vw, 4rem);   /* 36 to 64: section headlines */
+  --step-2:       clamp(1.625rem, 1.38rem + 0.8vw, 2.25rem); /* 26 to 36: card and step titles */
+  --step-3:       clamp(1.1875rem, 1.12rem + 0.3vw, 1.375rem); /* 19 to 22: ledes */
+  --step-4:       1.0625rem;   /* 17: body */
+  --step-5:       0.875rem;    /* 14: small, captions, meta */
+  --step-6:       0.75rem;     /* 12: capital labels */
+
+  --lh-display: 1.0;
+  --lh-head:    1.08;
+  --lh-body:    1.6;
+  --track-label: 0.14em;
+  --track-display-sans: -0.04em;
+
+  /* ---------- Space: 8px grid ---------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 16px;
+  --sp-4: 24px;
+  --sp-5: 32px;
+  --sp-6: 48px;
+  --sp-7: 64px;
+  --sp-8: 96px;
+  --sp-9: 128px;
+  --sp-10: 160px;
+  --section: clamp(64px, 3rem + 7vw, 144px);
+  --gutter: 16px;
+  --page: 84rem;          /* 1344px */
+  --measure: 38rem;       /* about 65 characters of body */
+  --header-h: 64px;
+  --radius: 2px;
+  --hair: 1px;
+  --target: 44px;         /* minimum touch target, every control (ui-ux-pro-max pass) */
+
+  /* ---------- Layers: one z-index scale, nothing ad hoc (ui-ux-pro-max pass) ---------- */
+  --z-under: -1;          /* a fill behind its own label */
+  --z-base: 1;            /* lifted inside a component */
+  --z-mark: 2;            /* the net line, stretched links */
+  --z-tag: 3;             /* placeholder tag above its photo */
+  --z-header: 60;         /* sticky header and its mega panel */
+  --z-sheet: 100;         /* mobile menu sheet */
+  --z-skip: 200;          /* skip link, above everything */
+
+  /* ---------- Motion (energy.md 3.1) ---------- */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-ui:     cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press:   120ms;
+  --dur-ui:      240ms;
+  --dur-turn:    560ms;
+  --dur-rise:    900ms;
+  --dur-unveil:  1200ms;
+  --stagger-line: 70ms;
+  --stagger-item: 90ms;
+
+  /* ---------- Court geometry (metres, ITF) ---------- */
+  --court-length: 23.77;
+  --court-width: 10.97;
+  --court-singles: 8.23;
+  --court-service: 6.40;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 24px; }
+}
+@media (min-width: 1100px) {
+  :root { --gutter: 48px; --header-h: 80px; }
+}
+
+/* Performance ground. Used only on the HP page, the HP half of the Home split,
+   the Pro National band and deep CTA bands (spec rule 10). */
+.theme-night {
+  --bg:        var(--night);
+  --bg-alt:    var(--night-raised);
+  --fg:        var(--chalk);
+  --fg-muted:  var(--mist);
+  --rule:      var(--line-chalk);
+  --rule-soft: var(--line-chalk-soft);
+  --rule-strong: var(--line-chalk-strong);
+  --focus:     var(--chalk);
+  --ph-ground: var(--night-raised);
+  --ph-line:   rgba(237, 241, 246, 0.55);
+  --ph-court-mix: #E9EEF5;
+  --ph-court-amt: 9%;
+  --ph-text:   var(--chalk);
+  --ph-muted:  var(--mist);
+  color-scheme: dark;
+}
+
+/* ---------- Night: the dome at night (design-taste-frontend pass) ----------
+   Follows the visitor's system setting; data-theme on <html> overrides it (the system page
+   has a Day / Night switch). The ground is the dome's fabric after dark, a navy-black, never
+   #000; type is chalk, never #FFF. Blazer stays the club navy and reads as a lifted block on
+   the night ground. Red is unchanged (white label on red is 4.56:1 in both themes).
+   Measured: chalk text 16.2:1, muted 8.1:1 on the ground and 7.5:1 on the raised ground. */
+:root { color-scheme: light; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface:     #0B1322;
+    --surface-alt: #111C30;
+    --tag-bg:      rgba(11, 19, 34, 0.86);
+    --tag-fg:      #E9EEF5;
+    --chip-live-bg: #1C3160;
+    --chip-live-fg: #E9EEF5;
+    --photo-filter: brightness(0.86) contrast(1.04) saturate(0.92);
+    --logo:        #E9EEF5;   /* red text is 3.7 to 4.1:1 on the night grounds, below AA for the small name */
+    --logo-ball:   var(--red);  /* the ball keeps the club red at night (4.1:1 as a graphic) */
+    --logo-col: none; --logo-rev: block;  /* the white lockup in dark mode */
+    --shadow-tint: rgba(0, 4, 12, 0.40);
+    --bg:        var(--surface);
+    --bg-alt:    var(--surface-alt);
+    --fg:        #E9EEF5;
+    --fg-muted:  #9FACC2;
+    --rule:      rgba(233, 238, 245, 0.16);
+    --rule-soft: rgba(233, 238, 245, 0.08);
+    --rule-strong: rgba(233, 238, 245, 0.62);
+    --focus:     #E9EEF5;
+    --ph-ground: #121D33;
+    --ph-line:   rgba(233, 238, 245, 0.55);
+    --ph-court-mix: #E9EEF5;
+    --ph-court-amt: 9%;
+    --ph-text:   #E9EEF5;
+    --ph-muted:  #9FACC2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --surface:     #0B1322;
+  --surface-alt: #111C30;
+  --tag-bg:      rgba(11, 19, 34, 0.86);
+  --tag-fg:      #E9EEF5;
+  --chip-live-bg: #1C3160;
+  --chip-live-fg: #E9EEF5;
+  --photo-filter: brightness(0.86) contrast(1.04) saturate(0.92);
+  --logo:        #E9EEF5;   /* red text is 3.7 to 4.1:1 on the night grounds, below AA for the small name */
+  --logo-ball:   var(--red);  /* the ball keeps the club red at night (4.1:1 as a graphic) */
+  --logo-col: none; --logo-rev: block;  /* the white lockup in dark mode */
+  --shadow-tint: rgba(0, 4, 12, 0.40);
+  --bg:        var(--surface);
+  --bg-alt:    var(--surface-alt);
+  --fg:        #E9EEF5;
+  --fg-muted:  #9FACC2;
+  --rule:      rgba(233, 238, 245, 0.16);
+  --rule-soft: rgba(233, 238, 245, 0.08);
+  --rule-strong: rgba(233, 238, 245, 0.62);
+  --focus:     #E9EEF5;
+  --ph-ground: #121D33;
+  --ph-line:   rgba(233, 238, 245, 0.55);
+  --ph-court-mix: #E9EEF5;
+  --ph-court-amt: 9%;
+  --ph-text:   #E9EEF5;
+  --ph-muted:  #9FACC2;
+  color-scheme: dark;
+}

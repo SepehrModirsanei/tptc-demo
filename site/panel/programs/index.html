@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en-CA" data-panel-page="programs" data-panel-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programs | TPTC staff panel (demo)</title>
+<meta name="description" content="Demo staff panel for Thornhill Park Tennis Club: Programs, camps and seats. Sample data; nothing is saved to a server or charged.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../assets/brand/favicon.svg" type="image/svg+xml">
+<script src="../js/boot.js"></script>
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../css/panel.css">
+<link rel="stylesheet" href="../css/programs.css">
+</head>
+<body class="pn pn--programs" data-shell="programs">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="pn-app">
+  <aside class="pn-side" data-shell-side></aside>
+  <div class="pn-body">
+    <div data-shell-top></div>
+    <main id="main" class="pn-main" tabindex="-1">
+      <header class="pn-head">
+        <div class="pn-head__words">
+          <p class="pn-kicker">Programs <span class="pn-sample">Sample data</span></p>
+          <h1 class="pn-title">Sessions, seats and <em>waitlists</em></h1>
+          <p class="pn-lede">Every group class, High Performance step, private lesson, camp week and league: who is on the roster, how many seats are left, who is waiting and who came.</p>
+        </div>
+        <div class="pn-head__actions"><button class="pn-btn pn-btn--ink" type="button" data-pg-register>Register someone</button></div>
+      </header>
+
+      <section class="pn-section" aria-labelledby="pg-glance">
+        <h2 class="sr-only" id="pg-glance">At a glance</h2>
+        <div class="pn-kpis" data-pg-kpis></div>
+      </section>
+
+      <section class="pn-section pg-programs" aria-labelledby="pg-programs-h">
+        <h2 class="sr-only" id="pg-programs-h">Programs</h2>
+        <div class="pn-tabs pg-tabs" role="tablist" aria-label="Programs" data-pg-tabs>
+          <button type="button" role="tab" id="pg-tab-junior" aria-controls="pg-panel-junior" aria-selected="true">Junior</button>
+          <button type="button" role="tab" id="pg-tab-adult" aria-controls="pg-panel-adult" aria-selected="false" tabindex="-1">Adult</button>
+          <button type="button" role="tab" id="pg-tab-hp" aria-controls="pg-panel-hp" aria-selected="false" tabindex="-1">High Performance</button>
+          <button type="button" role="tab" id="pg-tab-private" aria-controls="pg-panel-private" aria-selected="false" tabindex="-1">Private lessons</button>
+          <button type="button" role="tab" id="pg-tab-camps" aria-controls="pg-panel-camps" aria-selected="false" tabindex="-1">Camps</button>
+          <button type="button" role="tab" id="pg-tab-leagues" aria-controls="pg-panel-leagues" aria-selected="false" tabindex="-1">Leagues and round robins</button>
+        </div>
+        <div class="pg-panel" role="tabpanel" id="pg-panel-junior" aria-labelledby="pg-tab-junior" tabindex="0" data-pg-panel="junior">
+          <div class="pn-empty"><p class="pn-empty__title">Loading the junior classes</p><p>This page needs JavaScript to read the sample data.</p></div>
+        </div>
+        <div class="pg-panel" role="tabpanel" id="pg-panel-adult" aria-labelledby="pg-tab-adult" tabindex="0" data-pg-panel="adult" hidden></div>
+        <div class="pg-panel" role="tabpanel" id="pg-panel-hp" aria-labelledby="pg-tab-hp" tabindex="0" data-pg-panel="hp" hidden></div>
+        <div class="pg-panel" role="tabpanel" id="pg-panel-private" aria-labelledby="pg-tab-private" tabindex="0" data-pg-panel="private" hidden></div>
+        <div class="pg-panel" role="tabpanel" id="pg-panel-camps" aria-labelledby="pg-tab-camps" tabindex="0" data-pg-panel="camps" hidden></div>
+        <div class="pg-panel" role="tabpanel" id="pg-panel-leagues" aria-labelledby="pg-tab-leagues" tabindex="0" data-pg-panel="leagues" hidden></div>
+      </section>
+      <p class="sr-only" aria-live="polite" data-pg-live></p>
+    </main>
+  </div>
+</div>
+<script src="../js/facts.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/programs.js"></script>
+</body>
+</html>

@@ -1,0 +1,518 @@
+/* TPTC demo site: the shared component library (batch 2).
+   Loaded on every page after site.css and before the page's own css/pages/<id>.css.
+   site.css holds the base, the shell (header, nav, footer), buttons, links, chips, confirm slots,
+   frames, breadcrumbs, sections, the net, heroes, doors, split, strengths, pathway and the CTA
+   band, as Direction C shipped them. This file holds everything the full site adds, plus the
+   components that used to live on the style guide only. Tokens only: no raw colours here.
+   Every component is documented, with copy-paste markup, in BUILD.md and on /system/. */
+
+/* =====================================================================================
+   From the style guide: price card, rate table, program card, league and schedule rows,
+   FAQ, form fields (Direction C, unchanged)
+   ===================================================================================== */
+/* Price and tier card */
+/* Option switcher: a quiet row of names on a hairline, the chosen one underlined like a baseline.
+   No filled pill: the comparison table beside it carries the full set. */
+.seg { position: relative; display: flex; column-gap: clamp(18px, 3vw, 28px); max-width: 100%; overflow-x: auto; box-shadow: inset 0 -1px 0 var(--rule); padding-inline: 2px; }
+.seg button { position: relative; z-index: var(--z-base); flex: none; min-height: var(--target); min-width: var(--target); padding: 0; background: none; border: 0; cursor: pointer; font: 500 15px/1 var(--font-sans); color: var(--fg-muted); white-space: nowrap; transition: color var(--dur-ui) var(--ease-ui); }
+.seg button[aria-checked="true"] { color: var(--fg); }
+.seg button:focus-visible { outline-offset: -2px; }
+.seg__ind { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--fg); z-index: 0; }
+@media (hover: hover) and (pointer: fine) { .seg button:hover { color: var(--fg); } }
+.seg.is-ready .seg__ind { transition: transform var(--dur-ui) var(--ease-ui), width var(--dur-ui) var(--ease-ui); }
+.tier { display: grid; gap: 22px; padding: clamp(22px, 3vw, 36px); border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); max-width: 560px; position: relative; }
+.tier::before { content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 7px; border-top: 1px solid var(--fg); border-bottom: 1px solid var(--rule); }
+.tier__season { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-size: 13px; color: var(--fg-muted); padding-top: 8px; }
+.tier__name { font-family: var(--font-serif); font-weight: 300; font-size: 40px; line-height: 1; }
+.tier__who { font-size: 15px; color: var(--fg-muted); margin-top: 6px; }
+.tier__prices { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.tier__prices > div { display: grid; gap: 6px; padding: 16px 0; }
+.tier__prices > div + div { padding-left: 20px; border-left: 1px solid var(--rule); }
+.tier__price { font: 300 clamp(30px, 1.6rem + 0.8vw, 40px)/1 var(--font-serif); letter-spacing: -0.01em; font-variant-numeric: lining-nums; }
+.tier__tax { font-size: 13px; color: var(--fg-muted); }
+.is-swapping { opacity: 0; transform: translateY(4px); }
+[data-tier-out] { display: inline-block; transition: opacity 140ms var(--ease-ui), transform 140ms var(--ease-ui); }
+.rates { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 520px; }
+.rates caption { text-align: left; font-size: 13px; color: var(--fg-muted); padding-bottom: 12px; }
+.rates th, .rates td { text-align: left; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--rule); }
+.rates thead th { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); border-bottom-color: var(--rule-strong); }
+.rates td.tnum { text-align: right; font-size: 19px; }
+.rates th.tnum { text-align: right; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: 0.14em; }
+.rates tbody th { font-weight: 500; }
+.rates tbody th span { display: block; font-weight: 400; font-size: 13px; color: var(--fg-muted); }
+
+/* Program card */
+.pcard { display: grid; gap: 18px; padding: clamp(22px, 3vw, 32px); border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); max-width: 560px; }
+.pcard__kicker { display: flex; flex-wrap: wrap; gap: 8px; }
+.pcard__title { font-family: var(--font-serif); font-weight: 300; font-size: 36px; line-height: 1.05; }
+.fields--compact > div { padding: 10px 0; }
+@media (min-width: 640px) { .fields--compact > div { grid-template-columns: 90px 1fr; } }
+.pcard .btn { justify-self: start; }
+
+/* League row and schedule row */
+.lrow { display: grid; gap: 12px 24px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+.lrows { border-top: 1px solid var(--rule-strong); }
+.lrow__name { font-family: var(--font-serif); font-weight: 300; font-size: 26px; line-height: 1.15; }
+.lrow__meta { display: grid; gap: 4px; font-size: 14.5px; }
+.lrow__meta dt { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+.lrow__meta dd { font-size: 15px; }
+.lrow__cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; margin: 0; }
+.lrow__side { display: grid; gap: 12px; align-content: start; justify-items: start; }
+@media (min-width: 1000px) {
+  .lrow { grid-template-columns: 4fr 6fr 3fr; align-items: start; }
+  .lrow__cells { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.srows { border-top: 1px solid var(--rule-strong); }
+.srow { display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.srow__what { font-weight: 500; }
+.srow__when { color: var(--fg-muted); font-size: 15px; }
+.srow__price { font: 400 24px/1 var(--font-serif); font-variant-numeric: lining-nums; text-align: right; grid-row: span 2; align-self: center; }
+.srow__price small { display: block; font: 400 12px/1.2 var(--font-sans); color: var(--fg-muted); margin-top: 6px; }
+@media (min-width: 800px) { .srow { grid-template-columns: 220px 1fr auto; } .srow__price { grid-row: auto; } }
+
+/* FAQ accordion: no boxes, hairlines only */
+/* FAQ: filed by topic. The topic sits in a margin column in tracked capitals, the question is
+   Spectral light, the open mark is the icon family's plus at the court-line weight (1.5px, butt
+   caps): opening lifts the stem and leaves the line it stood on, the minus. */
+.acc { border-top: 1px solid var(--rule-strong); max-width: 980px; }
+.faq__group { display: grid; grid-template-columns: 1fr; border-bottom: 1px solid var(--rule); }
+.faq__topic { margin: 18px 0 0; font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+@media (min-width: 720px) {
+  .faq__group { grid-template-columns: 168px minmax(0, 1fr); column-gap: 32px; }
+  .faq__topic { margin: 0; padding-top: 27px; border-right: 1px solid var(--rule); grid-row: 1 / span 99; }
+  /* Several questions under one topic: every answer keeps to the right-hand column. */
+  .faq__group > .acc__item { grid-column: 2; }
+}
+.acc__btn { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 14px 0 18px; background: none; border: 0; cursor: pointer; text-align: left; color: var(--fg); }
+@media (min-width: 720px) { .acc__btn { padding: 18px 0; } }
+.acc__q { font: 300 clamp(21px, 2.2vw, 25px)/1.25 var(--font-serif); letter-spacing: -0.005em; }
+.acc__btn:hover .acc__q { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: var(--rule-strong); }
+.acc__mark { width: 24px; height: 24px; flex: none; }
+.acc__stem { transform-box: fill-box; transform-origin: 50% 50%; transition: transform var(--dur-ui) var(--ease-ui); }
+.acc__btn[aria-expanded="true"] .acc__stem { transform: scaleY(0); }
+.acc__panel { display: grid; justify-items: start; gap: 12px; padding: 0 56px 26px 0; font-size: 16px; line-height: 1.6; color: var(--fg-muted); max-width: 64ch; }
+.acc__panel[hidden] { display: none; }
+.acc__panel .link { color: var(--fg); }
+.acc__panel:not([hidden]) { animation: acc-in var(--dur-ui) var(--ease-ui); }
+@keyframes acc-in { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .acc__panel:not([hidden]) { animation: none; } .acc__stem { transition: none; } }
+
+/* Form fields */
+.form { display: grid; gap: 28px; max-width: 520px; }
+.field { display: grid; gap: 8px; }
+.field__label { font-weight: 600; font-size: 14.5px; }
+.field__help { font-size: 13.5px; color: var(--fg-muted); }
+.input, .select {
+  width: 100%; min-height: 52px; padding: 0 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  background: var(--bg); color: var(--fg); font: 400 16px/1.2 var(--font-sans);
+  transition: border-color var(--dur-ui) var(--ease-ui);
+}
+.input::placeholder { color: var(--fg-muted); }
+.input:hover, .select:hover { border-color: var(--fg); }
+.input:focus-visible, .select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-color: var(--fg); }
+.input[aria-invalid="true"] { border-color: var(--fg); border-width: 2px; padding-left: 15px; }
+.input:disabled { background: var(--surface-alt); color: var(--fg-muted); border-color: var(--rule); cursor: not-allowed; }
+.select { appearance: none; -webkit-appearance: none; padding-right: 48px; cursor: pointer; }
+.select-wrap { position: relative; display: block; }
+.select-wrap .icon { position: absolute; right: 14px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); pointer-events: none; }
+.field__error { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; font-weight: 500; color: var(--fg); }
+.field__error .icon { width: 18px; height: 18px; margin-top: 1px; }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; cursor: pointer; }
+.check input { appearance: none; -webkit-appearance: none; flex: none; width: 22px; height: 22px; margin: 0; border: 1px solid var(--fg); border-radius: var(--radius); display: grid; place-content: center; background: var(--bg); cursor: pointer; }
+.check input::after { content: ""; width: 12px; height: 7px; border-left: 1.5px solid var(--bg); border-bottom: 1.5px solid var(--bg); transform: translateY(-1px) rotate(-45deg) scale(0); transition: transform var(--dur-ui) var(--ease-ui); }
+.check input:checked { background: var(--fg); }
+.check input:checked::after { transform: translateY(-1px) rotate(-45deg) scale(1); }
+.check input:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+
+/* =====================================================================================
+   The four serving courts (Direction A's doors, client-approved, in C's tokens)
+   Each door is one of the club's four courts in plan at the true 78 x 36 ft over its photograph:
+   white lines as they are painted, the red net strung post to post (C's one ornament), and the
+   club's red ball serving on it (js/serve.js). From 720px a door is a court; below, a compact row.
+   ===================================================================================== */
+.court { position: relative; container-type: inline-size; }
+.court .ph__court { display: none; }                       /* the door draws its own court */
+.court .frame.has-img .frame__media::after { content: ""; position: absolute; inset: 0; background: var(--scrim); opacity: 0.28; pointer-events: none; }
+.court__lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.court__surface { fill: color-mix(in srgb, var(--ph-ground), var(--ph-court-mix) var(--ph-court-amt, 100%)); }
+.court:has(.frame--due) .court__surface, .court:has(.frame.has-img) .court__surface { fill: none; }
+.court__paint { fill: none; stroke: var(--ph-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.court:has(.frame.has-img) .court__paint { stroke: var(--white); stroke-opacity: 0.82; }
+.court__net { fill: none; stroke: var(--red); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.court__post { fill: var(--red); }
+.court__ball { position: absolute; left: 0; top: 0; z-index: var(--z-base); width: clamp(12px, 2.6cqi, 20px); height: clamp(12px, 2.6cqi, 20px);
+  pointer-events: none; will-change: transform; transform: translate(calc(16.5cqi - 50%), calc(27cqi - 50%)); }
+.court__ball svg { display: block; width: 100%; height: 100%; }
+/* Height is read from the ground shadow, which meets the ball at the bounce */
+.court__shadow { position: absolute; left: 0; top: 0; width: clamp(12px, 2.6cqi, 20px); height: clamp(5px, 1.1cqi, 8px); border-radius: 50%;
+  background: var(--night-deep); opacity: 0.5; filter: blur(1.5px); pointer-events: none; will-change: transform, opacity;
+  transform: translate(calc(16.5cqi - 50%), calc(27cqi - 50%)); }
+.doors--courts .door .frame__img { transition: opacity 400ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .doors--courts .door:hover .frame__img { transform: none; } }
+@media (max-width: 719px) {
+  .doors--courts .court__lines, .doors--courts .court__ball, .doors--courts .court__shadow { display: none; }
+  .doors--courts .court .ph__court { display: block; }
+  .doors--courts .court .frame.has-img .frame__media::after { content: none; }
+}
+@media (min-width: 720px) {
+  .doors--courts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 4.4vw, 72px) clamp(20px, 2.4vw, 36px); border-top: 0; }
+  .doors--courts .door { grid-template-columns: 1fr; gap: 0; padding: 0; border-bottom: 0; margin-top: 0; }
+  .doors--courts .door:nth-child(even) { margin-top: 0; }
+  .doors--courts .door .frame { --ar: 2 / 1 !important; }
+  .doors--courts .door .frame__tag { top: 0; bottom: auto; left: auto; right: 0; padding: 7px 10px; font-size: 11px; letter-spacing: 0.12em; gap: 7px; }
+  .doors--courts .door .frame__tag-mark { display: block; }
+  .doors--courts .door__body { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: var(--sp-4); row-gap: 10px; padding-top: var(--sp-4); }
+  .doors--courts .door__title { grid-column: 1; grid-row: 1; }
+  .doors--courts .door__facts { grid-column: 2; grid-row: 1; justify-content: flex-end; font-size: 13px; color: var(--fg-muted); }
+  .doors--courts .door__text, .doors--courts .door__cta { grid-column: 1 / -1; }
+  .doors--courts .door__cta { display: inline-flex; justify-self: start; }
+}
+
+/* =====================================================================================
+   The season ledger (Direction B's signature, drawn from content/membership.json and club.json)
+   The club year as one ruled baseline, May to April, months at their true width. Over the indoor
+   months one hairline arc, the dome. The changeover in early October is a dashed bracket, the
+   site's mark for "not settled yet" (the dome goes up; the indoor start is to be confirmed).
+   Sessions are laid on the baseline like a court line. Today is a small live chip.
+   ===================================================================================== */
+.ledger { --sky: clamp(96px, 16vw, 210px); margin: 0; display: grid; color: var(--fg); min-width: 0; }
+.ledger__sky { position: relative; height: var(--sky); }
+.ledger__dome { position: absolute; left: var(--l); width: var(--w); bottom: 0; height: 100%; color: var(--fg); }
+.ledger__inflate { position: absolute; inset: 0; transform-origin: 50% 100%; }
+.ledger__inflate svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.ledger__change { position: absolute; left: var(--l); width: var(--w); bottom: 0; height: 30%; border: 1px dashed var(--rule-strong); border-bottom: 0; }
+.ledger__session { position: absolute; left: var(--l); width: var(--w); bottom: 0; height: 5px; background: var(--fg); }
+.ledger__session + .ledger__session { bottom: 7px; }
+.ledger__session-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ledger__today { position: absolute; left: var(--x); bottom: -9px; height: 72%; width: 1px; background: var(--fg); transform-origin: 50% 100%; }
+.ledger__today[hidden] { display: none; }
+.ledger__today-label { position: absolute; left: 8px; top: 0; display: inline-flex; align-items: center; gap: 8px; min-height: 26px; padding: 0 10px; white-space: nowrap;
+  background: var(--chip-live-bg); color: var(--chip-live-fg); font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; }
+.ledger__today.is-late .ledger__today-label { left: auto; right: 8px; }
+.ledger__today-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--live); flex: none; }
+.ledger__months { display: grid; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--fg); }
+.ledger__months li { position: relative; padding: 10px 0 0 7px; font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); min-width: 0; overflow: hidden; }
+.ledger__months li::before { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 8px; background: var(--rule-strong); }
+.ledger__m-short { display: none; }
+.ledger__legend { display: grid; gap: 10px 32px; margin-top: var(--sp-4); }
+.ledger__seg { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
+.ledger__name { font: italic 300 1.1875rem/1.2 var(--font-serif); color: var(--fg); }
+.ledger__dates { font-size: var(--step-5); line-height: 1.45; color: var(--fg-muted); }
+.ledger__dates .num { color: var(--fg); }
+.confirm--tight { margin-left: 8px; }
+.confirm--tight .confirm__what { font-size: var(--step-5); }
+@media (min-width: 900px) { .ledger__legend { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } }
+@media (max-width: 639px) {
+  /* Phone: single letters (M J J A ...) were ambiguous. Every month keeps its tick; every other month
+     is named in three letters, like the alternate lines of a scoreboard. */
+  .ledger__m-short { display: none; }
+  .ledger__months li { padding-left: 4px; letter-spacing: 0.06em; overflow: visible; }
+  .ledger__months li:nth-child(even) .ledger__m-long { display: none; }
+}
+.ledger--mini { --sky: clamp(64px, 9vw, 110px); }
+
+/* =====================================================================================
+   Selectors: age band and level (spec: segmented control, radio-group semantics)
+   The options sit on one hairline like the lines of a draw; the chosen one is underlined by a
+   2px baseline that slides to it. Age bands are set as numerals in Spectral, like a programme.
+   ===================================================================================== */
+.seg--select { column-gap: clamp(20px, 3.4vw, 40px); }
+.seg--select button .num { font: 300 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1 var(--font-serif); font-variant-numeric: lining-nums; }
+.seg--select button { min-height: 56px; color: var(--fg-muted); }
+.seg--select button[aria-checked="true"] { color: var(--fg); }
+.seg--select button[aria-disabled="true"] { color: var(--fg-muted); opacity: 0.55; cursor: not-allowed; text-decoration: line-through; text-decoration-thickness: 1px; }
+.seg--level button .num { font: 500 15px/1 var(--font-sans); letter-spacing: 0.02em; }
+.seg--level button { min-height: var(--target); }
+.seg__why { margin-top: 10px; color: var(--fg-muted); }
+.seg__why[hidden] { display: none; }
+.select-label { display: block; margin-bottom: 6px; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+
+/* =====================================================================================
+   Inner-page heroes (rule 1: breadcrumbs, H1, one-sentence lede, the one action)
+   section: words on paper, a photograph across the net (Home's seam, shorter).
+   performance: the same on Blazer, High Performance only (rule 10). compact: words only.
+   ===================================================================================== */
+.hero--inner .crumbs { margin-bottom: clamp(16px, 2.4vw, 32px); }
+.hero--inner .hero__title { margin-top: 0; font-size: clamp(2.4rem, 0.8rem + 3.4vw, 4.25rem); }
+.hero--inner .hero__words { padding-top: clamp(20px, 3vh, 40px); }
+.hero--inner .hero__actions { align-items: center; gap: 10px 28px; }
+.hero--performance .hero__media .frame { --ph-ground: var(--night-raised); }
+@media (min-width: 900px) {
+  .hero--section .hero__grid, .hero--performance .hero__grid { height: clamp(560px, calc(86svh - var(--header-h)), 820px); grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+}
+@media (max-width: 599px) { .hero--inner .hero__actions .btn { flex: 1 1 100%; } }
+@media (max-width: 899px) {
+  .hero--inner .hero__media { margin-top: var(--sp-6); }
+  .hero--inner .frame { --ar: 4 / 3 !important; }
+}
+.hero--nomedia .hero__grid { height: auto; display: block; padding: 0; }
+.hero--nomedia .hero__words { max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; padding: clamp(24px, 4vw, 56px) var(--gutter) clamp(48px, 6vw, 96px); }
+.hero--nomedia .hero__title { max-width: 18ch; }
+.hero--nomedia .hero__lede { max-width: 40rem; }
+/* The typographic-1951 hero (Club History): the year folded across the net, set like a date on a
+   programme, no photograph. Copy-paste markup in BUILD.md. */
+.hero--1951 .numeral { margin-top: var(--sp-5); font-size: clamp(5rem, 2rem + 10vw, 11rem); }
+.crumbs-bar { padding-top: clamp(16px, 2vw, 28px); }
+
+/* =====================================================================================
+   Program card variants, price card, schedule and league rows live above (from the guide).
+   Additions: a row of cards, and the field order every program unit keeps (rule 19:
+   who, level, when, where, price, action).
+   ===================================================================================== */
+.pcards { display: grid; gap: var(--sp-4); }
+@media (min-width: 800px) { .pcards { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); } }
+.pcards .pcard { max-width: none; }
+.pcard__price { font: 300 clamp(28px, 1.4rem + 0.8vw, 36px)/1 var(--font-serif); font-variant-numeric: lining-nums; }
+.pcard__tax { display: block; margin-top: 6px; font: 400 13px/1.3 var(--font-sans); color: var(--fg-muted); }
+.tiers { display: grid; gap: var(--sp-4); }
+@media (min-width: 800px) { .tiers { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } .tiers .tier { max-width: none; } }
+.rates-wrap { overflow-x: auto; overscroll-behavior-x: contain; }
+.rates-wrap:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
+/* =====================================================================================
+   Coach card, with a real-shoot placeholder. The frame keeps the club's court plan and says
+   "To be photographed": these are portraits only a real session can make, never AI (slots.json).
+   ===================================================================================== */
+.coaches { display: grid; gap: var(--sp-6) var(--sp-4); }
+@media (min-width: 640px) { .coaches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .coaches { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.coach { display: grid; gap: var(--sp-3); align-content: start; }
+.coach .frame { --ar: 4 / 5; }
+.coach__role { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.coach__name { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.coach__bio { font-size: 16px; line-height: 1.55; color: var(--fg-muted); max-width: 46ch; }
+.coach--featured { gap: var(--sp-4); }
+@media (min-width: 1000px) { .coach--featured { grid-template-columns: 5fr 7fr; column-gap: var(--sp-6); align-items: end; } .coach--featured .coach__name { font-size: var(--step-1); } }
+
+/* =====================================================================================
+   Key facts strip: three or four large figures set like the numbers on a scoreboard card,
+   each with what it counts. Figures are Spectral 200, the club's numeral voice.
+   ===================================================================================== */
+.facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
+.facts li { display: grid; gap: 8px; align-content: start; padding: 22px 16px 22px 0; border-bottom: 1px solid var(--rule); }
+.facts__n { font: 200 clamp(3rem, 2rem + 3vw, 4.75rem)/0.9 var(--font-serif); letter-spacing: -0.02em; font-variant-numeric: lining-nums; }
+.facts__what { font-size: 15px; line-height: 1.45; color: var(--fg-muted); max-width: 22ch; }
+@media (min-width: 900px) { .facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } .facts li + li { padding-left: 24px; border-left: 1px solid var(--rule); } }
+
+/* Notice: an inline note in the reading column. A left rule, an icon, words; never red. */
+.notice { display: grid; grid-template-columns: 24px 1fr; gap: 12px; padding: 4px 0 4px 18px; border-left: 2px solid var(--fg); max-width: 60ch; font-size: 16px; line-height: 1.55; }
+.notice .icon { margin-top: 2px; }
+.notice--caution { border-left-style: dashed; }
+
+/* In-page nav: jump links for long pages. A sticky line of names on a hairline, the current one
+   underlined; on a phone it scrolls inside itself, never the page. */
+.inpage { position: sticky; top: var(--header-h); z-index: calc(var(--z-header) - 1); background: var(--bg); border-bottom: 1px solid var(--rule); }
+.inpage ol { display: flex; gap: clamp(18px, 3vw, 32px); list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.inpage a { display: inline-flex; align-items: center; min-height: 52px; white-space: nowrap; font: 500 15px/1 var(--font-sans); text-decoration: none; color: var(--fg-muted); box-shadow: inset 0 -2px 0 transparent; }
+.inpage a:hover, .inpage a[aria-current="true"] { color: var(--fg); box-shadow: inset 0 -2px 0 var(--fg); }
+
+/* Filter chips (leagues): the type filter with counts. Pressed state fills ink, like the chooser. */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { display: inline-flex; align-items: center; gap: 8px; min-height: var(--target); padding: 0 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); color: var(--fg); font: 500 15px/1 var(--font-sans); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters .num { font-size: 13px; opacity: 0.75; }
+
+/* Empty state: a court with no one on it, and one line that says what to do next. */
+.empty { display: grid; gap: 14px; justify-items: start; padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.empty__title { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.empty p { color: var(--fg-muted); max-width: 46ch; }
+
+/* Document link: type and size beside the name (a PDF the club publishes) */
+.doclink { display: inline-flex; align-items: baseline; gap: 12px; min-height: var(--target); text-decoration: none; }
+.doclink__meta { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+
+/* Demo banner: the booking flow books nothing, and says so on every screen */
+.demo-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 12px var(--gutter); background: var(--surface-alt); border-bottom: 1px dashed var(--rule-strong); font-size: 15px; }
+.demo-banner .chip { border-style: dashed; }
+
+/* A stub: a spec page whose source is not written yet */
+.stub { display: grid; gap: var(--sp-5); max-width: 52rem; }
+.stub__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.stub__list li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 16px; color: var(--fg-muted); }
+.stub__list .num { font-weight: 600; font-size: 13px; letter-spacing: 0.06em; color: var(--fg); }
+
+/* Home: the season ledger under What's happening */
+.happen__ledger { margin-top: clamp(32px, 4vw, 56px); }
+
+/* Phone reading floor, last on purpose (as in site.css) */
+@media (max-width: 599px) {
+  .coach__bio, .facts__what, .notice, .ledger__dates { font-size: 1rem; }
+}
+
+
+/* =====================================================================================
+   Integration (2 Oct 2026): shared parts promoted from page CSS (logs/requests-*.md).
+   ===================================================================================== */
+
+/* Compact hero with a side block (marker <!--@hero variant=compact ...-->aside<!--@/hero-->):
+   the words on the left, a card, a control or a status block on the right. */
+.hero--aside .hero__words { display: block; }
+.hero--aside .hero__aside { max-width: calc(var(--page) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter) clamp(48px, 6vw, 96px); }
+@media (min-width: 900px) {
+  .hero--aside .hero__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--sp-8);
+    max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); align-items: end; }
+  .hero--aside .hero__words { max-width: none; margin: 0; padding-inline: 0; }
+  .hero--aside .hero__aside { max-width: none; margin: 0; padding: 0 0 clamp(48px, 6vw, 96px); }
+}
+
+/* Opening statement: eyebrow left, statement right (High Performance, Our Club). */
+.intro__grid { display: grid; gap: var(--sp-5); }
+.intro__statement { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.625rem, 1.2rem + 1.5vw, 2.5rem); line-height: 1.22; max-width: 30ch; text-wrap: pretty; }
+.intro__aside { display: grid; gap: var(--sp-3); align-content: start; }
+@media (min-width: 1000px) { .intro__grid { grid-template-columns: 3fr 9fr; column-gap: var(--sp-6); } }
+
+/* Requirement callout: a 2px line down the left like the sideline, the rule in caps
+   (assessment, pre-approval, members only). Quiet: a secondary note on the strong hairline. */
+.callout { display: grid; gap: 10px; padding: 4px 0 4px 22px; border-left: 2px solid var(--fg); align-content: start; }
+.callout__title { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.callout p { font-size: 16px; line-height: 1.55; max-width: 56ch; }
+.callout--quiet { border-left-color: var(--rule-strong); }
+
+/* A chip that carries a sentence wraps on phones instead of overflowing. */
+.chip--wrap { white-space: normal; height: auto; min-height: 28px; line-height: 1.35; padding-block: 5px; text-align: left; }
+
+/* ---------- The camp family (requests-camps 1, 2): status line, the four camps either side of
+   the net, extras, policies and the Order of Play, one copy for the three season pages. ---------- */
+.camp-status { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+
+/* ---------- The four camps, either side of the net ----------
+   Story: the net divides Recreational from High Performance, as on the Camps hub and across the
+   site. Recreational plays on paper, the three High Performance camps on the night court. */
+.campcards { display: grid; gap: var(--sp-6); margin-top: var(--sp-5); }
+.campcard__day { font-size: var(--step-4); line-height: var(--lh-body); color: var(--fg-muted); max-width: 52ch; }
+.campcard__sub { display: block; margin-top: 8px; font: 500 15px/1.3 var(--font-sans); color: var(--fg-muted); }
+.campcard__note { display: block; }
+.campcard__note .confirm--tight { margin-left: 4px; }
+.campcards .pcard__title { font-size: clamp(28px, 1.4rem + 0.8vw, 36px); }
+
+.campcards__hp { position: relative; display: grid; gap: var(--sp-4); padding: var(--sp-7) var(--gutter); margin-inline: calc(var(--gutter) * -1); }
+.campcards__hp::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--red); transform-origin: 0 50%; }
+.campcards__hp-head { font: 800 clamp(2rem, 1.5rem + 2vw, 3.25rem)/1 var(--font-sans); letter-spacing: var(--track-display-sans); text-transform: uppercase; }
+.campcards__hp .pcard { max-width: none; }
+.campcard--other { max-width: 720px; }
+
+@media (min-width: 900px) {
+  .campcard--rec { max-width: none; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(32px, 4vw, 72px); align-items: start; }
+  .campcard--rec > .pcard__kicker, .campcard--rec > .pcard__title, .campcard--rec > .campcard__day, .campcard--rec > .btn { grid-column: 1; }
+  .campcard--rec > .fields { grid-column: 2; grid-row: 1 / span 4; }
+  .campcards__hp { margin-inline: 0; padding: var(--sp-7) clamp(24px, 3vw, 48px); border-radius: var(--radius); }
+}
+@media (min-width: 1100px) {
+  .campcards__hp { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+  .campcards__hp-head { grid-column: 1 / -1; }
+  .campcards__hp .pcard { grid-template-rows: auto auto 1fr auto; }
+  .campcards__hp .fields--compact > div { grid-template-columns: 1fr; }
+}
+
+/* ---------- Extras ---------- */
+.extras { margin-top: var(--sp-6); }
+.extras li { align-content: start; }
+.extras p .confirm--tight { margin-left: 4px; }
+@media (min-width: 900px) {
+  .extras { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(24px, 3vw, 48px); border-top: 0; }
+  .extras li { border-top: 1px solid var(--rule-strong); border-bottom: 0; }
+}
+
+/* ---------- Policies: one line, then the full text ---------- */
+.policies { display: grid; gap: var(--sp-5); }
+.policies__body { display: grid; gap: var(--sp-4); }
+.policies__links { display: flex; flex-wrap: wrap; gap: 12px 32px; }
+@media (min-width: 900px) {
+  .policies { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(32px, 5vw, 96px); align-items: start; }
+}
+@media (max-width: 479px) { .camp-status .chip { white-space: normal; min-height: 28px; padding-block: 6px; line-height: 1.2; } }
+
+@media (min-width: 900px) {
+  .campcards__hp--two { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+  .campcards__hp--two .campcards__hp-head { grid-column: 1 / -1; }
+  .campcards__hp--two .pcard { grid-template-rows: auto auto 1fr auto; }
+}
+@media (min-width: 900px) { .extras--two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Phones: long register labels wrap inside the card instead of leaving it */
+@media (max-width: 479px) {
+  .campcard .btn { max-width: 100%; height: auto; min-height: 48px; padding-block: 12px; text-align: center; }
+  .campcard .btn__label > span { white-space: normal; text-wrap: balance; line-height: 1.4; }
+}
+
+/* ---------- The week as an order of play ----------
+   Story: a tournament pins up its Order of Play each morning, courts across and times down. Here
+   the days run across and the sessions down. Every day carries the same sessions, so a parent
+   picks days, not a week. Each day's heading rule chalks in, Monday to Friday, once. */
+.oop { margin: var(--sp-6) 0 0; display: grid; gap: var(--sp-4); }
+.oop__cap { display: grid; gap: 4px; }
+.oop__title { font: 400 var(--step-3)/1.3 var(--font-serif); }
+.oop__board { width: 100%; min-width: 600px; border-collapse: collapse; table-layout: fixed; }
+.oop__board th, .oop__board td { padding: 14px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.oop__board thead th { position: relative; padding-bottom: 16px; border-bottom: 0; }
+.oop__board thead th:first-child { width: 26%; }
+.oop__board thead th:not(:first-child)::after { content: ""; position: absolute; left: 12px; right: 0; bottom: 0; height: 2px; background: var(--fg); transform-origin: 0 50%; }
+html.motion .oop__board thead th::after { transition: transform 500ms var(--ease-out) calc(var(--i, 0) * 70ms); }
+html.motion .oop__board:not(.is-drawn) thead th::after { transform: scaleX(0); }
+.oop__dow { display: block; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.oop__date { display: block; margin-top: 4px; font: 300 clamp(1.75rem, 1.4rem + 1vw, 2.5rem)/1 var(--font-serif); font-variant-numeric: lining-nums; }
+.oop__time { display: block; font: 400 19px/1.2 var(--font-serif); font-variant-numeric: lining-nums; }
+.oop__what { display: block; margin-top: 4px; font-size: 14px; font-weight: 400; color: var(--fg-muted); }
+.oop__slot { display: block; font-size: 14px; line-height: 1.45; }
+.oop__late th, .oop__late td { border-top: 1px dashed var(--rule-strong); }
+.oop__key { color: var(--fg-muted); }
+.oop__gap { margin-top: var(--sp-5); }
+.oop__gap .confirm--tight { margin-left: 4px; }
+
+/* Phones: the same order of play, folded. The five days sit in one row with their chalked rules,
+   and the sessions are listed once below, since every day carries the same ones. */
+.oop__compact { display: grid; gap: var(--sp-4); }
+.oop__days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; list-style: none; margin: 0; padding: 0; }
+.oop__days li { position: relative; padding-bottom: 12px; }
+.oop__days li::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--fg); transform-origin: 0 50%; }
+html.motion .oop__days li::after { transition: transform 500ms var(--ease-out) calc(var(--i, 0) * 70ms); }
+html.motion .oop__compact:not(.is-drawn) .oop__days li::after { transform: scaleX(0); }
+.oop__every { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.oop__compact .srow { grid-template-columns: 1fr; }
+@media (max-width: 699px) { .oop__wide { display: none; } }
+@media (min-width: 700px) { .oop__compact { display: none; } }
+
+/* ---------- Court plan (.cplan, requests-programs 1): true 78 x 36 ft geometry, generated by
+   logs/programs-gen/gen.py; the net in club red; players (.who), the coach and the ball basket. ---------- */
+.cplan { display: block; width: 100%; height: auto; overflow: visible; }
+.cplan__ground { fill: none; }
+.cplan__lines { fill: none; stroke: var(--fg-muted); stroke-width: 0.32; vector-effect: non-scaling-stroke; }
+.cplan__lines * { vector-effect: non-scaling-stroke; stroke-width: 1px; }
+.cplan__area { fill: var(--fg); fill-opacity: 0.07; stroke: var(--fg); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+.cplan__net { stroke: var(--red); stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.who { fill: var(--fg); }
+.who--coach { fill: var(--surface); stroke: var(--fg); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+.who__basket { fill: none; stroke: var(--fg); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+
+/* ---------- Level card and rally count (.lcard, .tally, [data-rally], requests-programs 2).
+   site.js plays every [data-rally] once when it comes into view. ---------- */
+/* A rally: two players on the baselines of that age's court, one cross-court shot between them,
+   and the club's count under the court: the balls each player hits, either side of a red net.
+   Filled balls are the low end of the club's range, hollow ones its top (4-5 each). On view the
+   rally is played ball by ball, left, right, left, the order the balls are struck. */
+.rally__path { fill: none; stroke: var(--fg); stroke-width: 1.25px; stroke-dasharray: 2 3; vector-effect: non-scaling-stroke; }
+.rally__ball { fill: none; stroke: var(--fg); stroke-width: 1.25px; vector-effect: non-scaling-stroke; }
+.tally { display: grid; grid-template-columns: 1fr 2px 1fr; align-items: center; gap: 10px; min-height: 14px; }
+.tally__side { display: flex; gap: 6px; flex-wrap: wrap; }
+.tally__side:first-child { justify-content: flex-start; flex-direction: row-reverse; }
+.tally__net { width: 2px; height: 22px; background: var(--red); }
+.tally__ball { width: 10px; height: 10px; border-radius: 50%; background: var(--fg); }
+.tally__ball--range { background: transparent; box-shadow: inset 0 0 0 1.25px var(--fg); }
+@media (prefers-reduced-motion: no-preference) {
+  .motion [data-rally] .tally__ball { opacity: 0; transform: scale(0.4); transition: opacity 140ms var(--ease-out), transform 220ms var(--ease-out); transition-delay: calc(var(--i) * 70ms); }
+  .motion [data-rally].is-played .tally__ball { opacity: 1; transform: none; }
+}
+.lcards { display: grid; gap: var(--sp-4); }
+@media (min-width: 900px) { .lcards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); } }
+.lcard { display: grid; grid-template-rows: auto auto auto 1fr auto auto; gap: 16px; padding: clamp(20px, 2.4vw, 32px); background: var(--surface); border: 1px solid var(--rule); border-top: 2px solid var(--fg); }
+.lcard__kicker { display: flex; gap: 8px; flex-wrap: wrap; }
+.lcard__title { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.lcard__plan { margin: 0; display: grid; gap: 8px; }
+.lcard__plan .small { font-size: 14px; }
+.lcard__test { font-size: 16px; line-height: 1.55; }
+.lcard .fields { align-self: end; }
+.lcard__btn { justify-self: start; }
+.lcard--off { align-self: start; border-top: 1px dashed var(--rule-strong); background: transparent; grid-template-rows: auto auto auto 1fr; }
+.lcard--off .lcard__title, .lcard--off .lcard__test { color: var(--fg-muted); }
+.lcard--off .cplan { opacity: 0.55; }

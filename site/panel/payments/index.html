@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en-CA" data-panel-page="payments" data-panel-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payments | TPTC staff panel (demo)</title>
+<meta name="description" content="Demo staff panel for Thornhill Park Tennis Club: Payments. Sample data; nothing is saved to a server or charged.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../assets/brand/favicon.svg" type="image/svg+xml">
+<script src="../js/boot.js"></script>
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../css/panel.css">
+<link rel="stylesheet" href="../css/payments.css">
+</head>
+<body class="pn pn--payments" data-shell="payments">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="pn-app">
+  <aside class="pn-side" data-shell-side></aside>
+  <div class="pn-body">
+    <div data-shell-top></div>
+    <main id="main" class="pn-main" tabindex="-1">
+      <header class="pn-head">
+        <div class="pn-head__words">
+          <p class="pn-kicker">Payments <span class="pn-sample">Sample data</span></p>
+          <h1 class="pn-title">Payments, refunds and <em>HST</em></h1>
+          <p class="pn-lede">Every payment as a record, the way a Stripe-backed panel shows it: what was paid, the HST in it, what is still to settle, and what was refunded under the club's own policy. Nothing here takes a card or moves money.</p>
+        </div>
+        <div class="pn-head__actions">
+          <button class="pn-btn pn-btn--quiet" type="button" data-py-export>Export CSV</button>
+          <button class="pn-btn pn-btn--ink" type="button" data-py-record>Record a payment</button>
+        </div>
+      </header>
+
+      <section class="pn-section" aria-labelledby="py-glance">
+        <h2 class="sr-only" id="py-glance">At a glance</h2>
+        <div class="pn-kpis" data-py-kpis></div>
+        <p class="pn-note py-asof" data-py-asof></p>
+      </section>
+
+      <section class="pn-section py-work" aria-labelledby="py-work-title">
+        <h2 class="sr-only" id="py-work-title">Payments workspace</h2>
+        <div class="pn-tabs py-tabs" role="tablist" aria-label="Payments views" data-py-tabs>
+          <button role="tab" type="button" id="py-t-ledger" aria-controls="py-p-ledger" aria-selected="true">Ledger</button>
+          <button role="tab" type="button" id="py-t-settle" aria-controls="py-p-settle" aria-selected="false" tabindex="-1">To settle <span class="py-count" data-py-count="settle"></span></button>
+          <button role="tab" type="button" id="py-t-refunds" aria-controls="py-p-refunds" aria-selected="false" tabindex="-1">Refunds</button>
+          <button role="tab" type="button" id="py-t-issues" aria-controls="py-p-issues" aria-selected="false" tabindex="-1">Failed and disputed <span class="py-count" data-py-count="issues"></span></button>
+          <button role="tab" type="button" id="py-t-payouts" aria-controls="py-p-payouts" aria-selected="false" tabindex="-1">Payouts</button>
+          <button role="tab" type="button" id="py-t-hst" aria-controls="py-p-hst" aria-selected="false" tabindex="-1">HST</button>
+        </div>
+        <div class="py-panel" role="tabpanel" id="py-p-ledger" aria-labelledby="py-t-ledger" tabindex="0" data-py-panel="ledger"></div>
+        <div class="py-panel" role="tabpanel" id="py-p-settle" aria-labelledby="py-t-settle" tabindex="0" data-py-panel="settle" hidden></div>
+        <div class="py-panel" role="tabpanel" id="py-p-refunds" aria-labelledby="py-t-refunds" tabindex="0" data-py-panel="refunds" hidden></div>
+        <div class="py-panel" role="tabpanel" id="py-p-issues" aria-labelledby="py-t-issues" tabindex="0" data-py-panel="issues" hidden></div>
+        <div class="py-panel" role="tabpanel" id="py-p-payouts" aria-labelledby="py-t-payouts" tabindex="0" data-py-panel="payouts" hidden></div>
+        <div class="py-panel" role="tabpanel" id="py-p-hst" aria-labelledby="py-t-hst" tabindex="0" data-py-panel="hst" hidden></div>
+        <noscript><p class="pn-note">The payments ledger needs JavaScript. Nothing here is saved to a server.</p></noscript>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="../js/facts.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/payments.js"></script>
+</body>
+</html>

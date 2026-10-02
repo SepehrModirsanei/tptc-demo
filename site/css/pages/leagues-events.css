@@ -1,0 +1,66 @@
+/* Leagues & Events: What can I join this season?
+   Page CSS, tokens only. Stories (logs/batch2-access.md): each kind of play numbered 01 to 05 like
+   the order of play on a tournament day; the filter counts are a draw sheet's entries per event; the
+   singles ladder drawn as its rungs, three up and three down, the place you would take marked. */
+
+/* 2. Season and type bar */
+.le-bar { display: grid; gap: var(--sp-5); margin-top: var(--sp-6); }
+.le-bar__season, .le-bar__types { display: grid; gap: var(--sp-3); align-content: start; }
+.le-bar__season { max-width: 34rem; }
+.le-filters button:disabled { opacity: 0.45; cursor: not-allowed; }
+.le-notes { display: grid; gap: var(--sp-2); margin-top: var(--sp-5); max-width: 70ch; color: var(--fg-muted); }
+
+/* A type: its order-of-play numeral, name and one line; photo beside from 900px */
+.le-type__grid { display: grid; gap: var(--sp-6); align-items: end; margin-bottom: var(--sp-6); }
+@media (min-width: 900px) { .le-type__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--sp-8); } }
+.le-type > .wrap > .le-type__head { margin-bottom: var(--sp-6); }
+.le-type__head { display: grid; gap: var(--sp-3); max-width: 44rem; }
+.le-type__n { font: 200 clamp(2.75rem, 2rem + 2.4vw, 4.25rem)/0.9 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; color: var(--fg-muted); padding-bottom: var(--sp-2); border-bottom: 1px solid var(--rule-strong); width: max-content; min-width: 3.5rem; }
+.le-type__lede { max-width: 52ch; }
+
+/* Rows: four fields in two pairs; the side holds status, how to join and one note */
+.le-rows .lrow__cells { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.le-desc { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--fg-muted); max-width: 40ch; }
+.le-side-note { color: var(--fg-muted); max-width: 30ch; }
+.le-rows .lrow__side .confirm { font-size: 14px; }
+@media (min-width: 900px) {
+  .le-rows .lrow { grid-template-columns: minmax(0, 4fr) minmax(0, 6fr) minmax(0, 3fr); }
+}
+
+/* Rules inside a row: a disclosure across the full row */
+.le-more { grid-column: 1 / -1; max-width: none; border-top: 1px solid var(--rule); margin-top: var(--sp-2); }
+.le-more .acc__btn { min-height: 52px; padding: 10px 0; }
+.le-more .acc__q { font-size: 19px; }
+.le-format { display: grid; gap: 0; margin: 0 0 var(--sp-5); border-top: 1px solid var(--rule); max-width: 62rem; }
+.le-format > div { display: grid; gap: 4px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.le-format dt { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.le-format dd { margin: 0; font-size: 16px; line-height: 1.55; max-width: 60ch; }
+@media (min-width: 800px) { .le-format > div { grid-template-columns: 13rem 1fr; gap: var(--sp-5); align-items: baseline; } }
+
+/* The ladder: eight rungs, the challenger's reach drawn by weight of line */
+.le-ladder { display: grid; gap: var(--sp-6); padding-bottom: var(--sp-5); }
+@media (min-width: 800px) { .le-ladder { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-8); align-items: start; } }
+.le-rungs { margin: 0; display: grid; gap: var(--sp-3); }
+.le-rungs__list { list-style: none; margin: 0; padding: 0 14px; position: relative; display: grid; max-width: 26rem; }
+.le-rungs__list::before, .le-rungs__list::after { content: ""; position: absolute; top: 0; bottom: 0; width: 1px; background: var(--fg); }
+.le-rungs__list::before { left: 0; }
+.le-rungs__list::after { right: 0; }
+.le-rungs__list li { display: grid; grid-template-columns: 2.25rem 1fr; align-items: center; min-height: 34px; border-bottom: 1px solid var(--rule); font-size: 14px; color: var(--fg-muted); }
+.le-rungs__list li:first-child { border-top: 1px solid var(--rule); }
+.le-rungs__list .num { font: 400 17px/1 var(--font-serif); color: var(--fg); }
+.le-rungs__list .is-up { border-bottom-color: var(--rule-strong); }
+.le-rungs__list .is-you { background: var(--fg); color: var(--bg); border-bottom-color: var(--fg); margin: 0 -13px; padding-left: 21px; }
+.le-rungs__list .is-you .num { color: var(--bg); }
+.le-rungs__list .is-down .le-rungs__tag { font-style: italic; }
+.le-rungs__tag { font: 500 12px/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.le-rungs__list .is-down .le-rungs__tag { font-style: normal; opacity: 0.8; }
+.le-ladder__rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.le-ladder__rules li { position: relative; padding-left: 20px; font-size: 16px; line-height: 1.55; max-width: 56ch; }
+.le-ladder__rules li::before { content: ""; position: absolute; left: 0; top: 0.78em; width: 10px; height: 1px; background: var(--fg-muted); }
+
+/* 8. Levels */
+.le-levels { display: grid; gap: var(--sp-6); }
+@media (min-width: 900px) { .le-levels { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--sp-8); align-items: start; } }
+.le-levels .acc__panel p { max-width: 62ch; }
+.le-more .acc__panel { max-width: none; justify-items: stretch; padding-right: 0; color: var(--fg); }
+.le-rungs__list { width: 100%; }

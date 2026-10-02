@@ -1,0 +1,16 @@
+/* Home only (loaded by the home page alone). Shared parts (hero, doors, serving courts, split,
+   strengths, happening cards, ledger, CTA) live in site.css and components.css. */
+
+/* ---------- Home: Why TPTC ---------- */
+.why__grid { display: grid; gap: var(--sp-6); }
+.why__head { display: grid; gap: var(--sp-4); align-content: start; }
+.why__photo { display: grid; gap: var(--sp-3); margin: 0; }
+.why__cap { display: grid; gap: 8px; max-width: 46ch; }
+.why__quote { font: italic 300 var(--step-3)/1.4 var(--font-serif); color: var(--fg); }
+@media (min-width: 900px) {
+  .why__grid { grid-template-columns: 5fr 6fr; column-gap: var(--sp-8); row-gap: var(--sp-7); align-items: start; }
+  .why__head { grid-column: 1; grid-row: 1; }
+  .why__photo { grid-column: 1; grid-row: 2; }
+  .strengths { grid-column: 2; grid-row: 1 / span 2; }
+}
+

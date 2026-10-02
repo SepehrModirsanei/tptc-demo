@@ -1,0 +1,303 @@
+/* P1, the demo booking flow (/court-bookings/book/). Tokens only.
+   The page reads as a service game held to love: steps on the left, the scorecard on the right,
+   the four courts drawn in plan at the true 78 x 36 ft. */
+
+/* ---------- The demo banner: on every step, above the hero ---------- */
+.bk-banner { line-height: 1.5; }
+.bk-banner strong { font-weight: 600; }
+.bk-banner__clock { flex-basis: 100%; color: var(--fg-muted); font-size: var(--step-5); }
+.bk-banner__clock strong { color: var(--fg); font-weight: 600; }
+.bk-banner__clock .confirm { font-size: var(--step-5); }
+
+/* ---------- Layout: the flow and its scorecard ---------- */
+.bk { padding-top: var(--sp-5); }
+.bk__grid { display: grid; gap: var(--sp-6); align-items: start; }
+.bk__grid[hidden] { display: none; }
+@media (min-width: 1000px) {
+  .bk__grid { grid-template-columns: minmax(0, 1fr) 320px; gap: var(--sp-7); }
+}
+@media (min-width: 1280px) { .bk__grid { grid-template-columns: minmax(0, 1fr) 360px; } }
+.bk__flow { display: grid; min-width: 0; }
+
+/* ---------- A step: a point in the game ---------- */
+.bk-step { margin: 0; padding: 0 0 var(--sp-6); border: 0; min-width: 0; border-top: 1px solid var(--rule); scroll-margin-top: calc(var(--header-h) + 24px); }
+.bk-step__head {
+  float: left; width: 100%; padding: 0; margin: 0 0 var(--sp-4);
+  display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; align-items: baseline; gap: 4px 12px; padding-top: var(--sp-4);
+}
+.bk-step__head + * { clear: both; }
+.bk-step__n { font: 300 var(--step-2)/1 var(--font-serif); color: var(--fg-muted); }
+.bk-step__t { font: 300 var(--step-2)/1.15 var(--font-serif); color: var(--fg); text-wrap: balance; }
+.bk-step__done { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); text-align: right; }
+.bk-step.is-done .bk-step__n { color: var(--fg); }
+.bk-step.is-waiting .bk-step__t { color: var(--fg-muted); }
+.bk-step.is-waiting { padding-bottom: var(--sp-4); }
+.bk-step__wait { clear: both; padding-left: 60px; color: var(--fg-muted); font-size: var(--step-5); }
+.bk-step__body { clear: both; display: grid; gap: var(--sp-4); min-width: 0; }
+.bk-step__body[hidden], .bk-step__wait[hidden] { display: none; }
+@media (max-width: 599px) {
+  .bk-step__head { grid-template-columns: 36px minmax(0, 1fr); }
+  .bk-step__done { grid-column: 2; text-align: left; }
+  .bk-step__wait { padding-left: 48px; }
+}
+
+/* ---------- Choice cards (who, players, the non-member payment versions) ---------- */
+.bk-opts { display: grid; gap: var(--sp-3); }
+@media (min-width: 640px) {
+  .bk-opts--2 { grid-template-columns: 1fr 1fr; }
+  .bk-opts--3 { grid-template-columns: repeat(3, 1fr); }
+}
+.bk-opt, .bk-pill, .bk-day, .bk-slot, .bk-court { position: relative; display: block; cursor: pointer; }
+.bk-opt input, .bk-pill input, .bk-day input, .bk-slot input, .bk-court input {
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: inherit; z-index: var(--z-base);
+}
+.bk-opt__face {
+  display: grid; gap: 6px; align-content: start; height: 100%; min-height: var(--target);
+  padding: 18px 20px 20px; border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  background: var(--bg); transition: box-shadow var(--dur-ui) var(--ease-ui), border-color var(--dur-ui) var(--ease-ui);
+}
+.bk-opt__title { font: 400 var(--step-3)/1.25 var(--font-serif); color: var(--fg); }
+.bk-opt__line { font-size: 15px; line-height: 1.5; color: var(--fg-muted); }
+.bk-opt__src { color: var(--fg-muted); }
+/* Chosen: the line doubles, the way a court line is painted twice as wide at the baseline */
+.bk-opt input:checked + .bk-opt__face { border-color: var(--fg); box-shadow: inset 0 0 0 1px var(--fg), inset 0 3px 0 0 var(--fg); }
+.bk-opt input:focus-visible + .bk-opt__face { outline: 2px solid var(--focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .bk-opt:hover .bk-opt__face { border-color: var(--fg); } }
+
+/* The players cards carry a small court: singles lights the singles court, doubles the alleys too */
+.bk-opt--play .bk-opt__face { grid-template-columns: 34px 1fr; column-gap: 16px; }
+.bk-opt--play .bk-opt__face > :not(.bk-mini) { grid-column: 2; }
+.bk-mini { grid-row: 1 / span 2; width: 34px; height: auto; align-self: start; }
+.bk-mini__l { fill: none; stroke: var(--fg-muted); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.bk-mini__net { fill: none; stroke: var(--red); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+.bk-mini__in { fill: var(--fg); opacity: 0.08; transition: opacity var(--dur-ui) var(--ease-ui); }
+.bk-opt input:checked + .bk-opt__face .bk-mini__in { opacity: 0.2; }
+.bk-opt input:checked + .bk-opt__face .bk-mini__l { stroke: var(--fg); }
+
+/* Sign-in and requirements line under Who */
+.bk-signin { display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: start; padding: 14px 0 0; border-top: 1px dashed var(--rule); font-size: 15px; line-height: 1.55; color: var(--fg-muted); max-width: 62ch; }
+.bk-signin[hidden] { display: none; }
+.bk-signin strong { color: var(--fg); font-weight: 600; }
+.bk-signin .icon { width: 18px; height: 18px; margin-top: 3px; color: var(--fg); }
+
+/* Sub-choices: length, guests, paying */
+.bk-sub { display: grid; gap: 10px; }
+.bk-sub[hidden] { display: none; }
+.bk-sub__label { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+.bk-sub .small { max-width: 60ch; }
+.bk-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.bk-pill > span {
+  display: inline-block; min-height: var(--target); padding: 13px 20px 0; white-space: nowrap;
+  border: 1px solid var(--rule-strong); border-radius: var(--radius); font: 500 15px/1 var(--font-sans);
+  transition: background-color var(--dur-ui) var(--ease-ui), color var(--dur-ui) var(--ease-ui);
+}
+.bk-pill input:checked + span { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.bk-pill input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .bk-pill:hover > span { border-color: var(--fg); } }
+
+.bk-stepper { display: inline-flex; align-items: center; border: 1px solid var(--rule-strong); border-radius: var(--radius); width: max-content; }
+.bk-stepper__b { display: grid; place-items: center; width: var(--target); height: var(--target); border: 0; background: none; cursor: pointer; }
+.bk-stepper__b:disabled { color: var(--fg-muted); opacity: 0.45; cursor: not-allowed; }
+.bk-stepper__b:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.bk-stepper__b .icon { width: 18px; height: 18px; }
+.bk-stepper__v { min-width: 48px; text-align: center; font: 300 var(--step-3)/1 var(--font-serif); border-inline: 1px solid var(--rule); padding: 11px 0; }
+
+/* ---------- Step 2: the date strip and its reach ----------
+   A dimension line, as on a court plan, measures the window: today plus 7 for members,
+   today plus 1 for non-members. The strip always shows all eight days, so the difference shows. */
+.bk-reach { position: relative; height: 28px; width: calc(var(--reach, 8) / 8 * 100%); transition: width var(--dur-turn) var(--ease-out); }
+/* Non-members reach one day: the line is too short to carry its label, so the label sits past its end, as a drawn dimension does */
+.bk-reach.is-short .bk-reach__n { left: 100%; transform: translate(0, -50%); padding-left: 8px; }
+.bk-reach__line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--fg); }
+.bk-reach__line::before, .bk-reach__line::after { content: ""; position: absolute; top: -6px; width: 1px; height: 13px; background: var(--fg); }
+.bk-reach__line::before { left: 0; }
+.bk-reach__line::after { right: 0; }
+.bk-reach__n { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 0 10px; background: var(--bg); font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; white-space: nowrap; }
+.bk-days { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); border: 1px solid var(--rule); border-radius: var(--radius); }
+.bk-day + .bk-day { border-left: 1px solid var(--rule); }
+.bk-day__face { display: grid; justify-items: center; gap: 4px; padding: 12px 2px 14px; min-height: 92px; text-align: center; transition: background-color var(--dur-ui) var(--ease-ui), color var(--dur-ui) var(--ease-ui); }
+.bk-day.is-weekend .bk-day__face { background: var(--surface-alt); }
+.bk-day__dow, .bk-day__m { font: 600 11px/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); }
+.bk-day__n { font: 300 clamp(1.5rem, 1.2rem + 1vw, 2.125rem)/1 var(--font-serif); color: var(--fg); }
+.bk-day__band, .bk-day__why { font-size: 12px; line-height: 1.25; color: var(--fg-muted); }
+.bk-day.is-off { cursor: not-allowed; }
+.bk-day.is-off .bk-day__n { color: var(--fg-muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+.bk-day input:checked + .bk-day__face { background: var(--fg); }
+.bk-day input:checked + .bk-day__face * { color: var(--bg); }
+.bk-day input:focus-visible + .bk-day__face { outline: 2px solid var(--focus); outline-offset: -4px; }
+@media (hover: hover) and (pointer: fine) { .bk-day:not(.is-off):hover .bk-day__n { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; } }
+@media (max-width: 639px) {
+  /* Too narrow to print: the band and the reason stay for screen readers */
+  .bk-day__band, .bk-day__why { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .bk-day__face { min-height: 76px; padding-inline: 0; }
+  .bk-day__dow { font-size: 10px; letter-spacing: 0.06em; }
+}
+.bk-days__note { max-width: 62ch; }
+
+/* ---------- Step 4: the hours, in the club's three fee bands ---------- */
+.bk-time__rule { color: var(--fg-muted); }
+.bk-slots { display: grid; gap: var(--sp-5); }
+.bk-band { display: grid; gap: 12px; }
+.bk-band__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding-bottom: 10px; border-bottom: 1px solid var(--rule-strong); }
+.bk-band__name { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.bk-band__when { font-size: 15px; color: var(--fg-muted); }
+.bk-band__fee { margin-left: auto; font-size: 15px; color: var(--fg-muted); }
+.bk-band__fee .num { font: 400 var(--step-3)/1 var(--font-serif); color: var(--fg); }
+.bk-band__slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 8px; }
+@media (max-width: 639px) { .bk-band__slots { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bk-band__fee { margin-left: 0; flex-basis: 100%; } }
+.bk-slot__face {
+  display: grid; grid-template-columns: 1fr auto; gap: 3px 8px; align-items: center; min-height: 78px;
+  padding: 12px 14px; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--bg);
+  transition: border-color var(--dur-ui) var(--ease-ui), background-color var(--dur-ui) var(--ease-ui), color var(--dur-ui) var(--ease-ui);
+}
+.bk-slot__t { grid-column: 1 / -1; font: 400 var(--step-3)/1.1 var(--font-serif); }
+.bk-slot__e { grid-column: 1 / -1; font-size: 13px; color: var(--fg-muted); }
+.bk-slot__s { grid-column: 1; grid-row: 3; white-space: nowrap; font-size: 13px; color: var(--fg-muted); }
+.bk-slot__x { grid-column: 1 / -1; font-size: 12.5px; color: var(--fg-muted); }
+/* Four tiny courts, in the plan's order: filled is booked, open is free, dashed is public hours */
+.bk-slot__dots { grid-column: 2; grid-row: 3; display: inline-flex; gap: 3px; }
+.bk-slot__dots i { display: block; width: 6px; height: 13px; border: 1px solid currentColor; border-radius: 1px; }
+.bk-slot__dots i.is-taken { background: currentColor; opacity: 0.55; }
+.bk-slot__dots i.is-public { border-style: dashed; opacity: 0.7; }
+.bk-slot.is-off { cursor: not-allowed; }
+.bk-slot.is-off .bk-slot__face { color: var(--fg-muted); background: transparent; border-style: dashed; }
+.bk-slot.is-off .bk-slot__t { text-decoration: line-through; text-decoration-thickness: 1px; }
+.bk-slot input:checked + .bk-slot__face { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+.bk-slot input:checked + .bk-slot__face > * { color: var(--bg); }
+.bk-slot input:focus-visible + .bk-slot__face { outline: 2px solid var(--focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .bk-slot:not(.is-off):hover .bk-slot__face { border-color: var(--fg); } }
+
+/* ---------- Step 4: the four courts, in plan ---------- */
+.bk-plan { display: grid; gap: var(--sp-3); padding-top: var(--sp-4); border-top: 1px dashed var(--rule); scroll-margin-top: calc(var(--header-h) + 24px); }
+.bk-plan[hidden] { display: none; }
+.bk-plan__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; }
+.bk-plan__at { margin-left: 6px; font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--fg-muted); }
+.bk-plan__key { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+/* The key is drawn as the plan is: a tiny court, its sideline, and the same light or dimming */
+.bk-key { --court: color-mix(in srgb, var(--ph-ground), var(--ph-court-mix) var(--ph-court-amt, 100%)); display: inline-block; width: 11px; height: 20px; border-radius: 1px; margin-left: 6px; background: var(--court); box-shadow: inset 0 0 0 2px var(--court), inset 0 0 0 3px var(--ph-line); }
+.bk-key:first-child { margin-left: 0; }
+.bk-key--taken { background: linear-gradient(color-mix(in srgb, var(--bg) 60%, transparent), color-mix(in srgb, var(--bg) 60%, transparent)), var(--court); box-shadow: inset 0 0 0 2px transparent, inset 0 0 0 3px color-mix(in srgb, var(--ph-line) 40%, transparent); }
+.bk-key--in { background: linear-gradient(color-mix(in srgb, var(--ph-line) 26%, transparent), color-mix(in srgb, var(--ph-line) 26%, transparent)), var(--court); }
+.bk-courts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(8px, 2.4vw, 28px); max-width: 640px; }
+.bk-court__face { display: grid; justify-items: center; gap: 6px; padding-bottom: 6px; }
+.bk-court__plan { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.bk-court__ground { fill: color-mix(in srgb, var(--ph-ground), var(--ph-court-mix) var(--ph-court-amt, 100%)); }
+.bk-court__in { fill: var(--ph-line); opacity: 0; transition: opacity var(--dur-ui) var(--ease-ui); }
+.bk-court__hatch { fill: var(--bg); opacity: 0; transition: opacity var(--dur-ui) var(--ease-ui); }
+.bk-court__lines { fill: none; stroke: var(--ph-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.bk-court__net { fill: none; stroke: var(--red); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.bk-court__post { fill: var(--red); }
+.bk-court__name { font: 400 var(--step-3)/1.1 var(--font-serif); }
+.bk-court__state { font: 600 11px/1.2 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); text-align: center; }
+/* A booked court is dimmed under the dome's light, not removed: you see it is there */
+.bk-court.is-taken, .bk-court.is-public { cursor: not-allowed; }
+.bk-court.is-taken .bk-court__hatch { opacity: 0.6; }
+.bk-court.is-public .bk-court__hatch { opacity: 0.45; }
+.bk-court.is-public .bk-court__plan { outline: 1px dashed var(--rule-strong); outline-offset: 3px; }
+.bk-court.is-taken .bk-court__name, .bk-court.is-public .bk-court__name { color: var(--fg-muted); }
+/* Free: hovering shows the lines you would play inside; chosen, the court's lights come up there */
+@media (hover: hover) and (pointer: fine) { .bk-court.is-free:hover .bk-court__in { opacity: 0.12; } }
+.bk-court input:checked + .bk-court__face .bk-court__in { opacity: 0.26; }
+.bk-court input:checked + .bk-court__face .bk-court__plan { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--fg); }
+.bk-court input:checked + .bk-court__face .bk-court__state { color: var(--fg); }
+.bk-court input:focus-visible + .bk-court__face .bk-court__plan { outline: 2px solid var(--focus); outline-offset: 5px; }
+.bk-plan__cap, .bk-plan__public { max-width: 62ch; }
+.bk-plan__public[hidden] { display: none; }
+
+/* ---------- Step 5: check, then confirm (game point) ---------- */
+.bk-sum { max-width: 640px; }
+@media (min-width: 640px) { .bk-sum > div { grid-template-columns: 110px 1fr; } }
+.bk-bill { max-width: 640px; display: grid; gap: 10px; }
+.bk-bill__lines { display: grid; }
+.bk-bill__lines li { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-bottom: 1px dashed var(--rule); font-size: 15px; color: var(--fg-muted); }
+.bk-bill__lines li .num { color: var(--fg); }
+.bk-bill__total { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-top: 6px; }
+.bk-bill__sum { font: 300 var(--step-2)/1 var(--font-serif); }
+.bk-bill__tax { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.bk-cancel { max-width: 640px; }
+.bk-cancel strong { font-weight: 600; }
+.bk-checks { display: grid; gap: 10px; max-width: 640px; }
+.bk-checks li { display: grid; grid-template-columns: 20px 1fr; gap: 12px; font-size: 15px; line-height: 1.55; }
+.bk-checks .icon { width: 18px; height: 18px; margin-top: 3px; }
+.bk-confirm { display: grid; gap: 12px; justify-items: start; padding-top: var(--sp-3); }
+.bk-confirm .small { max-width: 56ch; }
+.bk-confirm .field__error[hidden] { display: none; }
+.bk-opts--pay { margin-bottom: 4px; }
+
+/* ---------- The scorecard ---------- */
+.bk-card { min-width: 0; }
+.bk-card__in { display: grid; gap: var(--sp-4); padding: var(--sp-4); border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); }
+.bk-card__top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.bk-card__demo { border-style: dashed; }
+.bk-score { display: grid; gap: 10px; padding-bottom: var(--sp-4); border-bottom: 1px solid var(--rule); }
+.bk-score__v { font: 300 clamp(2.25rem, 1.8rem + 1.2vw, 3rem)/1 var(--font-serif); letter-spacing: -0.01em; }
+.bk-score__k { max-width: 32ch; }
+/* Four pips, one per point: a point won is a ball struck, filled, never the live colour */
+.bk-pips { display: flex; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.bk-pips li { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--fg); transition: background-color var(--dur-ui) var(--ease-ui), transform var(--dur-ui) var(--ease-out); }
+.bk-pips li.is-won { background: var(--fg); }
+.bk-card__rows { display: grid; margin: 0; }
+.bk-card__rows > div { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px dashed var(--rule); }
+.bk-card__rows dt { font: 600 var(--step-6)/1.6 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.bk-card__rows dd { margin: 0; font-size: 15px; line-height: 1.45; }
+.bk-card__rows dd.is-empty { color: var(--fg-muted); font-style: italic; font-family: var(--font-serif); }
+.bk-card__total { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 4px 12px; }
+.bk-card__total .small { grid-column: 1 / -1; }
+.bk-card__sum { font: 300 var(--step-2)/1 var(--font-serif); }
+@media (min-width: 1000px) {
+  .bk-card { position: sticky; top: calc(var(--header-h) + 24px); }
+}
+/* Below 1000px the scorecard rides at the foot of the screen: the score, the total, the next step */
+@media (max-width: 999px) {
+  .bk-card { position: sticky; bottom: 0; z-index: var(--z-tag); margin-inline: calc(-1 * var(--gutter)); grid-row: 2; }
+  .bk-card__in { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px 16px; padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom, 0px)); border: 0; border-top: 1px solid var(--rule-strong); border-radius: 0; box-shadow: 0 -12px 28px -20px var(--shadow-tint); }
+  .bk-card__top, .bk-card__rows, .bk-score__k, .bk-card__total .label, .bk-card__total .small { display: none; }
+  .bk-score { grid-template-columns: auto auto; align-items: center; justify-content: start; gap: 12px; padding: 0; border: 0; }
+  .bk-score__v { font-size: 1.625rem; }
+  .bk-card__total { grid-template-columns: auto; justify-items: end; }
+  .bk-card__sum { font-size: 1.375rem; }
+  .bk-card__next { grid-column: 1 / -1; }
+}
+
+/* ---------- Game: the confirmation ---------- */
+.bk-done { display: grid; gap: var(--sp-6); outline: none; }
+.bk-done[hidden] { display: none; }
+.bk-done__head { display: grid; gap: var(--sp-3); max-width: 56rem; }
+.bk-done__score { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; }
+.bk-done__game { font: 300 var(--step-display)/0.9 var(--font-serif); letter-spacing: -0.02em; font-style: italic; }
+.bk-done__ref { margin-left: 4px; color: var(--fg-muted); letter-spacing: 0.08em; }
+.bk-done__title em { display: inline; }
+.bk-done__grid { display: grid; gap: var(--sp-6); }
+@media (min-width: 1000px) { .bk-done__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--sp-7); } }
+.bk-done__ticket { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: var(--sp-4); align-items: start; padding: var(--sp-4); border: 1px solid var(--rule-strong); border-radius: var(--radius); }
+@media (min-width: 640px) { .bk-done__ticket { grid-template-columns: 140px minmax(0, 1fr); } }
+.bk-done__plan { width: 100%; height: auto; border-radius: var(--radius); }
+.bk-done__plan .bk-court__in { opacity: 0.26; }
+.bk-done__fields { border-top: 0; }
+.bk-done__fields > div:first-child { padding-top: 0; }
+@media (min-width: 640px) { .bk-done__fields > div { grid-template-columns: 96px 1fr; } }
+.bk-done__side { display: grid; gap: var(--sp-4); align-content: start; }
+.bk-done__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+.bk-again { background: none; border: 0; padding: 0; min-height: var(--target); cursor: pointer; }
+.bk-done__h { font: 400 var(--step-3)/1.2 var(--font-serif); }
+.bk-before li { grid-template-columns: 40px 1fr; padding: 16px 0; }
+.bk-before__t { font: 600 16px/1.35 var(--font-sans); margin: 0 0 4px; }
+
+/* Two ends of the same court: the net between them is the club's decision */
+.bk-ends { display: grid; gap: var(--sp-5); padding-top: var(--sp-6); border-top: 1px solid var(--rule); }
+.bk-ends__pair { display: grid; gap: var(--sp-5); position: relative; }
+@media (min-width: 800px) {
+  .bk-ends__pair { grid-template-columns: 1fr 1fr; gap: var(--sp-8); }
+  .bk-ends__pair::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: var(--red); }
+}
+@media (max-width: 799px) {
+  .bk-ends__pair::before { content: ""; order: 1; height: 2px; background: var(--red); }
+  .bk-end:last-child { order: 2; }
+}
+.bk-end { display: grid; gap: 10px; align-content: start; max-width: 44ch; }
+.bk-end__t { font: 300 var(--step-2)/1.15 var(--font-serif); }
+/* Booked courts lose their light: lines and net fade, so free reads at a glance in both themes */
+.bk-court.is-taken .bk-court__lines, .bk-court.is-public .bk-court__lines { opacity: 0.4; }
+.bk-court.is-taken .bk-court__net, .bk-court.is-taken .bk-court__post { opacity: 0.5; }
+.bk-confirm { scroll-margin-top: calc(var(--header-h) + 24px); scroll-margin-bottom: 160px; }
+.bk-done__ticket { align-self: start; }

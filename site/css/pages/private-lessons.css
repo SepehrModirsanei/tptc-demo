@@ -1,0 +1,48 @@
+/* Private Lessons: how do I get a private coach.
+   Stories: each rate card is drawn as who stands on the court. The coach (a ring, with the ball
+   basket beside them) feeds from just behind the service line; across the red net, one player
+   at the baseline for a private, two side by side for a semi-private. The price is the only
+   display number on the page, set like a scoreboard figure. Court plans from logs/programs-gen. */
+
+/* ---------- How it works ---------- */
+.pl-how__grid { display: grid; gap: var(--sp-6); }
+@media (min-width: 1000px) { .pl-how__grid { grid-template-columns: 5fr 7fr; gap: var(--sp-8); align-items: start; } }
+.pl-how .steps p { margin-top: 6px; font-size: 16px; color: var(--fg-muted); }
+
+/* ---------- Rates ---------- */
+.pl-rates__head { margin-bottom: var(--sp-6); }
+/* Head beside the cards from 1100px, the same 4:8 rhythm as How it works, so the two rate cards
+   fill their column instead of leaving an empty third of the court. */
+@media (min-width: 1100px) {
+  .pl-rates__grid { display: grid; grid-template-columns: 4fr 8fr; gap: var(--sp-8); align-items: start; }
+  .pl-rates__head { margin-bottom: 0; position: sticky; top: calc(var(--header-h, 72px) + var(--sp-5)); }
+  .pl-rates .pl-cards { max-width: none; }
+  /* Keep "Semi-private" on one line in the narrower column, so both cards line up row by row. */
+  .pl-rates .pl-card__title { font-size: clamp(2.25rem, 1rem + 2vw, 3rem); white-space: nowrap; }
+}
+.pl-cards { display: grid; gap: var(--sp-4); }
+@media (min-width: 800px) { .pl-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 32px); max-width: 1040px; } }
+.pl-card { display: grid; gap: 18px; align-content: start; padding: clamp(22px, 3vw, 40px); background: var(--surface); border: 1px solid var(--rule); border-top: 2px solid var(--fg); }
+.pl-card__title { font: 300 var(--step-1)/1 var(--font-serif); }
+.pl-card__plan { margin: 0; display: grid; gap: 8px; }
+.pl-card__plan .small { font-size: 14px; }
+.pl-card__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.pl-card__from { width: 100%; font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.pl-card__amt { font: 300 clamp(3rem, 2.2rem + 2.4vw, 4.5rem)/0.95 var(--font-serif); font-variant-numeric: lining-nums; }
+.pl-card__tax { font-size: 16px; color: var(--fg-muted); }
+.pl-rates__note { margin-top: var(--sp-5); font-size: 16px; max-width: 70ch; }
+
+/* ---------- Who it is for ---------- */
+.pl-who__grid { display: grid; gap: var(--sp-5); }
+.pl-who .h2 { max-width: 16ch; }
+.pl-who__words { display: grid; gap: 14px; align-content: start; max-width: 52ch; }
+@media (min-width: 1000px) { .pl-who__grid { grid-template-columns: 7fr 5fr; gap: var(--sp-8); align-items: end; } }
+
+/* ---------- FAQ teaser ---------- */
+.pl-faq__grid { display: grid; gap: var(--sp-6); }
+@media (min-width: 1000px) { .pl-faq__grid { grid-template-columns: 4fr 8fr; gap: var(--sp-8); } }
+
+/* ---------- Request ---------- */
+.pl-request__grid { display: grid; gap: var(--sp-6); }
+@media (min-width: 1000px) { .pl-request__grid { grid-template-columns: 6fr 5fr; gap: var(--sp-8); align-items: start; } }
+.pl-request .contact-card a { overflow-wrap: anywhere; }

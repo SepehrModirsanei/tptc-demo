@@ -1,0 +1,38 @@
+/* Programs hub: five doors, grouped by who they are for.
+   Story: a draw sheet. Each audience label sits on a bracket that spans its own doors, the way a
+   draw groups its sections; the doors still step down alternately, a rally across the row. */
+
+.prog { padding-top: 0; }
+
+/* Phone and tablet: the group label opens its run of door rows */
+.prog-doors { border-top: 0; }
+.prog-group { display: grid; gap: 10px; padding: var(--sp-5) 0 var(--sp-2); border-bottom: 1px solid var(--rule); }
+.prog-group:first-child { padding-top: 0; }
+.prog-group .label { color: var(--fg-muted); }
+.prog-group__bracket { display: none; }
+
+@media (min-width: 900px) {
+  .prog-doors { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--sp-6); }
+  .prog-doors .prog-group { grid-column: 1 / -1; padding: var(--sp-3) 0 0; border-bottom: 0; }
+  .prog-doors .door:nth-child(even) { margin-top: 0; }
+  .prog-doors .door:nth-of-type(even) { margin-top: clamp(32px, 4vw, 64px); }
+}
+
+/* Desktop: five columns; the labels take the first row, each spanning its own doors */
+@media (min-width: 1100px) {
+  .prog-doors { grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: var(--sp-4); }
+  .prog-doors .door { grid-row: 2; }
+  .prog-doors .prog-group { grid-row: 1; padding: 0; }
+  .prog-doors .prog-group--kids { grid-column: 1 / 4; }
+  .prog-doors .prog-group--adults { grid-column: 4 / 5; }
+  .prog-doors .prog-group--any { grid-column: 5 / 6; }
+  /* The bracket: a hairline with its two end ticks dropping toward the doors it groups */
+  .prog-group__bracket { display: block; position: relative; height: 10px; border-top: 1px solid var(--rule-strong); }
+  .prog-group__bracket::before, .prog-group__bracket::after { content: ""; position: absolute; top: -1px; width: 1px; height: 10px; background: var(--rule-strong); }
+  .prog-group__bracket::before { left: 0; }
+  .prog-group__bracket::after { right: 0; }
+  .prog-doors .door__title { font-size: clamp(1.5rem, 1.1rem + 0.6vw, 2rem); }
+}
+
+/* Paper section into the paper closing band: the band's own top padding is the gap (the doors run straight into the closing band). */
+.prog { padding-bottom: 0; }

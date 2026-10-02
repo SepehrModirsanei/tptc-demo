@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en-CA" data-panel-page="members" data-panel-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Members | TPTC staff panel (demo)</title>
+<meta name="description" content="Demo staff panel for Thornhill Park Tennis Club: members, households, Fall and Winter 2026/27 renewals and each member's history. Sample data; nothing is saved to a server or charged.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../assets/brand/favicon.svg" type="image/svg+xml">
+<script src="../js/boot.js"></script>
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../css/panel.css">
+<link rel="stylesheet" href="../css/members.css">
+</head>
+<body class="pn pn--members" data-shell="members">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="pn-app">
+  <aside class="pn-side" data-shell-side></aside>
+  <div class="pn-body">
+    <div data-shell-top></div>
+    <main id="main" class="pn-main" tabindex="-1">
+      <header class="pn-head">
+        <div class="pn-head__words">
+          <p class="pn-kicker">Members <span class="pn-sample">Sample data</span></p>
+          <h1 class="pn-title">Every household, <em>season to season</em></h1>
+          <p class="pn-lede">Who plays here, who has not renewed for the indoor season yet, and everything the club knows about each member in one place: household, memberships, courts, programs, payments and notes.</p>
+        </div>
+        <div class="pn-head__actions">
+          <button class="pn-btn pn-btn--quiet" type="button" data-mb-export>Export this list</button>
+          <button class="pn-btn pn-btn--ink" type="button" data-mb-signup>Walk someone through sign-up</button>
+        </div>
+      </header>
+
+      <section class="pn-section mb-glance" aria-labelledby="mb-glance-h">
+        <h2 class="sr-only" id="mb-glance-h">Memberships at a glance</h2>
+        <div class="pn-kpis" data-mb-kpis></div>
+      </section>
+
+      <section class="pn-section mb-ends" aria-labelledby="mb-ends-h">
+        <div class="pn-section__head">
+          <h2 class="pn-h2" id="mb-ends-h">Change of ends: outdoor 2026 to indoor 2026/27</h2>
+          <p class="pn-muted">Households, counted either side of the net between the two seasons.</p>
+        </div>
+        <div data-mb-ledger></div>
+      </section>
+
+      <section class="pn-section mb-work" aria-label="Members, renewals and the waitlist">
+        <div class="pn-tabs mb-tabs" role="tablist" aria-label="Members views" data-mb-tabs>
+          <button type="button" role="tab" id="mb-tab-list" aria-controls="mb-panel-list" aria-selected="true">People <span class="mb-tabcount" data-mb-count="list"></span></button>
+          <button type="button" role="tab" id="mb-tab-renewals" aria-controls="mb-panel-renewals" aria-selected="false" tabindex="-1">Renewals due <span class="mb-tabcount" data-mb-count="renewals"></span></button>
+          <button type="button" role="tab" id="mb-tab-waitlist" aria-controls="mb-panel-waitlist" aria-selected="false" tabindex="-1">Indoor waitlist <span class="mb-tabcount" data-mb-count="waitlist"></span></button>
+        </div>
+        <div class="mb-panel" role="tabpanel" id="mb-panel-list" aria-labelledby="mb-tab-list" data-mb-panel="list"></div>
+        <div class="mb-panel" role="tabpanel" id="mb-panel-renewals" aria-labelledby="mb-tab-renewals" data-mb-panel="renewals" hidden></div>
+        <div class="mb-panel" role="tabpanel" id="mb-panel-waitlist" aria-labelledby="mb-tab-waitlist" data-mb-panel="waitlist" hidden></div>
+      </section>
+
+      <p class="pn-note mb-foot" data-mb-foot></p>
+    </main>
+  </div>
+</div>
+<script src="../js/facts.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/members.js"></script>
+</body>
+</html>

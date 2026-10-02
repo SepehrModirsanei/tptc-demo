@@ -1,0 +1,890 @@
+/* TPTC Direction C, "Whites": base, layout and components.
+   Court geometry is the ornament: baselines, the centre mark, service lines,
+   tramlines and the net become rules, dividers, markers and grids. */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-synthesis: none;
+  background: var(--bg);
+  scroll-padding-top: calc(var(--header-h) + 24px);
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--step-4);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+img, svg, video { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+p, h1, h2, h3, h4, ul, ol, dl, dd, figure { margin: 0; }
+ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
+.theme-night, .theme-paper { background: var(--bg); color: var(--fg); }
+
+.wrap {
+  width: 100%;
+  max-width: calc(var(--page) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.num { font-variant-numeric: lining-nums proportional-nums; }
+/* Columns of prices: Spectral's default figures are tabular and lining, and its period and comma stay narrow */
+.tnum { font-family: var(--font-serif); font-weight: 400; font-variant-numeric: lining-nums; letter-spacing: 0; }
+.icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: butt; stroke-linejoin: miter; }
+.icon--20 { width: 20px; height: 20px; }
+.icon--16 { width: 16px; height: 16px; }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+:focus:not(:focus-visible) { outline: none; }
+/* Touch (ui-ux-pro-max pass): no double-tap zoom delay on any control */
+a, button, input, select, textarea, label, summary, [role="button"] { touch-action: manipulation; }
+
+.skip {
+  position: fixed; left: var(--gutter); top: 8px; z-index: var(--z-skip);
+  display: inline-flex; align-items: center; min-height: var(--target); padding: 0 18px; background: var(--fg); color: var(--bg);
+  font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase;
+  text-decoration: none; transform: translateY(-160%);
+  transition: transform var(--dur-ui) var(--ease-ui);
+}
+.skip:focus { transform: none; }
+
+/* ---------- Type ---------- */
+.display, .h1, .h2, .h3 { font-family: var(--font-serif); font-weight: 300; letter-spacing: -0.005em; text-wrap: balance; }
+.display { font-size: var(--step-display); line-height: var(--lh-display); letter-spacing: -0.012em; }
+.h1, .h2 { font-size: var(--step-1); line-height: 1.04; }
+.h3 { font-size: var(--step-2); line-height: 1.12; font-weight: 300; }
+.display em, .h1 em, .h2 em, .h3 em { font-style: italic; }
+/* Italic descender clearance: a headline that carries italic gets 1.1 leading at least */
+.display:has(em), .h1:has(em), .h2:has(em) { line-height: 1.1; }
+.lede { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-3); line-height: 1.5; letter-spacing: 0.005em; max-width: var(--measure); text-wrap: pretty; }
+.body { font-size: var(--step-4); line-height: var(--lh-body); max-width: var(--measure); color: var(--fg-muted); text-wrap: pretty; }
+.small { font-size: var(--step-5); line-height: 1.5; color: var(--fg-muted); }
+.label {
+  font-family: var(--font-sans); font-weight: 600; font-size: var(--step-6);
+  line-height: 1.2; letter-spacing: var(--track-label); text-transform: uppercase;
+}
+.sans-display {
+  font-family: var(--font-sans); font-weight: 650; letter-spacing: var(--track-display-sans);
+  line-height: 0.94; text-wrap: balance;
+}
+
+/* Eyebrow: capitals led by a service-line "T" */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-sans); font-weight: 600; font-size: var(--step-6);
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg);
+}
+.eyebrow::before {
+  content: ""; flex: none; width: 14px; height: 7px; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='7'%3E%3Cpath d='M0 .5H14M7 0V7' stroke='%23000' fill='none'/%3E%3C/svg%3E") center / 14px 7px no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='7'%3E%3Cpath d='M0 .5H14M7 0V7' stroke='%23000' fill='none'/%3E%3C/svg%3E") center / 14px 7px no-repeat;
+}
+
+/* ---------- Court lines: the ornament system ---------- */
+/* Baseline with a centre mark pointing into the court */
+.baseline { position: relative; height: 1px; background: var(--rule-strong); transform-origin: center; }
+.baseline::after {
+  content: ""; position: absolute; left: 50%; top: 0; width: 1px; height: 8px;
+  background: inherit; transform: translateX(-50%);
+}
+.baseline--soft { background: var(--rule); }
+/* Tramline: the doubles alley, two parallel hairlines */
+.tramline { height: 7px; border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); transform-origin: left; }
+/* Net: a line with posts beyond both ends */
+.net-h { position: relative; height: 1px; background: var(--rule-strong); transform-origin: center; }
+.net-h::before, .net-h::after { content: ""; position: absolute; top: -2px; width: 5px; height: 5px; background: var(--fg); }
+.net-h::before { left: -10px; }
+.net-h::after { right: -10px; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: var(--z-header);
+  color: var(--fg);
+  view-transition-name: site-header;
+}
+.site-header__bg {
+  position: absolute; inset: 0; background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  opacity: 0; transition: opacity var(--dur-ui) var(--ease-ui);
+}
+.site-header.is-scrolled .site-header__bg,
+.site-header.is-open .site-header__bg { opacity: 1; }
+.site-header__row {
+  position: relative; display: flex; align-items: center; gap: var(--sp-3);
+  height: var(--header-h);
+}
+
+/* Logo: the vector redraw (assets/brand/). Colour on paper; the reversed white on night and in
+   dark mode (the --logo-col / --logo-rev switches live in tokens.css and on .theme-night). The
+   lockup sits 32px tall (211px wide, over its 200px minimum); below 480px and on the tight 1024 to
+   1279px row the mark (TPTC and the ball) stands in for it. */
+.logo {
+  display: inline-flex; align-items: center; text-decoration: none; color: var(--logo);
+  margin-right: auto; min-height: 44px; flex: none;
+}
+.logo__full, .logo__mark { display: block; }
+.logo__mark { display: none; }
+.logo__img { height: 32px; width: auto; }
+.logo__img--col { display: var(--logo-col, block); }
+.logo__img--rev { display: var(--logo-rev, none); }
+.theme-night, .logo--reversed { --logo-col: none; --logo-rev: block; }
+@media (max-width: 479px) { .logo__full { display: none; } .logo__mark { display: block; } }
+
+.nav { display: none; }
+.nav__list { display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0; }
+.nav__link {
+  position: relative; display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px;
+  font: 600 12px/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; background: none; border: 0; cursor: pointer; color: inherit; white-space: nowrap;
+}
+.nav__link::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 9px; height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: right; transition: transform var(--dur-ui) var(--ease-ui);
+}
+.nav__link[aria-current="page"]::after, .nav__link[aria-current="true"]::after { transform: scaleX(1); }
+.nav__chev { width: 10px; height: 10px; transition: transform var(--dur-ui) var(--ease-ui); }
+.nav__trigger[aria-expanded="true"] .nav__chev { transform: rotate(180deg); }
+@media (hover: hover) and (pointer: fine) {
+  .nav__link:hover::after { transform: scaleX(1); transform-origin: left; }
+}
+
+/* Mega panel */
+.nav__panel {
+  position: absolute; left: 0; right: 0; top: 100%;
+  background: var(--bg); color: var(--fg);
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  visibility: hidden; opacity: 0; transform: translateY(-6px);
+  transition: opacity var(--dur-ui) var(--ease-ui), transform var(--dur-ui) var(--ease-ui), visibility 0s linear var(--dur-ui);
+}
+.nav__panel.is-open { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+html:not(.js) .has-panel:focus-within .nav__panel { visibility: visible; opacity: 1; transform: none; }
+.nav__panel-grid { display: grid; grid-template-columns: 3fr 9fr; gap: var(--sp-6); padding-block: var(--sp-6) var(--sp-6); }
+.nav__panel-intro { display: grid; gap: var(--sp-3); align-content: start; }
+.nav__panel-note { font-family: var(--font-serif); font-size: var(--step-3); line-height: 1.4; color: var(--fg); max-width: 20ch; }
+.nav__panel-list { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--rule); }
+.nav__panel-list li { border-right: 1px solid var(--rule); }
+.nav__panel-list a {
+  display: grid; gap: 10px; align-content: start; min-height: 132px; padding: 4px 20px 8px; text-decoration: none; height: 100%;
+}
+.nav__panel-list .icon { margin-bottom: 8px; color: var(--fg-muted); transition: color var(--dur-ui) var(--ease-ui); }
+.nav__panel-name { font-family: var(--font-serif); font-size: 22px; line-height: 1.15; font-weight: 300; }
+.nav__panel-meta { font-size: var(--step-5); line-height: 1.4; color: var(--fg-muted); }
+@media (hover: hover) and (pointer: fine) {
+  .nav__panel-list a:hover .icon { color: var(--fg); }
+  .nav__panel-list a:hover .nav__panel-name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+}
+
+.header-cta { flex: none; }
+.menu-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-width: 44px; height: 44px; padding: 0 2px 0 8px; background: none; border: 0; cursor: pointer; color: inherit;
+}
+.menu-btn__label { font: 600 12px/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; }
+.menu-btn__lines { position: relative; width: 22px; height: 12px; }
+.menu-btn__lines::before, .menu-btn__lines::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor;
+  transition: transform var(--dur-ui) var(--ease-ui);
+}
+.menu-btn__lines::before { top: 0; }
+.menu-btn__lines::after { bottom: 0; }
+.menu-btn[aria-expanded="true"] .menu-btn__lines::before { transform: translateY(5.25px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] .menu-btn__lines::after { transform: translateY(-5.25px) rotate(-45deg); }
+/* Under 480px the word Menu leaves the screen but stays the button's accessible name
+   (visually hidden, never display:none, so the button is never announced unnamed) */
+@media (max-width: 479px) { .menu-btn__label { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; } }
+
+@media (min-width: 1024px) {
+  .nav { display: block; }
+  .menu-btn { display: none; }
+  .header-cta { margin-left: var(--sp-3); }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .nav__link { padding: 0 8px; letter-spacing: 0.08em; }
+  .nav__link::after { left: 8px; right: 8px; }
+  .site-header .logo__full { display: none; }
+  .site-header .logo__mark { display: block; }
+}
+
+/* ---------- Mobile nav sheet ---------- */
+.mnav {
+  position: fixed; inset: 0; z-index: var(--z-sheet);
+  display: flex; flex-direction: column;
+  background: var(--bg); color: var(--fg);
+  transform: translateY(-100%);
+  transition: transform var(--dur-ui) var(--ease-in-out);
+  overflow: hidden;
+}
+.mnav[hidden] { display: none; }
+.mnav.is-open { transform: none; transition-duration: 360ms; }
+.mnav__top { display: flex; align-items: center; height: var(--header-h); border-bottom: 1px solid var(--rule); flex: none; }
+.mnav__close {
+  display: inline-flex; align-items: center; gap: 10px; height: 44px; min-width: 44px; justify-content: center;
+  background: none; border: 0; cursor: pointer; font: 600 12px/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase;
+}
+.mnav__body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding-block: var(--sp-3) var(--sp-5); position: relative; }
+.mnav__list { list-style: none; margin: 0; padding: 0; }
+.mnav__list > li { border-bottom: 1px solid var(--rule); }
+.mnav__link {
+  display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 64px;
+  padding: 10px 0; background: none; border: 0; text-align: left; cursor: pointer; text-decoration: none;
+  font-family: var(--font-serif); font-weight: 300; font-size: 30px; line-height: 1.1; letter-spacing: -0.005em; color: var(--fg);
+}
+.mnav__link .num { font: 500 12px/1 var(--font-sans); letter-spacing: 0.1em; color: var(--fg-muted); }
+.mnav__plus { position: relative; width: 16px; height: 16px; flex: none; }
+.mnav__plus::before, .mnav__plus::after { content: ""; position: absolute; background: currentColor; }
+.mnav__plus::before { left: 0; right: 0; top: 7.5px; height: 1px; }
+.mnav__plus::after { top: 0; bottom: 0; left: 7.5px; width: 1px; transition: transform var(--dur-ui) var(--ease-ui); }
+.mnav__link[aria-expanded="true"] .mnav__plus::after { transform: scaleY(0); }
+.mnav__sub { list-style: none; margin: 0; padding: 0 0 var(--sp-3) 0; display: grid; }
+.mnav__sub a {
+  display: grid; gap: 2px; min-height: 44px; padding: 9px 0 9px 22px;
+  text-decoration: none; font-size: 16px; font-weight: 500; position: relative;
+}
+.mnav__sub a::before { content: ""; position: absolute; left: 2px; top: 18px; width: 4px; height: 4px; background: var(--fg); opacity: 0.5; }
+.mnav__sub a span:last-child { font-size: 13px; color: var(--fg-muted); font-weight: 400; }
+.mnav__sub a[aria-current="page"] span:first-child { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.mnav__utility { display: flex; flex-wrap: wrap; gap: 4px 20px; list-style: none; margin: var(--sp-5) 0 0; padding: 0; }
+.mnav__utility a { display: inline-flex; align-items: center; min-height: 44px; gap: 8px; font-size: 15px; text-decoration: none; }
+.mnav__foot { flex: none; padding-block: var(--sp-3) calc(var(--sp-3) + env(safe-area-inset-bottom)); border-top: 1px solid var(--rule); background: var(--bg); }
+.mnav__court { position: absolute; right: 0; bottom: 76px; width: min(230px, 100%); height: auto; pointer-events: none; z-index: 0; }
+.mnav__court line { stroke: var(--rule-soft); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mnav__body, .mnav__foot, .mnav__top { position: relative; z-index: var(--z-base); }
+.mnav__list > li, .mnav__utility, .mnav__foot { transition: opacity var(--dur-ui) var(--ease-out), transform 700ms var(--ease-out); }
+html.motion .mnav:not(.is-open) .mnav__list > li,
+html.motion .mnav:not(.is-open) .mnav__utility { opacity: 0; transform: translateY(16px); }
+html.motion .mnav.is-open .mnav__list > li { transition-delay: calc(120ms + var(--i, 0) * 50ms); }
+html.motion .mnav.is-open .mnav__utility { transition-delay: 470ms; }
+body.is-locked { overflow: hidden; }
+
+/* ---------- Buttons: the Press primitive ---------- */
+.btn {
+  --btn-bg: transparent; --btn-fg: var(--fg); --btn-bd: var(--fg); --btn-fill: var(--fg); --btn-fg-hover: var(--bg);
+  position: relative; isolation: isolate; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 52px; padding: 0 26px; border: 1px solid var(--btn-bd); border-radius: var(--radius);
+  background: var(--btn-bg); color: var(--btn-fg); text-decoration: none; cursor: pointer;
+  font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; white-space: nowrap;
+  transition: transform var(--dur-press) var(--ease-ui);
+}
+.btn__fill { position: absolute; inset: -1px; z-index: var(--z-under); background: var(--btn-fill); transform: scaleY(0); transform-origin: bottom; transition: transform var(--dur-ui) var(--ease-ui); }
+.btn__label { display: grid; overflow: hidden; }
+.btn__label > span { grid-area: 1 / 1; transition: opacity var(--dur-ui) var(--ease-ui); }
+.btn__label > span + span { opacity: 0; color: var(--btn-fg-hover); }
+.btn .icon { transition: transform var(--dur-ui) var(--ease-ui); }
+.btn:active { transform: scale(0.98); }
+/* Tactile press on every other control (design-taste 4.5): a 1px push, transform only */
+.link:active .link__text, .link:active .icon { transform: translateY(1px); }
+.next-door:active > div, .door:active .door__body { transform: translateY(1px); }
+.btn--primary { --btn-bg: var(--red); --btn-fg: var(--on-brand); --btn-bd: var(--red); --btn-fill: var(--fg); --btn-fg-hover: var(--bg); }
+/* On a night ground the hover fill is the dome at night, not chalk: the label stays white the
+   whole way up (white on red 4.55:1, white on night 17:1), so no frame of the rise puts ink on red. */
+.theme-night .btn--primary { --btn-fill: var(--night-deep); --btn-fg-hover: var(--on-brand); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn--primary { --btn-fill: var(--night-deep); --btn-fg-hover: var(--on-brand); } }
+:root[data-theme="dark"] .btn--primary { --btn-fill: var(--night-deep); --btn-fg-hover: var(--on-brand); }
+.btn--secondary { --btn-bg: transparent; --btn-fg: var(--fg); --btn-bd: var(--rule-strong); --btn-fill: var(--fg); --btn-fg-hover: var(--bg); }
+/* Ink: the page's own action (View programs, Request an assessment, Become a member).
+   Red stays with Register now, so registration is the one red button in any view.
+   Ink on paper, chalk on night; the club red rises only on hover. */
+.btn--ink { --btn-bg: var(--fg); --btn-fg: var(--bg); --btn-bd: var(--fg); --btn-fill: var(--red); --btn-fg-hover: var(--on-brand); }
+.btn--sm { min-height: 44px; padding: 0 18px; }
+.btn--block { display: flex; width: 100%; }
+.btn[aria-disabled="true"], .btn:disabled { --btn-bg: var(--bg-alt); --btn-fg: var(--fg-muted); --btn-bd: var(--rule); cursor: not-allowed; }
+.btn.is-hover .btn__fill { transform: scaleY(1); }
+/* A forced, settled hover (system sheet) also paints the fill as the button ground, so the
+   settled label is measured against what is really under it. */
+.btn.is-hover { background: var(--btn-fill); }
+.btn.is-hover .btn__label > span:first-child { opacity: 0; }
+.btn.is-hover .btn__label > span + span { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .btn:not(:disabled):not([aria-disabled="true"]):hover .btn__fill { transform: scaleY(1); }
+  .btn:not(:disabled):not([aria-disabled="true"]):hover .btn__label > span:first-child { opacity: 0; }
+  .btn:not(:disabled):not([aria-disabled="true"]):hover .btn__label > span + span { opacity: 1; }
+  .btn:hover .icon { transform: translateX(4px); }
+}
+
+/* Text link with arrow: a full 1px underline at rest; on hover a heavier 2px line draws
+   left to right over it and leaves to the right. The arrow always sits inline after the text. */
+.link {
+  position: relative; display: inline-flex; align-items: center; justify-content: flex-start; flex-wrap: nowrap; gap: 10px; min-height: 44px;
+  font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase;
+  text-decoration: none; color: var(--fg); background: none; border: 0; padding: 0; cursor: pointer;
+}
+.link__text { position: relative; padding-block: 5px; }
+.link__text::before, .link__text::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; background: currentColor; pointer-events: none;
+}
+.link__text::before { height: 1px; opacity: 0.45; }
+.link__text::after {
+  height: 2px; transform: scaleX(0); transform-origin: right; transition: transform var(--dur-ui) var(--ease-ui);
+}
+.link .icon { width: 18px; height: 18px; transition: transform var(--dur-ui) var(--ease-ui); }
+.link.is-hover .link__text::after { transform: scaleX(1); transform-origin: left; }
+@media (hover: hover) and (pointer: fine) {
+  .link:hover .link__text::after { transform: scaleX(1); transform-origin: left; }
+  .link:hover .icon { transform: translateX(4px); }
+}
+.link--quiet { font: 500 var(--step-5)/1.4 var(--font-sans); letter-spacing: 0; text-transform: none; }
+
+.inline-link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--rule-strong); }
+.inline-link:hover { text-decoration-color: currentColor; }
+.ext-mark { display: inline-block; width: 13px; height: 13px; margin-left: 6px; stroke-width: 1.5; }
+
+/* ---------- Status chips and the live accent ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: 9px; min-height: 28px; padding: 0 11px;
+  border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg); white-space: nowrap;
+}
+.chip .icon { width: 14px; height: 14px; }
+.chip--live { background: var(--chip-live-bg); color: var(--chip-live-fg); border-color: var(--chip-live-bg); }
+.theme-night .chip--live { background: var(--night-raised); color: var(--chalk); border-color: var(--line-chalk-strong); }
+.chip--muted { color: var(--fg-muted); border-color: var(--rule); }
+.chip--confirm { border-style: dashed; color: var(--fg-muted); }
+.chip--confirm::before { content: ""; width: 8px; height: 8px; border-radius: 50%; border: 1px solid currentColor; flex: none; }
+.live-dot { position: relative; width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--live); transform-origin: 50% 100%; }
+/* The live signal is the ball itself (optic yellow, the only place it appears), and it does what a
+   ball does before play: the server's bounces at the baseline. Three bounces, then stillness, the
+   moment before the toss. Pushed down from the hand it accelerates (ease-in), flattens for an
+   instant on the court (squash from its contact point), and decelerates back up to the hand
+   (ease-out), the same height each time because the hand meets it. Seen once on arrival; the
+   system sheet can replay it. Off under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .live-dot { animation: tptc-bounce 640ms linear 3; }
+  html.js .chip--live:not(.is-seen) .live-dot { animation: none; }
+  .is-replay .live-dot { animation-name: tptc-bounce-b; }
+}
+@keyframes tptc-bounce {
+  0%   { transform: translateY(0); animation-timing-function: cubic-bezier(0.5, 0, 1, 0.6); }
+  47%  { transform: translateY(5px) scale(1, 1); animation-timing-function: linear; }
+  50%  { transform: translateY(5px) scale(1.3, 0.7); animation-timing-function: linear; }
+  53%  { transform: translateY(5px) scale(1, 1); animation-timing-function: cubic-bezier(0, 0.4, 0.5, 1); }
+  100% { transform: translateY(0); }
+}
+@keyframes tptc-bounce-b {
+  0%   { transform: translateY(0); animation-timing-function: cubic-bezier(0.5, 0, 1, 0.6); }
+  47%  { transform: translateY(5px) scale(1, 1); animation-timing-function: linear; }
+  50%  { transform: translateY(5px) scale(1.3, 0.7); animation-timing-function: linear; }
+  53%  { transform: translateY(5px) scale(1, 1); animation-timing-function: cubic-bezier(0, 0.4, 0.5, 1); }
+  100% { transform: translateY(0); }
+}
+
+/* ---------- Club to confirm ---------- */
+.confirm { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; color: var(--fg); }
+.confirm__tag {
+  display: inline-flex; align-items: center; gap: 7px; transform: translateY(-1px);
+  font: 600 11px/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted);
+}
+.confirm__tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; border: 1px solid currentColor; }
+.confirm__what {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  text-decoration: underline dotted; text-decoration-color: var(--rule-strong); text-decoration-thickness: 1px; text-underline-offset: 5px;
+}
+.confirm--block {
+  display: grid; gap: 10px; padding: 20px 22px 22px; border: 1px dashed var(--rule-strong); border-radius: var(--radius); position: relative;
+}
+.confirm--block::after { content: ""; position: absolute; right: -1px; top: -1px; width: 14px; height: 14px; border-top: 1px solid var(--fg); border-right: 1px solid var(--fg); }
+.confirm--block .confirm__what { font-size: var(--step-3); text-decoration: none; line-height: 1.35; }
+.confirm__why { font-size: var(--step-5); color: var(--fg-muted); line-height: 1.5; }
+
+/* ---------- Frames: placeholders and photographs ---------- */
+.frame { position: relative; margin: 0; }
+.frame__box { position: relative; overflow: clip; aspect-ratio: var(--ar, 3 / 2); background: var(--ph-ground); container-type: inline-size; }
+.frame__inner, .frame__media, .frame__drift { position: absolute; inset: 0; }
+.frame[data-drift] .frame__drift { inset: -7% 0; }
+.frame__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); filter: var(--photo-filter); transition: opacity 400ms var(--ease-out); }
+html.js .frame__img:not(.is-loaded) { opacity: 0; }
+.frame.has-img .ph { visibility: hidden; }
+/* A frame whose photograph exists is plain ground under it: no navy court while it loads or fades in.
+   If the file fails, onerror drops frame--due and the full placeholder court and label appear. */
+.frame--due .ph__court, .frame--due .ph { visibility: hidden; }
+.frame__cap { margin-top: 12px; font-size: 13px; line-height: 1.5; color: var(--fg-muted); max-width: 60ch; }
+.frame__cap b { font-weight: 600; color: var(--fg); }
+
+.ph { position: absolute; inset: 0; color: var(--ph-text); pointer-events: none; }
+.ph__court { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* In a narrow frame the label needs the lower third: the court keeps to the top two thirds, whole */
+@container (max-width: 560px) { .ph__court { height: 64%; } }
+.ph__court line { stroke: var(--ph-line); stroke-width: 1; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: 0 0; }
+.ph__court .net { stroke: var(--red); stroke-opacity: 1; stroke-width: 1.5; }
+.ph__court rect.cl-p { fill: var(--red); transform-box: fill-box; transform-origin: center; }
+/* A court is a coloured surface with white lines: Blazer by day, a lifted navy at night */
+.ph__court .cl-surface { fill: color-mix(in srgb, var(--ph-ground), var(--ph-court-mix, #14254A) var(--ph-court-amt, 100%)); }
+.ph__label {
+  position: absolute; left: clamp(12px, 5cqi, 40px); right: clamp(12px, 5cqi, 40px); bottom: clamp(12px, 5cqi, 36px);
+  display: grid; gap: clamp(4px, 1.4cqi, 10px); max-width: 40ch; justify-items: start;
+}
+.ph__label > span { background: var(--ph-ground); box-decoration-break: clone; -webkit-box-decoration-break: clone; padding-right: 8px; }
+.ph__desc { padding-block: 1px; }
+/* Label plate: the capital kicker is the site's 12px label step; the id and the shot, the captions, are 13px and up */
+.ph__kicker { display: inline-flex; align-items: center; gap: 10px; font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: 0.18em; text-transform: uppercase; }
+.ph__kicker::before { content: ""; width: 7px; height: 7px; border: 1px solid currentColor; flex: none; }
+.ph__id { font: 500 clamp(13px, 2.8cqi, 14px)/1.25 var(--font-sans); letter-spacing: 0.02em; color: var(--ph-muted); }
+.ph__desc { font: italic 300 clamp(16px, 3.6cqi, 23px)/1.34 var(--font-serif); text-wrap: pretty; }
+.ph__ratio { position: absolute; top: clamp(10px, 3.5cqi, 20px); right: clamp(10px, 3.5cqi, 22px); font: 600 11px/1 var(--font-sans); letter-spacing: 0.16em; color: var(--ph-muted); }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; list-style: none; margin: 0; padding: 0; font-size: 13px; line-height: 1.3; }
+.crumbs li { display: inline-flex; align-items: center; gap: 12px; color: var(--fg-muted); }
+/* Separator: a 4px net-post square at half strength. Never a horizontal rule, which reads as a dash. */
+/* Separator: a plain solidus in the muted ink (design-taste: no stacked middle dots on one line) */
+.crumbs li + li::before { content: "/"; flex: none; color: var(--fg-muted); font-weight: 300; }
+.crumbs a { position: relative; display: inline-flex; align-items: center; min-height: var(--target); text-decoration: none; color: var(--fg-muted); }
+/* A short crumb (Home) keeps its type width but gets a 44px wide hit area */
+.crumbs a::after { content: ""; position: absolute; top: 0; bottom: 0; left: -6px; right: -6px; min-width: var(--target); }
+.crumbs a:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.crumbs [aria-current="page"] { color: var(--fg); }
+
+/* ---------- Sections ---------- */
+.section { padding-block: var(--section); position: relative; }
+.section--tight { padding-block: clamp(48px, 2rem + 4vw, 96px); }
+.section--chalk { background: var(--surface-alt); --ph-ground: var(--surface); --bg: var(--surface-alt); }
+.sect-head { display: grid; gap: var(--sp-4); }
+.sect-head .baseline { margin-bottom: var(--sp-5); }
+.sect-head__row { display: grid; gap: var(--sp-4); }
+/* Headline over its explainer, one column, never a split header (design-taste 4.7) */
+.sect-head--stack { max-width: 44rem; }
+.sect-head--stack .body { margin-top: 2px; }
+@media (min-width: 900px) {
+  .sect-head__row { grid-template-columns: 6fr 5fr; align-items: end; column-gap: var(--sp-6); }
+}
+
+/* ---------- The net: the one structural ornament (frontend-design pass) ----------
+   A single club-red line with a post at each end. It is the seam between words and court in
+   the hero, it divides Recreational from High Performance, and it folds the founding year. */
+.netline { position: absolute; z-index: var(--z-mark); background: var(--red); pointer-events: none; }
+.netline__post { position: absolute; width: 6px; height: 6px; background: var(--red); }
+.netline--v { top: 0; bottom: 0; left: -1px; width: 2px; transform-origin: 50% 0; }
+.netline--v .netline__post { left: -2px; }
+.netline--v .netline__post:first-child { top: -6px; }
+.netline--v .netline__post:last-child { bottom: -6px; }
+html.motion .netline[data-chalk-self] { transition: transform 1100ms var(--ease-out) 120ms; }
+
+/* The folded year: 19 on our side of the net, 51 on the court */
+.year { --ys: var(--year-size, clamp(5.5rem, 2rem + 9vw, 11.5rem));
+  position: absolute; z-index: var(--z-mark); width: 0; height: 0; margin: 0; pointer-events: none;
+  font: 200 var(--ys)/0.8 var(--font-serif); letter-spacing: -0.02em; }
+/* The club's second headline line, set as the caption of the year it names: "A community since 19 | 51".
+   The H1 carries the same words for screen readers; this block is aria-hidden. */
+.year .year__since { right: 0.85rem; bottom: calc(var(--ys) * 0.8 + 0.9rem);
+  font: italic 300 clamp(1.25rem, 0.8rem + 1.1vw, 1.875rem)/1.1 var(--font-serif); letter-spacing: 0; color: var(--fg); padding-bottom: 0.12em; }
+.year span { position: absolute; bottom: 0; white-space: nowrap; }
+.year__a { right: 0.12em; color: var(--fg); }
+.year__b { left: 0.12em; color: var(--on-photo); text-shadow: 0 2px 28px rgba(10, 20, 42, 0.35); }
+/* Until the hero photograph has arrived, 51 is set in ink on the plain ground, so it never vanishes */
+.hero:not(:has(.frame.has-img)) .year--hero .year__b { color: var(--fg); text-shadow: none; }
+
+/* ---------- Interim photography tag: one switch, html.interim-photos ---------- */
+/* A print-proof slug set flush into the frame's top-right corner, not a floating pill: square,
+   no gap, so it reads as part of the frame. Remove html.interim-photos and every slug goes. */
+.frame__tag {
+  display: none; position: absolute; z-index: var(--z-tag); top: 0; right: 0; align-items: center; gap: 8px;
+  padding: 8px 12px 8px 10px; border-radius: 0; background: var(--tag-bg); color: var(--tag-fg);
+  font: 600 11px/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; pointer-events: none;
+}
+.frame__tag-mark { width: 10px; height: 10px; fill: none; stroke: var(--red); stroke-width: 1; }
+html.interim-photos .frame.has-img .frame__tag { display: inline-flex; }
+
+/* ---------- Home: hero, the thesis ---------- */
+.hero { position: relative; }
+.hero__words { display: flex; flex-direction: column; align-items: flex-start; }
+.hero__title { margin-top: clamp(20px, 2.4vw, 32px); font-size: clamp(2.75rem, 0.9rem + 4.4vw, 5.25rem); line-height: 1.02; }
+.hero__title .line { display: block; }
+.hero__lede { margin-top: clamp(20px, 2.4vw, 32px); max-width: 30rem; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(24px, 2.8vw, 40px); }
+.hero__media { position: relative; }
+.hero__media .frame { --ph-ground: var(--surface-alt); }
+
+@media (min-width: 900px) {
+  .hero__grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    height: clamp(620px, calc(100svh - var(--header-h)), 940px);
+    padding-left: max(var(--gutter), calc((100% - var(--page)) / 2));
+  }
+  .hero__words { justify-content: flex-start; padding: clamp(40px, 6vh, 88px) clamp(32px, 4vw, 72px) 0 0; }
+  .hero__media .netline { top: 0; bottom: 0; left: -1px; width: 2px; height: auto; transform-origin: 50% 0; }
+  .hero__media .netline__post { left: -2px; }
+  .hero__media .netline__post:first-child { top: 0; }
+  .hero__media .netline__post:last-child { bottom: -6px; }
+  html.motion .hero__media .netline[data-chalk-self]:not(.is-drawn) { transform: scaleY(0); }
+  .frame--fill, .frame--fill .frame__box { height: 100%; }
+  .frame--fill .frame__box { aspect-ratio: auto !important; }
+  .hero .ph__ratio { display: none; }
+  .year--hero { left: 0; bottom: clamp(28px, 5vh, 56px); }
+}
+@media (max-width: 899px) {
+  .hero__words { padding: clamp(28px, 6vw, 48px) var(--gutter) 0; }
+  .hero__media { margin-top: calc(var(--year-size) * 0.8 + 84px); --year-size: clamp(5rem, 3rem + 10vw, 7.5rem); }
+  .hero__media .netline { left: 0; right: 0; top: -1px; height: 2px; transform-origin: 0 50%; }
+  .hero__media .netline__post { top: -2px; }
+  .hero__media .netline__post:first-child { left: 0; }
+  .hero__media .netline__post:last-child { right: 0; }
+  html.motion .hero__media .netline[data-chalk-self]:not(.is-drawn) { transform: scaleX(0); }
+  .hero .frame { --ar: 5 / 4 !important; --pos: 66% 40% !important; }
+  .hero .ph__ratio { display: none; }
+  /* The year folds vertically on a phone: 19 above the net, 51 on the photograph */
+  .year--hero { left: var(--gutter); top: 0; }
+  .year--hero .year__a { right: auto; left: 0; bottom: 14px; }
+  .year--hero .year__b { left: 0; bottom: auto; top: 14px; line-height: 0.8; }
+  .year--hero .year__since { right: auto; left: 0; bottom: calc(var(--ys) * 0.8 + 22px); }
+}
+@media (max-width: 599px) {
+  .hero__actions { width: 100%; }
+  .hero__actions .btn { flex: 1 1 0; padding: 0 12px; }
+}
+
+/* ---------- Home: find your program ---------- */
+.fyp__head { display: grid; gap: var(--sp-5); margin-bottom: clamp(40px, 5vw, 72px); }
+@media (min-width: 1000px) { .fyp__head { grid-template-columns: 5fr 6fr; column-gap: var(--sp-8); align-items: start; } }
+
+.chooser { border-top: 1px solid var(--rule-strong); padding-top: var(--sp-4); display: grid; gap: var(--sp-4); }
+html:not(.js) .chooser { display: none; }
+.chooser__title { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.chooser__q { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 10px; }
+.chooser__q[hidden] { display: none; }
+.chooser__q legend { padding: 0; margin-bottom: 10px; font-size: var(--step-5); color: var(--fg-muted); }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opt { position: relative; }
+.opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.opt span {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  font-size: 15px; font-weight: 500; line-height: 1.2; background: var(--bg);
+  transition: transform var(--dur-press) var(--ease-ui);   /* colours change instantly: transform and opacity only */
+}
+.opt:active span { transform: scale(0.98); }
+.opt input:checked + span { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.opt input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .opt:hover span { border-color: var(--fg); } }
+.chooser__result { display: grid; gap: 12px; padding: 20px 22px; background: var(--surface-alt); border-left: 1px solid var(--fg); }
+.chooser__result[hidden] { display: none; }
+.chooser__result .h3 { font-size: 28px; }
+.chooser__result-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+
+/* Doors: four photographs, no boxes. On a phone each door is a compact row (thumbnail and words),
+   so the four read in about one screen; from 900px they stand side by side as tall portraits. */
+.doors { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.door { position: relative; display: grid; grid-template-columns: 124px minmax(0, 1fr); gap: 18px; align-items: start;
+  padding: 20px 0; border-bottom: 1px solid var(--rule); transition: opacity var(--dur-ui) var(--ease-ui); }
+.door .frame { --ar: 1 / 1 !important; }
+.door .ph__ratio, .door .ph__label { display: none; }
+/* A door still waiting for its photograph says so (brief: every placeholder is labelled). From
+   900px the tall portrait carries the full label, slot id and shot; the phone thumbnail keeps its
+   court whole above a plain PLACEHOLDER plate. (Promoted from the Camps hub at integration.) */
+@media (min-width: 900px) { .door .frame:not(.has-img) .ph__label { display: grid; } }
+@media (max-width: 899px) {
+  .door .frame:not(.has-img) .ph__label { display: grid; left: 0; right: 0; bottom: 10px; justify-items: center; }
+  .door .frame:not(.has-img) .ph__id, .door .frame:not(.has-img) .ph__desc { display: none; }
+  .door .frame:not(.has-img) .ph__kicker { gap: 6px; font-size: 11px; letter-spacing: 0.1em; }
+}
+.door .frame__tag { top: auto; bottom: 0; left: 0; right: 0; justify-content: center; gap: 5px; padding: 5px 2px; border-radius: 0; font-size: 11px; letter-spacing: 0; white-space: nowrap; }
+.door .frame__tag-mark { display: none; }
+.door__body { display: grid; gap: 8px; align-content: start; }
+.door__title { font-family: var(--font-serif); font-weight: 300; font-size: var(--step-2); line-height: 1.08; }
+.door__link { text-decoration: none; }
+.door__link::after { content: ""; position: absolute; inset: 0; z-index: var(--z-mark); }
+.door__text { font-size: 16px; line-height: 1.55; color: var(--fg-muted); max-width: 34ch; }
+.door__facts { display: flex; flex-wrap: wrap; gap: 6px 14px; font: 500 14px/1.4 var(--font-sans); color: var(--fg); font-variant-numeric: lining-nums; }
+.door__facts span { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+/* Facts are separated by a hairline, not decorative dots (design-taste 9.F). The hairline ends
+   the fact before it, so a wrap at 390 happens between facts and never opens a line with it. */
+.door__facts span:not(:last-child)::after { content: ""; width: 1px; height: 12px; margin-left: 6px; background: var(--rule-strong); flex: none; }
+/* Phones: the door column is too narrow for two facts on a line, so each fact takes its own line
+   and the hairline is not needed at all. */
+@media (max-width: 479px) { .door__facts { flex-direction: column; gap: 2px; } .door__facts span::after { display: none; } }
+.door__cta { display: none; }
+/* Keyboard focus rings the whole door; a mouse click does not (it would flash a box mid-Turn) */
+.door:has(.door__link:focus-visible) { outline: 2px solid var(--focus); outline-offset: 4px; }
+.door .door__link:focus-visible { outline: none; }
+.door.is-dim { opacity: 0.32; }
+.door.is-match .door__title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 8px; }
+.door .frame__img, .door .ph__court { transition: transform 900ms var(--ease-out), opacity 400ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .door:hover .frame__img, .door:hover .ph__court { transform: scale(1.04); }
+  .door:hover .link__text::after { transform: scaleX(1); transform-origin: left; }
+  .door:hover .link .icon { transform: translateX(4px); }
+}
+/* Tablet (ui-ux-pro-max pass): at 600 to 899px the phone rows left half the line empty; the
+   thumbnail grows so the photograph, not the white space, carries the row. */
+@media (min-width: 600px) and (max-width: 899px) {
+  .door { grid-template-columns: 200px minmax(0, 1fr); gap: 28px; padding: 24px 0; }
+  .door .frame { --ar: 4 / 5 !important; }
+  .door__text { max-width: 44ch; }
+  .door__cta { display: inline-flex; margin-top: 4px; }
+}
+@media (min-width: 900px) {
+  .doors { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 32px); border-top: 0; }
+  .door { grid-template-columns: 1fr; gap: 22px; padding: 0; border-bottom: 0; }
+  .door .frame { --ar: 3 / 4 !important; }
+  .door .frame__tag { top: 0; bottom: auto; left: auto; right: 0; padding: 7px 10px; border-radius: 0; font-size: 11px; letter-spacing: 0.12em; gap: 7px; }
+  .door .frame__tag-mark { display: block; }
+  .door__body { gap: 12px; }
+  .door__cta { display: inline-flex; margin-top: 6px; }
+  /* Alternate doors step down, so four parallel choices read as a rally, not a row of cards */
+  .door:nth-child(even) { margin-top: clamp(32px, 4vw, 64px); }
+}
+
+/* View Transition names (energy.md 3.4) are set by js/turn.js from data-vt, and only on the
+   element whose peer page is the other end of the navigation, so no stray named layers linger. */
+
+/* ---------- Home: Recreational and High Performance, two sides of the net ----------
+   Whites on one side, Blazer on the other, and the red net between them. Both speak Spectral;
+   High Performance turns italic, so competition sounds different without leaving the family. */
+.split { display: grid; grid-template-columns: 1fr; position: relative; }
+.split__half { position: relative; display: grid; align-items: end; padding-block: clamp(64px, 8vw, 128px); overflow: hidden; }
+.split__inner { position: relative; display: grid; gap: var(--sp-5); padding-inline: var(--gutter); }
+.split__text { display: grid; gap: var(--sp-4); align-content: start; }
+.split__title { margin-top: 4px; }
+.split__title .w { display: block; }
+.split__line { font-size: 17px; line-height: 1.55; color: var(--fg-muted); max-width: 30ch; }
+.split__links { display: grid; gap: 0; margin-top: 4px; }
+.split__links .link { justify-content: space-between; border-top: 1px solid var(--rule); min-height: 52px; }
+/* In a ruled list the row's rule is the rest-state underline; the heavier line still draws on hover */
+.split__links .link__text::before { display: none; }
+.split__links .link:last-child { border-bottom: 1px solid var(--rule); }
+.split__half--hp .frame { order: -1; }
+.split__half--rec .frame, .split__half--hp .frame { width: min(82%, 360px); }
+.split__half--rec .frame { justify-self: end; }
+.split__half--hp .frame { justify-self: start; }
+/* Tablet (ui-ux-pro-max pass): words and photograph side by side, as on desktop, instead of a
+   photo pushed right under a column of words with half the width empty */
+@media (min-width: 600px) and (max-width: 899px) {
+  .split__half--rec .split__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; column-gap: 32px; }
+  .split__half--rec .frame { width: 100%; }
+}
+/* The HP half is typographic: its photographs belong to the HP page (no image repeats across the
+   site, design-taste 4.8), so Blazer and the italic headline carry it on their own. */
+.split__half--type .split__text { max-width: 30rem; }
+.split__half--type .split__title { font-size: clamp(2.75rem, 1.2rem + 3.6vw, 5rem); line-height: 1.1; padding-bottom: 4px; }
+.pathmini { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 0; }
+.pathmini li { display: grid; grid-template-columns: 36px 1fr; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--rule); font-size: 16px; }
+.pathmini li:last-child { border-bottom: 1px solid var(--rule); }
+.pathmini .num { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--fg-muted); }
+.pathmini strong { font-family: var(--font-serif); font-weight: 400; font-size: 19px; }
+.pathmini em { font-style: normal; color: var(--fg-muted); font-size: 15px; }
+/* Phone: the net runs across, between the two halves */
+.split__net { position: relative; display: block; height: 2px; width: 100%; transform-origin: 0 50%; }
+.split__net .netline__post { top: -2px; }
+.split__net .netline__post:first-child { left: var(--gutter); }
+.split__net .netline__post:last-child { right: var(--gutter); }
+html.motion .split__net[data-chalk-self]:not(.is-drawn) { transform: scaleX(0); }
+html.motion .split__net[data-chalk-self] { transition: transform 1100ms var(--ease-out); }
+@media (min-width: 900px) {
+  .split { grid-template-columns: 1fr 1fr; }
+  .split__net { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; height: auto; margin-left: -1px; transform-origin: 50% 0; }
+  .split__net .netline__post { left: -2px; right: auto; }
+  .split__net .netline__post:first-child { top: 0; }
+  .split__net .netline__post:last-child { top: auto; bottom: 0; }
+  html.motion .split__net[data-chalk-self]:not(.is-drawn) { transform: scaleY(0); }
+  .split__inner { grid-template-columns: 1fr 1fr; align-items: end; column-gap: clamp(24px, 3vw, 48px); }
+  .split__half--rec .split__inner { padding-left: max(var(--gutter), calc((100vw - var(--page)) / 2)); padding-right: clamp(32px, 4vw, 64px); }
+  .split__half--hp .split__inner { padding-right: max(var(--gutter), calc((100vw - var(--page)) / 2)); padding-left: clamp(32px, 4vw, 64px); }
+  .split .frame, .split__half--rec .frame, .split__half--hp .frame { width: 100%; }
+  .split__half--type .split__inner { grid-template-columns: 1fr; }
+  .split__half { align-items: center; }
+}
+
+/* ---------- The folded year as a figure (Home Why TPTC in C; Club History's typographic hero) ---------- */
+.numeral { display: flex; align-items: stretch; gap: clamp(14px, 2vw, 26px); font-family: var(--font-serif); font-weight: 200; font-size: var(--step-display); line-height: 0.82; letter-spacing: -0.02em; font-variant-numeric: lining-nums; }
+.numeral__net { position: relative; width: 1.5px; background: var(--red); margin-block: -8px; transform-origin: 50% 0; }
+.numeral__net::before, .numeral__net::after { content: ""; position: absolute; left: -2px; width: 5.5px; height: 5.5px; background: var(--red); }
+.numeral__net::before { top: -6px; }
+.numeral__net::after { bottom: -6px; }
+
+/* ---------- Strengths list: short parallel points with an icon (why-tptc, member benefits, amenities) ---------- */
+.strengths { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.strengths li { display: grid; grid-template-columns: 40px 1fr; gap: 4px 16px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+.strengths .icon { grid-row: span 2; margin-top: 4px; }
+.strengths h3 { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.15; }
+.strengths p { font-size: 16px; line-height: 1.55; color: var(--fg-muted); max-width: 46ch; }
+
+/* ---------- Home: What's happening, one lead and what comes next ---------- */
+.happen { display: grid; gap: var(--sp-6); margin-top: clamp(40px, 5vw, 64px); }
+.hlead { display: grid; gap: var(--sp-4); align-content: start; }
+.hlead__body { display: grid; gap: 14px; justify-items: start; }
+.hlead__title { font-family: var(--font-serif); font-weight: 300; font-size: var(--step-2); line-height: 1.1; }
+.hcard__text { font-size: 16px; line-height: 1.55; color: var(--fg-muted); max-width: 46ch; }
+.hcard__date { font: 500 15px/1.45 var(--font-sans); color: var(--fg); font-variant-numeric: lining-nums; }
+.hnext { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.hrow { display: grid; gap: 8px; padding: 22px 0 18px; border-bottom: 1px solid var(--rule); justify-items: start; }
+.hrow__when { font: 500 14px/1.45 var(--font-sans); color: var(--fg); }
+.hrow__title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.15; }
+.hrow .link { min-height: var(--target); }
+@media (min-width: 1000px) {
+  .happen { grid-template-columns: 7fr 5fr; column-gap: var(--sp-8); align-items: start; }
+  .hlead { grid-template-columns: 1fr; }
+}
+
+/* ---------- CTA bands ---------- */
+.cta { position: relative; overflow: hidden; padding-block: clamp(80px, 11vw, 176px); }
+.cta__court { position: absolute; left: 50%; top: 50%; width: max(1100px, 118%); transform: translate(-50%, -50%); pointer-events: none; }
+.cta__court line { stroke: var(--rule); stroke-width: 1; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: 0 0; }
+.cta__court .net { stroke: var(--rule-strong); stroke-opacity: 0.5; }
+.cta__court rect { fill: var(--fg); fill-opacity: 0.4; }
+.cta__inner { position: relative; display: grid; gap: var(--sp-5); }
+.cta__line { max-width: 16ch; }
+.cta__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
+@media (min-width: 900px) {
+  .cta__inner { grid-template-columns: 7fr 5fr; align-items: end; }
+  .cta__actions { justify-content: flex-end; }
+}
+
+/* ---------- Footer: Blazer, plain columns, nothing drawn ---------- */
+/* Footer: the dome tint in both themes, so the page ends in the same light it began in */
+.footer { padding-block: clamp(56px, 7vw, 104px) var(--sp-5); }
+.footer--dome { --bg: var(--surface-alt); --ph-ground: var(--surface); background: var(--surface-alt); color: var(--fg); }
+.fcell h2 { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; margin-bottom: 14px; color: var(--fg-muted); }
+.fcell ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.fcell a:not(.btn) { display: inline-flex; align-items: center; min-height: var(--target); min-width: var(--target); font-size: 15px; text-decoration: none; }
+.fcell a:not(.btn):hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.fcell .small { color: var(--fg-muted); }
+.fcell .small a { color: var(--fg); }
+.footer__top { display: grid; gap: var(--sp-5); padding-bottom: var(--sp-6); }
+.fcell--brand { display: grid; gap: 18px; align-content: start; }
+.footer__line { font: italic 300 var(--step-3)/1.4 var(--font-serif); max-width: 26ch; }
+.fcell address { font-style: normal; font-size: 15px; line-height: 1.6; }
+.fcell address .confirm { font-size: 14px; }
+.fcell--act { display: grid; gap: 12px; align-content: start; }
+.fcell--act h2 { margin-bottom: 0; }
+.footer__cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5) 24px; padding-block: var(--sp-6); border-top: 1px solid var(--rule); }
+.footer__base { display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center; padding-top: var(--sp-4); border-top: 1px solid var(--rule); font-size: 13px; color: var(--fg-muted); }
+.footer__base a { text-decoration: none; min-height: var(--target); display: inline-flex; align-items: center; }
+.footer__base a:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+.footer__base span:last-child { margin-left: auto; }
+@media (min-width: 900px) {
+  .footer__top { grid-template-columns: 6fr 3fr 3fr; column-gap: var(--sp-6); }
+  .footer__cols { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 599px) {
+  .footer__base { flex-direction: column; align-items: flex-start; gap: 0; }
+  .footer__base span { padding-block: 8px; }
+  .footer__base span:last-child { margin-left: 0; }
+}
+
+/* ---------- HP page ----------
+   High Performance wears the club Blazer and speaks the same Spectral as Home; the competitive
+   voice is italic and the photograph, not a heavier typeface. */
+.hero--hp .hero__words { gap: 0; }
+.hero--hp .crumbs { margin-bottom: clamp(16px, 2.4vw, 32px); }
+/* Two lines, never three (design-taste 4.7): the words column is wider here and the scale is
+   set so "Compete with confidence." holds one line from 1100px up. */
+.hero--hp .hero__title { font-size: clamp(2.4rem, 0.8rem + 3.4vw, 4.25rem); }
+@media (min-width: 900px) { .hero--hp .hero__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
+.hero--hp .hero__actions { align-items: center; gap: 10px 28px; }
+.hero--hp .hero__media .frame { --ph-ground: var(--night-raised); }
+.status-line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: clamp(24px, 3vw, 40px); font-size: 15px; color: var(--fg-muted); }
+.status-line .num { color: var(--fg); }
+@media (min-width: 900px) {
+  .hero--hp .hero__words { padding-top: clamp(8px, 2vh, 24px); }
+}
+@media (max-width: 899px) {
+  .hero--hp .hero__media { margin-top: var(--sp-6); }
+  .hero--hp .frame { --ar: 4 / 3 !important; --pos: 42% 35% !important; }
+  .hero--hp { padding-bottom: 0; }
+}
+
+/* Pathway with the Hold primitive */
+.pathway { display: grid; gap: var(--sp-6); }
+.pathway__index { display: grid; gap: var(--sp-4); align-content: start; }
+.pathway__nav { position: relative; margin-top: var(--sp-3); padding-left: 24px; }
+.pathway__steps-nav { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.rail { position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+.rail__fill { position: absolute; inset: 0; background: var(--red); transform-origin: top; }
+.pathway__steps-nav li { position: relative; }
+.pathway__steps-nav li::before { content: ""; position: absolute; left: -26px; top: 22px; width: 5px; height: 5px; background: var(--fg); }
+.pathway__steps-nav a { display: grid; gap: 4px; padding: 14px 0; text-decoration: none; transition: opacity var(--dur-ui) var(--ease-ui); }
+.pathway__steps-nav .num { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: var(--fg-muted); }
+.pathway__steps-nav strong { font: 300 26px/1.1 var(--font-serif); }
+.pathway__steps-nav em { font-style: normal; font-size: 14px; color: var(--fg-muted); }
+.step { display: grid; gap: var(--sp-5); padding-block: var(--sp-6); border-top: 1px solid var(--rule-strong); scroll-margin-top: calc(var(--header-h) + 24px); }
+.step:first-child { border-top: 0; padding-top: 0; }
+.step .frame { --ar: 4 / 5; }
+.step__head { display: grid; gap: 10px; }
+.step__title { font: 300 clamp(2.25rem, 1.6rem + 2vw, 3.5rem)/1.0 var(--font-serif); letter-spacing: -0.01em; }
+.step__gate { margin-top: 6px; }
+.fields { display: grid; margin: 0; border-top: 1px solid var(--rule); }
+/* One rule over the group, none between rows (design-taste 4.9): rhythm comes from spacing */
+.fields > div { display: grid; gap: 4px 20px; padding: 12px 0; }
+.fields > div:first-child { padding-top: 18px; }
+.fields dt { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); padding-top: 3px; }
+.fields dd { font-size: 16px; line-height: 1.55; }
+.fields dd .small { display: block; margin-top: 4px; font-size: 14.5px; }
+.gloss { font-size: 14.5px; color: var(--fg-muted); }
+.gloss dfn { font-style: normal; font-weight: 600; color: var(--fg); }
+@media (min-width: 640px) { .fields > div { grid-template-columns: 150px 1fr; } }
+@media (min-width: 1000px) {
+  .pathway { grid-template-columns: 4fr 8fr; column-gap: var(--sp-7); }
+  .pathway__index { position: sticky; top: calc(var(--header-h) + 40px); align-self: start; }
+  .step { grid-template-columns: 5fr 7fr; column-gap: var(--sp-5); align-items: start; }
+  .step__body { display: grid; gap: var(--sp-4); }
+}
+/* Inactive steps dim only the large serif name, to 0.6 (3.5:1, large text); numbers and ages keep
+   full muted contrast so nothing drops below AA. */
+html.hold-on .pathway__steps-nav a strong { transition: opacity var(--dur-ui) var(--ease-ui); }
+html.hold-on .pathway__steps-nav a:not(.is-active) strong { opacity: 0.6; }
+
+/* Steps list: how to join */
+.join__grid { display: grid; gap: var(--sp-6); margin-top: clamp(40px, 5vw, 64px); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: s; }
+.steps li { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 22px 0; border-top: 1px solid var(--rule); }
+.steps li:last-child { border-bottom: 1px solid var(--rule); }
+.steps .step-n { font: 200 44px/0.9 var(--font-serif); font-variant-numeric: lining-nums; }
+.steps h3 { font-family: var(--font-serif); font-weight: 400; font-size: 21px; line-height: 1.3; }
+.steps p { font-size: 16px; color: var(--fg-muted); margin-top: 4px; }
+.steps .link--quiet { min-height: 44px; }
+.contact-card { display: grid; gap: 0; align-content: start; border-top: 1px solid var(--rule-strong); }
+.contact-card > div { display: grid; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.contact-card a { font-size: 18px; text-decoration: none; min-height: var(--target); display: inline-flex; align-items: center; gap: 12px; }
+.contact-card a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+@media (min-width: 1000px) { .join__grid { grid-template-columns: 7fr 4fr; column-gap: var(--sp-8); } }
+
+.next-doors { display: grid; gap: 0; border-top: 1px solid var(--rule-strong); }
+.next-door { position: relative; display: grid; grid-template-columns: 40px 1fr auto; gap: 16px; align-items: center; padding: 28px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.next-door h3 { font-family: var(--font-serif); font-weight: 300; font-size: var(--step-2); line-height: 1.1; }
+.next-door p { font-size: 15px; color: var(--fg-muted); margin-top: 4px; }
+.next-door > .icon:last-child { width: 22px; height: 22px; transition: transform var(--dur-ui) var(--ease-ui); }
+@media (hover: hover) and (pointer: fine) { .next-door:hover > .icon:last-child { transform: translateX(4px); } }
+@media (min-width: 900px) { .next-doors { grid-template-columns: 1fr 1fr; } .next-door:nth-child(2) { padding-left: 32px; border-left: 1px solid var(--rule); } .next-door:nth-child(1) { padding-right: 32px; } }
+@media (max-width: 599px) { .hero--hp .hero__actions .btn { flex: 1 1 100%; } }
+
+/* ---------- ui-ux-pro-max pass: phone reading floor ----------
+   Last in the file on purpose, so it wins over each component's own size.
+   Phones read prose at 16px minimum; 14px stays for one-line meta and captions only. */
+@media (max-width: 599px) {
+  p.small, .gloss, .fields dd .small, .confirm__why, .next-door p { font-size: 1rem; }
+}
+
+/* ---------- HP hero on phones (lead review pass) ----------
+   The photograph comes up under the breadcrumb, so the Turn from the Home door lands inside the
+   first view instead of at the fold, and the phone fold opens on play rather than on text.
+   The net moves to the photograph's lower edge: the game above, the club's words below. */
+@media (max-width: 599px) {
+  .hero.hero--hp .hero__grid { display: flex; flex-direction: column; }
+  .hero.hero--hp .hero__words { display: contents; view-transition-name: none; }
+  .hero.hero--hp .hero__words > * { padding-inline: var(--gutter); order: 2; }
+  .hero.hero--hp .crumbs { order: 0; padding-top: 12px; margin-bottom: 12px; }
+  .hero.hero--hp .hero__media { order: 1; margin: 0 0 28px; }
+  .hero.hero--hp .frame { --ar: 16 / 9 !important; --pos: 42% 30% !important; }
+  .hero.hero--hp .hero__media .netline { top: auto; bottom: -1px; }
+  .hero.hero--hp .hero__title { view-transition-name: hp-words; }
+  .hero.hero--hp { padding-bottom: var(--sp-6); }
+}
+
+
+/* Utilities (integration). Times and season years never break at their hyphen: 1:30pm-4:30pm, 2025-26. */
+.nobr { white-space: nowrap; }
+/* Registration mode (build.py REG_MODE): once the club no longer registers through JBI, every
+   sentence that names it leaves every page at once. */
+html[data-reg="own"] [data-reg-mode="jbi"] { display: none !important; }

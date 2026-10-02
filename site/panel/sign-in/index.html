@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en-CA" data-panel-page="sign-in" data-panel-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in | TPTC staff panel (demo)</title>
+<meta name="description" content="Demo staff panel for Thornhill Park Tennis Club. Choose a role to look around: Front desk, Head Pro or Administrator. Sample data; nothing is saved to a server or charged.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../assets/brand/favicon.svg" type="image/svg+xml">
+<script src="../js/boot.js"></script>
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../css/panel.css">
+<link rel="stylesheet" href="../css/sign-in.css">
+</head>
+<body class="pn pn--sign-in">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="pn-banner" role="note" aria-label="Demo notice">
+  <span class="chip chip--muted pn-banner__chip"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"/></svg>Demo</span>
+  <span><strong>Demo panel. Sample data. Nothing is saved to a server or charged.</strong><span class="pn-banner__more"> There are no passwords here: choose a role to look around.</span></span>
+</div>
+<main id="main" class="si" tabindex="-1">
+  <section class="si__court" aria-labelledby="si-court-title">
+    <div class="si__court-inner">
+      <a class="si__logo" href="../../index.html" aria-label="Thornhill Park Tennis Club, the public site">
+        <img src="../../../assets/brand/tptc-lockup-white.svg" alt="" width="249" height="38">
+      </a>
+      <div class="si__words">
+        <p class="pn-kicker si__kicker">Staff panel, since 1951</p>
+        <h1 class="si__title" id="si-court-title">Everyone has a place <em>on the court.</em></h1>
+        <p class="si__lede">The desk at the gate sees who walks in. The Head Pro feeds from the service line. The Administrator sits in the chair at the net post and keeps the score.</p>
+      </div>
+      <!-- A true 78 x 36 ft court seen from above (1 unit = 1 ft): doubles and singles lines,
+           service lines 21 ft from the net, the centre service line and centre marks, the net
+           in club red between its posts 3 ft outside the doubles sidelines, the back fence with
+           its gate 21 ft behind the baseline, the umpire's chair beside the net post. -->
+      <svg class="si__plan cplan" viewBox="0 0 124 64" role="img" aria-labelledby="si-plan-t">
+        <title id="si-plan-t">A tennis court seen from above, with the three staff places marked: the gate, the service line and the umpire's chair.</title>
+        <g class="cplan__lines">
+          <path class="si__fence" d="M2 4V26M2 38V60M2 4H122M2 60H122M122 4V60"/>
+          <rect x="23" y="14" width="78" height="36"/>
+          <path d="M23 18.5H101M23 45.5H101M41 18.5V45.5M83 18.5V45.5M41 32H83M23 32H24M100 32H101"/>
+        </g>
+        <path class="cplan__net" d="M62 11V53"/>
+        <rect class="si__post" x="61" y="10" width="2" height="2"/>
+        <rect class="si__post" x="61" y="52" width="2" height="2"/>
+        <g class="si__spot" data-spot="frontdesk">
+          <path class="si__gate" d="M2 26L7 29"/>
+          <circle class="si__who" cx="7" cy="32" r="2.4"/>
+          <text class="si__tag" x="10.5" y="33.2">Front desk</text>
+        </g>
+        <g class="si__spot" data-spot="headpro">
+          <circle class="si__who" cx="83" cy="32" r="2.4"/>
+          <rect class="who__basket si__basket" x="86.5" y="27.5" width="3" height="3"/>
+          <text class="si__tag" x="86.5" y="38.6">Head Pro</text>
+        </g>
+        <g class="si__spot" data-spot="admin">
+          <rect class="si__who si__chair" x="59.6" y="55.6" width="4.8" height="3.6"/>
+          <text class="si__tag" x="67" y="58.8">Administrator</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="si__form-side" aria-labelledby="si-form-title">
+    <form class="si__form" data-si-form novalidate>
+      <h2 class="si__form-title" id="si-form-title">Sign in to the demo</h2>
+      <p class="pn-note"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"/></svg><span>No password here. In the real panel each member of staff signs in with their own account and password; this demo only asks which role you want to try.</span></p>
+      <fieldset class="si__roles">
+        <legend class="pn-label">Choose a role</legend>
+        <label class="si__role">
+          <input type="radio" name="role" value="frontdesk" checked>
+          <span class="si__role-body">
+            <span class="si__role-name">Front desk</span>
+            <span class="si__role-what">Today's courts, walk-ins and holds, members at the counter, payments taken.</span>
+            <span class="si__role-start">Opens on Bookings</span>
+          </span>
+        </label>
+        <label class="si__role">
+          <input type="radio" name="role" value="headpro">
+          <span class="si__role-body">
+            <span class="si__role-name">Head Pro</span>
+            <span class="si__role-what">Programs and seats, waitlists, Pro National pre-approval, lessons on court.</span>
+            <span class="si__role-start">Opens on Programs</span>
+          </span>
+        </label>
+        <label class="si__role">
+          <input type="radio" name="role" value="admin">
+          <span class="si__role-body">
+            <span class="si__role-name">Administrator</span>
+            <span class="si__role-what">Everything, plus refunds, content and the dashboard the club asked for.</span>
+            <span class="si__role-start">Opens on the Dashboard</span>
+          </span>
+        </label>
+      </fieldset>
+      <button class="pn-btn pn-btn--ink si__go" type="submit" data-si-go>Continue as Front desk</button>
+      <p class="si__small">Sample people and records only: every name, booking and payment is made up. The courts, seasons, hours, fees and prices are the club's own.</p>
+      <p class="si__small"><a class="inline-link" href="../../index.html">Back to the public site</a></p>
+    </form>
+  </section>
+</main>
+<script src="../js/icons.js"></script>
+<script src="../js/sign-in.js"></script>
+</body>
+</html>

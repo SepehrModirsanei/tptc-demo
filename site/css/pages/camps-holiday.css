@@ -1,0 +1,65 @@
+/* Holiday Camps: Winter Break Camp. When it is, what a day costs, how to register. Tokens only.
+   The camp family (.camp-status, .campcards, .extras, .policies, the Order of Play) is shared in
+   components.css since integration; this file keeps only what is Holiday's own. */
+
+/* ---------- Not yet announced: the scoreboard ----------
+   Story: a scoreboard between sets. Last set's score is written in; the next set's column is
+   ruled and waiting for the umpire, here the club. Nothing past is shown as current. */
+.next { display: grid; gap: var(--sp-5); }
+.board { width: 100%; min-width: 600px; border-collapse: collapse; table-layout: fixed; }
+.board th, .board td { padding: 18px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.board thead th { border-bottom: 2px solid var(--fg); vertical-align: bottom; }
+.board thead th:first-child { width: 22%; }
+.board tbody th { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); padding-top: 22px; }
+.board__set { display: block; font: 300 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.15 var(--font-serif); }
+.board__state { display: block; margin-top: 6px; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+td.board__past { font-size: 16px; line-height: 1.5; color: var(--fg-muted); }
+.board__next { border-left: 1px dashed var(--rule-strong); background: var(--surface); }
+.board thead .board__next { position: relative; }
+.board__next .confirm { margin: 0; }
+.next__ask { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; }
+.next__ask > span { font: 400 var(--step-3)/1.3 var(--font-serif); }
+
+/* ---------- Last winter's two weeks ----------
+   Story: two weeks lined like two courts side by side, one rule per camp day, drawn in calendar
+   order once. The two closed Thursdays keep a dashed rule, like a line still to be painted: no
+   camp on Christmas Day or New Year's Day. */
+.hcal { margin: var(--sp-6) 0 0; display: grid; gap: var(--sp-4); }
+.hcal__cap { display: grid; gap: 4px; }
+.hcal__title { font: 400 var(--step-3)/1.3 var(--font-serif); }
+.hcal__weeks { display: grid; gap: var(--sp-5); }
+.hcal__week { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; list-style: none; margin: 0; padding: 0; }
+.hcal__week li { position: relative; padding-bottom: 12px; min-width: 0; }
+.hcal__week li::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--fg); transform-origin: 0 50%; }
+.hcal__week li.is-closed::after { height: 0; border-top: 2px dashed var(--rule-strong); background: none; }
+.hcal__week li.is-closed .oop__date { color: var(--fg-muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+.hcal__closed { display: block; margin-top: 6px; font-size: 12px; line-height: 1.3; color: var(--fg-muted); }
+html.motion .hcal__week li::after { transition: transform 500ms var(--ease-out) calc(var(--i, 0) * 60ms); }
+html.motion .hcal__weeks:not(.is-drawn) .hcal__week li::after { transform: scaleX(0); }
+@media (min-width: 900px) {
+  .hcal__weeks { grid-template-columns: 1fr 1fr; column-gap: clamp(32px, 4vw, 64px); }
+  .hcal__closed { font-size: 13px; }
+}
+.hcal .srows { margin-top: 4px; }
+@media (min-width: 800px) { .hcal .srow { grid-template-columns: 220px 1fr; } }
+.hcal__wkbox { display: grid; gap: 12px; min-width: 0; }
+.hcal__wk { font-size: 15px; color: var(--fg-muted); }
+.hcal__wk .num { color: var(--fg); }
+@media (max-width: 699px) {
+  .hcal__mon { display: none; }
+  .hcal .srow { grid-template-columns: 1fr; }
+  .hcal__week { gap: 6px; }
+}
+
+/* Phones: both sets stay in view. The scoreboard keeps its two columns side by side under each
+   row's label, last winter in ink, this winter dashed, so "not yet announced" is never off-screen. */
+@media (max-width: 599px) {
+  .board, .board tbody { display: block; min-width: 0; width: 100%; }
+  .board thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .board tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-bottom: 1px solid var(--rule); }
+  .board tbody th { grid-column: 1 / -1; padding: 18px 0 10px; border: 0; }
+  .board td { display: grid; gap: 6px; align-content: start; padding: 0 12px 18px 0; border: 0; }
+  .board td.board__next { padding: 0 0 18px 12px; border-left: 1px dashed var(--rule-strong); }
+  .board td::before { content: attr(data-label); font: 600 11px/1.3 var(--font-sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-muted); }
+  .board tbody tr:first-child { border-top: 2px solid var(--fg); }
+}

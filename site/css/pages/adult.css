@@ -1,0 +1,26 @@
+/* Adult Programs: six ways to play, one next step each; group lessons registered here.
+   Stories: the six rows are numbered like the order of play on a club draw, from a first lesson
+   to playing for the club; the level cards carry the same rally test as Junior, on the full
+   court, because adults rally from the baseline. Court plans from logs/programs-gen/gen.py. */
+
+/* ---------- Six ways ---------- */
+.ad-ways__head { margin-bottom: var(--sp-6); }
+.ad-ways__head .gloss { display: block; margin-top: 10px; font-size: 16px; }
+.ad-rows { list-style: none; margin: 0; padding: 0; }
+.ad-rows .lrow__name { display: flex; align-items: baseline; gap: 14px; }
+.ad-n { flex: none; font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); color: var(--fg-muted); min-width: 1.5em; }
+.ad-rows .lrow__side { align-content: center; }
+@media (min-width: 1000px) { .ad-rows .lrow__side { justify-items: end; } }
+
+/* ---------- Group lessons ---------- */
+.ad-group__head { display: grid; gap: var(--sp-5); margin-bottom: var(--sp-6); }
+@media (min-width: 1000px) { .ad-group__head { grid-template-columns: 5fr 7fr; gap: var(--sp-8); align-items: start; } }
+.ad-group__rows .srow__when { display: grid; gap: 6px; font-size: 16px; }
+.ad-group__rows .srow__when strong { color: var(--fg); font-weight: 500; }
+.ad-group__rows .srow__price { font: inherit; }
+.ad-group__frame { margin-bottom: var(--sp-6); }
+.ad-note { margin-top: var(--sp-5); font-size: 16px; max-width: 70ch; }
+.ad-member .callout { max-width: 760px; }
+
+/* Paper section into the paper closing band: the band's own top padding is the gap (the membership note runs straight into the closing band). */
+.ad-member { padding-bottom: 0; }
