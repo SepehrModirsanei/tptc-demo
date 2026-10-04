@@ -95,3 +95,33 @@
   .coach--tbc .tbc__fields { grid-column: 1 / -1; }
   .coach__name--tbc { font-size: var(--step-3); }
 }
+
+/* Batch 4, phones: the Head Pro comes up. Below 640px his portrait no longer takes a whole screen
+   before his name. It stands beside the name, the way a player's card is set in a program: picture
+   left, title and name right, then the bio and the ruled fields across the full width. */
+@media (max-width: 639px) {
+  .coach--lead { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 16px; row-gap: 0; align-items: end; }
+  .coach--lead > .frame { grid-column: 1; grid-row: 1 / span 2; align-self: stretch; margin: 0; }
+  .coach--lead .lead__body { display: contents; }
+  .coach--lead .coach__role { grid-column: 2; grid-row: 1; align-self: end; margin: 0; display: grid; gap: 8px; justify-items: start; }
+  .coach--lead .coach__role .confirm { margin-left: 0; }
+  .coach--lead .lead__name { grid-column: 2; grid-row: 2; align-self: end; margin: 10px 0 0; font-size: clamp(2rem, 1rem + 5.2vw, 2.5rem) !important; }
+  .coach--lead .lead__bio, .coach--lead .lead__fields { grid-column: 1 / -1; }
+  .coach--lead .lead__bio { margin-top: var(--sp-5); font-size: 1.125rem; }
+  .coach--lead .lead__fields { margin-top: var(--sp-4); }
+  .coach--lead .ph__desc, .coach--lead .ph__ratio { display: none; }
+  .coach--lead .ph__label { left: 8px; right: 8px; bottom: 8px; min-width: 0; }
+  .coach--lead .ph__kicker { font-size: 9.5px; letter-spacing: 0.08em; white-space: normal; line-height: 1.25; }
+  .coach--lead .ph__id { font-size: 10px; overflow-wrap: anywhere; }
+  .record { margin-top: var(--sp-6); }
+  .record__list li { grid-template-columns: 5.5rem minmax(0, 1fr); padding: 14px 0; }
+
+  /* The unnamed coaches: one line of what is still owed, not five rows of the same two words. */
+  .coach--tbc .tbc__fields { display: flex; flex-wrap: wrap; gap: 4px 0; padding-top: 6px; }
+  .coach--tbc .tbc__fields > div { display: block; padding: 0; border: 0; font-size: 13px; }
+  .coach--tbc .tbc__fields > div:not(:last-child) dt::after { content: ","; margin-right: 6px; }
+  .coach--tbc .tbc__fields > div:first-child { display: none; }
+  .coach--tbc .tbc__fields { grid-column: 2; }
+  .coach--tbc .tbc__fields dt { display: inline; }
+  .coach--tbc .tbc__fields dd { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}

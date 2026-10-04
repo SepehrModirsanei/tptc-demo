@@ -18,7 +18,7 @@
 .desk__box + .desk__box { border-top: 1px solid var(--rule); }
 .desk__back { border-top: 1px solid var(--rule-strong); }
 @media (min-width: 640px) {
-  .desk { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .desk { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); } /* QC round 1: the inbox keeps its address on one line */
   .desk__box { padding: var(--sp-5) var(--sp-5) var(--sp-5) 0; }
   /* the centre service line between the two boxes */
   .desk__box + .desk__box { border-top: 0; border-left: 1px solid var(--rule-strong); padding-left: var(--sp-5); padding-right: 0; }
@@ -149,3 +149,42 @@
 @media (prefers-reduced-motion: reduce) {
   .social a .icon { transition: none; }
 }
+
+/* Batch 4, phones: the first screen. Below 700px the desk card keeps its half-court plan instead
+   of stacking into a column: the two service boxes side by side, split by the centre service line
+   (the front desk on the deuce side, the inbox on the ad side), the service line under them, the
+   address in the backcourt. The number, the inbox and the address all sit above the fold. */
+@media (max-width: 699px) {
+  .ct-hero .hero__words.ct-hero__grid { gap: var(--sp-4); }
+  .ct-lede__more { display: none; }
+  .desk { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .desk__box { padding: 12px 12px 12px 0; gap: 2px; }
+  .desk__box + .desk__box { border-top: 0; border-left: 1px solid var(--rule-strong); padding: 12px 0 12px 12px; }
+  .desk__back { grid-column: 1 / -1; padding: 12px 0; gap: 4px; }
+  .desk__label { font-size: 0.6875rem; letter-spacing: 0.1em; gap: 6px; }
+  .desk__label .icon { width: 14px; height: 14px; }
+  .desk__big { font-size: clamp(1.25rem, 0.5rem + 3.6vw, 1.625rem); }
+  .desk__mail { font-size: clamp(0.75rem, 0.3rem + 2.2vw, 0.875rem); line-height: 1.3; overflow-wrap: normal; }
+  .desk__note { display: none; }
+  .desk__addr { font-size: 1rem; line-height: 1.35; }
+}
+/* 320px: long words in the question section never push the page sideways. */
+.ct-ticket__words > * { min-width: 0; max-width: 100%; }
+.ct-ticket__grid > * { min-width: 0; }
+
+/* Phones: each route reads as one card of an order of play: the question, who takes it, the line
+   to use. Tighter than the three-column desktop row, so six routes are three screens, not five. */
+@media (max-width: 899px) {
+  .routes { margin-top: var(--sp-5); }
+  .route { gap: 6px; padding: var(--sp-4) 0; }
+  .route__what h3 { font-size: 1.1875rem; line-height: 1.25; max-width: none; text-wrap: balance; }
+  .route__what p { margin-top: 4px; font-size: 15px; }
+  .route__who { grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 10px; margin-top: 6px; }
+  .route__label { font-size: 0.6875rem; color: var(--fg-muted); }
+  .route__name { font-size: 15px; color: var(--fg); }
+  .route__line { font-size: 16px; }
+}
+.feed { grid-template-columns: minmax(0, 1fr); }
+
+/* A phone number never breaks across two lines. */
+.inline-link[href^="tel:"] { white-space: nowrap; }

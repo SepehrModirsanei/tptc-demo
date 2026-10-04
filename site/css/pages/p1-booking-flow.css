@@ -301,3 +301,22 @@
 .bk-court.is-taken .bk-court__net, .bk-court.is-taken .bk-court__post { opacity: 0.5; }
 .bk-confirm { scroll-margin-top: calc(var(--header-h) + 24px); scroll-margin-bottom: 160px; }
 .bk-done__ticket { align-self: start; }
+
+/* Batch 4, phones (client note of 4 Oct 2026): the banner was 221px tall and pushed the page's name
+   to 408px. Below 700px it keeps what a visitor must know, on two short lines: the Demo mark with
+   "Nothing is booked and nothing is charged", and the demo clock. The longer explanation stays for
+   wider screens; the same facts are in the hero's status line and in the panel beside the steps. */
+@media (max-width: 699px) {
+  .bk-banner { padding-top: 8px; padding-bottom: 8px; gap: 2px 10px; font-size: 13px; line-height: 1.35; }
+  .bk-banner .chip { padding: 3px 8px; font-size: 10px; min-height: 0; }
+  .bk-banner .chip .icon { width: 12px; height: 12px; }
+  .bk-banner__more { display: none; }
+  .bk-banner__say { flex: 1 1 0; min-width: 0; }
+  .bk-banner__clock { font-size: 13px; }
+  /* the hero: the first choice (Start booking) and the window line inside the first screen */
+  .page-p1 .hero .hero__actions .link { display: none; }
+  /* review: step 1 (Who is booking?) and its first option start inside the first screen */
+  .page-p1 .hero { padding-bottom: 0; }
+  .page-p1 #who .bk-step__head { padding-top: 14px; }
+  .page-p1 .hero + .section.bk { padding-top: 12px; }
+}

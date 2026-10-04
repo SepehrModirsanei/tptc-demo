@@ -48,3 +48,34 @@
 .courtplan[data-at="1"] .cp-key--three i, .courtplan[data-at="2"] .cp-key--three i { opacity: 0.35; }
 .courtplan[data-at="1"] .cp-key--full, .courtplan[data-at="2"] .cp-key--full { color: var(--fg); }
 @media (prefers-reduced-motion: reduce) { .cp-full, .cp-three, .cp-key, .cp-key i { transition: none; } }
+
+/* ---------- Phones (batch 4): the pathway is not a tall stack ----------
+   Each step's photograph is a 3:2 court-side crop instead of a 4:5 portrait, so the step's name
+   and its gate (assessment or pre-approval) arrive in the same view as its picture. The three
+   steps in the index sit side by side, in the order a player climbs them. */
+@media (max-width: 639px) {
+  .step { gap: var(--sp-4); padding-block: var(--sp-5); }
+  .step .frame { --ar: 3 / 2 !important; }
+  .step .ph__ratio { display: none; }
+  #little-champs .frame__img { object-position: 50% 78% !important; }
+  #transition-tour .frame__img { object-position: 50% 52% !important; }
+  .pathway__steps-nav { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 14px; }
+  /* The rail lies down with them: one baseline, a mark where each step begins */
+  .pathway__nav { padding-left: 0; padding-top: 16px; }
+  .pathway__nav .rail { top: 0; bottom: auto; left: 0; right: 0; width: auto; height: 1px; background: var(--rule-strong); }
+  .pathway__nav .rail__fill { display: none; }
+  .pathway__steps-nav li::before { left: 0; top: -18px; }
+  .pathway__steps-nav a { padding: 10px 0 6px; align-content: start; }
+  .pathway__steps-nav strong { font-size: 20px; }
+  .pathway__steps-nav em { font-size: 13px; }
+}
+
+/* the three steps close the first screen at 360x640 too */
+@media (max-width: 899px) {
+  /* on a phone the three step names are the linked points row, so the lede does not say them twice */
+  .hp-lede__steps { display: none; }
+  .hero--hp .status-line { margin-top: 10px; }
+  .hero--hp .hero__points { margin-top: 10px; }
+  .hero--hp .hero__points li > a { min-height: 44px; padding-block: 6px; }
+  .hero--hp .hero__points li > a > .icon { margin-top: 16px; }
+}

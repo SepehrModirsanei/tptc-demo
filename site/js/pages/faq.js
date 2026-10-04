@@ -54,7 +54,9 @@
         if (hit) n++;
       });
       g.hidden = n === 0;
-      $$('[data-count="' + g.id + '"]', root).forEach(function (c) { c.textContent = n; });
+      $$('[data-count="' + g.id + '"]', doc).forEach(function (c) { c.textContent = n; });
+      var ht = doc.querySelector('.faq-topics a[data-topic="' + g.id + '"]');
+      if (ht) ht.classList.toggle('is-empty', n === 0);
       var cnt = g.querySelector('.faq__count');
       if (cnt) cnt.lastChild.textContent = n === 1 ? ' question' : ' questions';
       var a = root.querySelector('.faqidx a[data-topic="' + g.id + '"]');
@@ -117,6 +119,18 @@
   }
   openFromHash(true);
   window.addEventListener('hashchange', function () { openFromHash(true); });
+
+  /* Phones and tablets: while the hero's six topics are on screen the travelling index under the
+     header stays out of the way, so the same six names are never shown twice. It docks once the
+     hero's row has scrolled off. Its space is always reserved, so nothing shifts. */
+  var heroTopics = doc.querySelector('.faq-topics');
+  var idx = root.querySelector('.faqidx');
+  if (heroTopics && idx && 'IntersectionObserver' in window) {
+    idx.classList.add('is-waiting');
+    new IntersectionObserver(function (es) {
+      idx.classList.toggle('is-waiting', es[0].isIntersecting);
+    }, { rootMargin: '-72px 0px 0px 0px' }).observe(heroTopics);
+  }
 
   /* Opening an answer puts its address in the bar, so it can be shared as is */
   items.forEach(function (it) {

@@ -69,3 +69,6 @@
 
 /* Paper section into the paper closing band: the band's own top padding is the gap (the HP line runs straight into the closing band). */
 .jr-hp { padding-bottom: 0; }
+
+/* The level card rail on phones moved to css/components.css (batch 4 integration). */
+

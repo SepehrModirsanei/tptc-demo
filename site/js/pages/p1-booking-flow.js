@@ -165,7 +165,7 @@
     note.push(S.who === 'guest'
       ? 'Non-members book up to 1 day ahead. The days beyond are for members.'
       : 'Members book up to 7 days ahead. The newest day opens at 7:30am.');
-    if (list.some(function (x) { return isThanksgiving(x.d); })) note.push('Thanksgiving Monday shows weekday hours here. ' + confirmSlot('holiday court hours'));
+    if (list.some(function (x) { return isThanksgiving(x.d); })) note.push('Thanksgiving Monday shows weekday hours here. ' + confirmSlot('Holiday court hours'));
     $('[data-bk-days-note]').innerHTML = note.join(' ');
   }
 
@@ -248,7 +248,7 @@
     var by = new Date(start.getTime() - 48 * 3600 * 1000);
     var b = bill();
     /* The club's rule for any court paid when booked, member or not */
-    if (paid()) return 'Once a court is reserved and paid for, the club gives no refunds and no rescheduling. A no-show still counts toward a 7-day suspension. ' + confirmSlot('whether a court paid when booked can still be cancelled 48 hours ahead');
+    if (paid()) return 'Once a court is reserved and paid for, the club gives no refunds and no rescheduling. A no-show still counts toward a 7-day suspension. ' + confirmSlot('Whether a court paid when booked can still be cancelled 48 hours ahead');
     if (now >= by) return 'This hour starts in less than 48 hours, so from the moment you confirm, cancelling still costs the court fee (' + money(b.court) + '). Three late cancellations or no-shows can suspend booking for 7 days.';
     return 'Cancel online before <strong>' + dShort(by) + ', ' + t(by.getHours() * 60 + by.getMinutes()) + '</strong>, 48 hours ahead, and nothing is charged. After that, or for a no-show, the court fee is charged to the card on file. Three of either can suspend booking for 7 days.';
   }
@@ -274,20 +274,20 @@
       ['Who', S.who === 'member' ? 'Member (demo sign-in)' : 'Non-member'],
       ['Day', dLong(d)],
       ['Hour', '<span class="num">' + t(+S.time) + ' to ' + t(+S.time + S.hours * 60) + '</span>'],
-      ['Court', 'Court <span class="num">' + S.court + '</span>, under the dome'],
+      ['Court', 'Court <span class="num">' + S.court + '</span>, under the Dome'],
       ['Players', playersText()]
     ].map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('');
     $('[data-bk-bill]').innerHTML = '<ul class="bk-bill__lines" role="list">' + b.lines.map(function (l) {
       return '<li><span>' + l[0] + '</span><span class="num">' + money(l[1]) + '</span></li>';
     }).join('') + '</ul><p class="bk-bill__total"><span class="label">Total</span><span class="bk-bill__sum num">' + money(b.total) + '</span></p>' +
       '<p class="small bk-bill__tax">Court fees include HST, as the club publishes them. ' +
-      (b.extra ? confirmSlot('whether HST is included in the $10 fee, and whether it is per hour on a 2-hour booking') + ' ' : '') +
-      confirmSlot('court fees for 2026/27 (the club\'s table carries no year)') + '</p>';
+      (b.extra ? confirmSlot('Whether HST is included in the $10 fee, and whether it is per hour on a 2-hour booking') + ' ' : '') +
+      confirmSlot('Court fees for 2026/27 (the club’s table carries no year)') + '</p>';
     $$('input[name="pay"]').forEach(function (i) { i.checked = S.pay === i.value; });
     $('[data-bk-cancel]').innerHTML = cancelLine();
     var checks = S.who === 'member'
       ? ['One booking a day: this is yours for ' + dShort(d) + '.',
-         limitLine(d) + ' ' + confirmSlot('the period these limits count over'),
+         limitLine(d) + ' ' + confirmSlot('The period these limits count over'),
          'A credit card on file is required for every client.']
       : ['A credit card on file is required for every client.',
          'An unpaid balance from an earlier booking blocks a new one.',
@@ -373,7 +373,7 @@
     $('[data-d="headline"]').textContent = held ? 'Court ' + S.court + ' is held for you, ' : 'Court ' + S.court + ' is yours, ';
     $('[data-d="when"]').textContent = dShort(d) + ' at ' + t(start) + '.';
     $('[data-d="lede"]').innerHTML = held
-      ? 'Under the Club Policies version a non-member pre-pays by phone or in person: call the front desk at <a class="inline-link num" href="tel:+19057315551">905-731-5551</a>. ' + confirmSlot('how long a court is held before payment')
+      ? 'Under the Club Policies version a non-member pre-pays by phone or in person: call the front desk at <a class="inline-link num" href="tel:+19057315551">905-731-5551</a>. ' + confirmSlot('How long a court is held before payment')
       : S.who === 'guest' ? 'Paid in the demo, under the Court Bookings version. On the real site a receipt would follow by email.'
       : S.pay === 'now' ? 'Paid in the demo. On the real site a receipt would follow by email.'
       : 'Booked, with the court fee to settle later. On the real site a confirmation would follow by email.';
@@ -382,7 +382,7 @@
     inRect.setAttribute('width', +S.players === 4 ? '36' : '27');
     var by = new Date(d); by.setMinutes(start); by = new Date(by.getTime() - 48 * 3600 * 1000);
     $('[data-d="fields"]').innerHTML = [
-      ['Court', 'Court <span class="num">' + S.court + '</span>, under the dome'],
+      ['Court', 'Court <span class="num">' + S.court + '</span>, under the Dome'],
       ['Day', dLong(d)],
       ['Hour', '<span class="num">' + t(start) + ' to ' + t(end) + '</span>'],
       ['Players', playersText()],
@@ -394,7 +394,7 @@
     $('[data-d="before"]').innerHTML = [
       ['Arrive on time, step on at ' + t(start), 'Court time starts on the exact ' + (wk ? 'half hour on weekdays' : 'hour on weekends') + '. Crossing other courts, wait for the point to finish, then walk briskly behind the baseline.'],
       ['Change into court shoes', 'Outside shoes stay off the courts. Water only on court.'],
-      ['Dress for 19.5 C', 'The club keeps the dome at 19.5 C: long sleeves and athletic pants over shorts and a T-shirt.'],
+      ['Dress for 19.5 \u00b0C', 'The club keeps the Dome at 19.5 \u00b0C: long sleeves and athletic pants over shorts and a T-shirt.'],
       ['First buzzer at ' + t(end - 3), 'It sounds 3 minutes before your end time. Gather your things, so the next players start on time.']
     ].map(function (s, i) {
       return '<li><span class="step-n num">' + (i + 1) + '</span><div><h4 class="bk-before__t">' + s[0] + '</h4><p class="small">' + s[1] + '</p></div></li>';
@@ -421,7 +421,8 @@
 
   function goTo(el) {
     if (!el) return;
-    var y = el.getBoundingClientRect().top + window.pageYOffset - 96;
+    /* phones: the header is shorter, and the target sits flush under it so nothing above peeks in */
+    var y = el.getBoundingClientRect().top + window.pageYOffset - (window.innerWidth < 700 ? 72 : 96);
     if (window.__lenis) window.__lenis.scrollTo(y, { immediate: reduce });
     else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
   }
@@ -483,7 +484,7 @@
     var clock = $('[data-bk-clock]');
     if (shifted) {
       clock.hidden = false;
-      clock.innerHTML = 'Demo clock: <strong>' + dShort(now) + ', ' + t(nowMin) + '</strong>, the likely first day under the dome. Today, ' + dShort(real) + ', the courts are between seasons. ' + confirmSlot('indoor start date');
+      clock.innerHTML = 'Demo clock: <strong>' + dShort(now) + ', ' + t(nowMin) + '</strong><span class="bk-banner__more">, the likely first day under the Dome. Today, ' + dShort(real) + ', the courts are between seasons. ' + confirmSlot('Indoor start date') + '</span>';
     }
     var last = new Date(today); last.setDate(today.getDate() + 7);
     var next = new Date(today); next.setDate(today.getDate() + 1);

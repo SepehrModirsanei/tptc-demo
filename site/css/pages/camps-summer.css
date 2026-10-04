@@ -119,3 +119,20 @@ html.motion .windows:not(.is-drawn)::before { transform: scaleY(0); }
   .camp-rates__group th { grid-column: 1 / -1; padding-top: 0; }
 }
 
+
+/* The camp cards on phones and the 1100px draw-sheet alignment moved to css/components.css (batch 4 integration). */
+/* ---------- Batch 4, phones: Summer's own sections ---------- */
+@media (max-width: 699px) {
+  /* Prices: the three window names head each camp once, then the rows read as a scoreboard */
+  .camp-rates tr:not(.camp-rates__group) + tr:not(.camp-rates__group) td.tnum::before { display: none; }
+  .camp-rates tr { padding-block: 12px; }
+  .camp-rates__group { padding-top: 22px; }
+  .camp-rates__group th { font-size: 1.25rem; }
+  .windows { margin: var(--sp-5) 0 var(--sp-6); gap: var(--sp-4); }
+  /* Court sheet as a list: camp and its first week on ruled rows, tighter */
+  .sheet-list { gap: var(--sp-4); margin-top: var(--sp-5); }
+  .sheet-list__name { font-size: 1.375rem; padding-bottom: 8px; }
+  .sheet-list li { padding: 10px 0; font-size: 0.9375rem; }
+  .sheet-list li .num { font-size: 0.875rem; }
+}
+

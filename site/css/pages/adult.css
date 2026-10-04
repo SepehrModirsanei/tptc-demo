@@ -24,3 +24,15 @@
 
 /* Paper section into the paper closing band: the band's own top padding is the gap (the membership note runs straight into the closing band). */
 .ad-member { padding-bottom: 0; }
+
+/* ---------- Phones (batch 4): no tall single-column stacks ----------
+   Six ways: What takes the full row, Level and When sit side by side under it, so a row reads
+   like a line of the order of play, not a column of labels.
+   Levels: the three cards become one rail, read left to right like courts side by side; the
+   next card's edge shows, so the rail announces itself. */
+@media (max-width: 999px) {
+  .ad-rows .lrow__cells > div:first-child { grid-column: 1 / -1; }
+  .ad-rows .lrow { gap: 10px 24px; padding: 18px 0; }
+}
+/* The level card rail: shared, css/components.css (.lcards). */
+

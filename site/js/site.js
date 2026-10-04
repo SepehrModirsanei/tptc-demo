@@ -137,7 +137,8 @@
     if (now >= s && now <= e) return; /* live: keep the chip and its Pulse */
     chip.classList.remove('chip--live');
     var dot = $('.live-dot', chip); if (dot) dot.remove();
-    label.textContent = now < s ? 'Starts ' + fmt(s) : 'Ended ' + fmt(e);
+    /* glossary 1.9: '{thing} ended {date}'; the thing is a session of lessons unless data-live-thing names it */
+    label.textContent = now < s ? 'Starts ' + fmt(s) : (chip.getAttribute('data-live-thing') || 'Session') + ' ended ' + fmt(e);
   });
   /* Pulse replays once on hover or focus of its parent (2 iterations, then rests) */
   $$('[data-pulse-parent]').forEach(function (p) {
@@ -197,12 +198,12 @@
           march: { title: 'March Break Camp', line: 'Monday to Friday of the March Break, registered day by day. Camp ages differ from lesson ages, so check each camp.', href: R['camps-march-break'], cta: 'See March Break Camp' },
           holiday: { title: 'Holiday Camps', line: 'Weekdays over the winter break, registered day by day. Camp ages differ from lesson ages, so check each camp.', href: R['camps-holiday'], cta: 'See Holiday Camps' }
         }[season];
-        C.door = 'camps'; C.alt = { href: R.camps, text: 'all camps' };
+        C.door = 'camps'; C.alt = { href: R.camps, text: 'Camps' };
         return C;
       }
       if (!goal) return null;
       var junior = R.junior + '?age=' + encodeURIComponent(age);
-      if (goal === 'learn') return { door: 'junior', title: 'Junior Recreational, ages ' + age, line: 'Choose a level on the next page: Beginner, Intermediate or Advanced. New students can ask for a free placement assessment.', href: junior, cta: 'See Junior Recreational' };
+      if (goal === 'learn') return { door: 'junior', title: 'Junior Recreational, ages ' + age, line: 'Choose a level on the next page: Beginner, Intermediate or Advanced. New students can ask for a free assessment.', href: junior, cta: 'See Junior Recreational' };
       if (age === '4-6') return { door: 'junior', title: 'Junior Recreational, ages 4-6', line: 'Little Champs, the first High Performance step, starts at age 6. Until then, recreational lessons build the base.', href: junior, cta: 'See Junior Recreational', alt: { href: HP + '#little-champs', text: 'Little Champs' } };
       if (age === '7-9') return { door: 'hp', title: 'Little Champs, ages 6-9', line: 'For players looking to compete, or already competing, in OTA U9 or U10 events. An assessment is required.', href: HP + '#little-champs', cta: 'See Little Champs' };
       if (age === '10-13') return { door: 'hp', title: 'Transition Tour, ages 10-15', line: 'For players competing in provincial events such as Future Stars and Rookies. An assessment is required.', href: HP + '#transition-tour', cta: 'See Transition Tour' };

@@ -46,3 +46,20 @@
 .pl-request__grid { display: grid; gap: var(--sp-6); }
 @media (min-width: 1000px) { .pl-request__grid { grid-template-columns: 6fr 5fr; gap: var(--sp-8); align-items: start; } }
 .pl-request .contact-card a { overflow-wrap: anywhere; }
+
+/* ---------- Phones (batch 4): the two formats are compared side by side ----------
+   Private and Semi-private are one choice, so they share a row at every width: same court,
+   same hour, one player or two, two prices on one line. */
+@media (max-width: 799px) {
+  .pl-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .pl-card { padding: 16px 14px 18px; gap: 14px; }
+  .pl-card__title { font-size: clamp(1.375rem, 0.6rem + 3.6vw, 2rem); white-space: nowrap; }
+  .pl-card__plan .small { font-size: 13px; line-height: 1.4; min-height: 2.8em; }
+  .pl-card__price { padding-top: 14px; gap: 4px 8px; }
+  .pl-card__amt { font-size: clamp(2.5rem, 1.6rem + 4vw, 3.5rem); }
+  .pl-card__tax { font-size: 14px; }
+  .pl-rates__head { margin-bottom: var(--sp-5); }
+}
+/* "4-year-old" never breaks at its hyphens */
+.pl-who .h2 .nobr { white-space: nowrap; }
+

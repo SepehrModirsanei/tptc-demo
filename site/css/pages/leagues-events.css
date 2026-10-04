@@ -64,3 +64,17 @@
 .le-levels .acc__panel p { max-width: 62ch; }
 .le-more .acc__panel { max-width: none; justify-items: stretch; padding-right: 0; color: var(--fg); }
 .le-rungs__list { width: 100%; }
+
+/* Batch 4, phones (client note of 4 Oct 2026): the first screen. The four points are the page's
+   first choice, each a jump to its group, so they sit straight under the action; the season line
+   follows them. */
+@media (max-width: 899px) {
+  .page-leagues-events .hero .status-line { order: 2; }
+}
+/* Below 900px a row's status and its way in share one line (chip, then the link); the note and any
+   slot take the line under them. Saves a line of height in each of the sixteen rows. */
+@media (max-width: 899px) {
+  .le-rows .lrow__side { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+  .le-rows .lrow__side > .small { flex: 1 1 100%; order: 3; }
+  .le-rows .lrow { padding: 20px 0; }
+}

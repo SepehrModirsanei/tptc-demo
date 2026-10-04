@@ -53,3 +53,36 @@
   .mem-terms { grid-template-columns: 1fr 1fr; column-gap: var(--sp-8); }
   .mem-terms > div { grid-template-columns: 11rem 1fr; gap: var(--sp-4); align-items: baseline; }
 }
+
+/* Batch 4, phones: the first screen. The key points sit straight under the action, the season line
+   after them. "See the rates" is the first point on a phone (Options, same anchor), so the text
+   link steps aside below 900px, where the points row shows. */
+@media (max-width: 899px) {
+  .page-membership .hero .status-line { order: 2; }
+  .page-membership .hero .hero__actions .link { display: none; }
+}
+@media (max-width: 374px) {
+  .page-membership .hero .hero__title { font-size: 1.5rem; }
+}
+
+/* Batch 4, phones: "Options" in the hero lands on the rates, so below 900px the season switch and
+   the rates come straight after the heading and the Dome ledger follows them. The 15 sits beside
+   its line, like a score beside a name, instead of above it. */
+@media (max-width: 899px) {
+  .page-membership #options > .wrap { display: flex; flex-direction: column; }
+  .page-membership #options .mem-switch { margin-top: var(--sp-6); }
+  .page-membership #options .mem-ledger { order: 5; margin-top: var(--sp-7); padding-top: var(--sp-6); border-top: 1px solid var(--rule); }
+  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead {
+    grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-5); align-items: start;
+  }
+  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > * { grid-column: 2; }
+  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > .mem-pct { grid-column: 1; grid-row: 1; }
+  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > .mem-pct__score { grid-column: 1; grid-row: 2; margin-top: 0; }
+  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > .mem-rates__head { grid-row: 1; align-self: end; }
+  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > .small { grid-row: auto; }
+  .page-membership .mem-pct__n { font-size: 4.25rem; }
+  .page-membership .mem-why { gap: var(--sp-5); }
+  .page-membership .mem-fine { gap: var(--sp-5); }
+}
+/* the resident saving is a key point on a phone (the points row), a closing sentence on a desktop */
+@media (max-width: 899px) { .mem-lede-wide { display: none; } }

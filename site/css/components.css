@@ -255,6 +255,96 @@
 .hero--1951 .numeral { margin-top: var(--sp-5); font-size: clamp(5rem, 2rem + 10vw, 11rem); }
 .crumbs-bar { padding-top: clamp(16px, 2vw, 28px); }
 
+/* ---------- Inner heroes on phones and tablets (batch 4, client note of 4 Oct 2026) ----------
+   The first-screen rule: on a phone the first 600px show what the page is, its action or first
+   choice, and its key points. So below 900px a section hero is no longer a stack. It is Home's
+   composition: the page's words on our side, a tall crop of its photograph on the other, the net
+   standing between them, then the action, the status line and the key points ruled beneath.
+   Applies to hero--section, hero--performance and the hand-written hero--hp. Home keeps its own
+   rules (hero--home, site.css). The test is qa/b4/measure.py. */
+.hero__points { display: none; }
+@media (max-width: 899px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__grid {
+    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr; padding-left: var(--gutter);
+  }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__words { display: contents; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__words > * { grid-column: 1 / -1; padding-inline: 0; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .crumbs { grid-row: 1; padding-top: 6px; margin-bottom: 6px; padding-right: var(--gutter); }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__title {
+    grid-column: 1; grid-row: 2; margin-top: 0; padding-right: 12px;
+    font-size: clamp(1.625rem, 0.6rem + 4.4vw, 3rem); line-height: 1.06; text-wrap: balance;
+  }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__lede {
+    grid-column: 1; grid-row: 3; margin-top: 12px; padding: 0 14px 18px 0;
+    font-size: clamp(0.9375rem, 0.82rem + 0.5vw, 1.125rem); line-height: 1.45;
+  }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media {
+    grid-column: 2; grid-row: 2 / span 2; align-self: stretch; margin: 0; min-height: clamp(180px, 48vw, 420px);
+  }
+  /* the net stands upright between the words and the photograph, post to post */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline { top: 0; bottom: 0; left: -1px; right: auto; width: 2px; height: auto; transform-origin: 50% 0; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline__post { left: -2px; right: auto; top: auto; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline__post:first-child { top: 0; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline__post:last-child { bottom: -6px; }
+  html.motion .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline[data-chalk-self]:not(.is-drawn) { transform: scaleY(0); }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame--fill,
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame--fill .frame__box { height: 100%; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame--fill .frame__box { aspect-ratio: auto !important; }
+  /* the page's own crop; a page may set a phone crop on the hero: posphone="38% 30%" */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__img { object-position: var(--pos-phone, var(--pos, 50% 50%)); }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { font-size: 9px; padding: 6px 8px; gap: 6px; letter-spacing: 0.1em; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__desc { display: none; }
+  /* an empty slot in the narrow column: the plate keeps its court, its tag and its slot id, all inside the frame */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__label { left: 8px; right: 6px; bottom: 10px; padding: 0; gap: 4px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__label > span { padding-right: 4px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__kicker { font-size: 9px; letter-spacing: 0.1em; gap: 6px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__id { font-size: 11px; overflow-wrap: anywhere; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__actions { width: auto; margin-top: 14px; padding-right: var(--gutter); gap: 0 24px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .status-line { margin-top: 12px; padding-right: var(--gutter); gap: 6px 12px; font-size: 14px; line-height: 1.35; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) { padding-bottom: clamp(20px, 5vw, 40px); }
+  /* the next section starts close enough that its first line shows as the cue to scroll */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) + .section { padding-top: clamp(32px, 8vw, 64px); }
+}
+/* The key points row (build.py hero points=, or <!--@points items=... /-->): two to four facts from
+   the content files, ruled like a line of the season ledger. A point that links is the page's first
+   choice and carries the red arrow. Phones and tablets only; on a desktop the facts sit in view below. */
+@media (max-width: 899px) {
+  .hero__points {
+    display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); grid-column: 1 / -1;
+    list-style: none; margin: 14px var(--gutter) 0 0; padding: 0; border-top: 1px solid var(--rule);
+  }
+  .hero--nomedia .hero__points { margin-right: 0; }
+  .hero__points li { display: flex; min-width: 0; border-bottom: 1px solid var(--rule); }
+  .hero__points li + li { padding-left: 12px; border-left: 1px solid var(--rule); }
+  .hero__points[style*="--n:2"] li:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .hero__points li > a, .hero__points li > .hero__point-text { flex: 1 1 auto; min-width: 0; min-height: 48px; padding: 7px 8px 7px 0; }
+  .hero__points li > a { display: flex; align-items: center; justify-content: space-between; gap: 6px; color: var(--fg); text-decoration: none; }
+  .hero__points li > a:active { background: var(--surface-alt); }
+  .hero__points .icon { width: 14px; height: 14px; flex: none; color: var(--red); }
+  .hero__point-text { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-width: 0; }
+  .hero__point-label { font: 600 0.6875rem/1.2 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-muted); }
+  .hero__point-value { font: 400 0.9375rem/1.2 var(--font-serif); color: var(--fg); text-wrap: balance; }
+  /* words-only heroes (compact, nomedia): the same rule, so the lede and the action close up */
+  .hero--nomedia .hero__words { padding-top: 6px; padding-bottom: clamp(24px, 6vw, 48px); }
+  .hero--nomedia .crumbs { margin-bottom: 6px; }
+  .hero--nomedia .hero__title { font-size: clamp(2rem, 0.9rem + 4.6vw, 3.25rem); line-height: 1.04; }
+  .hero--nomedia .hero__lede { margin-top: 12px; font-size: clamp(1rem, 0.86rem + 0.6vw, 1.1875rem); line-height: 1.45; }
+  .hero--nomedia .hero__actions { margin-top: 16px; gap: 0 24px; }
+  .hero--nomedia .status-line { margin-top: 12px; gap: 6px 12px; font-size: 14px; line-height: 1.35; }
+  .hero--nomedia + .section { padding-top: clamp(32px, 8vw, 64px); }
+}
+/* Buttons that name the thing ("Register for Intermediate 1 and 2") may be longer than a phone is
+   wide: the label wraps inside the button instead of pushing the page sideways. One-line labels are unchanged. */
+@media (max-width: 599px) {
+  .btn { max-width: 100%; white-space: normal; text-align: center; line-height: 1.25; padding-block: 10px; }
+}
+/* the narrowest phones: the placeholder tag stays on one line in the narrow photograph column */
+@media (max-width: 389px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { letter-spacing: 0.04em; padding: 6px; white-space: nowrap; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag-mark { display: none; }
+}
+
 /* =====================================================================================
    Program card variants, price card, schedule and league rows live above (from the guide).
    Additions: a row of cards, and the field order every program unit keeps (rule 19:
@@ -516,3 +606,96 @@ html.motion .oop__compact:not(.is-drawn) .oop__days li::after { transform: scale
 .lcard--off { align-self: start; border-top: 1px dashed var(--rule-strong); background: transparent; grid-template-rows: auto auto auto 1fr; }
 .lcard--off .lcard__title, .lcard--off .lcard__test { color: var(--fg-muted); }
 .lcard--off .cplan { opacity: 0.55; }
+
+
+/* ================= Batch 4 integration (4 Oct 2026): patterns hoisted from page CSS ================= */
+/* Key points row on phones: every label sits on the same line, like the head of a score sheet. */
+@media (max-width: 899px) {
+  .hero__points .hero__point-text { justify-content: flex-start; }
+  .hero__points li > a { align-items: flex-start; }
+  .hero__points li > a > .icon { margin-top: 17px; }
+  /* QC round 1: a linked point carries its arrow at the end of the label line; the value keeps the full cell */
+  .hero__points li > a > .hero__point-text { flex: 1 1 auto; }
+  .hero__points a .hero__point-label { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .hero__points a .hero__point-label { align-items: flex-start; } /* a two-line label keeps the arrow on its first line */
+  .hero__points .hero__point-label .icon { margin-block: 0 -4px; } /* the arrow never makes the label line taller */
+}
+
+/* ---------- Phones (batch 4): the level cards are one rail ----------
+   The three levels sit side by side, the way the club's courts do; the next card's edge shows so
+   the rail announces itself. Junior Recreational and Adult Programs share it. The hidden age sets stay hidden. */
+@media (max-width: 899px) {
+  .lcards:not([hidden]) { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+    scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .lcards::-webkit-scrollbar { display: none; }
+  .lcards .lcard { flex: 0 0 min(86%, 420px); scroll-snap-align: start; }
+}
+/* a not-at-this-age card stands as tall as the live card beside it */
+@media (max-width: 899px) { .lcards .lcard--off { align-self: stretch; } }
+/* QC round 1: on the rail only one card is in view, so each card is as tall as its own content;
+   no empty band between the description and the fields. Desktop keeps the aligned rows. */
+@media (max-width: 899px) {
+  .lcards:not([hidden]) { align-items: flex-start; }
+  .lcards .lcard:not(.lcard--off) { grid-template-rows: none; grid-auto-rows: auto; align-content: start; }
+  .lcards .lcard:not(.lcard--off) .fields { align-self: start; }
+}
+
+/* ---------- Batch 4, phones: the camp cards (same block on Summer, March Break and Holiday) ----------
+   Story: the recreational camp is the open court, one card on paper. The High Performance camps sit
+   across the net on Blazer, and on a phone they are read the way a draw sheet is: side by side,
+   one swipe from camp to camp, so a parent compares ages, level and price without a long scroll.
+   The card fields become ruled rows, label beside value, like the lines of a scoreboard.
+   The shared family lives in css/components.css; this block only recomposes it under 700px. */
+.campcards__hp-hint { display: none; }
+@media (max-width: 699px) {
+  .campcards { gap: var(--sp-5); }
+  .campcards .pcard { gap: 14px; padding: 20px 18px 22px; }
+  .campcard__day { font-size: 1rem; line-height: 1.5; }
+  .campcard .fields--compact > div { grid-template-columns: 58px minmax(0, 1fr); gap: 2px 12px; padding: 9px 0; align-items: baseline; }
+  .campcard .fields--compact > div:first-child { padding-top: 12px; }
+  .campcard .fields--compact dd { font-size: 0.9375rem; line-height: 1.45; }
+  .campcard .fields--compact dd .small { font-size: 0.875rem; margin-top: 2px; }
+  .campcard .pcard__price { font-size: 26px; }
+  .campcard .btn { justify-self: stretch; }
+
+  .campcards__hp {
+    grid-auto-flow: column; grid-template-rows: auto 1fr; grid-auto-columns: min(88%, 340px);
+    gap: var(--sp-4) 12px; padding-block: var(--sp-6);
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    background-image: linear-gradient(var(--red), var(--red)); background-size: 100% 2px; background-repeat: no-repeat;
+  }
+  .campcards__hp::-webkit-scrollbar { display: none; }
+  .campcards__hp::before { display: none; }
+  .campcards__hp-head { grid-row: 1; grid-column: 1; position: sticky; left: var(--gutter); width: calc(100vw - var(--gutter) * 2); display: grid; gap: 8px; font-size: 1.75rem; }
+  .campcards__hp-hint { display: block; font: 500 0.8125rem/1.3 var(--font-sans); letter-spacing: 0.02em; text-transform: none; color: var(--fg-muted); }
+  .campcards__hp .pcard { grid-row: 2; scroll-snap-align: start; grid-template-rows: auto auto 1fr auto; align-content: start; }
+  .campcards__hp .pcard__title { font-size: 26px; }
+  .campcards__hp .fields { align-content: start; }
+  /* the group head already says High Performance: the card keeps only its ages chip */
+  .campcards__hp .pcard__kicker .chip:first-child { display: none; }
+  .campcard__sub { margin-top: 6px; font-size: 14px; }
+}
+
+/* ---------- Batch 4, 1100px and up: the High Performance cards line up like a draw sheet ----------
+   Each card's chips, title, fields and action sit on the same four rows across the group (subgrid),
+   so the rule under every title and every register button align. A register label as long as its
+   camp's name wraps inside the button and never leaves the card. */
+.campcards__hp .campcard .btn { max-width: 100%; height: auto; min-height: 52px; padding-block: 12px; text-align: center; }
+.campcards__hp .campcard .btn__label > span { white-space: normal; text-wrap: balance; line-height: 1.4; }
+@media (min-width: 1100px) {
+  @supports (grid-template-rows: subgrid) {
+    .campcards__hp .pcard { grid-row: span 4; grid-template-rows: subgrid; row-gap: 18px; }
+    .campcards__hp .pcard__title { align-self: start; }
+    .campcards__hp .campcard .btn { align-self: end; justify-self: stretch; }
+  }
+}
+
+/* Placeholder tag on a hero photograph, phones: bottom-left, so it never sits over the subject's head. */
+@media (max-width: 899px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { top: auto; right: auto; bottom: 0; left: 0; }
+}
+/* Breadcrumbs carry the full page name (glossary 1.2); under 400px the separators close up so a
+   four-step trail such as Home / Programs / Camps / March Break Camp stays on one line. */
+@media (max-width: 399px) { .crumbs ol { column-gap: 7px; } .crumbs li { gap: 7px; } }

@@ -2,3 +2,5 @@
    The camp family (.camp-status, .campcards, .extras, .policies, the Order of Play) is shared in
    components.css since integration; this file keeps only what is March Break's own. */
 
+
+/* The camp cards on phones and the 1100px draw-sheet alignment moved to css/components.css (batch 4 integration). */

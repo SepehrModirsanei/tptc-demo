@@ -188,3 +188,13 @@
   .direction li, .orn p, .prim p, .lrow__meta, .contrast, .field__label { font-size: 1rem; }
   .sw__meta, .typeface__meta, .field__help { font-size: 1rem; }
 }
+
+/* Batch 4 integration: on a phone the content column may never be wider than the screen; a wide
+   table scrolls inside its own .scroll-x box instead of pushing the page sideways. */
+.sys { grid-template-columns: minmax(0, 1fr); }
+.sys > * { min-width: 0; }
+@media (min-width: 1100px) { .sys { grid-template-columns: 220px minmax(0, 1fr); } }
+.spec > * { min-width: 0; max-width: 100%; }
+/* Phones: the first four chapters as the hero's key points row, since the side index only shows from 1100px. */
+.sys-hero .hero__points { margin-right: 0; }
+@media (max-width: 899px) { .sys-hero__grid { margin-top: 12px; } .sys-hero .display { margin-top: 12px !important; font-size: clamp(3.5rem, 18vw, 6.75rem); } .sys-hero .lede { margin-top: 14px !important; } }

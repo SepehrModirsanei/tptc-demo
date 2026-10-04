@@ -80,9 +80,10 @@ html.motion .elev__dome { transition: transform 600ms var(--ease-out), opacity 6
 }
 @media (max-width: 799px) {
   .handover__bar { display: none; }
-  .handover__marks { border-left: 1.5px solid var(--fg); padding-left: 18px; }
+  /* Two classes: the reset `ol[role="list"] { padding: 0 }` outranks one. */
+  .handover .handover__marks { border-left: 1.5px solid var(--fg); padding-left: 18px; margin-left: 5px; }
   .handover__mark { position: relative; }
-  .handover__mark::before { content: ""; position: absolute; left: -24px; top: 10px; width: 10px; height: 1.5px; background: var(--fg); }
+  .handover__mark::before { content: ""; position: absolute; left: -24px; top: 12px; width: 12px; height: 1.5px; background: var(--fg); }
   .handover__mark--buzz::before { background: var(--red); }
 }
 

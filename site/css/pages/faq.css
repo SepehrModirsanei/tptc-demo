@@ -131,3 +131,34 @@
   .faqidx a::after { transition: none; }
   .faqx .acc__item.is-target::before { animation: none; }
 }
+
+/* ---------- Batch 4, phones: the six topics in the first screen ----------
+   Story: a draw sheet. Six topics in three rows of two, each ruled off with its count, the way a
+   draw lists its sections before the first match. The search stays the page's action; this row
+   is its first choice. Below 1000px only; from there the index beside the answers takes over. */
+.faq-topics { margin-top: var(--sp-4); width: 100%; max-width: 34rem; }
+.faq-topics ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
+.faq-topics li { min-width: 0; border-bottom: 1px solid var(--rule); }
+.faq-topics li:nth-child(even) { border-left: 1px solid var(--rule); }
+.faq-topics a { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; min-height: 40px; padding: 9px 12px 8px 0; color: var(--fg); text-decoration: none; }
+.faq-topics li:nth-child(even) a { padding-left: 14px; }
+.faq-topics__name { font: 400 1.0625rem/1.2 var(--font-serif); min-width: 0; }
+.faq-topics__n { font: 400 0.75rem/1 var(--font-sans); color: var(--fg-muted); font-variant-numeric: tabular-nums lining-nums; }
+.faq-topics a:hover .faq-topics__name { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.faq-topics a:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.faq-topics a.is-empty { opacity: 0.45; }
+@media (max-width: 599px) {
+  .faq-hero__search { margin-top: var(--sp-4); }
+  .faq-hero .faqsearch__status { min-height: 0; }
+}
+@media (max-width: 999px) {
+  .faqidx { transition: opacity var(--dur-ui) var(--ease-ui); }
+  .faqidx.is-waiting { opacity: 0; pointer-events: none; visibility: hidden; transition: opacity var(--dur-ui) var(--ease-ui), visibility 0s linear var(--dur-ui); }
+}
+@media (min-width: 600px) and (max-width: 999px) { .faq-topics ol { grid-template-columns: repeat(3, minmax(0, 1fr)); } .faq-topics li:nth-child(even) { border-left: 0; } .faq-topics li:not(:nth-child(3n + 1)) { border-left: 1px solid var(--rule); } .faq-topics li a { padding-left: 14px; } .faq-topics li:nth-child(3n + 1) a { padding-left: 0; } }
+@media (max-width: 999px) { .faq-hero.hero { padding-bottom: 0; } .faq-hero .hero__words { padding-bottom: var(--sp-2); } section.faqx { padding-top: 0; } .faqx__grid { gap: var(--sp-3); } .faqx .faq__group:first-child { padding-top: var(--sp-2); } }
+@media (min-width: 1000px) { .faq-topics { display: none; } }
+@media (prefers-reduced-motion: reduce) { .faqidx, .faqidx.is-waiting { transition: none; } }
+
+/* A phone number never breaks across two lines. */
+.inline-link[href^="tel:"] { white-space: nowrap; }

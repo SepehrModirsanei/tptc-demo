@@ -540,7 +540,8 @@ html.interim-photos .frame.has-img .frame__tag { display: inline-flex; }
   .hero__media .netline__post:first-child { left: 0; }
   .hero__media .netline__post:last-child { right: 0; }
   html.motion .hero__media .netline[data-chalk-self]:not(.is-drawn) { transform: scaleX(0); }
-  .hero .frame { --ar: 5 / 4 !important; --pos: 66% 40% !important; }
+  /* side-by-side heroes (section, performance, hp) keep the page's own crop: see components.css, batch 4 */
+  .hero:not(.hero--section, .hero--performance, .hero--hp) .frame { --ar: 5 / 4 !important; --pos: 66% 40% !important; }
   .hero .ph__ratio { display: none; }
   /* The year folds vertically on a phone: 19 above the net, 51 on the photograph */
   .year--hero { left: var(--gutter); top: 0; }
@@ -855,11 +856,7 @@ html.motion .split__net[data-chalk-self] { transition: transform 1100ms var(--ea
 @media (min-width: 900px) {
   .hero--hp .hero__words { padding-top: clamp(8px, 2vh, 24px); }
 }
-@media (max-width: 899px) {
-  .hero--hp .hero__media { margin-top: var(--sp-6); }
-  .hero--hp .frame { --ar: 4 / 3 !important; --pos: 42% 35% !important; }
-  .hero--hp { padding-bottom: 0; }
-}
+@media (max-width: 899px) { .hero--hp { padding-bottom: 0; } }
 
 /* Pathway with the Hold primitive */
 .pathway { display: grid; gap: var(--sp-6); }
@@ -932,20 +929,13 @@ html.hold-on .pathway__steps-nav a:not(.is-active) strong { opacity: 0.6; }
   p.small, .gloss, .fields dd .small, .confirm__why, .next-door p { font-size: 1rem; }
 }
 
-/* ---------- HP hero on phones (lead review pass) ----------
-   The photograph comes up under the breadcrumb, so the Turn from the Home door lands inside the
-   first view instead of at the fold, and the phone fold opens on play rather than on text.
-   The net moves to the photograph's lower edge: the game above, the club's words below. */
-@media (max-width: 599px) {
-  .hero.hero--hp .hero__grid { display: flex; flex-direction: column; }
-  .hero.hero--hp .hero__words { display: contents; view-transition-name: none; }
-  .hero.hero--hp .hero__words > * { padding-inline: var(--gutter); order: 2; }
-  .hero.hero--hp .crumbs { order: 0; padding-top: 12px; margin-bottom: 12px; }
-  .hero.hero--hp .hero__media { order: 1; margin: 0 0 28px; }
-  .hero.hero--hp .frame { --ar: 16 / 9 !important; --pos: 42% 30% !important; }
-  .hero.hero--hp .hero__media .netline { top: auto; bottom: -1px; }
+/* ---------- HP hero on phones ----------
+   Batch 4 (client note, 4 Oct 2026): the photo-first stack pushed the page name to 526px on a phone.
+   High Performance now shares the side-by-side phone hero of every section page: components.css,
+   "Inner heroes on phones and tablets". Only the Turn names stay here. */
+@media (max-width: 899px) {
+  .hero.hero--hp .hero__words { view-transition-name: none; }
   .hero.hero--hp .hero__title { view-transition-name: hp-words; }
-  .hero.hero--hp { padding-bottom: var(--sp-6); }
 }
 
 
@@ -954,3 +944,17 @@ html.hold-on .pathway__steps-nav a:not(.is-active) strong { opacity: 0.6; }
 /* Registration mode (build.py REG_MODE): once the club no longer registers through JBI, every
    sentence that names it leaves every page at once. */
 html[data-reg="own"] [data-reg-mode="jbi"] { display: none !important; }
+
+/* ---------- Batch 4: shared patterns on phones (client note, 4 Oct 2026) ----------
+   No tall single-column stacks. The Recreational half of the split sets its photograph beside its
+   words, as it already does from 600px; the split and the closing band lose the desktop's air. */
+@media (max-width: 599px) {
+  .split__half { padding-block: 48px; }
+  .split__half--rec .split__inner { grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); align-items: end; column-gap: 16px; }
+  .split__half--rec .frame { width: 100%; }
+  .split__half--rec .split__line { font-size: 1rem; line-height: 1.5; }
+  .split__half--rec .frame__tag { font-size: 9px; padding: 6px 8px; gap: 6px; letter-spacing: 0.06em; white-space: nowrap; }
+  .split__half--type .split__title { font-size: 2.5rem; }
+  .cta { padding-block: 56px; }
+  .cta__inner { gap: var(--sp-4); }
+}

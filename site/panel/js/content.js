@@ -181,7 +181,7 @@
     var sess = '', sessLegend = '';
     if (HP_FALL) {
       sess = '<span class="ledger__session" style="--l:' + pct(HP_FALL.start) + '%;--w:' + Math.round(1000 * (pct(HP_FALL.end, true) - pct(HP_FALL.start))) / 1000 + '%"><span class="ledger__session-label">High Performance, ' + md(HP_FALL.start) + ' to ' + md(HP_FALL.end) + '</span></span>';
-      sessLegend = '<p class="ledger__seg ledger__seg--session"><span class="ledger__name">High Performance fall outdoor session</span> <span class="ledger__dates num">' + md(HP_FALL.start) + ' to ' + md(HP_FALL.end, true) + '</span></p>';
+      sessLegend = '<p class="ledger__seg ledger__seg--session"><span class="ledger__name">High Performance Fall Outdoor session</span> <span class="ledger__dates num">' + md(HP_FALL.start) + ' to ' + md(HP_FALL.end, true) + '</span></p>';
     }
     var change = phase(addDay(out.end, 1)) + ', the dome goes up. ' + (ind.startToConfirm
       ? 'Likely <span class="num">' + md(ind.start) + '</span>' + confirmHtml('indoor start date', true)

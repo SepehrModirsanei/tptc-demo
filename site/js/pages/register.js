@@ -18,7 +18,7 @@
     0: 'Your first serve of the season: from the deuce court, over the net, into the box.',
     1: 'The toss: who is playing.',
     2: 'Over the net: what you are registering for.',
-    3: 'In. Your route is below: continue to enrol.'
+    3: 'In. Your route is below: continue to register.'
   };
 
   function at(n) {
@@ -55,6 +55,29 @@
 
   $$('input[type="radio"]', flow).forEach(function (r) { r.addEventListener('change', update); });
 
+  /* The hero's first choice (phones): a tap on "A child" or "An adult, or the family" answers step 1
+     and lands on step 2. Without script the same link scrolls to that option. */
+  $$('a[href="#who-child"], a[href="#who-adult"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var w = flow.querySelector('input[name="who"][value="' + a.getAttribute('href').slice(5) + '"]');
+      if (!w) return;
+      e.preventDefault();
+      e.stopPropagation(); /* the site's own anchor scroll would stop at the option, under the strip */
+      w.checked = true;
+      update();
+      var first = flow.querySelector('[data-step="1"]');
+      if (first) {
+        /* Stop below the header and, on phones, below the court strip that rides under it */
+        var strip = court && getComputedStyle(court).position === 'sticky' && window.innerWidth < 1000 ? court.offsetHeight : 0;
+        var head = doc.querySelector('.header, header');
+        var y = first.getBoundingClientRect().top + window.pageYOffset - (head ? head.offsetHeight : 64) - strip - 20;
+        window.scrollTo({ top: Math.max(0, y), behavior: reduce ? 'auto' : 'smooth' });
+      }
+      var nxt = step2.querySelector('.reg-opt:not([hidden]) input');
+      if (nxt) nxt.focus({ preventScroll: true });
+    });
+  });
+
   /* ?for= from a program's own Register button (and age, level, season) */
   var q = new URLSearchParams(location.search);
   var map = {
@@ -64,8 +87,8 @@
     'camps': ['child', 'camps', 'Camps'],
     'adult': ['adult', 'adult', 'Adult group lessons'],
     'membership': ['adult', 'membership', 'Membership'],
-    'private-lessons': ['adult', 'private', 'Private lessons'],
-    'leagues': ['adult', 'leagues', 'Leagues and events']
+    'private-lessons': ['adult', 'private', 'Private Lessons'],
+    'leagues': ['adult', 'leagues', 'Leagues & Events']
   };
   var seasons = { 'summer': 'Summer', 'march-break': 'March Break', 'holiday': 'Holiday' };
   var f = map[q.get('for')];

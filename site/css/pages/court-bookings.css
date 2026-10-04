@@ -141,3 +141,28 @@
   .cb-window__days li { padding-left: 4px; }
   .cb-window__dow { font-size: 10px; letter-spacing: 0.04em; }
 }
+
+/* Batch 4, phones (client note of 4 Oct 2026): the first screen. The booking window is this page's
+   key point, so below 1000px it sits straight under the action instead of under the whole hero:
+   title, one line, Book a court, then the court sheet with both bars, then the membership link and
+   the season line. The words and the actions give up their boxes (display: contents) so the sheet
+   can stand between them; the sheet itself is set tighter, name and dates on one line per bar. */
+@media (max-width: 999px) {
+  .cb-hero .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); padding: 6px var(--gutter) clamp(24px, 6vw, 48px); max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; }
+  .page-court-bookings .cb-hero .hero__words,
+  .page-court-bookings .cb-hero .hero__actions { display: contents; }
+  .cb-hero .crumbs { order: 1; }
+  .cb-hero .hero__title { order: 2; }
+  .cb-hero .hero__lede { order: 3; }
+  .cb-hero .hero__actions .btn { order: 4; margin-top: 16px; }
+  .cb-hero .cb-window { order: 5; margin: 18px 0 0; padding: 0; max-width: none; }
+  .cb-hero .hero__actions .link { order: 6; justify-self: start; margin-top: 10px; }
+  .cb-hero .status-line { order: 7; }
+  .cb-window__lead { margin: 4px 0 10px; font-size: 14px; line-height: 1.35; }
+  .cb-window__days li { padding-top: 7px; padding-bottom: 7px; }
+  .cb-window__bars { margin-top: 10px; gap: 8px; }
+  .cb-window__bar { grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 5px; align-items: baseline; }
+  .cb-window__bar dt { grid-column: 1; grid-row: 1; }
+  .cb-window__bar dd { grid-column: 2; grid-row: 1; order: 0; text-align: right; font-size: 14px; line-height: 1.2; }
+  .cb-window__bar::before { grid-column: 1 / -1; grid-row: 2; }
+}

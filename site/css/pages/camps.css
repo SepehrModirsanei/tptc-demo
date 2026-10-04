@@ -101,3 +101,17 @@ html.motion .tracks__net[data-chalk-self]:not(.is-drawn) { transform: scaleX(0);
   .qrow { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); column-gap: 32px; align-items: baseline; }
 }
 @media (max-width: 479px) { .door__status .chip { white-space: normal; text-wrap: balance; min-height: 28px; padding-block: 6px; line-height: 1.2; } }
+
+/* ---------- Batch 4, phones: the first screen is the choice itself ----------
+   Under 900px the hero's key points row is the three seasons as links, so the "Choose a season"
+   button (a jump to the same three doors) steps aside and the seasons rise into the first view. */
+@media (max-width: 899px) {
+  .page-camps .hero__actions .btn { display: none; }
+  .page-camps .hero__points .hero__point-value { font-size: 1.0625rem; }
+  .page-camps .hero__points li > a { min-height: 56px; }
+}
+@media (max-width: 699px) {
+  /* Both tracks either side of the net: one screen, not two */
+  .tracks__inner { gap: 10px; padding-block: var(--sp-6); }
+  .campyear { margin: var(--sp-6) 0 var(--sp-6); }
+}
