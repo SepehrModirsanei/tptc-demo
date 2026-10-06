@@ -166,3 +166,44 @@
 
 /* A phone number never breaks across two lines. */
 .inline-link[href^="tel:"] { white-space: nowrap; }
+
+/* ---------- Batch 5: the serve fills the hero's right half (desktop) ----------
+   Story: registering is the first serve of your season, so the court the serve is played on is
+   the page's own drawing and belongs in the first screen, not one screen down. It is the same
+   figure (one court, one ball): lifted from the flow's right column into the hero's empty half,
+   it still rides beside the three choices as you scroll (sticky) and still plays the toss, the
+   net and the bounce. The hero's height is fixed here so the lift is exact without script. */
+.pc__key { display: none; }
+@media (min-width: 1000px) {
+  :root { --reg-hero-h: 29rem; --reg-hero-top: 6rem; --reg-pad: var(--sp-7); }
+  .reg-hero .hero__words { box-sizing: border-box; height: var(--reg-hero-h); padding-bottom: 0; }
+  .reg-hero .hero__title, .reg-hero .hero__lede { max-width: min(40rem, 52vw); }
+  .reg-hero + .reg { padding-top: var(--reg-pad); }
+  .reg-hero + .reg .pc { margin-top: calc(var(--reg-hero-top) - var(--reg-hero-h) - var(--reg-pad)); }
+  /* The key to the drawing: the three numbers on the court are the three choices */
+  .pc__key { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+  .pc__key li { display: grid; gap: 4px; align-content: start; padding: 12px 12px 0 0; }
+  .pc__key li + li { padding-left: 12px; border-left: 1px solid var(--rule); }
+  .pc__key-n { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+  .pc__key-q { font: 400 1.0625rem/1.25 var(--font-serif); color: var(--fg); }
+  .pc[data-at="1"] .pc__key li:nth-child(1) .pc__key-n,
+  .pc[data-at="2"] .pc__key li:nth-child(-n+2) .pc__key-n,
+  .pc[data-at="3"] .pc__key li .pc__key-n { color: var(--fg); }
+}
+@media (min-width: 1200px) { .pc__key-n { white-space: nowrap; } } /* each label of the key on one line */
+
+/* ---------- Batch 5 lead review: nothing cut by the foot of the first screen ----------
+   1280x720: "Three choices" began inside the first screen and was cut; the hero now ends 64px
+   (the flow's own top pad) above the foot, so the flow starts exactly on the first scroll.
+   1440x900: the heading was whole but step 1 was cut 24px in; the hero grows just enough for
+   step 1 to start at the foot. The serve's lift reads --reg-hero-h, so it follows. */
+@media (min-width: 1000px) and (max-height: 876px) {
+  :root { --reg-hero-h: max(29rem, calc(100svh - var(--header-h) - 64px)); }
+}
+@media (min-width: 1000px) and (min-height: 877px) and (max-height: 960px) {
+  :root { --reg-hero-h: max(29rem, calc(100svh - var(--header-h) - 332px)); }
+}
+/* A short phone (360x640): the small court under the hero was cut by the foot of the screen. */
+@media (max-width: 899px) and (max-height: 700px) {
+  .hero.reg-hero { min-height: calc(100svh - var(--header-h)); }
+}

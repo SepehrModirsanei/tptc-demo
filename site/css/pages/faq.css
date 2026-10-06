@@ -52,6 +52,9 @@
 .faqsearch__box > .icon { position: absolute; left: 16px; width: 20px; height: 20px; color: var(--fg-muted); pointer-events: none; }
 .faqsearch__input { width: 100%; padding-left: 48px; padding-right: 52px; -webkit-appearance: none; appearance: none; }
 .faqsearch__input::-webkit-search-cancel-button { -webkit-appearance: none; }
+/* Batch 5 lead review: the clear button only exists once something is typed, so the empty field
+   gives its room back and the prompt is whole at 360px (it ended "the Dom"). */
+.faqsearch__input:placeholder-shown { padding-right: 14px; }
 .faqsearch__clear { position: absolute; right: 0; width: var(--target); height: var(--target); display: grid; place-items: center; background: none; border: 0; color: var(--fg); cursor: pointer; }
 .faqsearch__clear .icon { width: 18px; height: 18px; }
 .faqsearch__clear:focus-visible { outline: 2px solid var(--focus); outline-offset: -4px; }
@@ -157,8 +160,33 @@
 }
 @media (min-width: 600px) and (max-width: 999px) { .faq-topics ol { grid-template-columns: repeat(3, minmax(0, 1fr)); } .faq-topics li:nth-child(even) { border-left: 0; } .faq-topics li:not(:nth-child(3n + 1)) { border-left: 1px solid var(--rule); } .faq-topics li a { padding-left: 14px; } .faq-topics li:nth-child(3n + 1) a { padding-left: 0; } }
 @media (max-width: 999px) { .faq-hero.hero { padding-bottom: 0; } .faq-hero .hero__words { padding-bottom: var(--sp-2); } section.faqx { padding-top: 0; } .faqx__grid { gap: var(--sp-3); } .faqx .faq__group:first-child { padding-top: var(--sp-2); } }
-@media (min-width: 1000px) { .faq-topics { display: none; } }
+.faq-topics__head, .faq-topics__marks, .faq-topics__total { display: none; }
 @media (prefers-reduced-motion: reduce) { .faqidx, .faqidx.is-waiting { transition: none; } }
 
 /* A phone number never breaks across two lines. */
 .inline-link[href^="tel:"] { white-space: nowrap; }
+
+/* ---------- Batch 5: the scorecard fills the hero's right half (desktop) ----------
+   Story: an umpire's scorecard. The chair keeps one row for each game and one stroke for each
+   point played; the club's card keeps one row for each topic and one stroke for each answer it
+   has given, with the total at the foot. Questions, answered once, and counted. The rows are the
+   six topic links the phone hero already carries; the strokes and the total follow the search. */
+@media (min-width: 1000px) {
+  .faq-hero .hero__words { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--sp-8); align-items: start; justify-items: start; }
+  .faq-hero .hero__words > * { grid-column: 1; }
+  .faq-hero .hero__words > .faq-topics { grid-column: 2; grid-row: 2 / span 3; justify-self: stretch; align-self: start; max-width: none; margin-top: 10px; }
+  .faq-topics__head { display: grid; gap: 8px; margin: 0 0 var(--sp-3); }
+  .faq-topics__lead { font-size: var(--step-5); color: var(--fg-muted); }
+  .faq-topics ol { grid-template-columns: minmax(0, 1fr); counter-reset: card; }
+  .faq-topics li, .faq-topics li:nth-child(even) { border-left: 0; }
+  .faq-topics a, .faq-topics li:nth-child(even) a { display: grid; grid-template-columns: 1.5rem 9.5rem minmax(0, 1fr) 2rem; align-items: center; gap: 0; min-height: 46px; padding: 0; counter-increment: card; }
+  .faq-topics a::before { content: counter(card); font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); color: var(--fg-muted); font-variant-numeric: tabular-nums lining-nums; }
+  .faq-topics__name { font-size: 1.25rem; }
+  /* One stroke for each answer: 1.5px marks, 11px apart */
+  .faq-topics__marks { display: block; height: 16px; width: calc(var(--n) * 11px); max-width: 100%; border-left: 1px solid var(--rule); padding-left: 14px; box-sizing: content-box; background: repeating-linear-gradient(90deg, var(--fg) 0 1.5px, transparent 1.5px 11px) content-box; transition: width var(--dur-ui) var(--ease-ui); }
+  .faq-topics__n { justify-self: end; font-size: 0.8125rem; color: var(--fg); }
+  .faq-topics__total { display: flex; justify-content: space-between; align-items: baseline; margin: 0; padding: 12px 0 0; border-top: 1px solid var(--rule-strong); margin-top: -1px;
+    font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+  .faq-topics__total .num { font: 300 2rem/1 var(--font-serif); letter-spacing: 0; color: var(--fg); }
+}
+@media (prefers-reduced-motion: reduce) { .faq-topics__marks { transition: none; } }

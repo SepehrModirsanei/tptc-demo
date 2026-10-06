@@ -137,10 +137,24 @@
 .court__lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .court__surface { fill: color-mix(in srgb, var(--ph-ground), var(--ph-court-mix) var(--ph-court-amt, 100%)); }
 .court:has(.frame--due) .court__surface, .court:has(.frame.has-img) .court__surface { fill: none; }
-.court__paint { fill: none; stroke: var(--ph-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.court:has(.frame.has-img) .court__paint { stroke: var(--white); stroke-opacity: 0.82; }
+.court__paint { fill: none; stroke: var(--ph-line); stroke-width: 1; }
+/* vector-effect is not inherited: it is set on each painted line, so a line is 1px at any door size */
+.court__paint > * { vector-effect: non-scaling-stroke; }
 .court__net { fill: none; stroke: var(--red); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .court__post { fill: var(--red); }
+/* Over a photograph the court waits (batch 5): at rest the lines are a faint 1px trace, so the door
+   reads as a photograph of a place. The court is drawn in full only while its serve plays
+   (.is-serving, set by js/pages/home.js from the ball's own movement), or while the door is hovered
+   or holds keyboard focus. Full is 68% white, never solid. One resting state on all four doors,
+   and the same one under reduced motion, where the ball rests at its bounce mark (js/serve.js). */
+.court:has(.frame.has-img) .court__paint { stroke: var(--white); stroke-opacity: var(--court-rest, 0.3); transition: stroke-opacity 400ms var(--ease-out); }
+.court:has(.frame.has-img) .court__net, .court:has(.frame.has-img) .court__post { opacity: 0.62; transition: opacity 400ms var(--ease-out); }
+.court.is-serving:has(.frame.has-img) .court__paint,
+.door:hover .court:has(.frame.has-img) .court__paint,
+.door:has(.door__link:focus-visible) .court:has(.frame.has-img) .court__paint { stroke-opacity: var(--court-full, 0.68); }
+.court.is-serving .court__net, .court.is-serving .court__post,
+.door:hover .court__net, .door:hover .court__post,
+.door:has(.door__link:focus-visible) .court__net, .door:has(.door__link:focus-visible) .court__post { opacity: 1; }
 .court__ball { position: absolute; left: 0; top: 0; z-index: var(--z-base); width: clamp(12px, 2.6cqi, 20px); height: clamp(12px, 2.6cqi, 20px);
   pointer-events: none; will-change: transform; transform: translate(calc(16.5cqi - 50%), calc(27cqi - 50%)); }
 .court__ball svg { display: block; width: 100%; height: 100%; }
@@ -157,7 +171,7 @@
 }
 @media (min-width: 720px) {
   .doors--courts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 4.4vw, 72px) clamp(20px, 2.4vw, 36px); border-top: 0; }
-  .doors--courts .door { grid-template-columns: 1fr; gap: 0; padding: 0; border-bottom: 0; margin-top: 0; }
+  .doors--courts .door { grid-template-columns: 1fr; gap: 0; padding: 0; border-bottom: 0; margin-top: 0; align-content: start; }
   .doors--courts .door:nth-child(even) { margin-top: 0; }
   .doors--courts .door .frame { --ar: 2 / 1 !important; }
   .doors--courts .door .frame__tag { top: 0; bottom: auto; left: auto; right: 0; padding: 7px 10px; font-size: 11px; letter-spacing: 0.12em; gap: 7px; }
@@ -308,7 +322,7 @@
 }
 /* The key points row (build.py hero points=, or <!--@points items=... /-->): two to four facts from
    the content files, ruled like a line of the season ledger. A point that links is the page's first
-   choice and carries the red arrow. Phones and tablets only; on a desktop the facts sit in view below. */
+   choice and carries the red arrow. From 900px a photograph hero carries the same row under its words (QC round 1, end of file). */
 @media (max-width: 899px) {
   .hero__points {
     display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); grid-column: 1 / -1;
@@ -317,11 +331,11 @@
   .hero--nomedia .hero__points { margin-right: 0; }
   .hero__points li { display: flex; min-width: 0; border-bottom: 1px solid var(--rule); }
   .hero__points li + li { padding-left: 12px; border-left: 1px solid var(--rule); }
-  .hero__points[style*="--n:2"] li:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .hero__points:is([style*="--n:2"], [style*="--n: 2"]) li:nth-child(odd) { padding-left: 0; border-left: 0; } /* the second form is how the browser rewrites the attribute once motion has touched it */
   .hero__points li > a, .hero__points li > .hero__point-text { flex: 1 1 auto; min-width: 0; min-height: 48px; padding: 7px 8px 7px 0; }
   .hero__points li > a { display: flex; align-items: center; justify-content: space-between; gap: 6px; color: var(--fg); text-decoration: none; }
   .hero__points li > a:active { background: var(--surface-alt); }
-  .hero__points .icon { width: 14px; height: 14px; flex: none; color: var(--red); }
+  .hero__points .icon { width: 14px; height: 14px; flex: none; color: currentColor; } /* QC round 1, 6 Oct: red is for Register now only */
   .hero__point-text { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-width: 0; }
   .hero__point-label { font: 600 0.6875rem/1.2 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-muted); }
   .hero__point-value { font: 400 0.9375rem/1.2 var(--font-serif); color: var(--fg); text-wrap: balance; }
@@ -341,8 +355,9 @@
 }
 /* the narrowest phones: the placeholder tag stays on one line in the narrow photograph column */
 @media (max-width: 389px) {
-  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { letter-spacing: 0.04em; padding: 6px; white-space: nowrap; }
-  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag-mark { display: none; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { letter-spacing: 0.04em; padding: 6px 5px; gap: 4px; white-space: nowrap; }
+  /* batch 5: the mark stays, one size down, so the tag is the same tag on every screen */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag-mark { width: 8px; height: 8px; }
 }
 
 /* =====================================================================================
@@ -695,7 +710,72 @@ html.motion .oop__compact:not(.is-drawn) .oop__days li::after { transform: scale
 /* Placeholder tag on a hero photograph, phones: bottom-left, so it never sits over the subject's head. */
 @media (max-width: 899px) {
   .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { top: auto; right: auto; bottom: 0; left: 0; }
+  /* Batch 5 lead review: the Home print too; at the top its tag sat on the player's head. */
+  .hero.hero--home .frame__tag { top: auto; right: auto; bottom: 0; left: 0; }
 }
 /* Breadcrumbs carry the full page name (glossary 1.2); under 400px the separators close up so a
    four-step trail such as Home / Programs / Camps / March Break Camp stays on one line. */
 @media (max-width: 399px) { .crumbs ol { column-gap: 7px; } .crumbs li { gap: 7px; } }
+
+/* ---------- Batch 5 lead review: a door with no photograph (Camps, since camps-hero-01 was rejected) ----------
+   The door drew a filled court over the court frame's caption, so the slot id and the shot line
+   were cut by a second court. Now the frame is the court: the door's lines sit on it unfilled,
+   at the same faint resting trace and the same full state as the other three doors, and the
+   caption is the slot id alone, under the baseline (the shot line is on the Camps page's own hero). */
+@media (min-width: 900px) {
+  .court:has(.frame:not(.has-img, .frame--due)) .court__surface { fill: none; }
+  .court:has(.frame:not(.has-img, .frame--due)) .court__paint { stroke: var(--white); stroke-opacity: var(--court-rest, 0.3); transition: stroke-opacity 400ms var(--ease-out); }
+  .court:has(.frame:not(.has-img, .frame--due)) .court__net, .court:has(.frame:not(.has-img, .frame--due)) .court__post { opacity: 0.62; transition: opacity 400ms var(--ease-out); }
+  .court.is-serving:has(.frame:not(.has-img, .frame--due)) .court__paint,
+  .door:hover .court:has(.frame:not(.has-img, .frame--due)) .court__paint,
+  .door:has(.door__link:focus-visible) .court:has(.frame:not(.has-img, .frame--due)) .court__paint { stroke-opacity: var(--court-full, 0.68); }
+  .doors--courts .door .frame:not(.has-img) .ph__desc { display: none; }
+  .doors--courts .door .frame:not(.has-img) .ph__label { left: 16px; right: auto; bottom: 12px; padding: 0; }
+  .doors--courts .door .frame:not(.has-img) .ph__label::before { content: none; }
+  .doors--courts .door .frame:not(.has-img) .ph__id { font-size: 12px; }
+}
+
+
+/* ================= Batch 5, QC fixes round 1 (6 Oct 2026): the key points on a desktop =================
+   The first-screen rule holds on a desktop too: what the page is, its action, its key points. Until
+   now the key points row was phones and tablets only, and on 1440x900 and 1280x720 the facts
+   (Ages 4-18, the Dome's 19.5 C, the membership options) were below the fold. From 900px a hero
+   with a photograph or a court frame (hero--section) carries the row in its words column, ruled
+   like a line of the season ledger. Words-only heroes keep it hidden: their drawing, desk card or
+   1951 figure already carries the same facts (Programs, Our Coaches, FAQ, Contact, Register Now,
+   Club History). High Performance keeps its own three steps. Test: qa/b5-qc1/measure.py. */
+@media (min-width: 900px) {
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points {
+    display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); order: 9;
+    list-style: none; width: 100%; max-width: 38rem; margin: clamp(16px, 2.6vh, 28px) 0 0; padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li { display: flex; min-width: 0; border-bottom: 1px solid var(--rule); }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li + li { padding-left: 16px; border-left: 1px solid var(--rule); }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a,
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > .hero__point-text { flex: 1 1 auto; min-width: 0; min-height: 52px; padding: 9px 12px 9px 0; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; color: var(--fg); text-decoration: none; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a:hover .hero__point-value,
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a:hover > :not(.hero__point-text):not(.icon) { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points .icon { width: 14px; height: 14px; flex: none; margin-top: 3px; color: currentColor; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-text { display: flex; flex-direction: column; justify-content: flex-start; gap: 3px; min-width: 0; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-label { font: 600 0.6875rem/1.2 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-muted); }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-value { font: 400 1rem/1.25 var(--font-serif); color: var(--fg); text-wrap: balance; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a { font: 400 1rem/1.25 var(--font-serif); }
+  /* a linked point with a label: the arrow ends the label line, the value keeps the whole cell */
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a > .hero__point-text { flex: 1 1 auto; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points a .hero__point-label { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points .hero__point-label .icon { margin-block: 0 -4px; }
+  /* the hero may grow by the row: it is never cut by the photograph's foot */
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__grid { height: auto; min-height: clamp(560px, calc(86svh - var(--header-h)), 820px); }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__words { padding-bottom: 20px; }
+}
+/* A short desktop screen (1280x720, a laptop with its dock up): the same words, closer set, so the
+   row ends above the foot of the first screen. */
+@media (min-width: 900px) and (max-height: 800px) {
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .crumbs { margin-bottom: 14px; }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__lede { margin-top: 20px; }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__actions { margin-top: 24px; }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .status-line { margin-top: 22px; }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__points { margin-top: 14px; }
+}

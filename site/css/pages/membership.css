@@ -86,3 +86,7 @@
 }
 /* the resident saving is a key point on a phone (the points row), a closing sentence on a desktop */
 @media (max-width: 899px) { .mem-lede-wide { display: none; } }
+
+/* Batch 5, QC round 1 (6 Oct 2026): on a desktop the key points row gives the five options the
+   wider cell, so they read on two lines beside the booking window and the Vaughan saving. */
+@media (min-width: 900px) { .page-membership .hero__points { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); } }

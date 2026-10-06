@@ -46,7 +46,7 @@
   function rise() {
     toArray('[data-rise]').forEach(function (el) {
       if (el.hasAttribute('data-intro')) return;
-      riseLines(el, { scrollTrigger: { trigger: el, start: 'clamp(top 85%)', once: true } });
+      riseLines(el, { scrollTrigger: { trigger: el, start: 'top 85%', once: true } });
     });
   }
 
@@ -56,7 +56,7 @@
     if (!els.length) return;
     gsap.set(els, { opacity: 0, y: small ? 16 : 24 });
     ScrollTrigger.batch(els, {
-      start: 'clamp(top 88%)', once: true, interval: 0.1, batchMax: 6,
+      start: 'top 88%', once: true, interval: 0.1, batchMax: 6,
       onEnter: function (batch) {
         gsap.to(batch, { opacity: 1, y: 0, duration: 0.7, stagger: 0.09, ease: 'tptc.out', overwrite: true });
       }
@@ -70,7 +70,7 @@
       var media = fr.querySelector('.frame__media');
       var tl = gsap.timeline({
         defaults: { duration: 1.2, ease: 'tptc.out' },
-        scrollTrigger: { trigger: fr, start: 'clamp(top 88%)', once: true },
+        scrollTrigger: { trigger: fr, start: 'top 88%', once: true },
         onStart: function () { fr.classList.add('is-drawn'); }
       });
       tl.fromTo(inner, { yPercent: 100, y: 0 }, { yPercent: 0, y: 0 }, 0)
@@ -83,7 +83,7 @@
     toArray('[data-chalk], [data-chalk-self]').forEach(function (el) {
       if (el.matches('.frame[data-unveil]') || el.closest('[data-intro-root]')) return;
       ScrollTrigger.create({
-        trigger: el, start: 'clamp(top 88%)', once: true,
+        trigger: el, start: 'top 88%', once: true,
         onEnter: function () { el.classList.add('is-drawn'); }
       });
     });
@@ -150,7 +150,7 @@
       if (dome) tl.fromTo(dome, { scaleY: 0 }, { scaleY: 1, duration: 1.6, ease: 'tptc.out', transformOrigin: '50% 100%' }, 0);
       if (sess.length) tl.fromTo(sess, { scaleX: 0 }, { scaleX: 1, transformOrigin: '0 50%', duration: 0.9, ease: 'none', clearProps: 'transform' }, 0.3);
       if (mark && !mark.hidden) tl.fromTo(mark, { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.7, ease: 'tptc.out', transformOrigin: '50% 100%' }, 0.9);
-      ScrollTrigger.create({ trigger: led, start: 'clamp(top 88%)', once: true, onEnter: function () { tl.play(); } });
+      ScrollTrigger.create({ trigger: led, start: 'top 88%', once: true, onEnter: function () { tl.play(); } });
     });
   }
 

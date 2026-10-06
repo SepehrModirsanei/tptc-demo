@@ -419,12 +419,55 @@
     setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 400);
   }
 
-  function goTo(el) {
-    if (!el) return;
-    /* phones: the header is shorter, and the target sits flush under it so nothing above peeks in */
-    var y = el.getBoundingClientRect().top + window.pageYOffset - (window.innerWidth < 700 ? 72 : 96);
+  function scrollY(y) {
+    y = Math.max(0, Math.round(y));
     if (window.__lenis) window.__lenis.scrollTo(y, { immediate: reduce });
     else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+  }
+  /* phones: the header is shorter, and the target sits flush under it so nothing above peeks in */
+  function headRoom() { return window.innerWidth < 700 ? 72 : 96; }
+  function goTo(el) {
+    if (!el) return;
+    scrollY(el.getBoundingClientRect().top + window.pageYOffset - headRoom());
+  }
+
+  /* ---------- After an answer, the page moves on ----------
+     Each answer brings the next question up under the header, so nobody has to go looking for it.
+     With reduced motion the page is placed there without travelling (scrollY reads `reduce`).
+     Arrow keys change a radio on every press, so a keyboard answer never moves the page: Tab
+     carries the reader on and the browser keeps the focused control in view. */
+  var byKeys = false;
+  document.addEventListener('keydown', function (e) { if (!e.metaKey && !e.ctrlKey && !e.altKey) byKeys = true; }, true);
+  document.addEventListener('pointerdown', function () { byKeys = false; }, true);
+  function shown(el) { return el && !el.hidden && el.getClientRects().length > 0; }
+  function nextAfter(n) {
+    if (n === 'who') return document.getElementById('day');
+    if (n === 'day') return document.getElementById('players');
+    if (n === 'players') {
+      /* the same step now asks how long and with how many guests: that is the next thing to read,
+         with the hours beginning below it */
+      var subs = $$('#players .bk-sub').filter(shown);
+      return subs[0] || document.getElementById('time');
+    }
+    if (n === 'time') return $('[data-bk-plan]');
+    if (n === 'court') return document.getElementById('review');
+    return null;
+  }
+  function moveOn(n) {
+    if (byKeys || S.done) return;
+    if (n === 'pay') {
+      /* the last answer: bring the Confirm booking button into view, clear of the phone's booking bar */
+      var c = document.getElementById('confirm-booking');
+      if (!shown(c)) return;
+      var r = c.getBoundingClientRect(), room = window.innerWidth < 1000 ? 160 : 32;
+      if (r.bottom > window.innerHeight - room) scrollY(window.pageYOffset + r.bottom - window.innerHeight + room);
+      return;
+    }
+    var el = nextAfter(n);
+    if (!shown(el)) return;
+    var top = el.getBoundingClientRect().top - headRoom();
+    if (Math.abs(top) < 8) return;                     /* already there */
+    scrollY(window.pageYOffset + top);
   }
 
   /* ---------- One render ---------- */
@@ -444,7 +487,6 @@
   form.addEventListener('change', function (e) {
     var n = e.target.name, v = e.target.value;
     if (!n) return;
-    var hadTime = S.time != null;
     if (n === 'who') S.who = v;
     else if (n === 'day') S.day = v;
     else if (n === 'players') S.players = v;
@@ -455,7 +497,7 @@
     render();
     var sel = n === 'time' ? 'input[name="time"][value="' + v + '"]' : n === 'day' ? 'input[name="day"][value="' + v + '"]' : null;
     if (sel) { var el = $(sel); if (el) el.focus({ preventScroll: true }); }
-    if (n === 'time' && !hadTime) { var plan = $('[data-bk-plan]'); var r = plan.getBoundingClientRect(); if (r.bottom > window.innerHeight) goTo(plan); }
+    moveOn(n);
   });
   $$('[data-guests]').forEach(function (b) {
     b.addEventListener('click', function () { S.guests += +b.getAttribute('data-guests'); render(); });

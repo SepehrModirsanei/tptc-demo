@@ -320,3 +320,26 @@
   .page-p1 #who .bk-step__head { padding-top: 14px; }
   .page-p1 .hero + .section.bk { padding-top: 12px; }
 }
+
+/* Batch 5: red is for Register now only (client decision, 5 Oct 2026).
+   The flow's own buttons (Confirm booking, the card's next step) are ink at rest and rise in
+   Blazer, never in club red: a booking is confirmed, not registered. A tap on a phone leaves the
+   hover state on, so the rise colour is what a finger sees after pressing. */
+.page-p1 .bk .btn--ink, .page-p1 .bk-done .btn--ink { --btn-fill: var(--blazer); --btn-fg-hover: var(--on-brand); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .page-p1 .bk .btn--ink, :root:not([data-theme="light"]) .page-p1 .bk-done .btn--ink { --btn-fill: var(--night-raised); } }
+:root[data-theme="dark"] .page-p1 .bk .btn--ink, :root[data-theme="dark"] .page-p1 .bk-done .btn--ink { --btn-fill: var(--night-raised); }
+
+/* ---------- Batch 5 lead review: the scorecard fills the hero's right half (desktop) ----------
+   Story: a booking is scored like a game, and before the first answer the card reads "The toss".
+   That card is this page's own drawing, so on a screen tall enough to hold it whole it is lifted
+   from the flow's right column into the hero's empty half (the same move as the serve on
+   Register Now). It still rides beside the five questions (sticky) and still keeps the score.
+   The hero then ends at the foot of the first screen, so no question is cut by it.
+   Shorter screens (1280x720) keep the plain hero: the card would not fit whole. */
+@media (min-width: 1000px) and (min-height: 840px) {
+  .page-p1 { --bk-hero-h: min(max(39rem, calc(100svh - var(--header-h) - 82px)), 52rem); --bk-card-top: 56px; }
+  .page-p1 .hero .hero__words { box-sizing: border-box; height: var(--bk-hero-h); }
+  .page-p1 .hero .hero__words > * { max-width: min(44rem, calc(100vw - 2 * var(--gutter) - 360px - var(--sp-7))); }
+  .page-p1 .hero + .section.bk { padding-top: var(--sp-5); }
+  .page-p1 .hero + .section.bk .bk-card { margin-top: calc(var(--bk-card-top) - var(--bk-hero-h) - var(--sp-5)); }
+}

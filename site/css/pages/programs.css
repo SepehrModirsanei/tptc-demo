@@ -37,3 +37,63 @@
 /* Paper section into the paper closing band: the band's own top padding is the gap (the doors run straight into the closing band). */
 .prog { padding-bottom: 0; }
 
+
+/* ---------- Batch 5: the draw sheet fills the hero's right half (desktop) ----------
+   Story: a draw sheet. On a tournament draw every entry stands on its own ruled line and a
+   bracket carries each section forward. Here the five programs are the entries and each bracket
+   carries its section to who it is for: three for children, one for adults, one for any age.
+   It answers the H1 in the first screen; the doors below add the photographs. */
+.hero--aside .hero__aside:has(.draw) { display: none; }
+@media (min-width: 1000px) {
+  .hero--aside .hero__aside:has(.draw) { display: block; }
+  .draw { --row: 54px; display: grid; gap: var(--sp-4); }
+  .draw__head { display: grid; gap: 8px; margin: 0; }
+  .draw__lead { font-size: var(--step-5); color: var(--fg-muted); }
+  .draw__sec { display: grid; grid-template-columns: minmax(0, 1fr) 9.5rem; }
+  .draw__entries { list-style: none; margin: 0; padding: 0; }
+  .draw__entry { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; box-sizing: border-box; height: var(--row); padding: 0 16px 9px 0; border-bottom: 1px solid var(--rule-strong); color: var(--fg); text-decoration: none; }
+  .draw__name { font: 400 1.5rem/1.1 var(--font-serif); white-space: nowrap; }
+  .draw__fact { font: 400 0.8125rem/1.3 var(--font-sans); color: var(--fg-muted); white-space: nowrap; text-align: right; }
+  .draw__entry:hover .draw__name { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+  .draw__entry:focus-visible { outline: var(--focus-w, 2px) solid var(--focus); outline-offset: -2px; }
+  /* The bracket: from the first entry's line to the last, then one line out to the section's name */
+  .draw__to { position: relative; margin: 0; }
+  .draw__to::before { content: ""; position: absolute; left: 0; top: calc(var(--row) - 1px); bottom: 0; border-right: 1px solid var(--rule-strong); }
+  .draw__who { position: absolute; left: 0; right: 0; bottom: calc((var(--k) - 1) * var(--row) / 2); box-sizing: border-box; height: var(--row); display: flex; align-items: flex-end; padding: 0 0 9px 16px; border-bottom: 1px solid var(--rule-strong);
+    font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+}
+
+/* Under 1000px the hero is the plain compact hero it was: the aside is not drawn, so the paired
+   form's two-column rules (shared, from 900px) are undone here. Phones keep their first screens. */
+@media (max-width: 999px) {
+  .hero--aside:has(.draw) .hero__grid { display: block; max-width: none; margin: 0; padding: 0; }
+  .hero--aside:has(.draw) .hero__words { display: flex; max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+}
+
+/* Batch 5, 1000 to 1279px: the half is narrow, so the sheet keeps the names and the brackets and
+   lets the one-fact notes go (the doors below carry them). Nothing runs into the bracket. */
+@media (min-width: 1000px) and (max-width: 1279px) {
+  .draw { --row: 48px; }
+  .draw__sec { grid-template-columns: minmax(0, 1fr) 7.25rem; }
+  .draw__name { font-size: 1.25rem; }
+  .draw__fact { display: none; }
+  .draw__who { padding-left: 12px; letter-spacing: 0.1em; }
+}
+/* 1280 to 1399px: the notes stay, the names and the bracket give them a little room. */
+@media (min-width: 1280px) and (max-width: 1399px) {
+  .draw__sec { grid-template-columns: minmax(0, 1fr) 8.75rem; }
+  .draw__name { font-size: 1.375rem; }
+}
+
+/* ---------- Batch 5 lead review: the hero ends at the foot of the first screen (desktop) ----------
+   The doors' photographs began inside the first screen and were cut in half by its foot at
+   1440x900 and 1280x720. The hero now takes the whole first screen, its words and the draw sheet
+   centred in it, and on a tall screen the sheet's lines open up; the doors start at the fold,
+   whole. */
+@media (min-width: 1000px) and (min-height: 640px) {
+  .hero:has(.draw) { display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; min-height: calc(100svh - var(--header-h)); }
+  .hero:has(.draw) .hero__grid { width: 100%; box-sizing: border-box; }
+}
+@media (min-width: 1280px) and (min-height: 800px) {
+  .draw { --row: clamp(54px, 7.4svh, 68px); }
+}

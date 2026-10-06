@@ -56,7 +56,7 @@
       g.hidden = n === 0;
       $$('[data-count="' + g.id + '"]', doc).forEach(function (c) { c.textContent = n; });
       var ht = doc.querySelector('.faq-topics a[data-topic="' + g.id + '"]');
-      if (ht) ht.classList.toggle('is-empty', n === 0);
+      if (ht) { ht.classList.toggle('is-empty', n === 0); ht.style.setProperty('--n', n); } /* the card's strokes follow the search */
       var cnt = g.querySelector('.faq__count');
       if (cnt) cnt.lastChild.textContent = n === 1 ? ' question' : ' questions';
       var a = root.querySelector('.faqidx a[data-topic="' + g.id + '"]');
@@ -64,6 +64,8 @@
       shown += n;
       if (n) topics++;
     });
+    var total = doc.querySelector('[data-card-total]');
+    if (total) total.textContent = shown;
     if (clear) clear.hidden = !raw;
     if (empty) { empty.hidden = shown !== 0; if (emptyQ) emptyQ.textContent = raw; }
     if (!raw) status.innerHTML = '<span class="num">' + items.length + '</span> questions in six topics.';

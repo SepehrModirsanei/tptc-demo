@@ -86,7 +86,10 @@
   --brand:     var(--red);
   --on-brand:  var(--white);
   --live:      var(--optic);
-  --focus:     var(--ink);
+  --focus:     var(--red);   /* the one keyboard focus ring (batch 5): club red, on every ground, light and dark */
+  --focus-w:   2px;
+  --focus-off: 3px;
+  --focus-ring: var(--focus-w) solid var(--focus);
   --ph-ground: var(--chalk);
   --ph-line:   rgba(255, 255, 255, 0.86); /* white lines on a Blazer court, as on a real court; never a grey box */
   --ph-court-mix: var(--blazer);          /* the court surface: the ground mixed this far toward this colour */
@@ -178,7 +181,7 @@
   --rule:      var(--line-chalk);
   --rule-soft: var(--line-chalk-soft);
   --rule-strong: var(--line-chalk-strong);
-  --focus:     var(--chalk);
+  --focus:     var(--red);
   --ph-ground: var(--night-raised);
   --ph-line:   rgba(237, 241, 246, 0.55);
   --ph-court-mix: #E9EEF5;
@@ -215,7 +218,7 @@
     --rule:      rgba(233, 238, 245, 0.16);
     --rule-soft: rgba(233, 238, 245, 0.08);
     --rule-strong: rgba(233, 238, 245, 0.62);
-    --focus:     #E9EEF5;
+    --focus:     var(--red);
     --ph-ground: #121D33;
     --ph-line:   rgba(233, 238, 245, 0.55);
     --ph-court-mix: #E9EEF5;
@@ -244,7 +247,7 @@
   --rule:      rgba(233, 238, 245, 0.16);
   --rule-soft: rgba(233, 238, 245, 0.08);
   --rule-strong: rgba(233, 238, 245, 0.62);
-  --focus:     #E9EEF5;
+  --focus:     var(--red);
   --ph-ground: #121D33;
   --ph-line:   rgba(233, 238, 245, 0.55);
   --ph-court-mix: #E9EEF5;

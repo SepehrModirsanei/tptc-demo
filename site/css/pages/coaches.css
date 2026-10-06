@@ -125,3 +125,52 @@
   .coach--tbc .tbc__fields dt { display: inline; }
   .coach--tbc .tbc__fields dd { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
+
+/* ---------- Batch 5: the first coach card fills the hero's right half (desktop) ----------
+   Story: "who will be on court with you" is answered by a person, so the Head Pro's card is in the
+   first screen: his portrait frame (a baseline to baseline court until he is photographed) and a
+   nameplate set against its foot, the way a player's name sits by the court on an order of play.
+   The featured entry below keeps the words and gives up its own copy of the frame. */
+.hero--aside .hero__aside:has(.procard) { display: none; }
+@media (min-width: 1000px) {
+  .hero--aside .hero__aside:has(.procard) { display: block; }
+  .procard { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--sp-4); align-items: end; }
+  .procard .frame { --ar: 4 / 5; margin: 0; width: 100%; max-height: min(52svh, 30rem); aspect-ratio: 4 / 5; justify-self: end; }
+  .procard__plate { display: grid; gap: 10px; justify-items: start; padding-bottom: 2px; border-top: 1px solid var(--rule-strong); padding-top: 14px; }
+  .procard__plate p { margin: 0; }
+  .procard__name { font: 300 clamp(2rem, 1.2rem + 1.3vw, 2.75rem)/1.02 var(--font-serif); letter-spacing: -0.01em; }
+  .procard__line { font-size: 15px; line-height: 1.45; color: var(--fg-muted); max-width: 22ch; }
+  .procard__plate .link { margin-top: 6px; }
+  /* The featured entry without its frame: name left, the bio and the fields right */
+  .coach--lead > .frame { display: none; }
+  .coach--featured.coach--lead { grid-template-columns: minmax(0, 1fr); }
+  .coach--lead .lead__body { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--sp-6); align-content: start; grid-template-rows: auto 1fr auto; }
+  .coach--lead .coach__role { grid-column: 1; grid-row: 1; }
+  .coach--lead .lead__name { grid-column: 1; grid-row: 2; align-self: start; }
+  .coach--lead .lead__bio { grid-column: 2; grid-row: 1 / span 2; max-width: 44ch; }
+  .coach--lead .lead__fields { grid-column: 2; grid-row: 3; }
+}
+
+/* Under 1000px the hero is the plain compact hero it was: the aside is not drawn, so the paired
+   form's two-column rules (shared, from 900px) are undone here. Phones keep their first screens. */
+@media (max-width: 999px) {
+  .hero--aside:has(.procard) .hero__grid { display: block; max-width: none; margin: 0; padding: 0; }
+  .hero--aside:has(.procard) .hero__words { display: flex; max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+}
+
+/* Batch 5, 1000 to 1199px: the card is narrow, so the frame keeps its kicker and slot id and lets
+   the shot line go, and the nameplate takes an even half. */
+@media (min-width: 1000px) and (max-width: 1199px) {
+  .procard { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--sp-3); }
+  .procard .ph__desc { display: none; }
+  .procard .ph__kicker { letter-spacing: 0.1em; gap: 6px; line-height: 1.25; align-items: baseline; }
+  .procard__name { font-size: 1.75rem; }
+  .procard__line { font-size: 14px; }
+}
+
+/* Batch 5 lead review: on a short phone (360x640) the Head Pro's frame began 40px above the
+   foot of the first screen and was cut by it. The hero now takes the whole first screen there,
+   so the card arrives whole on the first scroll. Taller phones already show the card whole. */
+@media (max-width: 899px) and (max-height: 700px) {
+  .page-coaches .hero { min-height: calc(100svh - var(--header-h)); }
+}

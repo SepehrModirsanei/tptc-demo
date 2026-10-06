@@ -74,7 +74,7 @@
       '<div class="pn-side__inner">' +
         '<div class="pn-side__brand">' +
           '<a class="pn-logo" href="' + link(HOME[r] || 'dashboard') + '" aria-label="Thornhill Park Tennis Club staff panel, home">' +
-            '<img src="' + ROOT + '../../assets/brand/tptc-lockup-white.svg" alt="" width="249" height="38"></a>' +
+            '<img src="' + ROOT + '../../assets/brand/tptc-lockup-on-dark.svg" alt="" width="249" height="38"></a>' +
           '<p class="pn-side__kicker">Staff panel <span class="pn-side__since">Since 1951</span></p>' +
           '<button class="pn-iconbtn pn-side__close" type="button" data-shell-close aria-label="Close menu">' + icon('close') + '</button>' +
         '</div>' +
@@ -107,7 +107,7 @@
       '</section>' +
       '<div class="pn-top">' +
         '<button class="pn-iconbtn pn-top__menu" type="button" data-shell-menu aria-controls="pn-side" aria-expanded="false" aria-label="Open menu">' + icon('menu') + '</button>' +
-        '<a class="pn-top__mark" href="' + link(HOME[role()] || 'dashboard') + '" aria-label="Staff panel home"><img src="' + ROOT + '../../assets/brand/tptc-mark.svg" alt="" width="70" height="19" class="pn-mark--col"><img src="' + ROOT + '../../assets/brand/tptc-mark-white.svg" alt="" width="70" height="19" class="pn-mark--rev"></a>' +
+        '<a class="pn-top__mark" href="' + link(HOME[role()] || 'dashboard') + '" aria-label="Staff panel home"><img src="' + ROOT + '../../assets/brand/tptc-mark.svg" alt="" width="70" height="19" class="pn-mark--col"><img src="' + ROOT + '../../assets/brand/tptc-mark-on-dark.svg" alt="" width="70" height="19" class="pn-mark--rev"></a>' +
         '<div class="pn-top__season">' +
           (s ? '<p class="pn-top__season-name"><span class="live-dot" aria-hidden="true"></span>' + esc(s.name) + '</p>' +
             '<p class="pn-top__season-meta num">' + esc(D.fmt.long(c.today)) + (day > 0 ? ', day ' + day + ' of the season' : '') +

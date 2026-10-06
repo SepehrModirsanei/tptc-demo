@@ -16,15 +16,6 @@
    1600
   ]
  },
- "camps-hero-01": {
-  "master": 2400,
-  "webp": [
-   480,
-   800,
-   1200,
-   1600
-  ]
- },
  "camps-holiday-hero-01": {
   "master": 2400,
   "webp": [
@@ -72,31 +63,7 @@
    2400
   ]
  },
- "hp-little-champs-01": {
-  "master": 1200,
-  "webp": [
-   480,
-   800
-  ]
- },
- "hp-pro-national-01": {
-  "master": 3024,
-  "webp": [
-   480,
-   800,
-   1200,
-   1600,
-   2400
-  ]
- },
  "hp-pro-national-02": {
-  "master": 1200,
-  "webp": [
-   480,
-   800
-  ]
- },
- "hp-transition-tour-01": {
   "master": 1200,
   "webp": [
    480,
@@ -135,22 +102,6 @@
   "webp": [
    480,
    800
-  ]
- },
- "leagues-round-robin-01": {
-  "master": 1200,
-  "webp": [
-   480,
-   800
-  ]
- },
- "membership-hero-01": {
-  "master": 2400,
-  "webp": [
-   480,
-   800,
-   1200,
-   1600
   ]
  },
  "private-hero-01": {

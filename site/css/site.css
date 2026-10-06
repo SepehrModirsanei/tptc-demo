@@ -48,7 +48,10 @@ ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
 .icon--20 { width: 20px; height: 20px; }
 .icon--16 { width: 16px; height: 16px; }
 
-:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+/* One keyboard focus ring, from tokens: club red, 2px, set off from the element by 3px so the
+   ground shows between them (a red ring stays legible around the red Register now button too).
+   Components may change the offset where a ring would be clipped; never the colour or the width. */
+:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-off); }
 :focus:not(:focus-visible) { outline: none; }
 /* Touch (ui-ux-pro-max pass): no double-tap zoom delay on any control */
 a, button, input, select, textarea, label, summary, [role="button"] { touch-action: manipulation; }
@@ -211,7 +214,16 @@ html:not(.js) .has-panel:focus-within .nav__panel { visibility: visible; opacity
    pushing the menu button off the edge */
 @media (max-width: 374px) {
   .site-header__row { gap: 6px; }
-  .site-header .header-cta { padding-inline: 12px; font-size: 0.6875rem; letter-spacing: 0.08em; }
+}
+/* Phones (batch 5): the wordmark is the anchor of the header, so Register now sits one size down.
+   Still red, and still a 44px target: the link keeps its 44px box, and the red is painted as a
+   30px plate centred inside it, so the button reads smaller than the mark beside it. */
+@media (max-width: 719px) {
+  .site-header .header-cta {
+    min-height: 44px; padding-inline: 11px; font-size: 0.6875rem; letter-spacing: 0.08em;
+    border-color: transparent; background: linear-gradient(var(--red), var(--red)) center / 100% 30px no-repeat;
+  }
+  .site-header .header-cta .btn__fill { inset: 7px 0; }
 }
 
 @media (min-width: 1024px) {
@@ -305,8 +317,13 @@ body.is-locked { overflow: hidden; }
 .btn--secondary { --btn-bg: transparent; --btn-fg: var(--fg); --btn-bd: var(--rule-strong); --btn-fill: var(--fg); --btn-fg-hover: var(--bg); }
 /* Ink: the page's own action (View programs, Request an assessment, Become a member).
    Red stays with Register now, so registration is the one red button in any view.
-   Ink on paper, chalk on night; the club red rises only on hover. */
-.btn--ink { --btn-bg: var(--fg); --btn-fg: var(--bg); --btn-bd: var(--fg); --btn-fill: var(--red); --btn-fg-hover: var(--on-brand); }
+   Ink on paper, chalk on night; on hover it rises in Blazer, never in red. */
+.btn--ink { --btn-bg: var(--fg); --btn-fg: var(--bg); --btn-bd: var(--fg); --btn-fill: var(--blazer); --btn-fg-hover: var(--on-brand); }
+/* Batch 5 lead review: red is for Register now only (client rule, 5 Oct 2026), hover included.
+   An ink button rises in Blazer on paper and in the lifted night on a navy ground or in dark. */
+.theme-night .btn--ink { --btn-fill: var(--night-raised); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn--ink { --btn-fill: var(--night-raised); } }
+:root[data-theme="dark"] .btn--ink { --btn-fill: var(--night-raised); }
 .btn--sm { min-height: 44px; padding: 0 18px; }
 .btn--block { display: flex; width: 100%; }
 .btn[aria-disabled="true"], .btn:disabled { --btn-bg: var(--bg-alt); --btn-fg: var(--fg-muted); --btn-bd: var(--rule); cursor: not-allowed; }
@@ -597,7 +614,7 @@ html.interim-photos .frame.has-img .frame__tag { display: inline-flex; }
     font: 600 0.75rem/1.2 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase;
   }
   .hero__doors a + a { padding-left: 14px; border-left: 1px solid var(--rule); }
-  .hero__doors .icon { width: 14px; height: 14px; flex: none; color: var(--red); }
+  .hero__doors .icon { width: 14px; height: 14px; flex: none; color: currentColor; } /* QC round 1, 6 Oct: red is for Register now only */
   .hero__doors a:active { background: var(--surface-alt); }
   /* the next section starts close enough that its heading shows in the first view as the cue to scroll */
   .hero--home + .section { padding-top: clamp(36px, 9vw, 64px); }
@@ -911,6 +928,8 @@ html.hold-on .pathway__steps-nav a:not(.is-active) strong { opacity: 0.6; }
 .contact-card > div { display: grid; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
 .contact-card a { font-size: 18px; text-decoration: none; min-height: var(--target); display: inline-flex; align-items: center; gap: 12px; }
 .contact-card a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+/* Batch 5: a contact the club has not confirmed is a row like the others, holding the slot where the link would be */
+.contact-card__slot .confirm { min-height: var(--target); align-items: center; font-size: 15px; }
 @media (min-width: 1000px) { .join__grid { grid-template-columns: 7fr 4fr; column-gap: var(--sp-8); } }
 
 .next-doors { display: grid; gap: 0; border-top: 1px solid var(--rule-strong); }
@@ -958,3 +977,71 @@ html[data-reg="own"] [data-reg-mode="jbi"] { display: none !important; }
   .cta { padding-block: 56px; }
   .cta__inner { gap: var(--sp-4); }
 }
+
+/* ---------- The court frame (batch 5: one language for interim imagery) ----------
+   A slot with no photograph is not a diagram on a grey card: it is the club's own court seen from
+   above, cut the way a photographer would cut it. The whole frame is the playing surface in Blazer,
+   the true court plan is drawn large so its lines run off the edges, the net stays red, the dome's
+   light falls from one corner and the same fine grain as the graded photographs sits over it. The
+   slot id and the shot it waits for are set on the court like a print's caption, and it wears the
+   same "Placeholder image" tag, in the same corner, as every photograph. Same in light and dark:
+   a picture does not change with the theme. */
+.frame:not(.frame--due, .frame--photo, .has-img) {
+  --ph-ground: var(--blazer); --ph-line: rgba(237, 241, 246, 0.84); --ph-text: #EDF1F6; --ph-muted: var(--mist);
+  --ph-court-amt: 0%;
+}
+/* on the navy grounds the court lifts one step so the frame still has an edge */
+.theme-night .frame:not(.frame--due, .frame--photo, .has-img), .hero--hp .frame:not(.frame--due, .frame--photo, .has-img), .hero--performance .frame:not(.frame--due, .frame--photo, .has-img) { --ph-ground: var(--night-raised); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .frame:not(.frame--due, .frame--photo, .has-img) { --ph-ground: #16294F; } }
+:root[data-theme="dark"] .frame:not(.frame--due, .frame--photo, .has-img) { --ph-ground: #16294F; }
+.frame:not(.frame--due, .frame--photo, .has-img) .ph__court { height: 100%; scale: 1.62; transform-origin: 15% 62%; }
+.frame:not(.frame--due, .frame--photo, .has-img) .frame__drift::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(120% 95% at 14% 0%, rgba(237, 241, 246, 0.15), rgba(237, 241, 246, 0) 62%),
+    radial-gradient(90% 80% at 100% 100%, rgba(11, 19, 34, 0.42), rgba(11, 19, 34, 0) 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .36 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.frame:not(.frame--due, .frame--photo, .has-img) .ph__ratio { display: none; }
+.frame:not(.frame--due, .frame--photo, .has-img) .ph__label > span { background: none; padding-right: 0; text-shadow: 0 0 14px var(--ph-ground), 0 0 4px var(--ph-ground); }
+/* the caption sits on a quiet patch of court: the lines stop short of it */
+.frame:not(.frame--due, .frame--photo, .has-img) .ph__label::before {
+  content: ""; position: absolute; inset: -18px -28px -40px -60px; z-index: -1;
+  background: radial-gradient(closest-side, var(--ph-ground) 55%, transparent);
+  opacity: 0.9;
+}
+.frame:not(.frame--due, .frame--photo, .has-img) .ph__label { isolation: isolate; }
+/* one tag for every interim slot, photograph or court */
+html.interim-photos .frame:not(.frame--due, .frame--photo, .has-img) .frame__tag { display: inline-flex; }
+.door .frame__tag-mark { display: block; }
+@media (max-width: 899px) { .door .frame:not(.has-img) .ph__label { display: none; } }
+@media (max-width: 899px) {
+  /* phone heroes carry the tag bottom left: the slot id sits just above it */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame:not(.frame--due, .frame--photo, .has-img) .ph__label { bottom: 32px; }
+  .frame:not(.frame--due, .frame--photo, .has-img) .ph__label::before { inset: -10px -14px -14px -20px; }
+}
+
+/* ---------- Home hero photograph, batch 5: the whole player, never under the year ----------
+   The file is the whole original, mirrored: she plays toward the headline, across the net, and the
+   lower left of the picture (where the 51 stands on the desktop) is bare wall. Desktop keeps the
+   full-height frame at --pos 58% 50%. On phones and tablets a full-height column is too narrow for
+   her and her racquet, so the photograph is a 6:7 print hung from the top of the column, shown
+   whole, and 19 | 51 straddles the net on paper beneath it. */
+@media (max-width: 899px) {
+  .hero--home .frame--fill { height: auto; }
+  .hero--home .frame--fill .frame__box { height: auto; aspect-ratio: 6 / 7 !important; }
+  .hero.hero--home .frame { --pos: 58% 50% !important; }
+  .hero--home .year--hero .year__b { color: var(--fg); text-shadow: none; }
+}
+/* a frame with its own kicker (a coach "To be photographed") is not an interim image: no tag */
+html.interim-photos .frame.frame--own-label .frame__tag { display: none; }
+.frame__tag-mark { flex: none; }
+/* phone door thumbnails: the same tag, mark and words, at the phone hero's size so both fit 124px */
+@media (max-width: 899px) {
+  .door .frame__tag { font-size: 9px; letter-spacing: 0.04em; gap: 5px; padding: 6px 2px; }
+  .door .frame__tag-mark { width: 8px; height: 8px; }
+}
+
+/* Batch 5 lead review: home-split-rec-01 keeps a pink cap, a cyan shirt and a green court after the
+   shared grade and stood out of the family on Home. One static correction for this slot only. */
+.frame[data-slot="home-split-rec-01"] .frame__img { filter: saturate(0.62) contrast(0.97); }

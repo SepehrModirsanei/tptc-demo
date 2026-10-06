@@ -188,3 +188,19 @@
 
 /* A phone number never breaks across two lines. */
 .inline-link[href^="tel:"] { white-space: nowrap; }
+
+/* ---------- Batch 5: the desk card between 1000 and 1399px ----------
+   The card is the hero's drawing (half a court). On a small laptop the front desk number ran
+   into the centre service line and the address of the inbox broke after "info@". Here the two
+   halves of the hero are even and the two lines are sized to their boxes, so the number stands
+   clear of the line and the address stays on one line. */
+@media (min-width: 1000px) and (max-width: 1399px) {
+  .ct-hero .hero__words.ct-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-8); }
+  .desk__big { font-size: clamp(26px, 2.6vw, 36px); }
+  .desk__mail { font-size: clamp(14.5px, 1.42vw, 17px); }
+}
+/* From 1400px the number was 3px from the centre service line: a touch smaller, a touch more box. */
+@media (min-width: 1400px) {
+  .desk { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+  .desk__big { font-size: 36px; }
+}

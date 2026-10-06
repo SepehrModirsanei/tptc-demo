@@ -203,7 +203,7 @@
       }
       if (!goal) return null;
       var junior = R.junior + '?age=' + encodeURIComponent(age);
-      if (goal === 'learn') return { door: 'junior', title: 'Junior Recreational, ages ' + age, line: 'Choose a level on the next page: Beginner, Intermediate or Advanced. New students can ask for a free assessment.', href: junior, cta: 'See Junior Recreational' };
+      if (goal === 'learn') return { door: 'junior', title: 'Junior Recreational, ages ' + age, line: 'Choose a level on the next page: Beginner, Intermediate or Advanced. A child new to the club can have a free assessment.', href: junior, cta: 'See Junior Recreational' };
       if (age === '4-6') return { door: 'junior', title: 'Junior Recreational, ages 4-6', line: 'Little Champs, the first High Performance step, starts at age 6. Until then, recreational lessons build the base.', href: junior, cta: 'See Junior Recreational', alt: { href: HP + '#little-champs', text: 'Little Champs' } };
       if (age === '7-9') return { door: 'hp', title: 'Little Champs, ages 6-9', line: 'For players looking to compete, or already competing, in OTA U9 or U10 events. An assessment is required.', href: HP + '#little-champs', cta: 'See Little Champs' };
       if (age === '10-13') return { door: 'hp', title: 'Transition Tour, ages 10-15', line: 'For players competing in provincial events such as Future Stars and Rookies. An assessment is required.', href: HP + '#transition-tour', cta: 'See Transition Tour' };
