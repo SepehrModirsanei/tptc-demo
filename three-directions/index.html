@@ -12,26 +12,34 @@
   body { display: flex; flex-direction: column; background: var(--stage); color: var(--ink);
     font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
   header { background: var(--bar); flex: none; border-bottom: 1px solid var(--line); }
-  .row { display: flex; align-items: center; gap: 8px 20px; flex-wrap: wrap; padding: 10px 16px; }
+  .row { display: flex; align-items: center; gap: 6px 18px; flex-wrap: wrap; padding: 8px 16px 6px; }
   .brand { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); margin-right: auto; white-space: nowrap; }
   .brand b { color: var(--ink); font-weight: 600; }
   .grp { display: inline-flex; align-items: center; gap: 8px; }
   .lab { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
   .seg { display: inline-flex; border: 1px solid var(--line); }
-  .seg button { appearance: none; background: none; border: 0; color: var(--dim); font: inherit; padding: 8px 14px; cursor: pointer;
+  .seg button { appearance: none; background: none; border: 0; color: var(--dim); font: inherit; padding: 6px 11px; cursor: pointer; font-size: 13px;
     letter-spacing: .04em; white-space: nowrap; }
   .seg button + button { border-left: 1px solid var(--line); }
   .seg button:hover { color: var(--ink); }
   .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bar); }
   .seg button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
   .seg.dir button b { font-weight: 700; margin-right: 6px; }
-  .idea { padding: 0 16px 10px; color: var(--dim); max-width: 1100px; }
+  .idea { padding: 0 16px 8px; color: var(--dim); font-size: 13px; line-height: 1.35; }
+  @media (min-width: 1100px) { .idea { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } }
   .idea b { color: var(--ink); font-weight: 600; }
   main { flex: 1; min-height: 0; display: flex; justify-content: center; align-items: stretch; }
   iframe { border: 0; width: 100%; height: 100%; background: #fff; }
   main.phone { padding: 20px 0; }
   main.phone iframe { width: 390px; max-width: 100%; border: 1px solid #C9CFCA; box-shadow: 0 20px 60px rgba(16, 26, 21, .18); }
-  @media (max-width: 700px) { .brand { width: 100%; } .grp.dev { display: none; } }
+  @media (max-width: 700px) {
+    .row { gap: 8px 12px; padding: 10px 12px; } .brand { width: 100%; white-space: normal; } .grp.dev { display: none; }
+    .grp { width: 100%; display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); } .seg { display: flex; min-width: 0; }
+    .seg button { flex: 1 1 0; min-width: 0; padding: 8px 4px; font-size: 12px; letter-spacing: 0; white-space: normal; line-height: 1.2; }
+    .seg.dir button b { margin-right: 4px; } .brand { font-size: 11px; }
+    .idea { padding: 0 12px 8px; font-size: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .row { padding: 8px 12px 6px; gap: 6px 12px; } .seg button { padding: 6px 4px; }
+  }
 </style>
 </head>
 <body>
