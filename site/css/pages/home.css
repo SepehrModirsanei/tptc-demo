@@ -78,3 +78,7 @@
 .vslot__label { font: 600 var(--step-5)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
 .vslot__what { font: 300 var(--step-3)/1.35 var(--font-serif); max-width: 22ch; }
 .vslot__tag { position: absolute; top: 0; right: 0; padding: 7px 10px; font: 600 11px/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; background: #EDF1F6; color: var(--blazer); }
+
+/* the control row wraps on the smallest phones instead of widening the page */
+.show__bar { flex-wrap: wrap; row-gap: 4px; }
+.show { max-width: 100%; }

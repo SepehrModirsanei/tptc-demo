@@ -1,4 +1,4 @@
-/* Register: one question at a time, then two ways to finish (b7).
+/* Register: one question at a time, then one filled form (b7; the end reworked in b8).
    Page CSS, tokens only. Stories:
    - The progress court: registering is the first serve of your season. The ball's ground shadow
      travels the true diagonal from the deuce court into the opposite service box; the ball rides
@@ -115,39 +115,65 @@ button.link { background: none; border: 0; padding: 0; font: inherit; color: inh
 .reg-opt__price { grid-area: p; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; margin-top: 8px; font: 300 34px/1 var(--font-serif); font-variant-numeric: lining-nums; color: var(--fg); }
 .reg-opt__price small { font: 400 13.5px/1.3 var(--font-sans); color: var(--fg-muted); }
 
-/* Phone step */
-.reg-phone__field { max-width: 22rem; }
-.reg-phone__field .input { font-size: 20px; letter-spacing: 0.02em; }
+/* ---------- Your registration: every answer ticked, the phone the one field left (b8) ---------- */
 .field__error[hidden] { display: none; }
+.reg-final { gap: var(--sp-5); }
+.reg-final [hidden] { display: none !important; }
+.reg-final__progress { display: grid; gap: 8px; max-width: 40rem; }
+.reg-final__bar { position: relative; display: block; height: 4px; border-radius: 2px; background: var(--rule); overflow: hidden; }
+.reg-final__bar > span { position: absolute; inset: 0 auto 0 0; width: 80%; background: var(--fg); transition: width var(--dur-ui) var(--ease-ui); }
+.reg-final__left { font: 400 var(--step-3)/1.3 var(--font-serif); font-style: italic; color: var(--fg); }
+.reg-final__progress.is-ready .reg-final__left { font-style: normal; }
+/* The summary: each answer a ticked row, Change on the right */
+.reg-sum { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--rule-strong); max-width: 40rem; }
+.reg-sum__row { display: grid; grid-template-columns: 22px minmax(6.5rem, 9rem) minmax(0, 1fr) auto; align-items: center; column-gap: 14px; min-height: 52px; padding: 4px 0; border-bottom: 1px solid var(--rule); }
+.reg-sum__tick { position: relative; width: 20px; height: 20px; border-radius: 50%; background: var(--fg); }
+.reg-sum__tick::after { content: ""; position: absolute; left: 6px; top: 5px; width: 8px; height: 5px; border-left: 1.5px solid var(--bg); border-bottom: 1.5px solid var(--bg); transform: rotate(-45deg); }
+.reg-sum__k { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.reg-sum__v { font: 400 1.0625rem/1.35 var(--font-serif); color: var(--fg); min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 479px) {
+  .reg-sum__row { grid-template-columns: 22px minmax(0, 1fr) auto; grid-template-areas: "t k e" "t v e"; row-gap: 2px; padding: 8px 0; }
+  .reg-sum__tick { grid-area: t; align-self: start; margin-top: 2px; }
+  .reg-sum__k { grid-area: k; }
+  .reg-sum__v { grid-area: v; }
+  .reg-sum__row > :last-child { grid-area: e; }
+}
+/* The one empty field */
+.reg-final__fields { display: grid; gap: 20px; max-width: 26rem; padding: var(--sp-4); border: 1px solid var(--fg); border-radius: var(--radius); background: var(--surface); }
+.reg-phone__field .input { font-size: 20px; letter-spacing: 0.02em; }
+.reg-final__opt { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--fg-muted); }
+.reg-final__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; }
+.reg-final__acts .btn { min-height: var(--target); }
+.reg-final__need { color: var(--fg-muted); }
+.reg-final__terms { flex-basis: 100%; color: var(--fg-muted); }
+/* The quieter way: JustBookIt, after a rule */
+.reg-final__jbi { display: grid; gap: 8px; justify-items: start; max-width: 40rem; padding-top: var(--sp-4); border-top: 1px solid var(--rule); }
+.reg-final__or { font-size: 15.5px; line-height: 1.5; color: var(--fg-muted); max-width: 52ch; }
+.reg-final__jbi .link { min-height: var(--target); }
+.reg-final__jbi .link[aria-disabled="true"] { color: var(--fg-muted); }
+.reg-final__opened { color: var(--fg); }
 
-/* ---------- Finish: two ways ---------- */
+/* Private lessons and leagues: their own route, one card */
 .reg-fin__notes { display: grid; gap: 12px; }
 .reg-fin__notes > [hidden] { display: none; }
 .reg-fin__status { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
-.reg-ways { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 720px) { .reg-ways { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.reg-way { display: grid; gap: 12px; align-content: start; justify-items: start; padding: var(--sp-4); border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); }
-.reg-way[hidden] { display: none; }
-.reg-way--here { background: var(--surface-alt); }
+.reg-way { display: grid; gap: 12px; align-content: start; justify-items: start; max-width: 40rem; padding: var(--sp-4); border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); }
 .reg-way__mark { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--fg); color: var(--fg); }
 .reg-way__mark .icon { width: 20px; height: 20px; }
 .reg-way__title { font: 400 var(--step-3)/1.25 var(--font-serif); font-size: 1.5rem; color: var(--fg); }
 .reg-way__text { font-size: 15.5px; line-height: 1.5; color: var(--fg-muted); max-width: 34ch; }
-.reg-way__demo { display: inline-block; margin-left: 4px; padding: 1px 8px; border: 1px dashed var(--rule-strong); border-radius: 999px; font: 600 var(--step-6)/1.6 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
 .reg-way .btn { margin-top: 6px; }
-.reg-way .btn .icon { margin-left: 10px; }
 .reg-way__path { width: 100%; margin-top: 4px; border-top: 1px solid var(--rule); }
 .reg-way__path summary { display: flex; align-items: center; min-height: var(--target); font: 500 var(--step-5)/1.3 var(--font-sans); cursor: pointer; text-decoration: underline; text-underline-offset: 0.25em; text-decoration-thickness: 1px; }
 .reg-way__path summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .reg-fin__nojs { display: none; }
 html:not(.js) .reg-fin__nojs { display: block; }
-html:not(.js) .reg-ways, html:not(.js) .reg-form, html:not(.js) .reg-done, html:not(.js) .reg-step__acts .reg-skip { display: none; }
+html:not(.js) .reg-final > :not(.reg-step__head):not(.reg-fin__nojs), html:not(.js) .reg-done { display: none; }
 
 /* The route inside the system: stops on one ruled line */
 .reg-path { list-style: none; margin: 8px 0 0; padding: 0; display: grid; width: 100%; border-left: 1px solid var(--rule-strong); }
 .reg-path li { position: relative; padding: 6px 0 6px 20px; font-size: 15px; line-height: 1.45; color: var(--fg); }
 .reg-path li::before { content: ""; position: absolute; left: -5px; top: 13px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 0 0 1.25px var(--fg); }
-.reg-way--here .reg-path li::before { background: var(--surface-alt); }
 .reg-path li:last-child::before { background: var(--fg); }
 
 /* Requirement callouts */
@@ -157,18 +183,12 @@ html:not(.js) .reg-ways, html:not(.js) .reg-form, html:not(.js) .reg-done, html:
 .reg-need p:not(.reg-need__title) { font-size: 16px; line-height: 1.55; color: var(--fg-muted); max-width: 56ch; }
 .reg-need--gate { width: 100%; padding: var(--sp-3) var(--sp-4); border: 1px solid var(--rule-strong); border-top: 2px solid var(--fg); background: var(--surface); }
 
-/* ---------- The demo form and its confirmation ---------- */
+/* ---------- The confirmation ---------- */
 .chip--demo { border-style: dashed; }
-.reg-form { gap: var(--sp-4); }
-.reg-form__demo { display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px; border: 1px dashed var(--rule-strong); border-radius: var(--radius); font-size: 15px; line-height: 1.45; color: var(--fg); max-width: 40rem; }
-.reg-form__demo .icon { flex: none; width: 18px; height: 18px; margin-top: 2px; }
-.reg-form__sum { margin: 0; display: grid; border-top: 1px solid var(--rule-strong); max-width: 40rem; }
-.reg-form__sum > div { display: grid; grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
-.reg-form__sum dt { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
-.reg-form__sum dd { margin: 0; font: 400 17px/1.4 var(--font-serif); color: var(--fg); overflow-wrap: anywhere; }
-.reg-form__fields { display: grid; gap: 20px; max-width: 30rem; }
-.reg-form__fields [hidden] { display: none; }
-.reg-form__fields .check { min-height: var(--target); align-items: center; }
+.reg-done__sum { margin: 0; display: grid; border-top: 1px solid var(--rule-strong); max-width: 40rem; }
+.reg-done__sum > div { display: grid; grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.reg-done__sum dt { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.reg-done__sum dd { margin: 0; font: 400 17px/1.4 var(--font-serif); color: var(--fg); overflow-wrap: anywhere; }
 .reg-done { gap: var(--sp-4); }
 .reg-done__mark { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--fg); color: var(--bg); }
 .reg-done__mark .icon { width: 28px; height: 28px; }
@@ -274,14 +294,15 @@ html:not(.js) .reg-ways, html:not(.js) .reg-form, html:not(.js) .reg-done, html:
 @media (max-width: 999px) { .reg-step { scroll-margin-top: calc(var(--header-h) + 110px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .pc__shadow, .pc__ball, .pc__box, .pc__after, .reg-opt__body::before, .reg-opt__body::after { transition: none; }
+  .pc__shadow, .pc__ball, .pc__box, .pc__after, .reg-opt__body::before, .reg-opt__body::after, .reg-final__bar > span { transition: none; }
 }
 
-/* Phones: the first question reaches the first screens sooner; a way to finish is a compact card */
+/* Phones: the first question reaches the first screens sooner; the finish button spans the width */
 @media (max-width: 639px) {
   .reg__flow > .sect-head { margin-bottom: var(--sp-3); }
   .reg-step[data-state="current"] { margin-top: var(--sp-5); }
+  .reg-final__fields { padding: var(--sp-3); }
+  .reg-final__acts .btn, .reg-way .btn { width: 100%; justify-content: center; }
   .reg-way { grid-template-columns: 44px minmax(0, 1fr); align-items: center; column-gap: 14px; padding: var(--sp-3) var(--sp-3) var(--sp-4); }
   .reg-way > :not(.reg-way__mark):not(.reg-way__title) { grid-column: 1 / -1; }
-  .reg-way .btn { width: 100%; justify-content: center; }
 }

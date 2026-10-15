@@ -300,3 +300,201 @@
   /* Magnetic buttons removed in the frontend-design pass (energy.md 3.10 bans them). */
 
 })();
+
+/* ---------- B8 (16 Oct 2026): synced word for word from the site, js/pages/home.js and
+   js/pages/high-performance.js. Each block returns at once on a page without its markup. ---------- */
+/* What's happening: each card carries its last day (data-ends="YYYY-MM-DD"). A card whose last
+   day has passed is hidden, read against today's date in the visitor's browser, so the section
+   always leads with what is running now. If the lead card itself is over, it is hidden too and the
+   rows carry the section. No dates live in this script. */
+(function () {
+  'use strict';
+  var box = document.querySelector('[data-happen]');
+  if (!box) return;
+  var today = new Date();
+  Array.prototype.forEach.call(box.querySelectorAll('[data-ends]'), function (card) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(card.getAttribute('data-ends') || '');
+    if (!m) return;
+    var end = new Date(+m[1], +m[2] - 1, +m[3], 23, 59, 59);
+    if (today > end) { card.hidden = true; card.setAttribute('data-ended', ''); }
+  });
+})();
+
+/* B7, Why TPTC: the slideshow. The slides are a scroll-snap strip that works without script
+   (swipe or scroll). Script adds previous/next, one dot per slide, a pause button and a slow
+   autoplay. Autoplay never starts under reduced motion; it waits while the pointer or focus is in
+   the slideshow and while it is off screen; the pause button stops it until pressed again.
+   Arrow keys move one slide while focus is inside. */
+(function () {
+  'use strict';
+  var root = document.querySelector('[data-show]');
+  if (!root) return;
+  var track = root.querySelector('[data-show-track]');
+  var slides = track.children;
+  var n = slides.length;
+  var dots = root.querySelectorAll('[data-show-dot]');
+  var toggle = root.querySelector('[data-show-toggle]');
+  var bar = root.querySelector('[data-show-bar]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DWELL = 6000;
+  var i = 0, timer = null, playing = !reduce, held = false, visible = false;
+
+  bar.hidden = false;
+  root.classList.add('show--js');
+
+  function mark() {
+    for (var k = 0; k < dots.length; k++) {
+      if (k === i) dots[k].setAttribute('aria-current', 'true'); else dots[k].removeAttribute('aria-current');
+    }
+    for (var s = 0; s < n; s++) slides[s].setAttribute('aria-hidden', s === i ? 'false' : 'true');
+    for (var s2 = 0; s2 < n; s2++) {
+      Array.prototype.forEach.call(slides[s2].querySelectorAll('a, button'), function (el) { el.tabIndex = s2 === i ? 0 : -1; });
+    }
+  }
+  function go(k, user) {
+    i = (k + n) % n;
+    track.scrollTo({ left: i * track.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
+    mark();
+    if (user) restart();
+  }
+  function tick() { go(i + 1, false); }
+  function stop() { clearInterval(timer); timer = null; }
+  function restart() { stop(); if (playing && !held && visible) timer = setInterval(tick, DWELL); }
+  function setPlaying(p) {
+    playing = p;
+    root.classList.toggle('is-paused', !p);
+    toggle.setAttribute('aria-label', p ? 'Pause slideshow' : 'Play slideshow');
+    restart();
+  }
+
+  root.querySelector('[data-show-prev]').addEventListener('click', function () { go(i - 1, true); });
+  root.querySelector('[data-show-next]').addEventListener('click', function () { go(i + 1, true); });
+  Array.prototype.forEach.call(dots, function (d) {
+    d.addEventListener('click', function () { go(+d.getAttribute('data-show-dot'), true); });
+  });
+  toggle.addEventListener('click', function () { setPlaying(!playing); });
+  root.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1, true); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1, true); }
+  });
+  root.addEventListener('mouseenter', function () { held = true; restart(); });
+  root.addEventListener('mouseleave', function () { held = false; restart(); });
+  root.addEventListener('focusin', function () { held = true; restart(); });
+  root.addEventListener('focusout', function (e) { if (!root.contains(e.relatedTarget)) { held = false; restart(); } });
+
+  /* a swipe or a scroll by hand moves the dots with it */
+  var raf = 0;
+  track.addEventListener('scroll', function () {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(function () {
+      var k = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+      if (k !== i && k >= 0 && k < n) { i = k; mark(); }
+    });
+  }, { passive: true });
+  window.addEventListener('resize', function () { track.scrollTo({ left: i * track.clientWidth, behavior: 'auto' }); });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; restart(); }, { threshold: 0.4 }).observe(root);
+  } else { visible = true; }
+  mark();
+  setPlaying(playing);
+})();
+
+/* Which step (b7): one question at a time, like Home's program finder. Age first; then where
+   the player's game is now; then one result card: the step, its published facts, its first
+   action. Story: a draw sheet read one round at a time; the card is the player's line in the draw.
+   Facts only from the club's High Performance page (content/programs.json). */
+(function () {
+  var f = document.querySelector('[data-hpf]');
+  if (!f) return;
+  var $ = function (s) { return f.querySelector(s); };
+  var box = $('[data-hpf-result]'), restart = $('[data-hpf-restart]'), play = $('[data-q="play"]');
+  var coaches = f.getAttribute('data-coaches'), junior = f.getAttribute('data-junior');
+  var ico = function (n) { return '<svg class="icon" aria-hidden="true" focusable="false"><use href="#i-' + n + '"/></svg>'; };
+  var arrow = ico('arrow');
+  var head = '<a class="inline-link" href="' + coaches + '">Head Pro Josh Borenstein</a>';
+  var mail = function (subj) { return 'mailto:info@thornhillparktennisclub.ca?subject=' + encodeURIComponent(subj); };
+  var R = {
+    lc: { n: '01', name: 'Little Champs', gate: 'Assessment required', facts: [['junior', 'Ages 6-9'], ['court', 'Three-quarter court, orange or green dot ball'], ['trophy', 'OTA tournaments at U9 or U10']],
+      act: ['Request an assessment', mail('High Performance assessment')], see: '#little-champs', how: 'An assessment with ' + head + ', then register with your code.' },
+    tt: { n: '02', name: 'Transition Tour', gate: 'Assessment required', facts: [['junior', 'Ages 10-15'], ['court', 'Full court, regular ball'], ['trophy', 'Provincial events, such as Future Stars and Rookies']],
+      act: ['Request an assessment', mail('High Performance assessment')], see: '#transition-tour', how: 'An assessment with ' + head + ', then register with your code.' },
+    pn: { n: '03', name: 'Pro National', gate: 'Pre-approval required', facts: [['pathway', 'Provincial and national level players only'], ['racquet', 'Tennis and fitness'], ['location', 'Yonge &amp; Centre']],
+      act: ['Ask about pre-approval', mail('Pro National pre-approval')], see: '#pro-national', how: 'Pre-approval by ' + head + ' before registering.' },
+    rec: { n: '', name: 'Junior Recreational first', gate: 'Free assessment', facts: [['junior', 'Ages 4-17'], ['ball', 'Beginner to Advanced'], ['calendar', 'Group lessons in multi-week sessions']],
+      act: ['See Junior Recreational', junior], see: '#pathway', how: 'High Performance starts when your player is ready to compete.' }
+  };
+  function val(n) { var i = f.querySelector('input[name="' + n + '"]:checked'); return i ? i.value : null; }
+  function pick() {
+    var a = val('age'), p = val('play');
+    if (a === '5') return ['rec', 'Little Champs starts at age 6.'];
+    if (!p) return null;
+    if (p === 'learn') return ['rec', ''];
+    if (p === 'nat') return ['pn', ''];
+    if (a === '6-9') return ['lc', ''];
+    if (a === '10-15') return ['tt', ''];
+    return ['pn', 'Transition Tour runs to age 15.'];
+  }
+  function update(focusNext) {
+    var a = val('age');
+    play.hidden = !a || a === '5';
+    if (play.hidden) Array.prototype.forEach.call(play.querySelectorAll('input'), function (i) { i.checked = false; });
+    restart.hidden = !a;
+    var r = pick();
+    if (!r) { box.hidden = true; box.innerHTML = ''; if (focusNext && !play.hidden) play.querySelector('input').focus(); return; }
+    var d = R[r[0]];
+    box.innerHTML =
+      '<div class="hpf__top">' + (d.n ? '<span class="hpf__n num" aria-hidden="true">' + d.n + '</span>' : '') +
+        '<div><p class="label">Your player&rsquo;s step</p><p class="hpf__name">' + d.name + '</p></div>' +
+        '<span class="chip">' + d.gate + '</span></div>' +
+      '<ul class="hpf__facts" role="list">' + d.facts.map(function (x) { return '<li>' + ico(x[0]) + '<span>' + x[1] + '</span></li>'; }).join('') + '</ul>' +
+      (r[1] ? '<p class="small hpf__note">' + r[1] + '</p>' : '') +
+      '<p class="small hpf__how">' + d.how + '</p>' +
+      '<div class="hpf__acts"><a class="btn btn--ink" href="' + d.act[1] + '"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label"><span>' + d.act[0] + '</span><span aria-hidden="true">' + d.act[0] + '</span></span></a>' +
+      (r[0] !== 'rec' ? '<a class="link" href="' + d.see + '"><span class="link__text">See ' + d.name + '</span>' + arrow + '</a>' : '<a class="link" href="#pathway"><span class="link__text">See the three steps</span>' + arrow + '</a>') + '</div>';
+    box.hidden = false;
+  }
+  f.addEventListener('change', function (e) {
+    if (e.target.name === 'age') Array.prototype.forEach.call(play.querySelectorAll('input'), function (i) { i.checked = false; });
+    update(e.target.name === 'age' && e.target.matches(':focus-visible'));
+  });
+  f.addEventListener('submit', function (e) { e.preventDefault(); });
+  restart.addEventListener('click', function () {
+    Array.prototype.forEach.call(f.querySelectorAll('input'), function (i) { i.checked = false; });
+    update(); var i = f.querySelector('input'); if (i) i.focus();
+  });
+  update();
+})();
+
+
+/* B8, specimen only: a link with href="#" leads to a page this specimen does not include. Instead of
+   doing nothing (or jumping to the top), it says so in a short note that a screen reader also hears,
+   and the note leaves on its own after a few seconds or on Escape. */
+(function () {
+  'use strict';
+  var note = null, t = null;
+  function hide() { if (note) note.hidden = true; clearTimeout(t); }
+  function show(text) {
+    if (!note) {
+      note = document.createElement('p');
+      note.className = 'deadnote';
+      note.setAttribute('role', 'status');
+      note.hidden = true;
+      document.body.appendChild(note);
+    }
+    note.textContent = '';
+    note.hidden = false;
+    /* set the words after the region is shown, so the status is announced each time */
+    requestAnimationFrame(function () { note.textContent = text; });
+    clearTimeout(t);
+    t = setTimeout(hide, 4500);
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href="#"]');
+    if (!a) return;
+    e.preventDefault();
+    var what = (a.textContent || '').replace(/\s+/g, ' ').trim();
+    show((what ? '\u201C' + what + '\u201D' : 'This page') + ' is not part of this design specimen.');
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+})();

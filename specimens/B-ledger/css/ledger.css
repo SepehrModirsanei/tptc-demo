@@ -507,10 +507,13 @@ html.motion .chip--live.is-pulsing.is-replay .chip__dot::after { animation-name:
 .season__dome { position: absolute; left: var(--dome-l); width: var(--dome-w); bottom: 0; height: 100%; color: var(--arc-c, var(--line-strong)); }
 .season__inflate { position: absolute; inset: 0; transform-origin: 50% 100%; }
 .season__inflate svg { width: 100%; height: 100%; overflow: visible; }
-.season__today { position: absolute; left: var(--x); bottom: -8px; height: calc(var(--sky) * .42); width: 1px; background: var(--live-c, var(--fg)); transform-origin: 50% 100%; }
-.season__today-label { position: absolute; right: 10px; top: -2px; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+.season__today { position: absolute; left: var(--x); margin-left: -.5px; bottom: -8px; height: calc(var(--sky) * .42); width: 1px; background: var(--live-c, var(--fg)); transform-origin: 50% 100%; }
+/* b8: one rule at every width and on every page. The dot is centred on the date marker (the head of its stem);
+   the label stands right of the dot, and flips to the left only when it would run past the ledger's right edge (js/site.js sets is-flip). */
+.season__today-dot { position: absolute; left: 50%; top: 0; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: var(--live-c, var(--fg)); }
+.season__today-label { position: absolute; left: 12px; right: auto; top: 0; transform: translateY(-50%); display: block; white-space: nowrap;
   font-family: var(--font-sans); font-size: var(--t-micro); line-height: 1; font-weight: 620; font-stretch: 112%; letter-spacing: .12em; text-transform: uppercase; color: var(--fg); }
-.season__today-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--live-c, var(--fg)); flex: none; }
+.season__today.is-flip .season__today-label { left: auto; right: 12px; }
 .season__months { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border-top: 1px solid var(--fg); }
 .season__months li { position: relative; padding: 10px 0 0 8px; font-family: var(--font-sans); font-size: var(--t-label); line-height: 1; font-weight: 600; font-stretch: 118%; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-3); }
 .season__months li::before { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 8px; background: var(--line-strong); }
@@ -814,7 +817,6 @@ html.motion .chip--live.is-pulsing.is-replay .chip__dot::after { animation-name:
 .season--mini .season__m-short { display: inline; }
 .season--mini .season__today-label { font-size: var(--t-label); }
 .season--mini .season__today { height: 40px; }
-.season--mini .season__today-label { right: auto; left: 10px; }
 .season__key { display: flex; align-items: center; gap: 12px; margin-top: 8px; font-family: var(--font-sans); font-size: var(--t-micro); font-stretch: 100%; color: var(--fg-2); }
 .season__key b { font-weight: 600; color: var(--fg); }
 .season__key-bar { width: 24px; height: 6px; background: var(--fg); flex: none; }
@@ -1127,11 +1129,10 @@ html.motion [data-season] [data-season-today] { opacity: 0; }
   .site-header .brand__img--lockup { display: none; }
   .site-header .brand__img--mark { display: block; height: 28px; }
 }
-/* QC fix: on phones the wordmark is the anchor (32 px) and REGISTER NOW drops one size (36 px drawn, 44 px to the thumb) */
+/* On phones the wordmark is the anchor (32 px). b8: REGISTER NOW is drawn at the full 44 px tap height, label at the 12 px floor */
 @media (max-width: 767px) {
   .site-header .brand__img--mark { height: 32px; }
-  .site-header .btn--register.btn--sm { min-height: 36px; padding: 0 12px; font-size: 11px; letter-spacing: .1em; }
-  .site-header .btn--register.btn--sm::before { content: ""; position: absolute; inset: -5px 0; }
+  .site-header .btn--register.btn--sm { min-height: 44px; padding: 0 12px; font-size: var(--t-label); letter-spacing: .1em; }
 }
 .footer .brand__img { height: 36px; }
 .footer .brand__img--on-dark { display: none; }
@@ -1168,7 +1169,7 @@ html.motion [data-season] [data-season-today] { opacity: 0; }
 .hero--dome .season__today { height: 24px; bottom: 0; }
 /* phones: the tag stands in the open roof under the arc, clear of the racquet hand at the photograph's foot */
 .hero--dome > .frame .frame__tag { left: 57%; right: auto; top: 22%; bottom: auto; }
-.hero--dome .season__today-label { right: auto; left: 8px; top: 0; padding: 4px 7px 3px; background: var(--night); }
+.hero--dome .season__today-label { padding: 4px 7px 3px; background: var(--night); }
 .hero--dome .hero__content { grid-column: 1; grid-row: 4; display: grid; gap: 0; padding: 16px var(--gutter) 20px; }
 .hero--dome .hero__eyebrow { margin: 0 0 8px; color: var(--on-night-2); }
 .hero--dome .hero__title { max-width: none; padding: 0; font-size: clamp(1.625rem, 7.6vw, 3.5rem); line-height: 1.04; letter-spacing: -.014em; }
@@ -1219,9 +1220,9 @@ html.motion [data-season] [data-season-today] { opacity: 0; }
   }
   .hero--dome > .frame {
     position: absolute; left: 0; bottom: var(--strip); top: auto; width: var(--pw); height: var(--ph); aspect-ratio: auto;
-    -webkit-mask-image: linear-gradient(to right, #000 64%, transparent 97%), linear-gradient(to bottom, transparent 0, #000 9%);
-    mask-image: linear-gradient(to right, #000 64%, transparent 97%), linear-gradient(to bottom, transparent 0, #000 9%);
-    -webkit-mask-composite: source-in; mask-composite: intersect;
+    /* b8: right fade only; the top fade dimmed the racquet and the tossing hand, so the subject is whole now */
+    -webkit-mask-image: linear-gradient(to right, #000 64%, transparent 97%);
+    mask-image: linear-gradient(to right, #000 64%, transparent 97%);
   }
   .hero--dome > .frame .frame__tag { left: var(--gutter); right: auto; bottom: auto; top: 11%; }
   .hero--dome .season { --sky: calc(var(--hh) - var(--header-h) - var(--strip) - 14px); }
@@ -1236,7 +1237,7 @@ html.motion [data-season] [data-season-today] { opacity: 0; }
   .hero--dome .season__name { font-size: 1.125rem; }
   .hero--dome .season__dates { font-size: var(--t-micro); }
   .hero--dome .season__today { height: 44px; }
-  .hero--dome .season__today-label { background: none; padding: 0; left: auto; right: 10px; top: 2px; }
+  .hero--dome .season__today-label { background: none; padding: 0; }
   /* under the arc: from 12% to 88% of the Dome's span the arc is above 79% of its height */
   .hero--dome .hero__content {
     --left: max(var(--pw) * .615, var(--gutter) + var(--lw) * .485);
@@ -1315,9 +1316,8 @@ html.motion [data-season] [data-season-today] { opacity: 0; }
    words start at 0.86 of it. The pathway's three steps are scoreboard figures under the actions, as Home's four are. */
 .hero.hero--steps { --ph: 66.667vw; }
 .hero--steps > .frame { aspect-ratio: 3 / 2; }
-/* phones: the tag stands in the evening sky, top left; today's label stands left of its mark, clear of the feet */
+/* phones: the tag stands in the evening sky, top left */
 .hero--steps > .frame .frame__tag { left: 6px; right: auto; top: 6px; bottom: auto; }
-.hero--steps .season__today-label { left: auto; right: 8px; }
 .hero__crumbs { grid-column: 1; grid-row: 4; padding: 6px var(--gutter) 0; }
 .hero__crumbs a, .hero__crumbs li { min-height: 40px; }
 .hero__crumbs li { color: var(--on-night-2); }
@@ -1359,15 +1359,12 @@ html.motion [data-season] [data-season-today] { opacity: 0; }
   }
   .hero--steps > .frame {
     aspect-ratio: auto;
-    -webkit-mask-image: linear-gradient(to right, #000 85%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 5%);
-    mask-image: linear-gradient(to right, #000 85%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 5%);
-    -webkit-mask-composite: source-in; mask-composite: intersect;
+    -webkit-mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 85%, transparent 100%);
   }
   .hero--steps > .frame .frame__tag { left: var(--gutter); right: auto; top: 7%; bottom: auto; }
   .hero__crumbs { position: absolute; z-index: 2; left: var(--gutter); top: var(--header-h); height: var(--crumb); padding: 0; display: flex; align-items: center; }
-  /* today's label stands right of its mark here: the player's back foot is on its left */
   .hero--steps .season__today { height: 26px; }
-  .hero--steps .season__today-label { right: auto; left: 10px; top: 0; }
   .hero--steps .hero__content {
     --left: max(var(--pw) * .86, var(--gutter) + var(--lw) * .485);
     bottom: calc(var(--strip) + clamp(34px, 5vh, 56px)); padding: 0;
@@ -1381,3 +1378,127 @@ html.motion [data-season] [data-season-today] { opacity: 0; }
 }
 /* small laptops: the four figure labels keep one line each without touching */
 @media (min-width: 1024px) and (max-width: 1279px) and (min-aspect-ratio: 5/4) { .hero__figs .label { letter-spacing: .04em; font-stretch: 84%; } }
+
+/* ==========================================================================
+   b8 (16 Oct 2026): synced with the site's Home and High Performance, in Dome's own type and grounds
+   ========================================================================== */
+
+/* Home split: the program names are the headings, larger than the three-word taglines */
+.split__name { font-family: var(--font-serif); font-weight: 380; font-size: clamp(2.25rem, 1.4rem + 2.6vw, 3.75rem); line-height: 1.02; letter-spacing: -.014em; color: var(--fg);
+  padding-top: 16px; border-top: 1px solid var(--line-strong); }
+.split__half--hp .split__name { color: var(--on-night); border-top-color: var(--rule-night-strong); }
+.split--named .split__tag { font-size: clamp(1.25rem, 1.05rem + .6vw, 1.625rem); line-height: 1.2; color: var(--fg-2); }
+.split--named .split__half--hp .split__tag { color: var(--on-night-2); }
+.split--named .split__tag span { display: inline; }
+.split--named .split__text { gap: 20px; }
+@media (min-width: 1366px) { .split--named .frame { width: clamp(200px, 14vw, 300px); } }
+
+/* Why TPTC: four strengths beside 1951; the slideshow and the Majors result below */
+.why__community { align-items: start; }
+.why__community .show { grid-column: 1 / span 7; }
+.why__community .why__side { grid-column: 9 / span 4; align-self: start; }
+@media (max-width: 1023px) { .why__community .show, .why__community .why__side { grid-column: 1 / -1; } }
+
+/* The slideshow: a strip of slides, ruled like the season ledger. Without script it scrolls and snaps;
+   with script a bar under it has previous, next, a tick per slide, the slide number as a figure and pause. */
+.show { display: grid; gap: 16px; min-width: 0; }
+.show__track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.show__track::-webkit-scrollbar { display: none; }
+.show__track:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.show__slide { scroll-snap-align: start; display: grid; gap: 12px; align-content: start; margin: 0; min-width: 0; }
+.show__slide figcaption { font-family: var(--font-sans); font-size: var(--t-micro); line-height: 1.5; color: var(--fg-3); font-stretch: 100%; max-width: 56ch; }
+.show__slide figcaption b { display: block; font-family: var(--font-serif); font-weight: 420; font-size: 1.125rem; line-height: 1.3; color: var(--fg); margin-bottom: 2px; }
+.show:not(.show--js) .show__track { gap: 16px; grid-auto-columns: 88%; }
+.show__bar { display: flex; align-items: center; gap: 8px; padding-top: 12px; border-top: 1px solid var(--fg); }
+.show__bar[hidden] { display: none; }
+.show__btn { display: inline-grid; place-items: center; width: 44px; height: 44px; flex: none; border: 1px solid var(--line-strong); background: transparent; color: var(--fg); cursor: pointer; touch-action: manipulation;
+  transition: border-color var(--dur-ui) var(--ease-ui), background-color var(--dur-ui) var(--ease-ui); }
+.show__btn .icon { width: 20px; height: 20px; }
+.show__prev .icon { transform: scaleX(-1); }
+.show__btn:focus-visible, .show__ticks button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) { .show__btn:hover { border-color: var(--fg); } }
+.show__ticks { display: flex; flex: 1; justify-content: center; gap: 0; list-style: none; margin: 0; padding: 0; }
+.show__ticks button { position: relative; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; touch-action: manipulation; }
+.show__ticks button::before { content: ""; position: absolute; left: 50%; top: 50%; width: 1px; height: 12px; margin: -6px 0 0 -.5px; background: var(--fg-3); transition: height var(--dur-ui) var(--ease-ui), width var(--dur-ui) var(--ease-ui); }
+.show__ticks button[aria-current="true"]::before { width: 3px; height: 24px; margin: -12px 0 0 -1.5px; background: var(--fg); }
+.show__count { display: inline-flex; align-items: baseline; gap: 4px; padding-inline: 4px 8px; color: var(--fg); }
+.show__count .fig { font-size: 1.5rem; }
+.show__of { font-family: var(--font-sans); font-size: var(--t-micro); color: var(--fg-3); }
+.show__i-play { display: none; }
+.show.is-paused .show__i-pause { display: none; }
+.show.is-paused .show__i-play { display: block; }
+@media (prefers-reduced-motion: reduce) { .show__btn, .show__ticks button::before { transition: none; } }
+/* phones: the ticks take their own line above the buttons, so every control keeps 44 by 44 without running off the screen */
+@media (max-width: 639px) {
+  .show__bar { flex-wrap: wrap; row-gap: 0; }
+  .show__ticks { order: -1; flex: 1 0 100%; justify-content: flex-start; margin-left: -10px; }
+  .show__count { margin-left: auto; }
+}
+/* the video slot: a marked frame on Dome night, waiting for a film the club will supply */
+.vslot { position: relative; aspect-ratio: 4 / 3; display: grid; align-content: center; justify-items: start; gap: 10px; padding: clamp(20px, 6%, 40px); background: var(--night-2); color: var(--on-night-2);
+  border: 1px dashed var(--rule-night-strong); }
+.vslot__play { width: 48px; height: 48px; color: var(--on-night); }
+.vslot__kicker { font-family: var(--font-sans); font-size: var(--t-label); line-height: 1; font-weight: 620; font-stretch: 125%; letter-spacing: .22em; text-transform: uppercase; color: var(--on-night); }
+.vslot__what { font-family: var(--font-serif); font-style: italic; font-size: 1.125rem; line-height: 1.4; color: var(--on-night-2); }
+.vslot .confirm-inline__tag { border-color: var(--rule-night-strong); color: var(--on-night-2); }
+
+/* What's happening: a card whose last day has passed is hidden by js/site.js */
+[data-happen] [hidden] { display: none; }
+.happen__span { display: grid; gap: 8px; }
+.happen__span .fig { font-size: clamp(2.25rem, 1.8rem + 1.2vw, 3rem); color: var(--fg); }
+.happen__span .label { font-size: var(--t-label); }
+
+/* High Performance intro: what runs now, then the session that ended */
+.season__now { display: grid; gap: 10px; }
+.season__now-line { font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.4; color: var(--fg); }
+
+/* Pro National Academy: the name is the heading, the line under it smaller */
+.academy__title--name { font-size: clamp(2.5rem, 1.6rem + 3vw, 4.5rem); line-height: 1; }
+.academy__sub { font-family: var(--font-serif); font-weight: 340; font-size: clamp(1.25rem, 1.05rem + .6vw, 1.625rem); line-height: 1.25; color: var(--on-night-2); margin-top: -12px; }
+.academy .inline-link { color: inherit; text-decoration-color: var(--rule-night-strong); }
+
+/* Which step: one question at a time on Dome fabric. Each question is numbered with a scoreboard figure; answers are
+   square cards with the ink index square when chosen (the Style Guide's radio card); the result is a ledger entry. */
+.hpf__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 32px; align-items: start; }
+.hpf__head { grid-column: 1 / span 5; display: grid; gap: 20px; }
+.hpf__sub { font-family: var(--font-serif); font-style: italic; font-size: 1.25rem; color: var(--fg-2); }
+.hpf { grid-column: 7 / span 6; display: grid; gap: 28px; min-width: 0; }
+.hpf__bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; border-bottom: 1px solid var(--fg); }
+.hpf__restart { min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--fg); cursor: pointer; touch-action: manipulation;
+  font-family: var(--font-sans); font-size: var(--t-label); font-weight: 620; font-stretch: 118%; letter-spacing: .14em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.hpf__restart[hidden], .hpf__q[hidden], .hpf__result[hidden] { display: none; }
+.hpf__restart:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.hpf__q { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 14px; }
+.hpf__q legend { display: flex; align-items: baseline; gap: 14px; padding: 0; margin-bottom: 14px; font-family: var(--font-serif); font-weight: 400; font-size: var(--t-h3); line-height: 1.2; color: var(--fg); }
+.hpf__q legend .fig { font-size: 2rem; }
+.hpf__opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.hpf__opts--age { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.hpf__opt { position: relative; display: block; cursor: pointer; }
+.hpf__opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.hpf__opt span { display: flex; align-items: center; gap: 8px; min-height: 56px; height: 100%; padding: 12px 14px; border: 1px solid var(--line-strong); background: var(--bg);
+  font-family: var(--font-serif); font-size: 1.0625rem; line-height: 1.25; color: var(--fg); transition: border-color var(--dur-ui) var(--ease-ui); }
+.hpf__opts--age .hpf__opt span { font-family: var(--font-sans); font-stretch: 76%; font-weight: 700; font-size: 1.25rem; font-variant-numeric: tabular-nums lining-nums; justify-content: center; text-align: center; }
+.hpf__opt input:checked + span { border: 2px solid var(--fg); padding: 11px 13px; }
+.hpf__opt input:checked + span::before { content: ""; width: 8px; height: 8px; flex: none; background: var(--fg); }
+.hpf__opt input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .hpf__opt:hover span { border-color: var(--fg); } }
+.hpf__result { display: grid; gap: 18px; padding: 24px; background: var(--bg); border-top: 3px solid var(--fg); }
+.hpf__top { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px 18px; }
+.hpf__n { font-size: clamp(3.5rem, 2.8rem + 2vw, 4.5rem); color: var(--fg); }
+.hpf__name { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-h3); line-height: 1.15; color: var(--fg); margin-top: 6px; }
+.hpf__facts { display: grid; gap: 10px; padding: 16px 0 0; border-top: 1px solid var(--line); }
+.hpf__facts li { display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start; color: var(--fg-2); }
+.hpf__facts .icon { color: var(--fg); }
+.hpf__note { font-family: var(--font-serif); font-style: italic; color: var(--fg-2); }
+.hpf__how { color: var(--fg-2); }
+.hpf__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+html.motion .hpf__result:not([hidden]) { animation: hpf-in 360ms var(--ease-out) both; }
+@keyframes hpf-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 1023px) { .hpf__head, .hpf { grid-column: 1 / -1; } }
+@media (max-width: 639px) {
+  .hpf__opts { grid-template-columns: 1fr; }
+  .hpf__opts--age { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hpf__top { grid-template-columns: auto minmax(0, 1fr); }
+  .hpf__top .chip { grid-column: 1 / -1; justify-self: start; }
+  .hpf__result { padding: 20px 16px; }
+}

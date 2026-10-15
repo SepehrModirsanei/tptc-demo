@@ -1,49 +1,219 @@
-/* Membership: How do I become a member?
-   Page CSS, tokens only. Stories (logs/batch2-access.md): the seven benefits drawn in the one
-   court-line icon family; the 15 set like the first point on a scoreboard (fifteen-love: residents
-   start a point up); the rates ruled like the lines of a court, resident column first. */
+/* Membership (B8, 16 Oct 2026): tokens only.
+   Stories:
+   - The hero is the club scoreboard: "Fifteen-love" is its label and the 15 turns over from 0
+     (love) once, like the first point of the match. Vaughan residents start a point up.
+   - The membership card: the club's navy, the court ruled into it in chalk, the rate on it. It
+     returns beside the join flow and fills in as you answer.
+   - Rates are member cards in a fine double rule, resident price first and largest; the bar under
+     each price is the resident price drawn against the non-resident one (85 of 100).
+   Earlier batches' notes: logs/b7-site-pages.md; this batch: logs/b8-membership.md. */
 
-/* 2. Why: heading beside the list from 900px; the list in two columns from 1200px */
-.mem-why { display: grid; gap: var(--sp-7); }
-.mem-why__list li p { max-width: 52ch; }
-.mem-why__list .inline-link { white-space: nowrap; }
-@media (min-width: 900px) {
-  .mem-why { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-8); align-items: start; }
-  .mem-why__head { position: sticky; top: calc(var(--header-h) + var(--sp-6)); }
+/* ================= 1. Hero: the scoreboard on a navy band ================= */
+.mh { position: relative; isolation: isolate; overflow: hidden; background: var(--blazer); color: var(--chalk);
+  padding: clamp(12px, 2vw, 28px) 0 clamp(40px, 5vw, 80px); }
+/* the floodlight: one soft pool of light on the court surface, never a gradient accent */
+.mh::before { content: ""; position: absolute; inset: -30% -10% auto 30%; height: 120%; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(237, 241, 246, 0.07), rgba(237, 241, 246, 0)); }
+/* the net: one fine chalk line under the band */
+.mh::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line-chalk); }
+.mh .crumbs { margin-bottom: clamp(20px, 3vw, 44px); }
+.mh__grid { display: grid; gap: var(--sp-6); align-items: end; }
+.mh__words { display: grid; align-content: start; min-width: 0; }
+.mh__name { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; color: var(--chalk); }
+.mh__sep { width: 28px; height: 1px; background: var(--line-chalk-strong); }
+.mh__season { color: var(--mist); }
+
+.mh__board { margin-top: clamp(28px, 4vw, 56px); width: max-content; max-width: 100%; }
+.mh__score { display: flex; align-items: center; gap: 14px; color: var(--mist); padding-bottom: 14px; }
+.mh__score-rule { width: clamp(40px, 6vw, 88px); height: 1px; background: var(--line-chalk-strong); }
+.mh__pct { display: flex; align-items: flex-start; font: 200 clamp(10rem, 3.6rem + 17vw, 19rem)/0.8 var(--font-serif);
+  font-variant-numeric: lining-nums proportional-nums; letter-spacing: -0.06em; color: var(--chalk);
+  border-top: 1px solid var(--line-chalk); border-bottom: 1px solid var(--line-chalk); padding: 0.07em 0 0.05em; }
+/* the turn-over window: shows exactly one figure; the track holds love (0) above fifteen */
+.mh__roll { display: inline-block; height: 0.8em; overflow: hidden; }
+.mh__roll-track { display: flex; flex-direction: column; text-align: right; transform: translateY(-50%); }
+.mh__roll-track > span { display: block; height: 0.8em; line-height: 0.8; }
+.mh__sign { font: 300 0.24em/1 var(--font-serif); letter-spacing: 0; margin: 0.12em 0 0 0.08em; color: var(--mist); }
+html.motion .mh__roll-track { animation: mh-turn 1100ms var(--ease-out) 700ms both; }
+@keyframes mh-turn { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+
+.mh__fact { margin-top: clamp(18px, 2.4vw, 32px); font: 300 clamp(1.75rem, 1.2rem + 2.2vw, 3.25rem)/1.08 var(--font-serif); color: var(--chalk); max-width: 20ch; text-wrap: balance; }
+.mh__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: clamp(24px, 3vw, 40px); }
+.mh__status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: clamp(28px, 4vw, 56px); color: var(--mist); }
+.mh__status .confirm { color: var(--chalk); }
+
+/* The membership card (hero and join flow): ISO card proportions, a double bezel of chalk lines */
+.mh__cardwrap { justify-self: end; width: min(100%, 31rem); padding: 8px; border: 1px solid var(--line-chalk-soft); border-radius: 26px; }
+.mcard { position: relative; isolation: isolate; overflow: hidden; aspect-ratio: 85.6 / 54; min-height: 15.5rem;
+  display: grid; grid-template-rows: auto 1fr auto; gap: 10px; padding: clamp(18px, 2.4vw, 28px);
+  border-radius: 18px; border: 1px solid var(--line-chalk); color: var(--chalk);
+  background: linear-gradient(150deg, var(--night-raised) 0%, var(--blazer) 55%, var(--night-deep) 100%);
+  box-shadow: inset 0 1px 0 rgba(237, 241, 246, 0.12), 0 40px 80px -36px rgba(0, 4, 12, 0.7); }
+.mcard__court { position: absolute; inset: 10px; width: calc(100% - 20px); height: calc(100% - 20px); z-index: -1; pointer-events: none;
+  fill: none; stroke: var(--line-chalk-soft); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mcard__court * { vector-effect: non-scaling-stroke; }
+.mcard__sheen { position: absolute; inset: -40% auto -40% -60%; width: 40%; z-index: -1; pointer-events: none; opacity: 0;
+  background: linear-gradient(100deg, rgba(237, 241, 246, 0), rgba(237, 241, 246, 0.10), rgba(237, 241, 246, 0)); transform: rotate(8deg); }
+html.motion .mcard__sheen { animation: mh-sheen 1600ms var(--ease-out) 1300ms both; }
+@keyframes mh-sheen { 0% { opacity: 1; transform: translateX(0) rotate(8deg); } 100% { opacity: 0; transform: translateX(420%) rotate(8deg); } }
+.mcard__top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.mcard__mark { height: 19px; width: auto; }
+.mcard__since { color: var(--mist); }
+.mcard__body { align-self: center; display: grid; gap: 6px; }
+.mcard__opt { color: var(--mist); }
+.mcard__price { font: 300 clamp(2.75rem, 2rem + 2.6vw, 4.5rem)/0.95 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.02em; color: var(--chalk); }
+.mcard__who { color: var(--mist); }
+.mcard__foot { display: flex; justify-content: space-between; gap: 16px; padding-top: 12px; border-top: 1px solid var(--line-chalk); }
+.mcard__foot p { display: grid; gap: 3px; }
+.mcard__foot p:last-child { text-align: right; }
+.mcard__foot .label { color: var(--mist); font-size: 11px; }
+.mcard__foot .num { font-size: 15px; color: var(--chalk); }
+
+@media (min-width: 1000px) {
+  .mh__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--sp-8); }
+}
+@media (max-width: 999px) {
+  .mh__cardwrap { justify-self: stretch; width: 100%; max-width: 31rem; }
+}
+@media (max-width: 599px) {
+  .mh__actions .btn { flex: 1 1 100%; }
+  .mh__board { width: 100%; }
+  .mh__pct { justify-content: flex-start; }
+  .mcard { min-height: 0; }
 }
 
-/* 3. Seasons and rates */
-.mem-ledger { margin-top: var(--sp-7); }
-.mem-switch { display: grid; gap: var(--sp-3); margin-top: var(--sp-7); max-width: 40rem; }
+/* ================= 2. Why: photograph beside the two figure cards, five tiles under ================= */
+.mw__title { max-width: 14ch; }
+.mw__lead { display: grid; gap: 12px; margin-top: var(--sp-6); }
+.mw__photo .frame { height: 100%; }
+.mb { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+/* a figure card: dome ground inside a double hairline, like an engraved club certificate */
+.mb__card { --mb-accent: var(--blazer); display: grid; align-content: start; gap: 10px; padding: clamp(20px, 3vw, 40px);
+  background: var(--surface-alt); border: 1px solid var(--rule);
+  box-shadow: inset 0 0 0 6px var(--surface-alt), inset 0 0 0 7px var(--rule-soft); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mb__card { --mb-accent: var(--fg); } }
+:root[data-theme="dark"] .mb__card { --mb-accent: var(--fg); }
+.mb__fig { font: 200 clamp(3.5rem, 2.2rem + 4.4vw, 7rem)/0.9 var(--font-serif); font-variant-numeric: lining-nums; letter-spacing: -0.03em; color: var(--mb-accent); }
+.mb__fig small { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; margin-left: 8px; vertical-align: 0.5em; }
+.mb__h { font: 300 clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem)/1.15 var(--font-serif); }
+.mb__card .mb__h { font-size: clamp(1.25rem, 1.05rem + 0.9vw, 2rem); }
+.mb__why { font-size: 15px; line-height: 1.5; color: var(--fg-muted); max-width: 40ch; }
+.mt { list-style: none; margin: var(--sp-6) 0 0; padding: 0; display: grid; gap: 0; }
+.mb__tile { display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 14px; row-gap: 4px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.mb__tile .icon { grid-row: span 3; width: 28px; height: 28px; margin-top: 2px; }
+.mb__tile > :not(.icon) { grid-column: 2; }
+.mb .inline-link, .mt .inline-link { white-space: nowrap; }
+@media (max-width: 599px) {
+  .mb__card { padding: 20px 16px 22px; }
+  .mb__card .mb__why { font-size: 14px; }
+}
+@media (min-width: 900px) {
+  .mw__lead { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 16px; }
+  .mb { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; gap: 16px; }
+  .mb__card { align-content: end; }
+  .mt { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-top: var(--sp-7); }
+  .mb__tile { grid-template-columns: 1fr; padding: 22px 0 0; border-bottom: 0; border-top: 1px solid var(--rule-strong); align-content: start; }
+  .mb__tile .icon { grid-row: auto; width: 32px; height: 32px; margin-bottom: 8px; }
+  .mb__tile > :not(.icon) { grid-column: 1; }
+}
+
+/* ================= 3. Options: five member cards ================= */
+.mo__head { display: grid; gap: var(--sp-5); align-items: end; }
+@media (min-width: 900px) { .mo__head { grid-template-columns: minmax(0, 1fr) auto; } }
+.mem-switch { display: grid; gap: var(--sp-3); max-width: 40rem; }
 .mem-season { margin-top: var(--sp-6); }
-.mem-rates { display: grid; gap: var(--sp-6); align-items: start; }
-@media (min-width: 900px) {
-  .mem-rates { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--sp-8); }
+.mo__key { display: flex; align-items: center; gap: var(--sp-4); max-width: 52rem; font-size: var(--step-4); line-height: 1.5; color: var(--fg-muted); }
+.mo__key strong { font-weight: 500; color: var(--fg); }
+/* the 15 again, as a struck medal: a ring inside a ring */
+.mo__key-pct { flex: none; display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%;
+  border: 1px solid var(--rule-strong); box-shadow: inset 0 0 0 4px var(--bg), inset 0 0 0 5px var(--rule);
+  font: 300 1.5rem/1 var(--font-serif); color: var(--fg); letter-spacing: -0.02em; }
+.rcs { list-style: none; margin: var(--sp-6) 0 0; padding: 0; display: grid; gap: 12px; }
+.rc { padding: 6px; border: 1px solid var(--rule); border-radius: 6px; background: var(--rule-soft);
+  transition: transform var(--dur-ui) var(--ease-ui), box-shadow var(--dur-ui) var(--ease-ui); }
+.rc__core { height: 100%; display: grid; gap: 6px; align-content: start; padding: clamp(18px, 2vw, 26px); border-radius: 3px; background: var(--surface);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; }
+.rc__name { font: 300 var(--step-2)/1.05 var(--font-serif); }
+.rc__who { color: var(--fg-muted); min-height: 2.6em; }
+.rc__prices { margin: 14px 0 0; display: grid; gap: 12px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.rc__prices div { display: grid; gap: 2px; }
+.rc__prices dt { color: var(--fg-muted); }
+.rc__prices dd { margin: 0; }
+.rc__res dd { font: 300 clamp(2rem, 1.6rem + 1vw, 2.6rem)/1 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; color: var(--fg); letter-spacing: -0.01em; }
+.rc__non dd { font-size: 17px; color: var(--fg-muted); }
+/* resident against non-resident: the fill is 85 of the 100; the last 15 is the saving */
+.rc__bar { position: relative; display: block; height: 3px; margin-top: 16px; background: var(--rule); }
+.rc__fill { position: absolute; inset: 0 15% 0 0; background: var(--fg); }
+.rc__gap { position: absolute; right: 0; top: 8px; width: 15%; text-align: center; font: 600 11px/1 var(--font-sans); letter-spacing: 0.06em; color: var(--fg-muted); }
+.rc__gap::before { content: ""; position: absolute; left: 0; top: -8px; width: 1px; height: 7px; background: var(--rule-strong); }
+.rc__pick { display: inline-flex; align-items: center; gap: 8px; min-height: var(--target); margin-top: 18px;
+  font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); text-decoration: none; }
+.rc__pick .icon { width: 16px; height: 16px; transition: transform var(--dur-ui) var(--ease-ui); }
+.rc__pick:hover .icon { transform: translateX(4px); }
+.rc__pick:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-off); }
+@media (hover: hover) and (min-width: 900px) {
+  .rc:hover { transform: translateY(-4px); box-shadow: 0 30px 50px -30px var(--shadow-tint); }
 }
+@media (min-width: 1100px) { .rcs { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; } }
+@media (min-width: 600px) and (max-width: 1099px) { .rcs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 599px) {
+  .mo__key { align-items: flex-start; gap: var(--sp-3); }
+  .mo__key-pct { width: 60px; height: 60px; font-size: 1.25rem; }
+  .rc__core { grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; }
+  .rc__name, .rc__who { grid-column: 1; }
+  .rc__who { min-height: 0; }
+  .rc__prices { grid-column: 2; grid-row: 1 / span 2; margin: 0; padding: 0; border: 0; text-align: right; gap: 6px; }
+  .rc__res dd { font-size: 1.85rem; }
+  .rc__bar, .rc__pick { grid-column: 1 / -1; }
+  .rc__pick { margin-top: 8px; }
+}
+.mem-return { margin-top: var(--sp-6); max-width: 44rem; }
+
+/* Outdoor season (the switch) */
+.mem-rates { display: grid; gap: var(--sp-6); align-items: start; }
+@media (min-width: 900px) { .mem-rates { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--sp-8); } }
 .mem-rates__lead { display: grid; gap: var(--sp-3); align-content: start; }
 .mem-rates__head { font-family: var(--font-serif); font-weight: 300; font-size: var(--step-2); line-height: var(--lh-head); max-width: 18ch; }
 
-/* The 15, set like a scoreboard numeral: tabular, lining, a hairline baseline under it */
-.mem-pct { display: flex; align-items: flex-start; gap: 2px; padding-bottom: var(--sp-2); border-bottom: 1px solid var(--rule-strong); width: max-content; }
-.mem-pct__n { font: 200 clamp(5rem, 3.6rem + 5vw, 8.5rem)/0.82 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.04em; color: var(--fg); }
-.mem-pct__sign { font: 300 var(--step-2)/1 var(--font-serif); margin-top: 6px; color: var(--fg); }
-.mem-pct__score { color: var(--fg-muted); margin-top: calc(var(--sp-2) * -1); }
+/* The club year */
+.mo__year { margin-top: var(--sp-8); padding-top: var(--sp-6); border-top: 1px solid var(--rule); }
+.mo__year-h { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.mem-ledger { margin-top: var(--sp-5); }
 
-/* The rates table: resident first and heavier, non-resident beside it in the quieter ink */
-.mem-table { min-width: 0; }
-.mem-table td.mem-table__res { color: var(--fg); font-size: clamp(1.1875rem, 1rem + 0.6vw, 1.5rem); }
-.mem-table td:last-child { color: var(--fg-muted); }
-.mem-table tbody th { font-family: var(--font-serif); font-weight: 400; font-size: 20px; }
-.mem-table tbody th span { font-family: var(--font-sans); }
-.mem-return { margin-top: var(--sp-5); max-width: 44rem; }
-@media (max-width: 599px) {
-  .mem-table th, .mem-table td { padding-right: 10px; }
-  .mem-table thead th { letter-spacing: 0.08em; }
-  .mem-table td.tnum { font-size: 17px; }
-  .mem-table td.mem-table__res { font-size: 19px; }
+/* ================= 4. Join: the flow beside the live card ================= */
+.mf__grid { display: grid; gap: var(--sp-6); }
+.mf__title { margin-bottom: var(--sp-4); }
+.mf__flow > .reg-step[data-state="current"]:first-of-type { margin-top: 0; }
+.mf__types { grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); }
+.mf__opt-fields { display: grid; gap: var(--sp-4); margin-top: var(--sp-4); }
+@media (min-width: 600px) { .mf__opt-fields { grid-template-columns: 1fr 1fr; } }
+.mf__jbi { margin-top: var(--sp-4); color: var(--fg-muted); }
+.mf__jbi .inline-link { display: inline-flex; align-items: center; min-height: var(--target); color: var(--fg-muted); }
+.mf__side { display: grid; gap: var(--sp-3); align-content: start; }
+.mf__side .mcard { min-height: 15rem; }
+.mf__note { color: var(--fg-muted); max-width: 34ch; }
+.mcard--live .mcard__price { transition: opacity var(--dur-ui) var(--ease-ui); }
+.mcard--live.is-tick .mcard__price { animation: mf-tick 520ms var(--ease-out) both; }
+@keyframes mf-tick { from { opacity: 0.2; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (min-width: 1000px) {
+  .mf__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--sp-8); align-items: start; }
+  .mf__side { position: sticky; top: calc(var(--header-h) + var(--sp-5)); }
+}
+@media (max-width: 999px) {
+  /* on a phone the card rides above the questions, so the price is in view while you choose */
+  .mf__side { order: -1; position: sticky; top: var(--header-h); z-index: var(--z-mark); margin: 0 calc(var(--gutter) * -1); padding: 8px var(--gutter); background: var(--bg); }
+  .mf__grid { display: flex; flex-direction: column; gap: var(--sp-4); }
+  .mf__flow { display: contents; }
+  /* the card folds into a slim strip: the option on the left, the price on the right */
+  .mf__side .mcard { aspect-ratio: auto; min-height: 0; padding: 12px 16px; border-radius: 12px; grid-template-rows: auto; }
+  .mf__side .mcard__top, .mf__side .mcard__foot, .mf__side .mcard__court, .mf__note { display: none; }
+  .mf__side .mcard__body { grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; row-gap: 2px; align-items: baseline; }
+  .mf__side .mcard__opt { grid-column: 1; grid-row: 1; }
+  .mf__side .mcard__who { grid-column: 1; grid-row: 2; font-size: 13px; line-height: 1.35; }
+  .mf__side .mcard__price { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 2rem; }
 }
 
-/* 4. The fine print: short headed terms, two columns from 900px, ruled like a programme */
+/* ================= 5. The fine print ================= */
 .mem-fine { display: grid; gap: var(--sp-6); }
 .mem-terms { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--rule-strong); margin: 0; }
 .mem-terms > div { display: grid; gap: 4px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
@@ -54,67 +224,9 @@
   .mem-terms > div { grid-template-columns: 11rem 1fr; gap: var(--sp-4); align-items: baseline; }
 }
 
-/* Batch 4, phones: the first screen. The key points sit straight under the action, the season line
-   after them. "See the rates" is the first point on a phone (Options, same anchor), so the text
-   link steps aside below 900px, where the points row shows. */
-@media (max-width: 899px) {
-  .page-membership .hero .status-line { order: 2; }
-  .page-membership .hero .hero__actions .link { display: none; }
-}
-@media (max-width: 374px) {
-  .page-membership .hero .hero__title { font-size: 1.5rem; }
-}
-
-/* Batch 4, phones: "Options" in the hero lands on the rates, so below 900px the season switch and
-   the rates come straight after the heading and the Dome ledger follows them. The 15 sits beside
-   its line, like a score beside a name, instead of above it. */
-@media (max-width: 899px) {
-  .page-membership #options > .wrap { display: flex; flex-direction: column; }
-  .page-membership #options .mem-switch { margin-top: var(--sp-6); }
-  .page-membership #options .mem-ledger { order: 5; margin-top: var(--sp-7); padding-top: var(--sp-6); border-top: 1px solid var(--rule); }
-  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead {
-    grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-5); align-items: start;
-  }
-  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > * { grid-column: 2; }
-  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > .mem-pct { grid-column: 1; grid-row: 1; }
-  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > .mem-pct__score { grid-column: 1; grid-row: 2; margin-top: 0; }
-  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > .mem-rates__head { grid-row: 1; align-self: end; }
-  .page-membership .mem-season[data-when-season="indoor"] .mem-rates__lead > .small { grid-row: auto; }
-  .page-membership .mem-pct__n { font-size: 4.25rem; }
-  .page-membership .mem-why { gap: var(--sp-5); }
-  .page-membership .mem-fine { gap: var(--sp-5); }
-}
-/* the resident saving is a key point on a phone (the points row), a closing sentence on a desktop */
-
-/* Batch 5, QC round 1 (6 Oct 2026): on a desktop the key points row gives the five options the
-   wider cell, so they read on two lines beside the booking window and the Vaughan saving. */
-@media (min-width: 900px) { .page-membership .hero__points { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); } }
-
-/* ---------- B7 (16 Oct 2026): why become a member, benefit-led ----------
-   The two benefits that carry a number lead as Blazer cards: the figure is the reason ($0 court
-   fees outdoors, 7 days ahead). The other five are icon tiles, a short headline and one line on
-   what it gives you. Phones: the cards side by side, the tiles one per row. */
-.mb { list-style: none; margin: var(--sp-6) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.mb__card { grid-column: span 1; display: grid; align-content: start; gap: 10px; padding: clamp(20px, 3vw, 40px); background: var(--blazer); color: #EDF1F6; }
-.mb__fig { font: 200 clamp(3.25rem, 2.2rem + 4.4vw, 6.5rem)/0.9 var(--font-serif); font-variant-numeric: lining-nums; letter-spacing: -0.03em; }
-.mb__fig small { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; margin-left: 8px; vertical-align: 0.5em; }
-.mb__h { font: 300 clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem)/1.15 var(--font-serif); }
-.mb__why { font-size: 15px; line-height: 1.5; color: var(--fg-muted); max-width: 40ch; }
-.mb__card .mb__why { color: var(--mist); }
-.mb__card .inline-link { color: #EDF1F6; }
-.mb__card .mb__h { font-size: clamp(1.25rem, 1.05rem + 0.9vw, 2rem); }
-.mb__tile { grid-column: 1 / -1; display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 14px; row-gap: 4px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
-.mb__tile .icon { grid-row: span 3; width: 28px; height: 28px; margin-top: 2px; }
-.mb__tile > :not(.icon) { grid-column: 2; }
-.mb .inline-link { white-space: nowrap; }
-@media (max-width: 599px) {
-  .mb__card { padding: 18px 16px 20px; }
-  .mb__card .mb__why { font-size: 14px; }
-}
-@media (min-width: 900px) {
-  .mb { grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 16px; }
-  .mb__card { grid-column: span 5; }
-  .mb__tile { grid-column: span 2; grid-template-columns: 1fr; padding: 22px 0 0; border-bottom: 0; border-top: 1px solid var(--rule-strong); align-content: start; }
-  .mb__tile .icon { grid-row: auto; width: 32px; height: 32px; margin-bottom: 8px; }
-  .mb__tile > :not(.icon) { grid-column: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .mh__roll-track { animation: none !important; transform: translateY(-50%); }
+  .mcard__sheen { animation: none !important; opacity: 0; }
+  .mcard--live.is-tick .mcard__price { animation: none; }
+  .rc, .rc__pick .icon { transition: none; }
 }

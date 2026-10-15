@@ -1122,3 +1122,126 @@ html.hold-on .pathway__steps-nav a:not(.is-active) strong { opacity: 0.6; }
   .hero.hero--hp .hero__actions > .link { grid-row: 7; margin-top: 6px; }
   .hero.hero--hp .status-line { grid-row: 3; margin-top: 12px; }
 }
+
+/* ---------- B8 (16 Oct 2026): synced from the site's B7 ----------
+   The blocks below are the site's own css/pages/home.css (split, slideshow, video slot) and
+   css/pages/high-performance.css (the step finder), copied word for word so C and the site
+   share one component. C's own adjustments follow them. */
+/* ---------- B7 (16 Oct 2026): the split, names over taglines, a photograph on both sides ----------
+   The program name is the heading (sans capitals, the larger type); the three words are its
+   tagline beneath (Spectral, smaller; italic on the High Performance side). On every width the
+   name runs across the half, then the words sit beside the photograph: Recreational keeps its
+   photograph toward the net on the right, High Performance mirrors it on the left. */
+.split--b7 .split__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 18px clamp(16px, 3vw, 48px); }
+.split--b7 .split__text { display: contents; }
+.split--b7 .split__name { grid-column: 1 / -1; font: 650 clamp(2rem, 0.9rem + 2.6vw, 3.25rem)/1.02 var(--font-sans); letter-spacing: -0.01em; text-transform: uppercase; }
+.split--b7 .split__half--hp .split__name { font-weight: 800; letter-spacing: var(--track-display-sans); }
+.split--b7 .split__tag { font: 300 clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem)/1.2 var(--font-serif); color: var(--fg-muted); }
+.split--b7 .split__tag .w { display: block; }
+.split--b7 .split__half--rec .split__tag, .split--b7 .split__half--rec .split__links { grid-column: 1; }
+.split--b7 .split__half--rec .frame { grid-column: 2; grid-row: 2 / span 2; width: 100%; justify-self: stretch; order: 0; }
+.split--b7 .split__half--hp .split__tag { grid-column: 2; grid-row: 2; }
+.split--b7 .split__half--hp .frame { grid-column: 1; grid-row: 2 / span 3; width: 100%; justify-self: stretch; order: 0; }
+.split--b7 .split__half--hp .pathmini, .split--b7 .split__half--hp .split__links { grid-column: 2; }
+.split--b7 .split__links { align-self: end; }
+/* Phones: the High Performance list and its link need the full width under the photograph */
+@media (max-width: 599px) {
+  .split--b7 .split__half--hp .frame { grid-row: 2; }
+  .split--b7 .split__half--hp .pathmini, .split--b7 .split__half--hp .split__links { grid-column: 1 / -1; }
+  .split--b7 .split__half--hp .split__tag { align-self: end; }
+  .split--b7 .split__half--hp .frame__tag { font-size: 9px; padding: 6px 8px; gap: 6px; letter-spacing: 0.06em; white-space: nowrap; }
+}
+@media (min-width: 900px) {
+  .split--b7 .split__half { align-items: start; }
+}
+
+/* ---------- B7: Why TPTC, the slideshow ----------
+   One frame at a time, the strip snapping slide to slide; the controls sit under it on one line:
+   previous, a dot per slide, next, then pause. Every control is a 44px target. */
+.show { display: grid; gap: var(--sp-3); min-width: 0; }
+.show__track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; }
+.show__track::-webkit-scrollbar { display: none; }
+.show__slide { scroll-snap-align: start; min-width: 0; }
+.show__slide .frame { margin: 0; }
+.show__slide .frame__cap { display: grid; gap: 6px; margin-top: var(--sp-3); max-width: 46ch; }
+.show__slide .frame__cap em { font: italic 300 var(--step-3)/1.4 var(--font-serif); color: var(--fg); }
+.show__slide .frame__cap span { font-size: var(--step-5); color: var(--fg-muted); }
+.show__bar { display: flex; align-items: center; gap: 0; }
+.show__bar[hidden] { display: none; }
+.show__btn { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--rule-strong); border-radius: 50%; background: none; color: var(--fg); cursor: pointer; }
+.show__btn:hover { border-color: var(--fg); }
+.show__btn:focus-visible, .show__dots button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.show__btn[data-show-prev] .icon { transform: rotate(90deg); }
+.show__btn[data-show-next] .icon { transform: rotate(-90deg); }
+.show__toggle { margin-left: auto; }
+.show__i-play { display: none; }
+.show.is-paused .show__i-play { display: block; }
+.show.is-paused .show__i-pause { display: none; }
+.show__dots { display: flex; list-style: none; margin: 0; padding: 0; }
+.show__dots button { position: relative; width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+.show__dots button::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--fg-muted); transition: width var(--dur-2, 240ms) var(--ease-out, ease), margin var(--dur-2, 240ms) var(--ease-out, ease); }
+.show__dots button[aria-current="true"]::after { width: 20px; margin-left: -10px; border-radius: 4px; background: var(--fg); box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .show__dots button::after { transition: none; } }
+
+/* The video slot: marked, not a photograph. Blazer ground, a play mark, what goes here. */
+.vslot { margin: 0; }
+.vslot__box { position: relative; aspect-ratio: 4 / 3; display: grid; place-content: center; justify-items: center; gap: 10px; padding: var(--sp-5); text-align: center; background: var(--blazer); color: #EDF1F6; border: 1px dashed rgba(237, 241, 246, 0.4); outline: 1px solid var(--blazer); }
+.vslot__play { width: 64px; height: 64px; padding: 18px; border: 1.5px solid currentColor; border-radius: 50%; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.vslot__label { font: 600 var(--step-5)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.vslot__what { font: 300 var(--step-3)/1.35 var(--font-serif); max-width: 22ch; }
+.vslot__tag { position: absolute; top: 0; right: 0; padding: 7px 10px; font: 600 11px/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; background: #EDF1F6; color: var(--blazer); }
+
+/* ---------- Which step (b7): one question at a time, then one result card ----------
+   Story: a draw sheet read one round at a time; the card is your player's line in the draw. */
+.hpf__grid { display: grid; gap: var(--sp-5); }
+@media (min-width: 1000px) { .hpf__grid { grid-template-columns: 5fr 7fr; column-gap: var(--sp-8); align-items: start; } }
+.hpf__browse { margin-top: var(--sp-2); }
+.hpf .opts .opt span { min-height: 48px; }
+.hpf .opts.num .opt span { font-size: 17px; min-width: 64px; justify-content: center; }
+.hpf__result { display: grid; gap: 18px; padding: var(--sp-4); background: var(--surface-alt); border-left: 2px solid var(--fg); }
+.hpf__result[hidden] { display: none; }
+@media (prefers-reduced-motion: no-preference) { .hpf__result:not([hidden]) { animation: hpf-in 360ms var(--ease-out) both; } }
+@keyframes hpf-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.hpf__top { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 18px; align-items: end; }
+.hpf__top > .chip { grid-column: 1 / -1; justify-self: start; }
+.hpf__n { font: 200 clamp(3.5rem, 2.8rem + 2.4vw, 5rem)/0.85 var(--font-serif); font-variant-numeric: lining-nums; color: var(--fg); }
+.hpf__name { font: 400 var(--step-2)/1.1 var(--font-serif); color: var(--fg); }
+.hpf__facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule-strong); }
+@media (min-width: 640px) { .hpf__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 18px; } }
+.hpf__facts li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 15.5px; line-height: 1.4; color: var(--fg); }
+@media (min-width: 640px) { .hpf__facts li { grid-template-columns: 1fr; gap: 8px; border-bottom: 0; } }
+.hpf__facts .icon { width: 22px; height: 22px; color: var(--fg-muted); }
+.hpf__note, .hpf__how { color: var(--fg-muted); max-width: 56ch; }
+.hpf__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
+.hpf .chooser__q legend { font: 400 1.375rem/1.25 var(--font-serif); color: var(--fg); }
+
+/* C's adjustments to the synced blocks */
+/* A link that goes nowhere in this specimen says so instead of doing nothing (js/site.js) */
+.deadnote { position: fixed; left: 50%; bottom: 24px; z-index: 200; max-width: min(92vw, 30rem); transform: translateX(-50%); padding: 12px 18px; background: var(--ink); color: var(--white); font: 400 15px/1.45 var(--font-sans); border-radius: 2px; box-shadow: 0 0 0 1px rgba(255,255,255,0.18); }
+.deadnote[hidden] { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .deadnote { background: var(--white); color: var(--ink); } }
+:root[data-theme="dark"] .deadnote { background: var(--white); color: var(--ink); }
+
+/* At 360 the bar (3 buttons + 5 dots, every one 44px) is 352px wide, wider than the 328px column,
+   and it pushed the whole slideshow 8px off the page (the site has the same overflow). The bar may
+   wrap instead: the pause button drops to its own line, every target keeps 44px. */
+.show__bar { flex-wrap: wrap; }
+
+/* B8, Home phone hero: at 0.8 wide to 1 tall the recut forehand filled the frame edge to edge,
+   so at 390 and 360 the trailing shoe touched the right edge and the racquet the left. Held at
+   0.95 wide to 1 tall the frame shows 53% of the photograph's width for a player 41 to 45% wide:
+   racquet head and back shoe both clear the edges. */
+@media (max-width: 899px) {
+  .hero--home .hero__media { min-height: calc(var(--court-w) / 0.95 + 22px); }
+  html:not(.interim-photos) .hero--home .hero__media { min-height: calc(var(--court-w) / 0.95); }
+}
+
+/* B8, High Performance phone hero: the hero lede is gone (as on the site), and the site's status
+   ("Under the Dome now", the season, the Club to confirm line) is too wide for the column beside
+   the photograph. It takes the lede's old row, under the split, at full measure. */
+@media (max-width: 899px) {
+  .hero.hero--hp .status-line { grid-column: 1 / -1; grid-row: 4; align-self: start; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 14px; padding: 0 var(--gutter) 0 0; font-size: 14px; }
+}
+@media (max-width: 479px) {
+  .hero.hero--hp .status-line { grid-row: 4; margin-top: 14px; }
+}

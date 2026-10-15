@@ -100,6 +100,8 @@
 <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25"/><path d="M12 10.5 V16.75 M12 7 V8.75"/></symbol>
 <symbol id="i-confirm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25" stroke-dasharray="2.16 2.16"/><path d="M8.75 12 H15.25"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.75"/><path d="M12 2.75 V5.25 M12 18.75 V21.25 M2.75 12 H5.25 M18.75 12 H21.25 M5.46 5.46 L7.23 7.23 M16.77 16.77 L18.54 18.54 M5.46 18.54 L7.23 16.77 M16.77 7.23 L18.54 5.46"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M8.75 5.25 V18.75 M15.25 5.25 V18.75"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M7.25 4.75 L18.75 12 L7.25 19.25 Z"/></symbol>
 <symbol id="m-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" style="fill:var(--red)"/><path d="M2.4 5.67 C6.8 8.5 6.8 15.5 2.4 18.33 M21.6 5.67 C17.2 8.5 17.2 15.5 21.6 18.33" style="fill:none;stroke:var(--paper);stroke-width:1.5"/></symbol>
 <symbol id="court-h" viewBox="0 0 120 60" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"><rect x="21" y="12" width="78" height="36" vector-effect="non-scaling-stroke"/><path vector-effect="non-scaling-stroke" d="M21 16.5 H99 M21 43.5 H99 M60 8.5 V51.5 M39 16.5 V43.5 M81 16.5 V43.5 M39 30 H81 M21 30 H22.2 M97.8 30 H99"/></g></symbol>
 <symbol id="court-v" viewBox="0 0 60 120" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"><rect x="12" y="21" width="36" height="78" vector-effect="non-scaling-stroke"/><path vector-effect="non-scaling-stroke" d="M16.5 21 V99 M43.5 21 V99 M8.5 60 H51.5 M16.5 39 H43.5 M16.5 81 H43.5 M30 39 V81 M30 21 V22.2 M30 97.8 V99"/></g></symbol>
@@ -119,7 +121,7 @@
         <li class="nav__item"><a class="nav__link" href="#">Membership</a></li><li class="nav__item"><a class="nav__link" href="#">Court Bookings</a></li><li class="nav__item"><a class="nav__link" href="#">Leagues & Events</a></li>
         <li class="nav__item has-menu" data-menu>
           <button class="nav__link nav__trigger" type="button" aria-expanded="false" aria-controls="menu-about">About<svg class="icon icon--chevron" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg></button>
-          <div class="nav__panel nav__panel--end" id="menu-about"><div class="nav__panel-head"><span class="eyebrow">About</span><span class="small">Founded 1951</span></div><ul><li><a class="menu-item" href="#"><svg class="icon icon--court" aria-hidden="true" focusable="false"><use href="#i-court"></use></svg><span class="menu-item__name">Our Club</span><span class="menu-item__meta">Mission, vision and board</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--coach" aria-hidden="true" focusable="false"><use href="#i-coach"></use></svg><span class="menu-item__name">Our Coaches</span><span class="menu-item__meta">Led by Head Pro Josh Borenstein</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--dome" aria-hidden="true" focusable="false"><use href="#i-dome"></use></svg><span class="menu-item__name">Facilities</span><span class="menu-item__meta">Four courts, indoor and outdoor</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--calendar" aria-hidden="true" focusable="false"><use href="#i-calendar"></use></svg><span class="menu-item__name">Club History</span><span class="menu-item__meta">Founded in 1951</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li></ul></div>
+          <div class="nav__panel nav__panel--end" id="menu-about"><div class="nav__panel-head"><span class="eyebrow">About</span><span class="small">Since 1951</span></div><ul><li><a class="menu-item" href="#"><svg class="icon icon--court" aria-hidden="true" focusable="false"><use href="#i-court"></use></svg><span class="menu-item__name">Our Club</span><span class="menu-item__meta">Mission, vision and board</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="../../site/about/coaches/#josh-borenstein"><svg class="icon icon--coach" aria-hidden="true" focusable="false"><use href="#i-coach"></use></svg><span class="menu-item__name">Our Coaches</span><span class="menu-item__meta">Led by Head Pro Josh Borenstein</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--dome" aria-hidden="true" focusable="false"><use href="#i-dome"></use></svg><span class="menu-item__name">Facilities</span><span class="menu-item__meta">Four courts, indoor and outdoor</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--calendar" aria-hidden="true" focusable="false"><use href="#i-calendar"></use></svg><span class="menu-item__name">Club History</span><span class="menu-item__meta">Founded in 1951</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li></ul></div>
         </li>
         <li class="nav__item"><a class="nav__link" href="#">Contact</a></li>
       </ul>
@@ -144,14 +146,14 @@
       <ul class="sheet__list">
         <li data-sheet-item style="--i:4"><button class="sheet__link" type="button" aria-expanded="false" aria-controls="sheet-programs" data-disclosure>Programs<svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></button><ul class="sheet__sub" id="sheet-programs" hidden><li><a href="#">Junior Recreational<small>Ages 4-17, Beginner to Advanced</small></a></li><li><a href="#">Adult Programs<small>Lessons, round robins and leagues</small></a></li><li><a href="high-performance.html">High Performance<small>Little Champs to Pro National</small></a></li><li><a href="#">Private Lessons<small>One hour, private or semi-private</small></a></li><li><a href="#">Camps<small>Summer, March Break and Holiday</small></a></li></ul></li>
         <li data-sheet-item style="--i:1"><a class="sheet__link" href="#">Membership<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li data-sheet-item style="--i:2"><a class="sheet__link" href="#">Court Bookings<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li data-sheet-item style="--i:3"><a class="sheet__link" href="#">Leagues & Events<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li>
-        <li data-sheet-item style="--i:5"><button class="sheet__link" type="button" aria-expanded="false" aria-controls="sheet-about" data-disclosure>About<svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></button><ul class="sheet__sub" id="sheet-about" hidden><li><a href="#">Our Club<small>Mission, vision and board</small></a></li><li><a href="#">Our Coaches<small>Led by Head Pro Josh Borenstein</small></a></li><li><a href="#">Facilities<small>Four courts, indoor and outdoor</small></a></li><li><a href="#">Club History<small>Founded in 1951</small></a></li></ul></li>
+        <li data-sheet-item style="--i:5"><button class="sheet__link" type="button" aria-expanded="false" aria-controls="sheet-about" data-disclosure>About<svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></button><ul class="sheet__sub" id="sheet-about" hidden><li><a href="#">Our Club<small>Mission, vision and board</small></a></li><li><a href="../../site/about/coaches/#josh-borenstein">Our Coaches<small>Led by Head Pro Josh Borenstein</small></a></li><li><a href="#">Facilities<small>Four courts, indoor and outdoor</small></a></li><li><a href="#">Club History<small>Founded in 1951</small></a></li></ul></li>
         <li data-sheet-item style="--i:6"><a class="sheet__link" href="#">Contact<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li>
       </ul>
     </nav>
     <div class="sheet__util" data-sheet-item style="--i:7"><a href="#">FAQ</a><a href="#">Contact</a><a href="tel:+19057315551">905-731-5551</a></div>
     <div class="sheet__foot" data-sheet-item style="--i:8">
       <a class="btn btn--primary btn--block" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a>
-      <p class="sheet__prov">Founded 1951 · Thornhill, Ontario</p>
+      <p class="sheet__prov">Since 1951 · Thornhill, Ontario</p>
     </div>
   </div>
 </div>
@@ -326,12 +328,12 @@
         <p class="sys-sub">The scale, seven steps</p>
         <div class="type-row"><p class="type-row__meta"><strong>1 Display capitals</strong>Hanken 800, -0.045em, 44 to 124px, for the Pro National mark only; every headline is Caslon</p><p class="type-row__sample h-caps" style="font-size:clamp(2.5rem,1rem + 5vw,5.5rem)">Pro National</p></div>
         <div class="type-row"><p class="type-row__meta"><strong>2 Display serif</strong>Caslon Display, centred, 24 to 68px, one per page</p><p class="type-row__sample h-display" style="font-size:clamp(2.5rem,1.2rem + 4vw,5rem)">Tennis for every level.</p></div>
-        <div class="type-row"><p class="type-row__meta"><strong>2b The two halves</strong>Caslon Display for recreation, Caslon Text italic for High Performance, 44 to 76px</p><p class="type-row__sample split__words" style="font:italic 400 clamp(2.5rem,1.2rem + 4vw,4.75rem)/1 var(--f-serif);text-transform:none;letter-spacing:-0.012em">Train. Compete. Develop.</p></div>
+        <div class="type-row"><p class="type-row__meta"><strong>2b The two halves</strong>The program's name is the heading, Caslon Display, 32 to 56px; its tagline is smaller, Caslon Text, 20 to 28px, italic for High Performance</p><p class="type-row__sample split--b8"><span class="split__name" style="display:block">High Performance</span><span class="split__tag" style="display:block;margin-top:8px"><em>Train. Compete. Develop.</em></span></p></div>
         <div class="type-row"><p class="type-row__meta"><strong>3 Section heading</strong>Caslon Display, 32 to 52px</p><p class="type-row__sample h2">What are you looking for?</p></div>
         <div class="type-row"><p class="type-row__meta"><strong>4 Card heading</strong>Caslon Display, 28 to 40px</p><p class="type-row__sample"><span class="door__name">Junior Recreational</span></p></div>
         <div class="type-row"><p class="type-row__meta"><strong>5 Lede</strong>Caslon Text, 19 to 22px, +0.01em</p><p class="type-row__sample lede">Year-round tennis, coaching, competition and community in Thornhill.</p></div>
         <div class="type-row"><p class="type-row__meta"><strong>6 Body</strong>Hanken 400, 17px / 1.6, 40rem measure</p><p class="type-row__sample body">Group Lessons are run in multiple week sessions and classes are available for members and non-members.</p></div>
-        <div class="type-row"><p class="type-row__meta"><strong>7 Label and caption</strong>Hanken 650 capitals +0.16em, or 400, 14px</p><p class="type-row__sample"><span class="eyebrow">Fall &amp; Winter Indoor 2026/27</span><br><span class="small">Club news post, 2022. <span class="serif-i">Photographer not recorded.</span></span></p></div>
+        <div class="type-row"><p class="type-row__meta"><strong>7 Label and caption</strong>Hanken 650 capitals +0.16em, or 400, 14px</p><p class="type-row__sample"><span class="eyebrow">Fall &amp; Winter Indoor 2026/27</span><br><span class="small">Club photograph, <span class="serif-i">August 2022.</span></span></p></div>
 
         <p class="sys-sub">Figures, set like a timetable</p>
         <div class="numerals"><span>$368.50</span><span>7:30am</span><span>Ages 4-6</span><span>6:30am-11:30pm</span></div>
@@ -505,6 +507,7 @@
             <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>On paper the live chip is set in ink, like a scoreboard, because yellow on white is too faint to read.</li>
             <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>One live element per screen. The ball bounces to rest in 1.15s. Replays on hover or focus.</li>
             <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>On Home it appears once: Fall &amp; Winter Indoor, under the Dome, running to April 25, 2027.</li>
+            <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>Each item in What's happening carries its last day. Once that day has passed, the item is hidden, so the section always leads with what is running now.</li>
           </ul>
         </div>
       </section>
@@ -659,11 +662,11 @@
           </div>
           <div class="faq__item" id="faq-dome">
             <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a2"><span class="faq__topic">Club</span><span class="faq__qt">What is the temperature in the Dome?</span><span class="faq__mark" aria-hidden="true"><svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg><svg class="icon icon--minus" aria-hidden="true" focusable="false"><use href="#i-minus"></use></svg></span></button></h3>
-            <div class="faq__a" id="faq-a2" hidden><p>We keep the Dome at 19.5 celsius. Students should wear athletic pants and a long sleeve shirt with shorts and a t shirt underneath.</p><a class="link" href="#"><span class="link__text">Facilities</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
+            <div class="faq__a" id="faq-a2" hidden><p>We keep the Dome at 19.5 celsius. Players should wear athletic pants and a long sleeve shirt with shorts and a t shirt underneath.</p><a class="link" href="#"><span class="link__text">Facilities</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
           </div>
           <div class="faq__item" id="faq-bring">
             <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a3"><span class="faq__topic">Programs</span><span class="faq__qt">What should a student bring to each lesson?</span><span class="faq__mark" aria-hidden="true"><svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg><svg class="icon icon--minus" aria-hidden="true" focusable="false"><use href="#i-minus"></use></svg></span></button></h3>
-            <div class="faq__a" id="faq-a3" hidden><p>Bring a racquet, water bottle and non marking shoes. Racquets are available for students who do not have their own racquet.</p><a class="link" href="#"><span class="link__text">Junior Recreational</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
+            <div class="faq__a" id="faq-a3" hidden><p>Bring a racquet, water bottle and non marking shoes. Racquets are available for players who do not have their own racquet.</p><a class="link" href="#"><span class="link__text">Junior Recreational</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
           </div>
         </div>
       </section>
@@ -707,6 +710,9 @@
           </div>
           <label class="check"><input type="checkbox" checked> I have an assessment code</label>
         </div>
+        <p class="sys-sub">One question at a time</p>
+        <p class="body">A choice with more than one step asks one question, then shows the next: on High Performance, the player's age, then where their game is now, then one answer hung as a print with the step, its facts and its first action. Answers are boxes at least 56px tall; Start over clears them.</p>
+        <a class="link" href="high-performance.html#find-step"><span class="link__text">Which step, on High Performance</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
       </section>
 
       <!-- STATES -->
@@ -780,18 +786,18 @@
         <div class="phdemo">
           <figure class="frame frame--day frame--ph-tr" data-slot="hp-little-champs-01" data-master="4:5" style="--ar:4 / 5"><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-v" width="100%" height="100%"></use></svg></div></div></div></div><p class="frame__label"><span class="frame__tag">Placeholder</span><span class="frame__id">hp-little-champs-01<span class="frame__ratio">4:5</span></span><span class="frame__desc">An eight-year-old in a split-step, eyes locked on the ball, fierce focus.</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div></figure>
           <div class="phdemo__txt">
-            <p class="body">Where a photograph runs behind words (the Pro National Academy band), there is no plate, so the interim photograph carries a small Placeholder image tag in its corner. One switch hides every tag and every plate line on the site at once, for the day the final photographs arrive. The club's own four photographs never carry the tag; they carry an archival caption.</p>
+            <p class="body">Where a photograph runs behind words (the Pro National Academy band), there is no plate, so the interim photograph carries a small Placeholder image tag in its corner. One switch hides every tag and every plate line on the site at once, for the day the final photographs arrive. The club's own photographs never carry the tag; their plate names the record.</p>
             <button class="btn btn--outline" type="button" data-ph-toggle aria-pressed="true"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Hide placeholder tags</span><span class="btn__label btn__label--2" aria-hidden="true">Hide placeholder tags</span></span></button>
           </div>
         </div>
-        <p class="sys-sub">Real photographs, captioned as an archive</p>
-        <p class="body">The club's four photographs appear only where a community moment fits, and always with a record, a source and the consent status beneath. See one in place under Why TPTC? on Home.</p>
+        <p class="sys-sub">Real photographs, with their record</p>
+        <p class="body">The club's own photographs appear only where a community moment fits, hung as prints with the record on the plate. On Home, Why TPTC? is a slideshow of prints: the club's two Majors photographs, two labelled placeholders and a marked slot for a club film. One print at a time; previous, next, a dot per print and a pause button, each 44px; arrow keys move it; it never plays by itself when the visitor asks for reduced motion, and it holds on hover, on focus and off screen.</p>
         <div class="archival" style="max-width:34rem">
-          <span class="archival__k">Record</span><span class="archival__v">The Majors team, 1st place in the toughest intercounty division, 2022.</span>
-          <span class="archival__k">Source</span><span class="archival__v">Club news post, 2022. <em>Photographer not recorded.</em></span>
+          <span class="archival__k">Record</span><span class="archival__v">Our Majors team took 1st place in the toughest intercounty division.</span>
+          <span class="archival__k">Source</span><span class="archival__v">Club photograph, August 2022.</span>
           <span class="archival__k">Consent</span><span class="archival__v"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span></span>
         </div>
-        <a class="link" href="index.html#why-title"><span class="link__text">The photograph on Home</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+        <a class="link" href="index.html#why-title"><span class="link__text">The slideshow on Home</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
       </section>
 
       <!-- CONFIRM -->
@@ -818,7 +824,7 @@
         <header class="sys-sec__head">
           <p class="eyebrow">Icons</p>
           <h2 class="h2" id="i-title" data-rise>Drawn for TPTC, like court lines.</h2>
-          <p class="sys-sec__what">The site has its own set of twenty-four small symbols, drawn in one line weight like the lines painted on a court, so they look like part of the club and not like a stock set.</p>
+          <p class="sys-sec__what">The site has its own set of twenty-six small symbols, drawn in one line weight like the lines painted on a court, so they look like part of the club and not like a stock set.</p>
           <p class="sys-sec__detail">One family, drawn for this site. No icon font and no outside library.</p>
         </header>
         <div class="icon-grid">
@@ -846,6 +852,8 @@
           <div class="icon-cell"><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg><span>Check</span></div>
           <div class="icon-cell"><svg class="icon icon--info" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg><span>Notice</span></div>
           <div class="icon-cell"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg><span>To confirm</span></div>
+          <div class="icon-cell"><svg class="icon icon--pause" aria-hidden="true" focusable="false"><use href="#i-pause"></use></svg><span>Pause</span></div>
+          <div class="icon-cell"><svg class="icon icon--play" aria-hidden="true" focusable="false"><use href="#i-play"></use></svg><span>Play</span></div>
         </div>
         <div class="icon-spec">
           <div class="icon-spec__big">
@@ -866,7 +874,7 @@
               <div><svg class="icon icon--ball" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><span>24</span></div>
               <div><svg class="icon icon--ball icon--32" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><span>32, 1.25 stroke</span></div>
             </div>
-            <p class="sys-note">Each icon is also supplied as its own file, and all twenty-four as one sheet, so the club can use them outside the website.</p>
+            <p class="sys-note">Each icon is also supplied as its own file, and all twenty-six as one sheet, so the club can use them outside the website.</p>
           </div>
         </div>
       </section>
@@ -932,11 +940,11 @@
       </div>
       <div class="footer__col footer__col--a">
         <h2>About</h2>
-        <ul><li><a href="#">Our Club</a></li><li><a href="#">Our Coaches</a></li><li><a href="#">Facilities</a></li><li><a href="#">Club History</a></li><li><a href="system.html">Style Guide</a></li></ul>
+        <ul><li><a href="#">Our Club</a></li><li><a href="../../site/about/coaches/#josh-borenstein">Our Coaches</a></li><li><a href="#">Facilities</a></li><li><a href="#">Club History</a></li><li><a href="system.html">Style Guide</a></li></ul>
       </div>
     </div>
     <div class="footer__base">
-      <p>&copy; <span data-year>2026</span> Thornhill Park Tennis Club. Founded 1951.</p>
+      <p>&copy; <span data-year>2026</span> Thornhill Park Tennis Club. Since 1951.</p>
       <ul>
         <li><a href="#">Club policies</a></li>
         <li><a href="https://www.instagram.com/thornhillparktc/" target="_blank" rel="noopener">Instagram<svg class="icon icon--ext" aria-hidden="true" focusable="false"><use href="#i-ext"></use></svg><span class="vh"> (opens in a new tab)</span></a></li>

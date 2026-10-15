@@ -290,3 +290,199 @@
     });
   }
 })();
+
+/* ---------- B8 (16 Oct 2026): what the site does, in A's own look ---------- */
+
+/* Dead links: this specimen builds Home, High Performance and the Style Guide only. A link to a
+   page that is not here says so in a short note instead of doing nothing. */
+(function () {
+  'use strict';
+  var d = document, note = null, timer = null;
+  function show() {
+    if (!note) {
+      note = d.createElement('p');
+      note.className = 'deadnote';
+      note.setAttribute('role', 'status');
+      d.body.appendChild(note);
+    }
+    note.textContent = 'Not in this demo: only Home and High Performance are built.';
+    note.classList.add('is-on');
+    clearTimeout(timer);
+    timer = setTimeout(function () { note.classList.remove('is-on'); }, 3200);
+  }
+  d.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href="#"]');
+    if (!a) return;
+    e.preventDefault();
+    show();
+  });
+})();
+
+/* What's happening: each item carries its last day (data-ends="YYYY-MM-DD"). An item whose last
+   day has passed is hidden, read against today's date in the visitor's browser, so the section
+   always leads with what is running now. No dates live in this script. */
+(function () {
+  'use strict';
+  var box = document.querySelector('[data-happen]');
+  if (!box) return;
+  var today = new Date();
+  Array.prototype.forEach.call(box.querySelectorAll('[data-ends]'), function (item) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(item.getAttribute('data-ends') || '');
+    if (!m) return;
+    var end = new Date(+m[1], +m[2] - 1, +m[3], 23, 59, 59);
+    if (today > end) { item.hidden = true; item.setAttribute('data-ended', ''); }
+  });
+})();
+
+/* Why TPTC: the slideshow of prints. The slides are a scroll-snap strip that works without
+   script (swipe or scroll). Script adds previous and next, one dot per slide, a pause button
+   and a slow autoplay (6s a print). Autoplay never starts under reduced motion; it waits while
+   the pointer or focus is inside and while the slideshow is off screen. Arrow keys move one
+   slide while focus is inside. */
+(function () {
+  'use strict';
+  var root = document.querySelector('[data-show]');
+  if (!root) return;
+  var track = root.querySelector('[data-show-track]');
+  var slides = track.children, n = slides.length;
+  var dots = root.querySelectorAll('[data-show-dot]');
+  var toggle = root.querySelector('[data-show-toggle]');
+  var bar = root.querySelector('[data-show-bar]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DWELL = 6000;
+  var i = 0, timer = null, playing = !reduce, held = false, visible = false;
+  bar.hidden = false;
+  root.classList.add('show--js');
+
+  function mark() {
+    for (var k = 0; k < dots.length; k++) {
+      if (k === i) dots[k].setAttribute('aria-current', 'true'); else dots[k].removeAttribute('aria-current');
+    }
+    for (var s = 0; s < n; s++) slides[s].setAttribute('aria-hidden', s === i ? 'false' : 'true');
+  }
+  function go(k, user) {
+    i = (k + n) % n;
+    track.scrollTo({ left: i * track.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
+    mark();
+    if (user) restart();
+  }
+  function stop() { clearInterval(timer); timer = null; }
+  function restart() { stop(); if (playing && !held && visible) timer = setInterval(function () { go(i + 1, false); }, DWELL); }
+  function setPlaying(p) {
+    playing = p;
+    root.classList.toggle('is-paused', !p);
+    toggle.setAttribute('aria-label', p ? 'Pause slideshow' : 'Play slideshow');
+    restart();
+  }
+  root.querySelector('[data-show-prev]').addEventListener('click', function () { go(i - 1, true); });
+  root.querySelector('[data-show-next]').addEventListener('click', function () { go(i + 1, true); });
+  Array.prototype.forEach.call(dots, function (dot) {
+    dot.addEventListener('click', function () { go(+dot.getAttribute('data-show-dot'), true); });
+  });
+  toggle.addEventListener('click', function () { setPlaying(!playing); });
+  root.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1, true); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1, true); }
+  });
+  root.addEventListener('mouseenter', function () { held = true; restart(); });
+  root.addEventListener('mouseleave', function () { held = false; restart(); });
+  root.addEventListener('focusin', function () { held = true; restart(); });
+  root.addEventListener('focusout', function (e) { if (!root.contains(e.relatedTarget)) { held = false; restart(); } });
+  /* a swipe or a scroll by hand moves the dots with it */
+  var raf = 0;
+  track.addEventListener('scroll', function () {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(function () {
+      var k = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+      if (k !== i && k >= 0 && k < n) { i = k; mark(); }
+    });
+  }, { passive: true });
+  window.addEventListener('resize', function () { track.scrollTo({ left: i * track.clientWidth, behavior: 'auto' }); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; restart(); }, { threshold: 0.4 }).observe(root);
+  } else { visible = true; }
+  mark();
+  setPlaying(playing);
+})();
+
+/* High Performance, which step: one question at a time. Age first; then where the player's game
+   is now; then one result card: the step, its published facts, its first action. Story: the
+   club's scorecard filled in one line at a time, the answer hung as a print. Rules and facts are
+   the site's (demo/site/js/pages/high-performance.js), from the club's High Performance page. */
+(function () {
+  'use strict';
+  var f = document.querySelector('[data-hpf]');
+  if (!f) return;
+  var $ = function (s) { return f.querySelector(s); };
+  var box = $('[data-hpf-result]'), restart = $('[data-hpf-restart]'), play = $('[data-q="play"]');
+  var coaches = f.getAttribute('data-coaches'), junior = f.getAttribute('data-junior');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ico = function (n) { return '<svg class="icon icon--' + n + '" aria-hidden="true" focusable="false"><use href="#i-' + n + '"></use></svg>'; };
+  var head = '<a class="inline" href="' + coaches + '">Head Pro Josh Borenstein</a>';
+  var mail = function (subj) { return 'mailto:info@thornhillparktennisclub.ca?subject=' + encodeURIComponent(subj); };
+  var btn = function (label, href) {
+    return '<a class="btn btn--ink" href="' + href + '"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels">' +
+      '<span class="btn__label btn__label--1">' + label + '</span><span class="btn__label btn__label--2" aria-hidden="true">' + label + '</span></span></a>';
+  };
+  var link = function (label, href) { return '<a class="link" href="' + href + '"><span class="link__text">' + label + '</span>' + ico('arrow') + '</a>'; };
+  var R = {
+    lc: { n: '1', name: 'Little Champs', gate: 'Assessment required', facts: [['junior', 'Ages 6-9'], ['court', 'Three-quarter court, orange or green dot ball'], ['trophy', 'OTA tournaments at U9 or U10']],
+      act: ['Request an assessment', mail('High Performance assessment')], see: '#little-champs', how: 'An assessment with ' + head + ', then register with your code.' },
+    tt: { n: '2', name: 'Transition Tour', gate: 'Assessment required', facts: [['junior', 'Ages 10-15'], ['court', 'Full court, regular ball'], ['trophy', 'Provincial events, such as Future Stars and Rookies']],
+      act: ['Request an assessment', mail('High Performance assessment')], see: '#transition-tour', how: 'An assessment with ' + head + ', then register with your code.' },
+    pn: { n: '3', name: 'Pro National', gate: 'Pre-approval required', facts: [['trophy', 'Provincial and national level players only'], ['racquet', 'Tennis and fitness'], ['location', 'Yonge &amp; Centre']],
+      act: ['Ask about pre-approval', mail('Pro National pre-approval')], see: '#pro-national', how: 'Pre-approval by ' + head + ' before registering.' },
+    rec: { n: '', name: 'Junior Recreational first', gate: 'Free assessment', facts: [['junior', 'Ages 4-17'], ['ball', 'Beginner to Advanced'], ['calendar', 'Group lessons in multi-week sessions']],
+      act: ['See Junior Recreational', junior], see: '#pathway', how: 'High Performance starts when your player is ready to compete.' }
+  };
+  function val(n) { var i = f.querySelector('input[name="' + n + '"]:checked'); return i ? i.value : null; }
+  function pick() {
+    var a = val('age'), p = val('play');
+    if (a === '5') return ['rec', 'Little Champs starts at age 6.'];
+    if (!p) return null;
+    if (p === 'learn') return ['rec', ''];
+    if (p === 'nat') return ['pn', ''];
+    if (a === '6-9') return ['lc', ''];
+    if (a === '10-15') return ['tt', ''];
+    return ['pn', 'Transition Tour runs to age 15.'];
+  }
+  function update(focusNext, reveal) {
+    var a = val('age');
+    play.hidden = !a || a === '5';
+    if (play.hidden) Array.prototype.forEach.call(play.querySelectorAll('input'), function (i) { i.checked = false; });
+    restart.hidden = !a;
+    f.classList.toggle('is-answered', !!a);
+    var r = pick();
+    if (!r) { box.hidden = true; box.innerHTML = ''; if (focusNext && !play.hidden) play.querySelector('input').focus(); return; }
+    var dd = R[r[0]];
+    box.innerHTML =
+      '<div class="hpf__top">' + (dd.n ? '<span class="hpf__big num" aria-hidden="true">' + dd.n + '</span>' : '') +
+        '<div class="hpf__title"><p class="hpf__k">Your player&rsquo;s step</p><p class="hpf__name">' + dd.name + '</p></div>' +
+        '<span class="chip">' + dd.gate + '</span></div>' +
+      '<ul class="hpf__facts">' + dd.facts.map(function (x) { return '<li>' + ico(x[0]) + '<span>' + x[1] + '</span></li>'; }).join('') + '</ul>' +
+      (r[1] ? '<p class="hpf__note">' + r[1] + '</p>' : '') +
+      '<p class="hpf__how">' + dd.how + '</p>' +
+      '<div class="hpf__acts">' + btn(dd.act[0], dd.act[1]) +
+      (r[0] !== 'rec' ? link('See ' + dd.name, dd.see) : link('See the three steps', '#pathway')) + '</div>';
+    box.hidden = false;
+    if (reveal) {
+      var rb = box.getBoundingClientRect();
+      if (rb.bottom > window.innerHeight) {
+        var y = window.scrollY + Math.min(rb.top - 96, rb.bottom - window.innerHeight + 24);
+        if (window.__tptcLenis && !reduce) window.__tptcLenis.scrollTo(y);
+        else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+      }
+    }
+  }
+  f.addEventListener('change', function (e) {
+    if (e.target.name === 'age') Array.prototype.forEach.call(play.querySelectorAll('input'), function (i) { i.checked = false; });
+    update(false, true); /* focus stays on the answer: arrow keys keep choosing, Tab reaches the next question */
+  });
+  f.addEventListener('submit', function (e) { e.preventDefault(); });
+  restart.addEventListener('click', function () {
+    Array.prototype.forEach.call(f.querySelectorAll('input'), function (i) { i.checked = false; });
+    update(false, false);
+    var i = f.querySelector('input'); if (i) i.focus();
+  });
+  update(false, false);
+})();
