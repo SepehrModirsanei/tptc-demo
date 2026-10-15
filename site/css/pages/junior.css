@@ -72,3 +72,5 @@
 
 /* The level card rail on phones moved to css/components.css (batch 4 integration). */
 
+
+.jr-age__hint { margin-top: 10px; color: var(--fg-muted); max-width: 32rem; }
