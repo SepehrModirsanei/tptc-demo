@@ -105,13 +105,28 @@ html.motion .tracks__net[data-chalk-self]:not(.is-drawn) { transform: scaleX(0);
 /* ---------- Batch 4, phones: the first screen is the choice itself ----------
    Under 900px the hero's key points row is the three seasons as links, so the "Choose a season"
    button (a jump to the same three doors) steps aside and the seasons rise into the first view. */
+.camps-choose { display: none; }
 @media (max-width: 899px) {
   .page-camps .hero__actions .btn { display: none; }
-  .page-camps .hero__points .hero__point-value { font-size: 1.0625rem; }
-  .page-camps .hero__points li > a { min-height: 56px; }
+  /* Batch 6 (QC M1): the three seasons are the doors. Under a "Choose a season" label they stack as
+     full-width ruled rows, each a 56px target with its arrow, and the secondary "See the camp
+     questions" link moves below them and the status line, so nothing above reads as the main action. */
+  .page-camps .camps-choose { display: block; order: 1; margin-top: 16px; padding-right: var(--gutter);
+    font: 600 0.75rem/1.2 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); }
+  .page-camps .hero__points { order: 2; margin-top: 8px; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--rule-strong); }
+  .page-camps .hero__points li + li { padding-left: 0; border-left: 0; }
+  .page-camps .hero__points li { border-bottom-color: var(--rule-strong); }
+  .page-camps .hero__points li > a { min-height: 56px; padding: 8px 4px 8px 0; align-items: center; }
+  .page-camps .hero__points .hero__point-value { font-size: 1.375rem; line-height: 1.15; }
+  .page-camps .hero__points .icon { width: 18px; height: 18px; }
+  .page-camps .camps-status { order: 3; }
+  .page-camps .hero__actions { order: 4; }
 }
 @media (max-width: 699px) {
   /* Both tracks either side of the net: one screen, not two */
   .tracks__inner { gap: 10px; padding-block: var(--sp-6); }
   .campyear { margin: var(--sp-6) 0 var(--sp-6); }
 }
+
+/* Batch 6 (QC m4): camp ages are not the weekly program ages, said once under the Ages answer. */
+.qrow dd .agenote { display: block; margin-top: 8px; font-size: var(--step-5); }

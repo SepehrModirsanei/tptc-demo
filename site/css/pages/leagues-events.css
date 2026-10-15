@@ -78,3 +78,16 @@
   .le-rows .lrow__side > .small { flex: 1 1 100%; order: 3; }
   .le-rows .lrow { padding: 20px 0; }
 }
+
+/* Batch 6 (QC M5): one Club to confirm box per kind of play. The per-row questions ("whether it is
+   for members only" five times, "how to join", dates) are collected here, so each row carries one
+   status marker and reads as the club's published listing. Ruled like the rows beneath it. */
+.le-ask { margin: 0 0 var(--sp-5); max-width: 46rem; }
+.le-ask__list { list-style: none; margin: 0; padding: 0; display: grid; }
+.le-ask__list li {
+  position: relative; padding: 8px 0 8px 18px; border-top: 1px solid var(--rule);
+  font: italic 400 1.0625rem/1.4 var(--font-serif); color: var(--fg);
+}
+.le-ask__list li:first-child { border-top: 0; padding-top: 2px; }
+.le-ask__list li::before { content: ""; position: absolute; left: 2px; top: 1.05em; width: 6px; height: 1px; background: var(--fg-muted); }
+.le-ask__list li:first-child::before { top: calc(0.7em + 2px); }

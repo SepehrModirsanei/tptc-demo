@@ -1,4 +1,4 @@
-/* Register page script: the three-choice flow, the handoff, the progress court, ?for= preselect.
+/* Register page script: the two-choice flow, the handoff, the progress court, ?for= preselect.
    Story: registering is the first serve of your season. Who is playing: the toss. What for: the
    ball crosses the net. The route appears: the bounce, inside the service box. */
 (function () {
@@ -15,10 +15,10 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var timer = null;
   var caps = {
-    0: 'Your first serve of the season: from the deuce court, over the net, into the box.',
-    1: 'The toss: who is playing.',
-    2: 'Over the net: what you are registering for.',
-    3: 'In. Your route is below: continue to register.'
+    0: 'Your first serve of the season: over the net, into the box.',
+    1: 'Step 1 of 3, the toss: who is playing.',
+    2: 'Step 2 of 3, over the net: what you are registering for.',
+    3: 'Step 3 of 3, in: your route is ready. Continue to register.'
   };
 
   function at(n) {
@@ -53,7 +53,36 @@
     at(what ? 3 : who ? 1 : 0);
   }
 
-  $$('input[type="radio"]', flow).forEach(function (r) { r.addEventListener('change', update); });
+  /* Scroll so el's top sits below the sticky header and, on phones, the court strip under it.
+     Lenis (fine pointers) owns the scroll when it runs; reduced motion jumps. */
+  function scrollBelowHeader(el, instant) {
+    var strip = court && getComputedStyle(court).position === 'sticky' && window.innerWidth < 1000 ? court.offsetHeight : 0;
+    var head = doc.querySelector('[data-header]');
+    var y = el.getBoundingClientRect().top + window.pageYOffset - (head ? head.offsetHeight : 64) - strip - 16;
+    y = Math.max(0, y);
+    var jump = instant || reduce;
+    if (window.__lenis) window.__lenis.scrollTo(y, { immediate: jump, force: true });
+    else window.scrollTo({ top: y, behavior: jump ? 'auto' : 'smooth' });
+  }
+
+  /* The answer, where the visitor is looking (QC M1): once a route exists, bring its panel into
+     view and put focus on its first action. */
+  function showRoute(instant) {
+    var what = val('what');
+    if (!what) return;
+    var panel = flow.querySelector('.reg-go__panel[data-route="' + what + '"]');
+    if (!panel) return;
+    scrollBelowHeader(panel, instant);
+    var act = panel.querySelector('.reg-go__acts a, .reg-go__acts button');
+    if (act) act.focus({ preventScroll: true });
+  }
+
+  $$('input[type="radio"]', flow).forEach(function (r) {
+    r.addEventListener('change', function () {
+      update();
+      if (r.name === 'what') showRoute(false);
+    });
+  });
 
   /* The hero's first choice (phones): a tap on "A child" or "An adult, or the family" answers step 1
      and lands on step 2. Without script the same link scrolls to that option. */
@@ -66,13 +95,7 @@
       w.checked = true;
       update();
       var first = flow.querySelector('[data-step="1"]');
-      if (first) {
-        /* Stop below the header and, on phones, below the court strip that rides under it */
-        var strip = court && getComputedStyle(court).position === 'sticky' && window.innerWidth < 1000 ? court.offsetHeight : 0;
-        var head = doc.querySelector('.header, header');
-        var y = first.getBoundingClientRect().top + window.pageYOffset - (head ? head.offsetHeight : 64) - strip - 20;
-        window.scrollTo({ top: Math.max(0, y), behavior: reduce ? 'auto' : 'smooth' });
-      }
+      if (first) scrollBelowHeader(first, false);
       var nxt = step2.querySelector('.reg-opt:not([hidden]) input');
       if (nxt) nxt.focus({ preventScroll: true });
     });
@@ -113,6 +136,25 @@
     var box = flow.querySelector('[data-reg-context]');
     var chip = flow.querySelector('[data-reg-context-chip]');
     if (box && chip) { chip.textContent = bits.join(', '); box.hidden = false; }
+    /* The hero says what they are registering for (QC M2), with the chosen answer marked */
+    var forLine = doc.querySelector('[data-reg-for]');
+    var forWhat = doc.querySelector('[data-reg-for-what]');
+    var heroQ = doc.querySelector('.reg-hero__q');
+    var go = doc.querySelector('[data-reg-go]');
+    if (forLine && forWhat) { forWhat.textContent = f[2]; forLine.hidden = false; if (heroQ) heroQ.hidden = true; }
+    if (go) go.hidden = false;
+    $$('.reg-hero .hero__points a').forEach(function (a) {
+      if (a.getAttribute('href') === '#who-' + f[0]) a.setAttribute('aria-current', 'true');
+    });
   }
   update();
+  if (f) {
+    /* Land on the pre-filled route: once layout has settled (fonts, the hero's intro), jump to it */
+    var landed = false;
+    var land = function () { if (landed) return; landed = true; showRoute(true); };
+    if (doc.readyState === 'complete') setTimeout(land, 60);
+    else window.addEventListener('load', function () { setTimeout(land, 60); });
+    var goBtn = doc.querySelector('[data-reg-go]');
+    if (goBtn) goBtn.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); showRoute(false); });
+  }
 })();

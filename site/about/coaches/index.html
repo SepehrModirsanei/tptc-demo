@@ -40,7 +40,7 @@
     <div class="procard__plate">
       <p class="coach__role">Head Pro</p>
       <p class="procard__name">Josh<br>Borenstein</p>
-      <p class="procard__line">Over <span class="num">25</span> years teaching tennis, over <span class="num">20</span> directing the club&rsquo;s programming.</p>
+      <p class="procard__line">Over <span class="num">25</span> years teaching tennis, over <span class="num">20</span> directing the club’s programming.</p>
       <a class="link" href="#head-pro"><span class="link__text">His record</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
@@ -84,45 +84,32 @@
     </div>
   </section>
 
-  <!-- 2. The team: the rest of the roster is the club's to name. Each card is a draw line still
-       waiting for its player, never a stock face or an invented coach. -->
+  <!-- 2. The team: the club's site names only the Head Pro. One example entry shows the format
+       each named coach will get, beside one Club to confirm box for the roster. Never a stock face
+       or an invented coach. -->
   <section class="section section--chalk" id="team" aria-labelledby="team-title">
     <div class="wrap">
       <div class="sect-head sect-head--stack">
         <p class="eyebrow">The coaching team</p>
         <h2 class="h2" id="team-title" data-rise>Every coach, <em>by name.</em></h2>
-        <p class="body" data-settle>Each coach gets the same entry: a portrait from one real photo session, their role, certification, the year they began coaching here, a short bio and the programs they lead.</p>
+        <p class="body" data-settle>Each coach gets the same entry as the Head Pro: a portrait from one real photo session, their role, certification, the year they began coaching here, a short bio and the programs they lead.</p>
       </div>
-      <div data-settle><div class="confirm confirm--block"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">The rest of the coaching team: names, roles, certifications, portraits and short bios</span><span class="confirm__why">The club’s site names only the Head Pro. Room is set for four to eight coaches; none is invented.</span></div></div>
-      <div class="coaches roster">
-        <article class="coach coach--tbc" data-settle>
+      <div class="team">
+        <article class="coach coach--format" data-settle aria-labelledby="format-title">
           <figure class="frame frame--own-label" data-slot="coaches-team-01" data-unveil data-chalk style="--ar:4 / 5;"><div class="frame__box"><div class="frame__inner"><div class="frame__media"><div class="frame__drift"><svg class="ph__court" viewBox="-8.098 -2.037 27.166 33.957" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><rect class="cl-surface" x="0" y="0" width="10.970" height="23.770"/><line class="cl-x" style="--i:0" x1="0.000" y1="0.000" x2="10.970" y2="0.000"/><line class="cl-x" style="--i:1" x1="0.000" y1="23.770" x2="10.970" y2="23.770"/><line class="cl-y" style="--i:2" x1="0.000" y1="0.000" x2="0.000" y2="23.770"/><line class="cl-y" style="--i:3" x1="10.970" y1="0.000" x2="10.970" y2="23.770"/><line class="cl-y" style="--i:4" x1="1.370" y1="0.000" x2="1.370" y2="23.770"/><line class="cl-y" style="--i:5" x1="9.600" y1="0.000" x2="9.600" y2="23.770"/><line class="cl-x" style="--i:6" x1="1.370" y1="5.485" x2="9.600" y2="5.485"/><line class="cl-x" style="--i:7" x1="1.370" y1="18.285" x2="9.600" y2="18.285"/><line class="cl-y" style="--i:8" x1="5.485" y1="5.485" x2="5.485" y2="18.285"/><line class="cl-y" style="--i:9" x1="5.485" y1="0.000" x2="5.485" y2="0.100"/><line class="cl-y" style="--i:10" x1="5.485" y1="23.670" x2="5.485" y2="23.770"/><line class="cl-x net" style="--i:12" x1="-0.914" y1="11.885" x2="11.884" y2="11.885"/><rect class="cl-p" style="--i:11" x="-1.014" y="11.785" width="0.2" height="0.2"/><rect class="cl-p" style="--i:11" x="11.784" y="11.785" width="0.2" height="0.2"/></svg></div><div class="ph"><p class="ph__label"><span class="ph__kicker">To be photographed</span><span class="ph__id">coaches-team-01</span><span class="ph__desc">Real portrait of each confirmed coach, same set-up as the Head Pro.</span></p><span class="ph__ratio" aria-hidden="true">4:5</span></div></div></div></div><span class="frame__tag"><svg class="frame__tag-mark" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M0.5 0.5h9v9h-9zM5 0.5v9"/></svg>Placeholder image</span></figure>
-          <p class="coach__role">Coach 01</p>
-          <p class="coach__name coach__name--tbc"><span class="sr-only">Coach name </span>Name to confirm</p>
-          <dl class="tbc__fields"><div><dt>Portrait</dt><dd>To be photographed</dd></div><div><dt>Role</dt><dd>To confirm</dd></div><div><dt>Certification</dt><dd>To confirm</dd></div><div><dt>Coaching here since</dt><dd>To confirm</dd></div><div><dt>Coaches in</dt><dd>To confirm</dd></div></dl>
+          <div class="format__body">
+            <p class="coach__role">The entry format</p>
+            <p class="coach__name format__name" id="format-title">A coach’s name</p>
+            <dl class="format__fields">
+              <div><dt>Role</dt><dd>Their title at the club</dd></div>
+              <div><dt>Certification</dt><dd>Their coaching certification</dd></div>
+              <div><dt>Coaching here since</dt><dd>The year they began</dd></div>
+              <div><dt>Bio</dt><dd>A short bio, a few lines</dd></div>
+              <div><dt>Coaches in</dt><dd>The programs they lead, linked</dd></div>
+            </dl>
+          </div>
         </article>
-        <article class="coach coach--tbc" data-settle>
-          <figure class="frame" data-unveil data-chalk style="--ar:4 / 5;">
-            <div class="frame__box"><div class="frame__inner"><div class="frame__media">
-              <div class="frame__drift"><svg class="ph__court" viewBox="-8.098 -2.037 27.166 33.957" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><rect class="cl-surface" x="0" y="0" width="10.970" height="23.770"/><line class="cl-x" style="--i:0" x1="0.000" y1="0.000" x2="10.970" y2="0.000"/><line class="cl-x" style="--i:1" x1="0.000" y1="23.770" x2="10.970" y2="23.770"/><line class="cl-y" style="--i:2" x1="0.000" y1="0.000" x2="0.000" y2="23.770"/><line class="cl-y" style="--i:3" x1="10.970" y1="0.000" x2="10.970" y2="23.770"/><line class="cl-y" style="--i:4" x1="1.370" y1="0.000" x2="1.370" y2="23.770"/><line class="cl-y" style="--i:5" x1="9.600" y1="0.000" x2="9.600" y2="23.770"/><line class="cl-x" style="--i:6" x1="1.370" y1="5.485" x2="9.600" y2="5.485"/><line class="cl-x" style="--i:7" x1="1.370" y1="18.285" x2="9.600" y2="18.285"/><line class="cl-y" style="--i:8" x1="5.485" y1="5.485" x2="5.485" y2="18.285"/><line class="cl-y" style="--i:9" x1="5.485" y1="0.000" x2="5.485" y2="0.100"/><line class="cl-y" style="--i:10" x1="5.485" y1="23.670" x2="5.485" y2="23.770"/><line class="cl-x net" style="--i:12" x1="-0.914" y1="11.885" x2="11.884" y2="11.885"/><rect class="cl-p" style="--i:11" x="-1.014" y="11.785" width="0.2" height="0.2"/><rect class="cl-p" style="--i:11" x="11.784" y="11.785" width="0.2" height="0.2"/></svg></div>
-              <div class="ph"><p class="ph__label"><span class="ph__kicker">To be photographed</span><span class="ph__id">coaches-team-02</span><span class="ph__desc">Real portrait of each confirmed coach, same set-up as the Head Pro.</span></p><span class="ph__ratio" aria-hidden="true">4:5</span></div>
-            </div></div></div>
-          </figure>
-          <p class="coach__role">Coach 02</p>
-          <p class="coach__name coach__name--tbc"><span class="sr-only">Coach name </span>Name to confirm</p>
-          <dl class="tbc__fields"><div><dt>Portrait</dt><dd>To be photographed</dd></div><div><dt>Role</dt><dd>To confirm</dd></div><div><dt>Certification</dt><dd>To confirm</dd></div><div><dt>Coaching here since</dt><dd>To confirm</dd></div><div><dt>Coaches in</dt><dd>To confirm</dd></div></dl>
-        </article>
-        <article class="coach coach--tbc" data-settle>
-          <figure class="frame" data-unveil data-chalk style="--ar:4 / 5;">
-            <div class="frame__box"><div class="frame__inner"><div class="frame__media">
-              <div class="frame__drift"><svg class="ph__court" viewBox="-8.098 -2.037 27.166 33.957" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><rect class="cl-surface" x="0" y="0" width="10.970" height="23.770"/><line class="cl-x" style="--i:0" x1="0.000" y1="0.000" x2="10.970" y2="0.000"/><line class="cl-x" style="--i:1" x1="0.000" y1="23.770" x2="10.970" y2="23.770"/><line class="cl-y" style="--i:2" x1="0.000" y1="0.000" x2="0.000" y2="23.770"/><line class="cl-y" style="--i:3" x1="10.970" y1="0.000" x2="10.970" y2="23.770"/><line class="cl-y" style="--i:4" x1="1.370" y1="0.000" x2="1.370" y2="23.770"/><line class="cl-y" style="--i:5" x1="9.600" y1="0.000" x2="9.600" y2="23.770"/><line class="cl-x" style="--i:6" x1="1.370" y1="5.485" x2="9.600" y2="5.485"/><line class="cl-x" style="--i:7" x1="1.370" y1="18.285" x2="9.600" y2="18.285"/><line class="cl-y" style="--i:8" x1="5.485" y1="5.485" x2="5.485" y2="18.285"/><line class="cl-y" style="--i:9" x1="5.485" y1="0.000" x2="5.485" y2="0.100"/><line class="cl-y" style="--i:10" x1="5.485" y1="23.670" x2="5.485" y2="23.770"/><line class="cl-x net" style="--i:12" x1="-0.914" y1="11.885" x2="11.884" y2="11.885"/><rect class="cl-p" style="--i:11" x="-1.014" y="11.785" width="0.2" height="0.2"/><rect class="cl-p" style="--i:11" x="11.784" y="11.785" width="0.2" height="0.2"/></svg></div>
-              <div class="ph"><p class="ph__label"><span class="ph__kicker">To be photographed</span><span class="ph__id">coaches-team-03</span><span class="ph__desc">Real portrait of each confirmed coach, same set-up as the Head Pro.</span></p><span class="ph__ratio" aria-hidden="true">4:5</span></div>
-            </div></div></div>
-          </figure>
-          <p class="coach__role">Coach 03</p>
-          <p class="coach__name coach__name--tbc"><span class="sr-only">Coach name </span>Name to confirm</p>
-          <dl class="tbc__fields"><div><dt>Portrait</dt><dd>To be photographed</dd></div><div><dt>Role</dt><dd>To confirm</dd></div><div><dt>Certification</dt><dd>To confirm</dd></div><div><dt>Coaching here since</dt><dd>To confirm</dd></div><div><dt>Coaches in</dt><dd>To confirm</dd></div></dl>
-        </article>
+        <div class="team__ask" data-settle><div class="confirm confirm--block"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">The coaching team: names, roles, certifications, short bios and portraits</span><span class="confirm__why">The club’s site names only the Head Pro, so only he is listed. Each coach the club names gets an entry in the format shown here, photographed in the same set-up. None is invented.</span></div></div>
       </div>
     </div>
   </section>

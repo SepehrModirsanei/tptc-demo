@@ -23,3 +23,20 @@
     }).observe(ball, { attributes: true, attributeFilter: ['style'] });
   });
 })();
+
+/* What's happening: each card carries its last day (data-ends="YYYY-MM-DD"). A card whose last
+   day has passed is hidden, read against today's date in the visitor's browser, so the section
+   always leads with what is running now. If the lead card itself is over, it is hidden too and the
+   rows carry the section. No dates live in this script. */
+(function () {
+  'use strict';
+  var box = document.querySelector('[data-happen]');
+  if (!box) return;
+  var today = new Date();
+  Array.prototype.forEach.call(box.querySelectorAll('[data-ends]'), function (card) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(card.getAttribute('data-ends') || '');
+    if (!m) return;
+    var end = new Date(+m[1], +m[2] - 1, +m[3], 23, 59, 59);
+    if (today > end) { card.hidden = true; card.setAttribute('data-ended', ''); }
+  });
+})();

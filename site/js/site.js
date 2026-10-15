@@ -129,8 +129,10 @@
   function fmt(d) {
     return d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' }).replace('.', '');
   }
-  $$('[data-live-start]').forEach(function (chip) {
-    var s = new Date(chip.getAttribute('data-live-start') + 'T00:00:00');
+  /* A chip may carry only an end (data-live-end): something already running whose start the club
+     has not confirmed, such as the indoor season ("early October"). It is live until its end. */
+  $$('[data-live-start], [data-live-end]').forEach(function (chip) {
+    var s = chip.hasAttribute('data-live-start') ? new Date(chip.getAttribute('data-live-start') + 'T00:00:00') : new Date(0);
     var e = new Date(chip.getAttribute('data-live-end') + 'T23:59:59');
     var now = new Date();
     var label = $('[data-live-label]', chip);

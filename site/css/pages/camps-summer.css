@@ -136,3 +136,18 @@ html.motion .windows:not(.is-drawn)::before { transform: scaleY(0); }
   .sheet-list li .num { font-size: 0.875rem; }
 }
 
+
+/* Batch 6 (QC M2): on phones the in-page strip runs past the screen edge. It scrolls sideways, runs
+   to the right edge of the screen, and fades out there, so "Refunds" reads as more to swipe to
+   rather than a word cut at "Refu". The last link clears the fade once the strip is scrolled to its end. */
+@media (max-width: 599px) {
+  .page-camp--summer .inpage ol {
+    gap: 16px; margin-right: calc(-1 * var(--gutter)); padding-right: 40px;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
+            mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
+    overscroll-behavior-x: contain;
+  }
+}
+
+/* Batch 6 (QC m4): the one line that says camp ages are not the weekly program ages. */
+.agenote { margin-top: 10px; color: var(--fg-muted); max-width: 60ch; }
