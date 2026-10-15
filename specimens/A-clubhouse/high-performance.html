@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en-CA" class="ph-tags">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>High Performance | Thornhill Park Tennis Club</title>
+<meta name="description" content="Train with purpose. Compete with confidence. The High Performance pathway: Little Champs, Transition Tour and the Pro National Academy.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F1E8">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121512">
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
+<script>
+/* Motion bootstrap: the motion class exists only when the visitor allows motion and the
+   scripts arrive. Without it every element is visible from first paint. */
+(function (d) {
+  var h = d.documentElement;
+  /* Colour scheme: follows the system. A choice made on the system sheet is remembered per
+     visitor; storage can be missing or blocked, so every access is guarded. */
+  try { var t = localStorage.getItem('tptc-theme'); if (t === 'light' || t === 'dark') h.setAttribute('data-theme', t); } catch (e) {}
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    h.classList.add('motion');
+    setTimeout(function () { if (!h.classList.contains('motion-ready')) h.classList.remove('motion'); }, 2500);
+  }
+  window.addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) { h.classList.add('turn'); window.__tptcTurn = e.viewTransition; }
+  });
+  /* Image slots: show assets/img/SLOT.jpg over the placeholder when it exists */
+  window.tptcImg = function (img, ok) {
+    if (ok) { var f = img.closest('.frame'); if (f) f.classList.add('has-img'); }
+    else { img.remove(); }
+  };
+})(document);
+</script>
+<style>
+/* Turn: cross-document View Transitions (energy.md 3.4), inline so they apply at reveal */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 320ms cubic-bezier(0.76, 0, 0.24, 1) both tptc-leave; }
+::view-transition-new(root) { animation: 560ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both tptc-enter; }
+@keyframes tptc-leave { to { opacity: 0; transform: translateY(-12px); } }
+@keyframes tptc-enter { from { opacity: 0; transform: translateY(24px); } }
+.site-header { view-transition-name: site-header; }
+::view-transition-group(site-header) { animation-duration: 240ms; }
+.door--hp .court, .hero--hpw .frame__media { view-transition-name: prog-hp; }
+::view-transition-group(prog-hp) {
+  animation-duration: 640ms;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+}
+/* The door and the hero frame the same photograph with different crops, so a crossfade over
+   the whole 640ms showed two faces and two racquets. The photographs swap in the first 180ms,
+   while the frame is still door-sized, and the hero crop then grows alone. */
+::view-transition-old(prog-hp) { animation: 180ms linear both tptc-fade-out; }
+::view-transition-new(prog-hp) { animation: 180ms linear both tptc-fade-in; }
+::view-transition-group(hp-copy) { z-index: 3; }
+::view-transition-new(hp-copy) { animation: 360ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both tptc-fade-in; }
+::view-transition-old(*), ::view-transition-new(*) { height: 100%; object-fit: cover; }
+@keyframes tptc-fade-in { from { opacity: 0; } }
+@keyframes tptc-fade-out { to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) { animation-name: none; }
+  ::view-transition-old(*) { animation: 180ms linear both tptc-fade-out; }
+  ::view-transition-new(*), ::view-transition-new(hp-copy) { animation: 180ms linear both tptc-fade-in; }
+}
+</style>
+<link rel="expect" href="#first-view" blocking="render">
+<link rel="stylesheet" href="css/tptc.css">
+<link rel="stylesheet" href="../../assets/vendor/lenis.css">
+<script defer src="../../assets/vendor/gsap.min.js"></script>
+<script defer src="../../assets/vendor/ScrollTrigger.min.js"></script>
+<script defer src="../../assets/vendor/SplitText.min.js"></script>
+<script defer src="../../assets/vendor/CustomEase.min.js"></script>
+<script defer src="../../assets/vendor/lenis.min.js"></script>
+<script defer src="js/site.js"></script>
+<script defer src="js/motion.js"></script>
+<script defer src="js/serve.js"></script>
+</head>
+<body class="page-hp">
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+<symbol id="i-racquet" viewBox="0 0 24 24"><g transform="rotate(45 12 12)"><ellipse cx="12" cy="7" rx="4.75" ry="6"/><path d="M10 1.56 V12.44 M14 1.56 V12.44 M7.52 5 H16.48 M7.52 9 H16.48"/><path d="M9.15 11.8 L12 16.5 L14.85 11.8 M12 16.5 V23"/></g></symbol>
+<symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25"/><path d="M4.95 7.72 C8.4 9.9 8.4 14.1 4.95 16.28"/><path d="M19.05 7.72 C15.6 9.9 15.6 14.1 19.05 16.28"/></symbol>
+<symbol id="i-court" viewBox="0 0 24 24"><rect x="1.5" y="8.37" width="21" height="7.26"/><path stroke-width="1" d="M12 7.56 V16.44 M6.35 8.37 V15.63 M17.65 8.37 V15.63 M6.35 12 H17.65 M1.5 12 H2.6 M21.4 12 H22.5"/></symbol>
+<symbol id="i-dome" viewBox="0 0 24 24"><path d="M2.75 19.25 H21.25"/><path d="M4.25 19.25 V15 C4.25 9.5 7.8 6.25 12 6.25 C16.2 6.25 19.75 9.5 19.75 15 V19.25"/><path d="M4.4 13.25 C9.2 11.9 14.8 11.9 19.6 13.25"/><path d="M10 19.25 V15.75 H14 V19.25"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.75" y="5.25" width="16.5" height="15"/><path d="M3.75 9.75 H20.25"/><path d="M8 3 V7 M16 3 V7"/><rect x="13.5" y="13.5" width="3" height="3"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25"/><path d="M12 7 V12 L15.25 14"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7.75 4.25 H16.25 V9.75 C16.25 12.1 14.35 14 12 14 C9.65 14 7.75 12.1 7.75 9.75 Z"/><path d="M7.75 6 H4.75 V7.75 C4.75 9.6 6.1 11 7.9 11.1"/><path d="M16.25 6 H19.25 V7.75 C19.25 9.6 17.9 11 16.1 11.1"/><path d="M12 14 V17.25"/><rect x="8.25" y="17.25" width="7.5" height="3"/></symbol>
+<symbol id="i-coach" viewBox="0 0 24 24"><circle cx="9.5" cy="7.25" r="3"/><path d="M3.75 20.25 V18.5 C3.75 15.3 6.3 12.75 9.5 12.75 C12.7 12.75 15.25 15.3 15.25 18.5 V20.25"/><circle cx="18.5" cy="6" r="1.75"/></symbol>
+<symbol id="i-junior" viewBox="0 0 24 24"><circle cx="9.5" cy="9" r="2.25"/><path d="M5 20.25 V19.25 C5 16.9 7 15 9.5 15 C12 15 14 16.9 14 19.25 V20.25"/><ellipse cx="18" cy="8.25" rx="2.25" ry="2.75"/><path d="M18 11 V15.75"/></symbol>
+<symbol id="i-family" viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.25"/><circle cx="17" cy="7" r="2.25"/><path d="M2.75 20.25 V17.5 C2.75 14.6 4.65 12.5 7 12.5 C8.2 12.5 9.25 13 10 13.85"/><path d="M21.25 20.25 V17.5 C21.25 14.6 19.35 12.5 17 12.5 C15.8 12.5 14.75 13 14 13.85"/><circle cx="12" cy="12.75" r="1.75"/><path d="M8.75 20.25 V19.5 C8.75 17.7 10.2 16.25 12 16.25 C13.8 16.25 15.25 17.7 15.25 19.5 V20.25"/></symbol>
+<symbol id="i-location" viewBox="0 0 24 24"><path d="M12 20.75 C12 20.75 5.25 14.6 5.25 9.75 C5.25 6 8.25 3.25 12 3.25 C15.75 3.25 18.75 6 18.75 9.75 C18.75 14.6 12 20.75 12 20.75 Z"/><circle cx="12" cy="9.75" r="2.5"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M3.75 12 H19.5 M14 6.5 L19.5 12 L14 17.5"/></symbol>
+<symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 L17 7 M9.5 7 H17 V14.5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9.25 L12 15.25 L18 9.25"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4.75 V19.25 M4.75 12 H19.25"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M4.75 12 H19.25"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M3.75 8.5 H20.25 M3.75 15.5 H20.25"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M5.75 5.75 L18.25 18.25 M18.25 5.75 L5.75 18.25"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M8.6 3.75 L10.6 8.4 L8.55 9.9 C9.6 12.15 11.85 14.4 14.1 15.45 L15.6 13.4 L20.25 15.4 V18.25 C20.25 19.35 19.35 20.25 18.25 20.25 C10.4 20.25 3.75 13.6 3.75 5.75 C3.75 4.65 4.65 3.75 5.75 3.75 Z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.75" y="5.75" width="16.5" height="12.5"/><path d="M3.75 6.25 L12 12.75 L20.25 6.25"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M4.75 12.75 L9.5 17.5 L19.25 7.25"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25"/><path d="M12 10.5 V16.75 M12 7 V8.75"/></symbol>
+<symbol id="i-confirm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25" stroke-dasharray="2.16 2.16"/><path d="M8.75 12 H15.25"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.75"/><path d="M12 2.75 V5.25 M12 18.75 V21.25 M2.75 12 H5.25 M18.75 12 H21.25 M5.46 5.46 L7.23 7.23 M16.77 16.77 L18.54 18.54 M5.46 18.54 L7.23 16.77 M16.77 7.23 L18.54 5.46"/></symbol>
+<symbol id="m-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" style="fill:var(--red)"/><path d="M2.4 5.67 C6.8 8.5 6.8 15.5 2.4 18.33 M21.6 5.67 C17.2 8.5 17.2 15.5 21.6 18.33" style="fill:none;stroke:var(--paper);stroke-width:1.5"/></symbol>
+<symbol id="court-h" viewBox="0 0 120 60" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"><rect x="21" y="12" width="78" height="36" vector-effect="non-scaling-stroke"/><path vector-effect="non-scaling-stroke" d="M21 16.5 H99 M21 43.5 H99 M60 8.5 V51.5 M39 16.5 V43.5 M81 16.5 V43.5 M39 30 H81 M21 30 H22.2 M97.8 30 H99"/></g></symbol>
+<symbol id="court-v" viewBox="0 0 60 120" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"><rect x="12" y="21" width="36" height="78" vector-effect="non-scaling-stroke"/><path vector-effect="non-scaling-stroke" d="M16.5 21 V99 M43.5 21 V99 M8.5 60 H51.5 M16.5 39 H43.5 M16.5 81 H43.5 M30 39 V81 M30 21 V22.2 M30 97.8 V99"/></g></symbol>
+</svg>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header site-header--dark theme-night" data-header>
+  <div class="wrap site-header__in">
+    <a class="logo" href="index.html" aria-label="Thornhill Park Tennis Club, home">
+      <img class="logo__img logo__img--lockup logo__img--light" src="../../assets/brand/tptc-lockup.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--lockup logo__img--dark" src="../../assets/brand/tptc-lockup-on-dark.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--light" src="../../assets/brand/tptc-mark.svg" width="147" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--dark" src="../../assets/brand/tptc-mark-on-dark.svg" width="147" height="38" alt="" decoding="async">
+    </a>
+    <nav class="nav" aria-label="Main">
+      <ul class="nav__list">
+        <li class="nav__item has-menu is-current" data-menu>
+          <button class="nav__link nav__trigger" type="button" aria-expanded="false" aria-controls="menu-programs">Programs<svg class="icon icon--chevron" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg></button>
+          <div class="nav__panel" id="menu-programs"><div class="nav__panel-head"><span class="eyebrow">Programs</span><span class="small">For every age and level</span></div><ul><li><a class="menu-item" href="#"><svg class="icon icon--junior" aria-hidden="true" focusable="false"><use href="#i-junior"></use></svg><span class="menu-item__name">Junior Recreational</span><span class="menu-item__meta">Ages 4-17, Beginner to Advanced</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--racquet" aria-hidden="true" focusable="false"><use href="#i-racquet"></use></svg><span class="menu-item__name">Adult Programs</span><span class="menu-item__meta">Lessons, round robins and leagues</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="high-performance.html" aria-current="page"><svg class="icon icon--ball" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><span class="menu-item__name">High Performance</span><span class="menu-item__meta">Little Champs to Pro National</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--coach" aria-hidden="true" focusable="false"><use href="#i-coach"></use></svg><span class="menu-item__name">Private Lessons</span><span class="menu-item__meta">One hour, private or semi-private</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--sun" aria-hidden="true" focusable="false"><use href="#i-sun"></use></svg><span class="menu-item__name">Camps</span><span class="menu-item__meta">Summer, March Break and Holiday</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li></ul></div>
+        </li>
+        <li class="nav__item"><a class="nav__link" href="#">Membership</a></li><li class="nav__item"><a class="nav__link" href="#">Court Bookings</a></li><li class="nav__item"><a class="nav__link" href="#">Leagues & Events</a></li>
+        <li class="nav__item has-menu" data-menu>
+          <button class="nav__link nav__trigger" type="button" aria-expanded="false" aria-controls="menu-about">About<svg class="icon icon--chevron" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg></button>
+          <div class="nav__panel nav__panel--end" id="menu-about"><div class="nav__panel-head"><span class="eyebrow">About</span><span class="small">Founded 1951</span></div><ul><li><a class="menu-item" href="#"><svg class="icon icon--court" aria-hidden="true" focusable="false"><use href="#i-court"></use></svg><span class="menu-item__name">Our Club</span><span class="menu-item__meta">Mission, vision and board</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--coach" aria-hidden="true" focusable="false"><use href="#i-coach"></use></svg><span class="menu-item__name">Our Coaches</span><span class="menu-item__meta">Led by Head Pro Josh Borenstein</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--dome" aria-hidden="true" focusable="false"><use href="#i-dome"></use></svg><span class="menu-item__name">Facilities</span><span class="menu-item__meta">Four courts, indoor and outdoor</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--calendar" aria-hidden="true" focusable="false"><use href="#i-calendar"></use></svg><span class="menu-item__name">Club History</span><span class="menu-item__meta">Founded in 1951</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li></ul></div>
+        </li>
+        <li class="nav__item"><a class="nav__link" href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn--primary btn--sm" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-sheet-open>
+        <span class="menu-btn__bar"></span><span class="menu-btn__bar"></span><span class="vh">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menu" data-lenis-prevent data-sheet>
+  <div class="wrap sheet__top">
+    <a class="logo" href="index.html" aria-label="Thornhill Park Tennis Club, home">
+      <img class="logo__img logo__img--lockup logo__img--light" src="../../assets/brand/tptc-lockup.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--lockup logo__img--dark" src="../../assets/brand/tptc-lockup-on-dark.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--light" src="../../assets/brand/tptc-mark.svg" width="147" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--dark" src="../../assets/brand/tptc-mark-on-dark.svg" width="147" height="38" alt="" decoding="async">
+    </a>
+    <button class="sheet__close" type="button" data-sheet-close><svg class="icon icon--close" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg><span class="vh">Close menu</span></button>
+  </div>
+  <div class="wrap sheet__body">
+    <nav aria-label="Main">
+      <ul class="sheet__list">
+        <li data-sheet-item style="--i:4"><button class="sheet__link" type="button" aria-expanded="true" aria-controls="sheet-programs" data-disclosure>Programs<svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></button><ul class="sheet__sub" id="sheet-programs"><li><a href="#">Junior Recreational<small>Ages 4-17, Beginner to Advanced</small></a></li><li><a href="#">Adult Programs<small>Lessons, round robins and leagues</small></a></li><li><a href="high-performance.html" aria-current="page">High Performance<small>Little Champs to Pro National</small></a></li><li><a href="#">Private Lessons<small>One hour, private or semi-private</small></a></li><li><a href="#">Camps<small>Summer, March Break and Holiday</small></a></li></ul></li>
+        <li data-sheet-item style="--i:1"><a class="sheet__link" href="#">Membership<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li data-sheet-item style="--i:2"><a class="sheet__link" href="#">Court Bookings<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li data-sheet-item style="--i:3"><a class="sheet__link" href="#">Leagues & Events<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li>
+        <li data-sheet-item style="--i:5"><button class="sheet__link" type="button" aria-expanded="false" aria-controls="sheet-about" data-disclosure>About<svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></button><ul class="sheet__sub" id="sheet-about" hidden><li><a href="#">Our Club<small>Mission, vision and board</small></a></li><li><a href="#">Our Coaches<small>Led by Head Pro Josh Borenstein</small></a></li><li><a href="#">Facilities<small>Four courts, indoor and outdoor</small></a></li><li><a href="#">Club History<small>Founded in 1951</small></a></li></ul></li>
+        <li data-sheet-item style="--i:6"><a class="sheet__link" href="#">Contact<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li>
+      </ul>
+    </nav>
+    <div class="sheet__util" data-sheet-item style="--i:7"><a href="#">FAQ</a><a href="#">Contact</a><a href="tel:+19057315551">905-731-5551</a></div>
+    <div class="sheet__foot" data-sheet-item style="--i:8">
+      <a class="btn btn--primary btn--block" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a>
+      <p class="sheet__prov">Founded 1951 · Thornhill, Ontario</p>
+    </div>
+  </div>
+</div>
+<main id="main">
+
+  <!-- Hero, the same wall at night: centred and symmetrical. The page's name between two rules,
+       the club's two sentences either side of one framed portrait print, each over its own way
+       in, the lede centred beneath. The print is the Turn target of the Home High Performance
+       court. The photograph is shown whole at its own 4:5. -->
+  <section class="hero hero--home hero--hpw theme-night" data-hero aria-labelledby="hp-title">
+    <div class="wrap hero__wall">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">Programs</a></li>
+          <li><span aria-current="page">High Performance</span></li>
+        </ol>
+      </nav>
+      <p class="prov prov--centre">
+        <span class="prov__rule" data-draw aria-hidden="true"></span>
+        <span class="prov__date">High Performance <span aria-hidden="true">·</span> Since <span class="prov__yr">1951</span></span>
+        <span class="prov__rule prov__rule--r" data-draw aria-hidden="true"></span>
+      </p>
+      <h1 class="h-display" id="hp-title" data-rise-lines>
+        <span class="line line--a"><span class="line__in">Train with <br class="br-d">purpose.</span></span>
+        <span class="line line--b"><span class="line__in">Compete with <br class="br-d">confidence.</span></span>
+      </h1>
+      <div class="hero__frame">
+        <figure class="frame frame--night frame--print" data-slot="hp-pro-national-02" data-master="4:5" style="--ar:4 / 5"><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-v" width="100%" height="100%"></use></svg><img class="frame__img" src="../../assets/img/hp-pro-national-02.jpg" srcset="../../assets/img/_w/hp-pro-national-02-480.webp 480w, ../../assets/img/_w/hp-pro-national-02-800.webp 800w, ../../assets/img/hp-pro-national-02.jpg 1200w" sizes="(max-width: 719px) 70vw, 34vw" alt="Seen from above, a player sets up a backhand on the baseline of a hard court, her shadow long across the green. Placeholder image." fetchpriority="high" decoding="async" onload="tptcImg(this,1)" onerror="tptcImg(this,0)"></div></div></div></div><p class="frame__label"><span class="frame__tag">Placeholder</span><span class="frame__id">hp-pro-national-02<span class="frame__ratio">4:5</span></span><span class="frame__desc">An elite junior, about seventeen, driving a two-handed backhand out of the dark, framed tall.</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div><figcaption class="plate"><span class="plate__title">High Performance</span><span class="plate__ph">Placeholder image</span></figcaption></figure>
+      </div>
+      <p class="lede hero__lede" data-settle>Three steps for players who compete, or want to: Little Champs, Transition Tour and the Pro National Academy.</p>
+      <div class="actions" data-settle>
+        <a class="btn btn--light hero__act--a" href="#join"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a>
+        <a class="btn btn--outline hero__act--b" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register with your code</span><span class="btn__label btn__label--2" aria-hidden="true">Register with your code</span></span></a>
+      </div>
+      <!-- Phones only: the three steps of the pathway inside the first screen. The pathway
+           section below carries each step in full. -->
+      <ol class="hero__steps" aria-label="The High Performance pathway" data-settle>
+        <li><a href="#little-champs"><span class="hero__steps-k">Step 1</span><span class="hero__steps-n">Little Champs</span><span class="hero__steps-m">Ages 6-9</span></a></li>
+        <li><a href="#transition-tour"><span class="hero__steps-k">Step 2</span><span class="hero__steps-n">Transition Tour</span><span class="hero__steps-m">Ages 10-15</span></a></li>
+        <li><a href="#pro-national-step"><span class="hero__steps-k">Step 3</span><span class="hero__steps-n">Pro National</span><span class="hero__steps-m">By pre-approval</span></a></li>
+      </ol>
+    </div>
+  </section>
+  <div id="first-view"></div>
+
+  <!-- Who it is for, and the facts that are dated -->
+  <section class="section" aria-labelledby="who-title">
+    <div class="wrap">
+      <div class="intro__grid">
+        <h2 class="h2" id="who-title" data-rise>For players at a provincial or national level.</h2>
+        <div class="body" data-settle>
+          <p>Intensive training, and the mental side of the game, with coaches who are very experienced at this level. The aim is simple: your player's next level.</p>
+        </div>
+      </div>
+      <div class="facts-strip">
+        <div class="fact" data-settle>
+          <span class="fact__k">This season</span>
+          <span class="fact__v">Fall &amp; Winter Indoor, under the Dome<span class="num">, early October 2026 to April 25, 2027</span><span class="small">The Fall Outdoor session ran Aug 24 to Oct 8, 2026.</span></span>
+          <span><span class="chip" data-live data-window data-end="2027-04-25" data-during="Running now" data-after="Ended Apr 25"><span class="chip__dot"></span><span class="chip__text">Running now</span></span></span>
+        </div>
+        <div class="fact" data-settle>
+          <span class="fact__k">Entry</span>
+          <span class="fact__v">An assessment for Little Champs and Transition Tour. Pre-approval for Pro National.</span>
+        </div>
+        <div class="fact" data-settle>
+          <span class="fact__k">Indoor sessions</span>
+          <span class="fact__v"><span class="confirm">Fall &amp; Winter <span class="confirm__yr">2026/27</span> session dates and registration opening</span></span>
+          <span><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The pathway: the site's only Hold (sticky rail, scrubbed progress) -->
+  <section class="section pathway" id="pathway" aria-labelledby="path-title">
+    <div class="wrap">
+      <header class="shead">
+        <div class="shead__grid">
+          <h2 class="h2" id="path-title" data-rise>Which step is right for your player?</h2>
+          <p class="shead__aside body" data-settle>Little Champs and Transition Tour start with an assessment. Pro National starts with pre-approval from the Head Pro, before you register.</p>
+        </div>
+      </header>
+      <div class="pathway__grid" data-hold>
+        <aside class="pathway__aside" aria-label="Steps">
+          <div class="rail" aria-hidden="true"><div class="rail__fill" data-rail></div></div>
+          <div class="pathway__sticky">
+            <ol class="pathway__steps">
+              <li><a href="#little-champs" data-step-link="1"><span class="step-n">Little Champs</span><span class="step-m">Ages 6-9</span></a></li>
+              <li><a href="#transition-tour" data-step-link="2"><span class="step-n">Transition Tour</span><span class="step-m">Ages 10-15</span></a></li>
+              <li><a href="#pro-national-step" data-step-link="3"><span class="step-n">Pro National</span><span class="step-m">By pre-approval</span></a></li>
+            </ol>
+            <!-- The court grows with the player: a doubles court in plan, in feet (36 x 78, singles
+                 sidelines 4.5 ft in, service lines 21 ft from the net, centre marks). Step 1 lights the
+                 three-quarter court the club names for Little Champs; steps 2 and 3 light the full court. -->
+            <figure class="rcourt" aria-hidden="true">
+              <svg class="rcourt__svg" viewBox="-2 -1 40 80" focusable="false">
+                <g class="rcourt__full">
+                  <rect x="0" y="0" width="36" height="78"/>
+                  <path d="M4.5 0 V78 M31.5 0 V78 M4.5 18 H31.5 M4.5 60 H31.5 M18 18 V60 M18 0 V0.9 M18 77.1 V78"/>
+                </g>
+                <rect class="rcourt__q" x="4.5" y="9.75" width="27" height="58.5"/>
+                <path class="rcourt__net" d="M-1.5 39 H37.5"/>
+              </svg>
+              <figcaption class="rcourt__cap">
+                <span class="rcourt__c rcourt__c--1">Three-quarter court, orange or green dot ball</span>
+                <span class="rcourt__c rcourt__c--2">Full court, regular ball</span>
+                <span class="rcourt__c rcourt__c--3">The full court, at provincial and national level</span>
+              </figcaption>
+            </figure>
+          </div>
+        </aside>
+        <div class="pathway__panels">
+
+          <article class="step" id="little-champs" data-step="1" aria-labelledby="s1-name">
+            <figure class="frame frame--day frame--print" data-slot="hp-little-champs-01" data-master="4:5" style="--ar:4 / 5" data-unveil><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-v" width="100%" height="100%"></use></svg></div></div></div></div><p class="frame__label"><span class="frame__tag">Placeholder</span><span class="frame__id">hp-little-champs-01<span class="frame__ratio">4:5</span></span><span class="frame__desc">An eight-year-old in a split-step, eyes locked on the ball, fierce focus.</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div><figcaption class="plate"><span class="plate__title">Little Champs</span><span class="plate__sub">Ages 6-9</span><span class="plate__ph">Placeholder image</span></figcaption></figure>
+            <div class="step__body">
+              <div class="step__head" data-settle>
+                <p class="step__num" aria-hidden="true">1</p>
+                <h3 class="step__name" id="s1-name"><span class="vh">Step 1: </span>Little Champs</h3>
+                <p class="step__sub">For players who take tennis more seriously and hope to play in tournaments.</p>
+              </div>
+              <dl class="dl" data-settle>
+                <div class="dl__row"><dt>Who it is for</dt><dd>Ages 6-9, looking to compete or already competing.</dd></div>
+                <div class="dl__row"><dt>Level</dt><dd>Three-quarter court, orange ball or green dot ball. <span class="gloss">Orange and green dot balls are slower balls made for younger players.</span></dd></div>
+                <div class="dl__row"><dt>Main objective</dt><dd>OTA tournaments at U9 or U10 events. <span class="gloss">OTA is the Ontario Tennis Association.</span></dd></div>
+                <div class="dl__row"><dt>Schedule</dt><dd><span class="confirm-inline"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Weekly days, times and fee</span></span></dd></div>
+                <div class="dl__row"><dt>How to join</dt><dd>Assessment required, with the Head Pro, Josh Borenstein. Email the club to arrange one.<br><a class="link" href="mailto:info@thornhillparktennisclub.ca?subject=High%20Performance%20assessment"><span class="link__text">Request an assessment</span><svg class="icon icon--mail" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg></a></dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="step" id="transition-tour" data-step="2" aria-labelledby="s2-name">
+            <figure class="frame frame--night frame--print" data-slot="hp-transition-tour-01" data-master="4:5" style="--ar:4 / 5" data-unveil><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-v" width="100%" height="100%"></use></svg></div></div></div></div><p class="frame__label"><span class="frame__tag">Placeholder</span><span class="frame__id">hp-transition-tour-01<span class="frame__ratio">4:5</span></span><span class="frame__desc">A thirteen-year-old hitting a heavy topspin forehand in a high-intensity session.</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div><figcaption class="plate"><span class="plate__title">Transition Tour</span><span class="plate__sub">Ages 10-15</span><span class="plate__ph">Placeholder image</span></figcaption></figure>
+            <div class="step__body">
+              <div class="step__head" data-settle>
+                <p class="step__num" aria-hidden="true">2</p>
+                <h3 class="step__name" id="s2-name"><span class="vh">Step 2: </span>Transition Tour</h3>
+                <p class="step__sub">For players in tournaments who would like to reach a provincial level.</p>
+                <p class="confirm-inline small"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Whether Future Elite, as the current site lists it, is the same group as Transition Tour</span></p>
+              </div>
+              <dl class="dl" data-settle>
+                <div class="dl__row"><dt>Who it is for</dt><dd>Ages 10-15.</dd></div>
+                <div class="dl__row"><dt>Level</dt><dd>Full court, regular ball.</dd></div>
+                <div class="dl__row"><dt>Main objective</dt><dd>Provincial events such as Future Stars and Rookies.</dd></div>
+                <div class="dl__row"><dt>Schedule</dt><dd><span class="confirm-inline"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Weekly days, times and fee</span></span></dd></div>
+                <div class="dl__row"><dt>How to join</dt><dd>Assessment required, with the Head Pro, Josh Borenstein. Email the club to arrange one.<br><a class="link" href="mailto:info@thornhillparktennisclub.ca?subject=High%20Performance%20assessment"><span class="link__text">Request an assessment</span><svg class="icon icon--mail" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg></a></dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Step 3 is the summit: it points down to the Academy band, which carries its facts once -->
+          <article class="step step--summit" id="pro-national-step" data-step="3" aria-labelledby="s3-name">
+            <div class="step__body">
+              <div class="step__head" data-settle>
+                <p class="step__num" aria-hidden="true">3</p>
+                <p class="step__kicker">The summit of the pathway</p>
+                <h3 class="step__name" id="s3-name"><span class="vh">Step 3: </span>Pro National</h3>
+                <p class="step__sub">The highest level of training we offer, for provincial and national level players. Entry is by pre-approval from the Head Pro.</p>
+              </div>
+              <div data-settle><a class="link" href="#pro-national"><span class="link__text">The Pro National Academy</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pro National Academy: a category of its own, on the darkest ground (club questionnaire) -->
+  <section class="academy" id="pro-national" aria-labelledby="pn-title">
+    <div class="academy__stage">
+      <figure class="frame frame--dark frame--scrim frame--bleed frame--ph-tr" data-slot="hp-pro-national-01" data-master="21:9" style="--ar:21 / 9" data-unveil data-drift><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-h" width="100%" height="100%"></use></svg></div></div></div></div><p class="frame__label frame__label--tr"><span class="frame__tag">Placeholder</span><span class="frame__id">hp-pro-national-01<span class="frame__ratio">21:9</span></span><span class="frame__desc">An elite junior, about seventeen, exploding into an open-stance forehand out of the dark.</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div></figure>
+      <div class="wrap academy__over">
+        <div class="academy__copy">
+          <h2 class="academy__mark" id="pn-title" data-rise-lines>
+            <span class="line"><span class="line__in a1">Pro National</span></span>
+            <span class="line"><span class="line__in a2">Academy</span></span>
+          </h2>
+          <p class="lede" data-settle>The highest level of training we offer. Tennis and fitness, for provincial and national level players only, with coaches trained to coach the best players and move them to the next level.</p>
+        </div>
+      </div>
+    </div>
+    <div class="wrap academy__body">
+      <div class="academy__facts">
+        <div class="fact" data-settle><span class="fact__k">Players</span><span class="fact__v">Provincial and national level</span></div>
+        <div class="fact" data-settle><span class="fact__k">Training</span><span class="fact__v">Tennis and fitness</span></div>
+        <div class="fact" data-settle><span class="fact__k">Where</span><span class="fact__v">Yonge &amp; Centre</span></div>
+        <div class="fact" data-settle><span class="fact__k">Entry</span><span class="fact__v">Pre-approval by the Head Pro</span></div>
+      </div>
+      <p class="academy__sched confirm-inline small" data-settle><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Weekly schedule. The camp pages mention Monday to Thursday groups and Friday and Sunday groups</span></p>
+      <div class="academy__row">
+        <div class="confirm-block" data-settle>
+          <span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span>
+          <p class="confirm-block__fact">Results the academy may name</p>
+          <p class="confirm-block__note">The current site congratulates a Pro National player on a provincial title. Names and results appear here only with the club's and the family's consent.</p>
+        </div>
+        <div class="actions" data-settle>
+          <a class="btn btn--ink" href="#join"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Ask about pre-approval<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Ask about pre-approval<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to join: a real sequence, so numbered -->
+  <section class="section" id="join" aria-labelledby="join-title">
+    <div class="wrap">
+      <header class="shead">
+        <div class="shead__grid">
+          <h2 class="h2" id="join-title" data-rise>From assessment to registration, in three steps.</h2>
+        </div>
+      </header>
+      <div class="join__grid">
+        <ol class="steps">
+          <li data-settle><span class="steps__n" aria-hidden="true">1</span><p class="steps__t">Request an assessment</p><p class="steps__d">Email the club or call the front desk. The assessment is with the Head Pro, Josh Borenstein. For Pro National, ask for pre-approval.</p></li>
+          <li data-settle><span class="steps__n" aria-hidden="true">2</span><p class="steps__t">Receive your code</p><p class="steps__d">You receive an assessment code or, for Pro National, pre-approval from the Head Pro.</p></li>
+          <li data-settle><span class="steps__n" aria-hidden="true">3</span><p class="steps__t">Register online</p><p class="steps__d">Register in our online system and enter your code. The full process is on the Register Now page.</p></li>
+        </ol>
+        <aside class="contact-card" aria-label="Who to contact" data-settle>
+          <div class="contact-card__row">
+            <span class="fact__k">The club, assessments and pre-approval</span>
+            <a href="mailto:info@thornhillparktennisclub.ca?subject=High%20Performance%20assessment">info@thornhillparktennisclub.ca</a>
+          </div>
+          <div class="contact-card__row">
+            <span class="fact__k">Front desk, assessment codes</span>
+            <a href="tel:+19057315551">905-731-5551</a>
+          </div>
+          <div class="contact-card__row">
+            <span class="fact__k">Head Pro, Josh Borenstein</span>
+            <p class="confirm-inline small"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">The Head Pro's direct contact</span></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Camps door and the coach line (bios live on Our Coaches) -->
+  <section class="section" style="padding-top:0" aria-label="Camps and coaches">
+    <div class="wrap pair">
+      <a class="cdoor" href="#" data-settle>
+        <svg class="icon icon--sun" aria-hidden="true" focusable="false"><use href="#i-sun"></use></svg>
+        <span class="cdoor__t">High Performance camps</span>
+        <span class="cdoor__d">In summer, Little Champs, Transition Tour and Pro National camps. Over school breaks, Rookie Pro National and 4+UTR Pro National.</span>
+        <span class="link"><span class="link__text">See the camps</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span>
+      </a>
+      <div class="notice" data-settle>
+        <svg class="icon icon--coach" aria-hidden="true" focusable="false"><use href="#i-coach"></use></svg>
+        <p class="notice__t">Led by Head Pro Josh Borenstein</p>
+        <p class="notice__d">Every coach and every biography lives on one page.</p>
+        <a class="link" href="#"><span class="link__text">Meet the coaches</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band" aria-labelledby="cta-title">
+    <div class="wrap cta-band__grid">
+      <h2 class="cta-band__line" id="cta-title" data-rise-lines>
+        <span class="line"><span class="line__in">Every step begins</span></span>
+        <span class="line"><span class="line__in">with the Head Pro.</span></span>
+      </h2>
+      <div class="cta-band__act" data-settle>
+        <a class="btn btn--ink" href="#join"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a>
+        <a class="link" href="#"><span class="link__text">Already approved? Register with your code</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" aria-labelledby="footer-title">
+  <div class="wrap">
+    <div class="footer__letterhead">
+      <a class="logo" href="index.html" aria-label="Thornhill Park Tennis Club, home">
+        <img class="logo__img logo__img--lockup logo__img--light" src="../../assets/brand/tptc-lockup.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--lockup logo__img--dark" src="../../assets/brand/tptc-lockup-on-dark.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--light" src="../../assets/brand/tptc-mark.svg" width="147" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--dark" src="../../assets/brand/tptc-mark-on-dark.svg" width="147" height="38" alt="" decoding="async">
+      </a>
+      <p class="footer__motto" id="footer-title">Tennis for every level. A community since 1951.</p>
+    </div>
+    <div class="footer__grid">
+      <div class="footer__col footer__visit">
+        <h2>Visit</h2>
+        <address>Corner of Yonge St and Centre St<br>Thornhill (Vaughan), Ontario L4J 8C5</address>
+        <p class="confirm-inline small"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Street number to publish</span></p>
+        <div class="footer__contact">
+          <a class="f-link" href="tel:+19057315551"><svg class="icon icon--phone icon--16" aria-hidden="true" focusable="false"><use href="#i-phone"></use></svg>905-731-5551 <span class="small">Front desk</span></a>
+          <a class="f-link" href="mailto:info@thornhillparktennisclub.ca"><svg class="icon icon--mail icon--16" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg>info@thornhillparktennisclub.ca</a>
+        </div>
+      </div>
+      <div class="footer__col footer__col--p">
+        <h2>Programs</h2>
+        <ul><li><a href="#">Junior Recreational</a></li><li><a href="#">Adult Programs</a></li><li><a href="high-performance.html">High Performance</a></li><li><a href="#">Private Lessons</a></li><li><a href="#">Camps</a></li></ul>
+      </div>
+      <div class="footer__col footer__col--c">
+        <h2>The club</h2>
+        <ul><li><a href="#">Membership</a></li><li><a href="#">Court Bookings</a></li><li><a href="#">Leagues &amp; Events</a></li><li><a href="#">FAQ</a></li><li><a href="#">Contact</a></li><li><a href="#">Register Now</a></li></ul>
+      </div>
+      <div class="footer__col footer__col--a">
+        <h2>About</h2>
+        <ul><li><a href="#">Our Club</a></li><li><a href="#">Our Coaches</a></li><li><a href="#">Facilities</a></li><li><a href="#">Club History</a></li><li><a href="system.html">Style Guide</a></li></ul>
+      </div>
+    </div>
+    <div class="footer__base">
+      <p>&copy; <span data-year>2026</span> Thornhill Park Tennis Club. Founded 1951.</p>
+      <ul>
+        <li><a href="#">Club policies</a></li>
+        <li><a href="https://www.instagram.com/thornhillparktc/" target="_blank" rel="noopener">Instagram<svg class="icon icon--ext" aria-hidden="true" focusable="false"><use href="#i-ext"></use></svg><span class="vh"> (opens in a new tab)</span></a></li>
+        <li><a href="https://www.facebook.com/Thornhill-Park-Tennis-Club-177871465583550" target="_blank" rel="noopener">Facebook<svg class="icon icon--ext" aria-hidden="true" focusable="false"><use href="#i-ext"></use></svg><span class="vh"> (opens in a new tab)</span></a></li>
+        <li><a href="https://www.tiktok.com/@thornhillparktc" target="_blank" rel="noopener">TikTok<svg class="icon icon--ext" aria-hidden="true" focusable="false"><use href="#i-ext"></use></svg><span class="vh"> (opens in a new tab)</span></a></li>
+      </ul>
+      <p>A Clubhouse, one of three directions. Demo.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

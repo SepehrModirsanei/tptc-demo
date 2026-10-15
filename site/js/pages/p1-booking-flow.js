@@ -308,7 +308,7 @@
   var NEXT = [['#who', 'Start: who is booking'], ['#day', 'Next: pick a day'], ['#players', 'Next: singles or doubles'], ['#time', 'Next: an hour and a court'], ['#confirm-booking', 'Last: confirm the booking']];
   function renderCard() {
     var p = points();
-    var sc = S.who ? SCORES[p] : ['The toss', 'Who is booking decides who serves.'];
+    var sc = S.who ? SCORES[p] : ['Start', 'Start with who is booking.'];
     $('[data-bk-score]').textContent = sc[0];
     $('[data-bk-score-k]').textContent = sc[1];
     $$('.bk-pips li').forEach(function (li, i) { li.classList.toggle('is-won', i < p); });

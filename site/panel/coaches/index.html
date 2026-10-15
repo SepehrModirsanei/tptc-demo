@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en-CA" data-panel-page="coaches" data-panel-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coaches | TPTC staff panel (demo)</title>
+<meta name="description" content="Demo staff panel for Thornhill Park Tennis Club: the coaching team as the Our Coaches page shows it. Edits stay in this browser; nothing is saved to a server.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../assets/brand/favicon.svg" type="image/svg+xml">
+<script src="../js/boot.js"></script>
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/site.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../css/panel.css">
+<link rel="stylesheet" href="../css/coaches.css">
+</head>
+<body class="pn pn--coaches" data-shell="coaches">
+<a class="skip" href="#main">Skip to main content</a>
+<div class="pn-app">
+  <aside class="pn-side" data-shell-side></aside>
+  <div class="pn-body">
+    <div data-shell-top></div>
+    <main id="main" class="pn-main" tabindex="-1">
+      <header class="pn-head">
+        <div class="pn-head__words">
+          <p class="pn-kicker">Coaches <span class="pn-sample">Demo: saved in this browser</span></p>
+          <h1 class="pn-title">The coaching team, <em>as Our Coaches shows it</em></h1>
+          <p class="pn-lede">Each coach here is an entry on the public Our Coaches page: role, certification, the year they began coaching here, a short bio, the programs they lead and a portrait. The club&rsquo;s site names only the Head Pro; add a coach when the club confirms one.</p>
+        </div>
+        <div class="pn-head__actions">
+          <a class="pn-btn pn-btn--quiet" href="../../about/coaches/index.html" data-co-public>Open Our Coaches</a>
+          <button class="pn-btn pn-btn--ink" type="button" data-co-add>Add a coach</button>
+        </div>
+      </header>
+
+      <div class="co-demo" role="note">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"/></svg>
+        <p><strong>Demo: edits are kept in this browser only (local storage), not on a server.</strong>
+          Open Our Coaches in this same browser to see them on the public page. Other visitors still see the published page. Reset demo, in the menu, clears them.</p>
+      </div>
+      <p class="pn-note co-rolenote" data-co-rolenote hidden></p>
+
+      <section class="pn-section" aria-labelledby="co-glance">
+        <h2 class="sr-only" id="co-glance">At a glance</h2>
+        <div class="pn-kpis" data-co-kpis></div>
+      </section>
+
+      <section class="pn-section" aria-labelledby="co-list-h">
+        <div class="pn-section__head">
+          <h2 class="pn-h2" id="co-list-h">On the public page</h2>
+          <p class="pn-muted" data-co-count aria-live="polite"></p>
+        </div>
+        <div class="co-list" data-co-list></div>
+      </section>
+
+      <section class="pn-section co-format" aria-labelledby="co-format-h">
+        <div class="pn-section__head">
+          <h2 class="pn-h2" id="co-format-h">The entry format</h2>
+          <p class="pn-muted">What every named coach gets on the page, the same as the Head Pro.</p>
+        </div>
+        <div class="co-format__grid" data-co-format></div>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="../js/facts.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/data.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/coaches.js"></script>
+</body>
+</html>

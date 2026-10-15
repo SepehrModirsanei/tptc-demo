@@ -653,5 +653,106 @@ window.TPTC_CONTENT = {
    "fact": null,
    "gap": "Next camp (Winter Break 2026/2027) dates and registration are not published. Last year: Dec 22, 2025 to Jan 2, 2026, registration opened Dec 8."
   }
- ]
+ ],
+ "coaches": {
+  "page": "about/coaches/",
+  "storage_key": "tptc-coaches-v1",
+  "programs": [
+   {
+    "id": "junior",
+    "label": "Junior Recreational",
+    "route": "programs/junior/",
+    "tag": "junior"
+   },
+   {
+    "id": "adult",
+    "label": "Adult Programs",
+    "route": "programs/adult/",
+    "tag": "adult"
+   },
+   {
+    "id": "high-performance",
+    "label": "High Performance",
+    "route": "programs/high-performance/",
+    "tag": "hp"
+   },
+   {
+    "id": "private-lessons",
+    "label": "Private Lessons",
+    "route": "programs/private-lessons/",
+    "tag": "private"
+   },
+   {
+    "id": "camps-summer",
+    "label": "Summer Camps",
+    "route": "programs/camps/summer/",
+    "tag": "camps"
+   },
+   {
+    "id": "camps-march-break",
+    "label": "March Break Camp",
+    "route": "programs/camps/march-break/",
+    "tag": "camps"
+   },
+   {
+    "id": "camps-holiday",
+    "label": "Holiday Camps",
+    "route": "programs/camps/holiday/",
+    "tag": "camps"
+   },
+   {
+    "id": "leagues-events",
+    "label": "Leagues & Events",
+    "route": "leagues-events/",
+    "tag": "leagues"
+   }
+  ],
+  "published": [
+   {
+    "id": "josh-borenstein",
+    "name": "Josh Borenstein",
+    "role": "Head Pro",
+    "role_gap": "Title: Head Pro or Club Pro",
+    "role_note": "The site calls him both 'Club Pro' (bio signature) and 'Head Pro' (home page, HP page, news). Club to confirm the title.",
+    "certification": null,
+    "certification_gap": "Coaching certifications to name",
+    "since": null,
+    "since_gap": "The year he began coaching here",
+    "bio": "Josh has taught tennis for over 25 years and has directed the club’s programming for over 20. He has coached provincial and national level players, including three national champions, worked with the U.S. National team and with players on the ATP tour. Through the club he runs the summer camp, which began at one location and now runs at capacity at three.",
+    "bio_note": "The bio says 'Beginning with 1 location 20 years ago'; the site does not say when this text was written, so year counts ('over 25 years', 'over 20 years') may be out of date. Club to confirm.",
+    "programs": [
+     "high-performance",
+     "camps-summer",
+     "private-lessons"
+    ],
+    "portrait": null,
+    "portrait_gap": "No photo. The club to supply a professional portrait.",
+    "featured": true,
+    "source": "/lessons-faq/ (bio), /high-performance-program/ (Head Pro)"
+   }
+  ],
+  "others_gap": "No other coach is named anywhere on the crawled site. The club must supply names, titles, certifications, short bios and photos for the rest of the coaching team.",
+  "format": [
+   [
+    "Role",
+    "Their title at the club"
+   ],
+   [
+    "Certification",
+    "Their coaching certification"
+   ],
+   [
+    "Coaching here since",
+    "The year they began"
+   ],
+   [
+    "Bio",
+    "A short bio, a few lines"
+   ],
+   [
+    "Coaches in",
+    "The programs they lead, linked"
+   ]
+  ]
+ }
 };

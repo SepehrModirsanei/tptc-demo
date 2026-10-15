@@ -87,3 +87,8 @@ html.motion .ends[data-chalk].is-drawn .ends__cord { transform: none; }
   .door--year .numeral--door { transition: transform 900ms var(--ease-out); }
   .door--year:hover .numeral--door { transform: scale(1.04); }
 }
+
+/* B7 (16 Oct 2026): the two club documents are live links now (the PDFs the club publishes today). */
+.docs .doclink .link__text { font-size: 17px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--rule-strong); }
+.docs .doclink:hover .link__text { text-decoration-color: currentColor; }
+.docs .doclink:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }

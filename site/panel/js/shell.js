@@ -2,7 +2,7 @@
 
    Fills the three slots every panel page carries, so a module owns its whole index.html and a
    change to the shell never touches a module:
-     [data-shell-side]  the sidebar: the logo, the six modules, the role, Reset demo
+     [data-shell-side]  the sidebar: the logo, the seven modules, the role, Reset demo
      [data-shell-top]   the demo banner and the top bar: season, demo clock, Sample data, theme
    and adds the toast region. Exposes window.PanelUI (toast, sheet, confirm, can, icon, link,
    esc, chip, confirmSlot). The API is documented in ../PANEL.md.
@@ -39,6 +39,7 @@
   var MODULES = [
     { id: 'bookings', label: 'Bookings', icon: 'court', job: 'The four courts by day and week' },
     { id: 'programs', label: 'Programs', icon: 'coach', job: 'Sessions, seats and waitlists' },
+    { id: 'coaches', label: 'Coaches', icon: 'racquet', job: 'The coaching team, as on the site' },
     { id: 'members', label: 'Members', icon: 'family', job: 'Memberships, renewals, history' },
     { id: 'payments', label: 'Payments', icon: 'receipt', job: 'Payments, refunds and HST' },
     { id: 'content', label: 'Content', icon: 'board', job: 'News, cards and season dates' },
@@ -47,9 +48,9 @@
   var HOME = { frontdesk: 'bookings', headpro: 'programs', admin: 'dashboard' };
   var CAN = {
     frontdesk: ['bookings.view', 'bookings.walkin', 'bookings.hold', 'bookings.cancel', 'programs.view', 'programs.register', 'programs.waitlist',
-      'members.view', 'members.edit', 'members.remind', 'payments.view', 'payments.record', 'content.view', 'dashboard.view'],
+      'members.view', 'members.edit', 'members.remind', 'payments.view', 'payments.record', 'content.view', 'dashboard.view', 'coaches.view'],
     headpro: ['bookings.view', 'bookings.hold', 'bookings.lesson', 'programs.view', 'programs.register', 'programs.waitlist', 'programs.approve', 'programs.edit',
-      'members.view', 'members.notes', 'payments.view', 'content.view', 'dashboard.view'],
+      'members.view', 'members.notes', 'payments.view', 'content.view', 'dashboard.view', 'coaches.view', 'coaches.edit'],
     admin: ['*']
   };
   /* WHO_CAN is derived from CAN, so a disabled action always names every role that may do it */
@@ -81,7 +82,7 @@
         '<nav class="pn-nav" aria-label="Modules"><ul role="list">' +
           MODULES.map(function (m) {
             var cur = m.id === PAGE;
-            return '<li><a class="pn-nav__item' + (cur ? ' is-current' : '') + '" href="' + link(m.id) + '"' + (cur ? ' aria-current="page"' : '') + '>' +
+            return '<li><a class="pn-nav__item' + (cur ? ' is-current' : '') + '" data-module="' + m.id + '" href="' + link(m.id) + '"' + (cur ? ' aria-current="page"' : '') + '>' +
               icon(m.icon) + '<span class="pn-nav__text"><span class="pn-nav__label">' + m.label + '</span><span class="pn-nav__job">' + m.job + '</span></span></a></li>';
           }).join('') +
         '</ul></nav>' +
@@ -247,9 +248,20 @@
     disputed: ['Disputed', 'warn'], needs_response: ['Needs response', 'warn'], under_review: ['Under review', 'confirm'], won: ['Won', ''], lost: ['Lost', 'muted'],
     in_transit: ['In transit', 'confirm'], paid_out: ['Paid out', 'muted'], suspended: ['Booking suspended', 'warn']
   };
+  /* B7: each status has a tone (colour + shape): ok grass, info blue, pending ochre, alert clay,
+     off stone. 'live' and Club to confirm (draft) keep the site's own chips. */
+  var TONE = {
+    confirmed: 'ok', active: 'ok', approved: 'ok', succeeded: 'ok', published: 'ok', member: 'ok', won: 'ok', paid_out: 'ok',
+    booked: 'info', upcoming: 'info', open: 'info',
+    pending: 'pending', 'in-progress': 'pending', waiting: 'pending', queued: 'pending', under_review: 'pending', in_transit: 'pending', waitlist: 'pending',
+    'late-cancel': 'alert', 'no-show': 'alert', due: 'alert', failed: 'alert', disputed: 'alert', needs_response: 'alert', 'renewal-due': 'alert', suspended: 'alert',
+    completed: 'off', cancelled: 'off', ended: 'off', refunded: 'off', finished: 'off', partially_refunded: 'off', contact: 'off', sent: 'off',
+    withdrawn: 'off', closed: 'off', excused: 'off', lost: 'off'
+  };
   function chip(status, label) {
     var s = STATUS[status] || [status, ''];
     var k = s[1] === 'live' ? ' chip--live' : s[1] === 'muted' ? ' chip--muted' : s[1] === 'confirm' ? ' chip--confirm' : s[1] === 'warn' ? ' pn-chip--warn' : '';
+    if (TONE[status]) k = (s[1] === 'warn' ? ' pn-chip--warn' : '') + ' pn-chip--t-' + TONE[status];
     return '<span class="chip pn-chip' + k + '">' + (s[1] === 'live' ? '<span class="live-dot" aria-hidden="true"></span>' : '') + esc(label || s[0]) + '</span>';
   }
   function confirmSlot(what) { return '<span class="confirm"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">' + esc(what) + '</span></span>'; }

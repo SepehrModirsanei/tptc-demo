@@ -1,0 +1,67 @@
+/* Coaches module (B7). Tokens only; shared components and the palette live in panel.css.
+   Story: each coach is a line on the order of play: the portrait in the site's 4:5 frame (a
+   court, baseline to baseline, until the photo exists), the name, then the programs they run,
+   each in its program colour. */
+
+/* The demo notice: the one thing staff must not miss, set on the blue tint with a blue edge */
+.co-demo { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; margin: -4px 0 8px;
+  background: var(--pn-c-blue-tint); color: var(--fg); border-left: 4px solid var(--pn-c-blue); border-radius: var(--radius); max-width: 62rem; }
+.co-demo .icon { width: 20px; height: 20px; flex: none; margin-top: 2px; color: var(--pn-c-blue-ink); }
+.co-demo p { margin: 0; font-size: 14.5px; line-height: 1.5; }
+.co-rolenote { margin-top: 12px; }
+
+/* Portrait thumbnails: 4:5, a court drawn in the frame until there is a photo */
+.co-pic { display: block; width: 48px; height: 60px; flex: none; object-fit: cover; border-radius: var(--radius); background: var(--pn-c-blue-tint); }
+.co-pic--none { display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--rule); }
+.co-pic--none svg { width: 40%; height: 76%; fill: none; stroke: var(--pn-c-blue); stroke-width: 0.6; }
+.co-pic--none svg path { stroke: var(--red); stroke-width: 0.7; }
+.co-pic--lg { width: 96px; height: 120px; }
+
+/* The list: one ruled row per coach */
+.co-rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.co-row { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px 18px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: start; }
+.co-row__who { display: grid; gap: 4px; align-content: start; min-width: 0; }
+.co-row__role { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.co-row__role .confirm { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.co-row__name { margin: 0; font: 400 24px/1.15 var(--font-serif); overflow-wrap: anywhere; }
+.co-row__status { margin: 4px 0 0; }
+.co-row__dl { grid-column: 1 / -1; }
+.co-row__dl dd { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.co-row__acts { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+.co-hash { font: 500 12.5px/1 ui-monospace, "SFMono-Regular", Menlo, monospace; color: inherit; }
+.co-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+@media (min-width: 900px) {
+  .co-row { grid-template-columns: 48px minmax(12rem, 1fr) minmax(0, 1.6fr) auto; }
+  .co-row__dl { grid-column: 3; }
+  .co-row__acts { grid-column: 4; flex-direction: column; align-items: stretch; }
+}
+
+/* The entry format, beside the club's open question */
+.co-format__grid { display: grid; gap: 20px; }
+@media (min-width: 900px) { .co-format__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; } }
+.co-entry { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 18px; padding: 18px; border: 1px solid var(--rule); border-radius: var(--radius); }
+.co-entry__body { display: grid; gap: 6px; min-width: 0; }
+.co-entry__name { margin: 0 0 6px; font: italic 300 22px/1.2 var(--font-serif); color: var(--fg-muted); }
+@media (max-width: 599.98px) { .co-entry { grid-template-columns: 1fr; } .co-entry .co-pic--lg { width: 72px; height: 90px; } }
+.co-ask { display: grid; gap: 12px; justify-items: start; padding: 18px; background: var(--bg-alt); border-radius: var(--radius); }
+.co-ask p { margin: 0; font-size: 14px; }
+
+/* The sheet */
+.co-form__demo { display: flex; gap: 8px; align-items: flex-start; margin: 0; padding: 10px 12px; font-size: 13.5px; line-height: 1.45;
+  background: var(--pn-c-blue-tint); color: var(--fg); border-left: 3px solid var(--pn-c-blue); border-radius: var(--radius); }
+.co-form__demo .icon { flex: none; margin-top: 2px; color: var(--pn-c-blue-ink); }
+.co-form fieldset { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: 8px; }
+.co-progs__grid { display: grid; gap: 2px 16px; }
+@media (min-width: 600px) { .co-progs__grid { grid-template-columns: 1fr 1fr; } }
+.co-prog { min-height: 44px; }
+.co-photo__row { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; align-items: start; }
+.co-photo__frame { width: 120px; aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; background: var(--pn-c-blue-tint); box-shadow: inset 0 0 0 1px var(--rule); display: grid; place-items: center; }
+.co-photo__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.co-photo__none { padding: 10px; font-size: 12px; line-height: 1.35; color: var(--fg-muted); text-align: center; }
+.co-photo__ctl { display: grid; gap: 8px; justify-items: start; }
+.co-photo__file { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; clip: rect(0 0 0 0); }
+.co-photo__pick { cursor: pointer; min-height: 44px; }
+.co-photo__file:focus-visible + .pn-btn, .co-photo__ctl:has(.co-photo__file:focus-visible) .co-photo__pick { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (max-width: 479.98px) { .co-photo__row { grid-template-columns: 1fr; } }
+.co-foot__left { margin-right: auto; }
+@media (pointer: coarse) { .co-row__acts .pn-btn { min-height: 44px; } }

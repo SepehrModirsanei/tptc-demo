@@ -282,3 +282,36 @@
   .pn--bookings .pn-kpi:nth-child(even) { padding-left: 14px; border-left: 1px solid var(--rule); }
   .pn--bookings .pn-kpi__value { font-size: 1.875rem; }
 }
+
+/* B7: the booking kinds in colour (panel palette, panel.css), the patterns kept as the second cue.
+   Members hard-court blue, non-members teal, lessons violet (the private lessons colour), holds
+   ochre hatch, leagues and round robins clay (the leagues colour), public hours grass. */
+.bk-slot--member { background: var(--pn-c-blue-tint); box-shadow: inset 4px 0 0 var(--pn-c-blue), inset 0 0 0 1px var(--rule); }
+.bk-slot--non-member { background: var(--pn-c-teal-tint); box-shadow: inset 4px 0 0 var(--pn-c-teal-tint), inset 5px 0 0 var(--pn-c-teal), inset 7px 0 0 var(--pn-c-teal-tint), inset 8px 0 0 var(--pn-c-teal), inset 0 0 0 1px var(--rule); }
+.bk-slot--lesson { background: var(--pn-c-violet-tint); color: var(--fg); box-shadow: inset 4px 0 0 var(--pn-c-violet), inset 0 0 0 1px var(--rule); }
+.bk-slot--lesson .bk-slot__type, .bk-slot--lesson .bk-slot__meta { color: var(--pn-c-violet-ink); }
+.bk-slot--lesson .bk-slot__state, .bk-slot--lesson .bk-slot__due, .bk-slot--lesson.is-played .bk-slot__who { color: var(--fg); }
+.bk-slot--lesson:focus-visible { outline-color: var(--focus); outline-offset: -3px; box-shadow: inset 4px 0 0 var(--pn-c-violet); }
+.bk-slot--hold { background: repeating-linear-gradient(135deg, color-mix(in oklab, var(--pn-c-ochre) 45%, transparent) 0 1px, transparent 1px 7px), var(--pn-c-ochre-tint); box-shadow: inset 4px 0 0 var(--pn-c-ochre), inset 0 0 0 1px var(--rule); }
+.bk-slot--hold .bk-slot__who { background: var(--pn-c-ochre-tint); }
+.bk-slot--league { background: var(--pn-c-clay-tint); box-shadow: inset 4px 0 0 var(--pn-c-clay), inset 0 0 0 1px var(--rule); }
+.bk-slot--public { background: var(--pn-c-grass-tint); box-shadow: inset 4px 0 0 var(--pn-c-grass), inset 0 0 0 1px var(--rule); }
+.bk-slot--site { box-shadow: inset 0 0 0 2px var(--pn-c-blue); }
+
+.bk-key--member { background: var(--pn-c-blue-tint); border-left: 4px solid var(--pn-c-blue); }
+.bk-key--non-member { background: var(--pn-c-teal-tint); border-left: 4px double var(--pn-c-teal); }
+.bk-key--lesson { background: var(--pn-c-violet-tint); border-color: var(--rule-strong); border-left: 4px solid var(--pn-c-violet); }
+.bk-key--hold { background: repeating-linear-gradient(135deg, var(--pn-c-ochre) 0 1px, transparent 1px 4px), var(--pn-c-ochre-tint); border-left: 4px solid var(--pn-c-ochre); }
+.bk-key--league { background: var(--pn-c-clay-tint); border-style: dotted; border-left: 4px solid var(--pn-c-clay); }
+.bk-key--site { outline-color: var(--pn-c-blue); }
+
+.bk-tick--member { background: var(--pn-c-blue); border-color: var(--pn-c-blue); }
+.bk-tick--non-member { background: var(--pn-c-teal); border-color: var(--pn-c-teal); }
+.bk-tick--lesson { background: var(--pn-c-violet); border-color: var(--pn-c-violet); box-shadow: inset 0 -4px 0 var(--bg); }
+.bk-tick--hold { background: repeating-linear-gradient(135deg, var(--pn-c-ochre) 0 1px, transparent 1px 3px); border-color: var(--pn-c-ochre); }
+.bk-tick--league { background: var(--pn-c-clay-tint); border-style: dotted; border-color: var(--pn-c-clay); }
+.bk-tick--public { background: var(--pn-c-grass-tint); border-style: dotted; border-color: var(--pn-c-grass); }
+.is-m { background: var(--pn-c-blue); }
+.is-nm { background: var(--pn-c-teal); }
+.is-wait { background: repeating-linear-gradient(90deg, var(--pn-c-ochre) 0 3px, transparent 3px 6px); }
+.bk-day tr.bk-band--prime .bk-day__time, .bk-day tr.bk-band--weekend .bk-day__time { box-shadow: inset 3px 0 0 var(--pn-c-blue); }

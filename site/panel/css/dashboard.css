@@ -254,3 +254,29 @@
 
 /* Review: a month with no payment records shows a short muted rule on the baseline, not a gap in the axis */
 .db-col__none { stroke: var(--rule-strong); stroke-width: 2; }
+
+/* B7: colour by what the chart is about, from the panel palette (panel.css).
+   Courts are hard-court blue, camps ochre, renewals teal (members), revenue by month grass, and
+   programs and revenue lines take their program colour. One hue per chart stays the rule; the heat
+   ramp is that hue mixed into the ground at the same four steps as before. */
+.db-sec { --db-hue: var(--pn-c-blue);
+  --db-mark: var(--db-hue);
+  --db-mark-soft: color-mix(in oklab, var(--db-hue) 48%, var(--bg));
+  --db-wash: color-mix(in oklab, var(--db-hue) 14%, var(--bg));
+  --db-h1: color-mix(in oklab, var(--db-hue) 26%, var(--bg));
+  --db-h2: color-mix(in oklab, var(--db-hue) 48%, var(--bg));
+  --db-h3: color-mix(in oklab, var(--db-hue) 72%, var(--bg));
+  --db-h4: color-mix(in oklab, var(--db-hue) 100%, var(--bg)); }
+#courts.db-sec { --db-hue: var(--pn-c-blue); }
+#camps.db-sec { --db-hue: var(--pn-c-ochre); }
+#renewals.db-sec { --db-hue: var(--pn-c-teal); }
+#revenue.db-sec { --db-hue: var(--pn-c-grass); }
+.db-prow[data-tab="junior"] .db-hbar__fill { background: var(--pn-prog-junior); }
+.db-prow[data-tab="adult"] .db-hbar__fill { background: var(--pn-prog-adult); }
+.db-prow[data-tab="hp"] .db-hbar__fill { background: var(--pn-prog-hp); }
+.db-prow[data-tab="camps"] .db-hbar__fill { background: var(--pn-prog-camps); }
+.db-prow[data-tab="leagues"] .db-hbar__fill { background: var(--pn-prog-leagues); }
+.db-rev__bars .db-hbar[data-key="membership"] .db-hbar__fill { background: var(--pn-c-teal); }
+.db-rev__bars .db-hbar[data-key="court"] .db-hbar__fill { background: var(--pn-c-blue); }
+.db-rev__bars .db-hbar[data-key="lesson"] .db-hbar__fill { background: var(--pn-prog-private); }
+.db-rev__bars .db-hbar[data-key="camp"] .db-hbar__fill { background: var(--pn-prog-camps); }

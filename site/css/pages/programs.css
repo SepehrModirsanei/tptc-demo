@@ -97,3 +97,20 @@
 @media (min-width: 1280px) and (min-height: 800px) {
   .draw { --row: clamp(54px, 7.4svh, 68px); }
 }
+
+/* ---------- B7 (16 Oct 2026): the three audience labels read as headings, not captions ----------
+   Owner: FOR CHILDREN / FOR ADULTS / FOR ANY AGE clearly bigger. 12px capitals become 18 to 22px
+   capitals in full ink, in the doors and on the draw sheet alike. */
+.prog-group .label { font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem); letter-spacing: 0.1em; color: var(--fg); }
+@media (min-width: 1000px) {
+  .draw__who { font-size: clamp(1rem, 0.9rem + 0.3vw, 1.125rem); letter-spacing: 0.1em; }
+}
+@media (min-width: 1000px) and (max-width: 1279px) {
+  .draw__who { font-size: 0.9375rem; letter-spacing: 0.06em; }
+}
+/* the larger names stay on one line: the bracket column widens to hold them */
+@media (min-width: 1000px) {
+  .draw__who { white-space: nowrap; }
+  .draw__sec { grid-template-columns: minmax(0, 1fr) 9.75rem; }
+}
+@media (min-width: 1280px) { .draw__sec { grid-template-columns: minmax(0, 1fr) 11.75rem; } }

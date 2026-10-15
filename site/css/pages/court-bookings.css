@@ -175,3 +175,63 @@
   .cb-hero .status-line > span:not(.chip) { display: none; }
   .cb-hero .hero__grid { padding-bottom: 20px; }
 }
+
+/* ---------- B7 (16 Oct 2026) ----------
+   Hero: the owner cut the title and its line, so the two booking actions are the hero, set large.
+   "Book a court" is the demo flow (ink); "Book courts online" is the club's live JustBookIt sign-in. */
+.cb-hero__actions { gap: 14px 16px; margin-top: var(--sp-5); }
+.cb-hero__actions .btn { min-height: 60px; padding-inline: 30px; font-size: 1.0625rem; }
+.cb-hero__how { margin-top: var(--sp-3); color: var(--fg-muted); max-width: 44ch; }
+.cb-hero__how a { color: var(--fg); text-underline-offset: 3px; }
+.cb-pdf, .cb-docs .doclink__meta { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); color: var(--fg-muted); }
+.cb-hero__join { margin-top: var(--sp-2); }
+@media (max-width: 599px) { .cb-hero__actions .btn { flex: 1 1 100%; justify-content: center; } }
+.cb-docs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px; margin-top: var(--sp-3); }
+.cb-docs .doclink .link__text { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--rule-strong); }
+.cb-docs .doclink:hover .link__text { text-decoration-color: currentColor; }
+
+/* Why book as a member: four duels. Each term is one row; the member answer sits in a Blazer
+   column, the non-member answer beside it on paper, so the gap reads before a word is read.
+   A big figure carries each answer; one short line says what it means. The booking window is
+   drawn as seven day squares: all seven filled for members, one for non-members. */
+.cbx { margin-top: var(--sp-6); display: grid; }
+.cbx__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 0; }
+.cbx__q { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; padding: var(--sp-5) 0 12px; font: 600 var(--step-5)/1.3 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg); border-top: 1px solid var(--rule); }
+.cbx__q .icon { width: 22px; height: 22px; flex: none; }
+.cbx__row--head .cbx__q { display: none; }
+.cbx__who { padding: 14px 18px; font: 300 var(--step-2)/1.1 var(--font-serif); }
+.cbx__who--m { background: var(--blazer); color: #EDF1F6; }
+.cbx__a { display: grid; gap: 8px; align-content: start; padding: 18px; min-width: 0; }
+.cbx__a--m { background: var(--blazer); color: #EDF1F6; }
+.cbx__a--m .cbx__why { color: var(--mist); }
+.cbx__big { font: 300 clamp(2.75rem, 2rem + 3vw, 4.5rem)/0.95 var(--font-serif); font-variant-numeric: lining-nums; letter-spacing: -0.01em; }
+.cbx__big small { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; margin-left: 8px; vertical-align: 0.35em; }
+.cbx__big--word { font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.75rem); line-height: 1.05; }
+.cbx__a:not(.cbx__a--m) .cbx__big { color: var(--fg-muted); }
+.cbx__why { font-size: var(--step-5); line-height: 1.45; color: var(--fg-muted); max-width: 26ch; }
+.cbx__days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; max-width: 13rem; }
+.cbx__days i { display: block; aspect-ratio: 1; background: currentColor; }
+.cbx__days--one i { background: none; box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.cbx__days--one i:first-child { background: var(--fg-muted); box-shadow: none; }
+.cbx__a .confirm { margin-top: 2px; }
+.cbx__row:last-child .cbx__a { padding-bottom: 26px; }
+.cbx__both { display: flex; gap: 12px; align-items: flex-start; margin-top: var(--sp-5); font-size: var(--step-4); line-height: 1.5; color: var(--fg-muted); max-width: 60ch; }
+.cbx__both .icon { flex: none; margin-top: 2px; }
+.cbx__act { margin-top: var(--sp-5); }
+@media (min-width: 800px) {
+  .cbx__row { grid-template-columns: 15rem minmax(0, 1fr) minmax(0, 1fr); }
+  .cbx__q { grid-column: auto; padding: 26px 24px 26px 0; align-items: flex-start; }
+  .cbx__row--head .cbx__q { display: block; border-top: 0; }
+  .cbx__a { padding: 26px 28px; border-top: 1px solid var(--rule); }
+  .cbx__a--m { border-top-color: rgba(237, 241, 246, 0.16); }
+  .cbx__who { padding: 18px 28px; }
+}
+/* B7, phones: the new hero lines join the order: crumbs, the two buttons, the JustBookIt line,
+   the booking window, then the membership link and the season line. */
+@media (max-width: 999px) {
+  .cb-hero .cb-hero__actions .btn { order: 4; margin-top: 12px; }
+  .cb-hero .cb-hero__actions .btn:first-child { margin-top: 18px; }
+  .cb-hero .cb-hero__how { order: 4; margin-top: 12px; }
+  .cb-hero .cb-window { order: 5; }
+  .cb-hero .cb-hero__join { order: 6; justify-self: start; margin-top: 10px; }
+}

@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en-CA" class="ph-tags"><!-- ph-tags: shows the "Placeholder image" tag on interim photos. Remove the class when final photography lands. -->
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thornhill Park Tennis Club</title>
+<meta name="description" content="Tennis for every level, a community since 1951. Year-round tennis, coaching, competition and community in Thornhill.">
+<meta name="theme-color" content="#133126">
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
+<script>
+  /* Motion bootstrap (energy.md 3.2): hidden start states exist only under html.motion. */
+  (function (d) {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      d.classList.add('motion');
+      setTimeout(function () { if (!window.gsap) d.classList.remove('motion'); }, 2500);
+    }
+    /* Turn: the arriving page's masthead stays opaque until the page change has finished, then follows its scroll state */
+    window.addEventListener('pagereveal', function (e) {
+      if (!e.viewTransition) { d.classList.remove('is-turning'); return; }
+      d.classList.add('is-turning');
+      var done = function () { d.classList.remove('is-turning'); };
+      e.viewTransition.finished.then(done, done);
+      /* a skipped turn still lands on a complete page; mark it for QA instead of throwing an unhandled rejection */
+      e.viewTransition.ready.catch(function () { d.setAttribute('data-turn-skipped', ''); });
+      if (e.viewTransition.updateCallbackDone) e.viewTransition.updateCallbackDone.catch(function () {});
+    });
+    /* Chromium occasionally rejects an internal turn promise that no page code can reach; the page itself is fine */
+    window.addEventListener('unhandledrejection', function (e) {
+      var r = e.reason;
+      if (r && r.name === 'AbortError' && /transition was skipped/i.test(r.message || '')) { e.preventDefault(); d.setAttribute('data-turn-skipped', ''); }
+    });
+  })(document.documentElement);
+</script>
+<link rel="expect" href="#main" blocking="render">
+<link rel="preload" href="fonts/archivo-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Turn: kept inline so the page change never depends on the stylesheet arriving first */
+  @view-transition { navigation: auto; }
+  html.is-turning .site-header__bg { opacity: 1; transition: none; }
+</style>
+<link rel="stylesheet" href="../../assets/vendor/lenis.css">
+<link rel="stylesheet" href="css/ledger.css">
+
+</head>
+<body class="page-home">
+<svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true" focusable="false"><symbol id="i-racquet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><g transform="rotate(-45 12 12)"><ellipse cx="12" cy="7.6" rx="3.9" ry="5.6"/><path d="M10.4 2.49V12.71M13.6 2.49V12.71M8.41 5.4H15.59M8.41 9.8H15.59"/><path d="M9.58 11.99L11.2 15.8V22.25H12.8V15.8L14.42 11.99"/></g></g></symbol><symbol id="i-ball" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><circle cx="12" cy="12" r="9"/><path d="M5.64 5.64C9.5 9.2 9.5 14.8 5.64 18.36M18.36 5.64C14.5 9.2 14.5 14.8 18.36 18.36"/></g></symbol><symbol id="i-court" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M2.25 7.5H21.75V16.5H2.25Z"/><path d="M2.25 8.62H21.75M2.25 15.38H21.75M6.75 8.62V15.38M17.25 8.62V15.38M6.75 12H17.25M12 6.75V17.25M2.25 12H2.85M21.75 12H21.15"/></g></symbol><symbol id="i-dome" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M2 19.25H22"/><path d="M3.75 19.25C3.75 11.5 7.4 6.25 12 6.25C16.6 6.25 20.25 11.5 20.25 19.25"/><path d="M4.97 12.15C9 10.6 15 10.6 19.03 12.15"/><path d="M10.25 19.25V15.25H13.75V19.25"/></g></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M3.75 5.25H20.25V20.25H3.75Z"/><path d="M3.75 9.75H20.25M8 3V7.5M16 3V7.5"/><path d="M13.5 13.5H16.5V16.5H13.5Z"/></g></symbol><symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><circle cx="12" cy="12" r="9"/><path d="M12 6.5V12L15.75 14.25"/></g></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M7.25 3.75H16.75V8.75C16.75 11.6 14.6 13.75 12 13.75C9.4 13.75 7.25 11.6 7.25 8.75Z"/><path d="M7.25 5.75H4.25V7.25C4.25 9.3 5.6 10.75 7.6 10.9M16.75 5.75H19.75V7.25C19.75 9.3 18.4 10.75 16.4 10.9"/><path d="M12 13.75V17.75M8.25 17.75H15.75V20.25H8.25Z"/></g></symbol><symbol id="i-coach" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><circle cx="9" cy="14.5" r="5.25"/><path d="M9 9.25H20.5V13.25H14.1"/><circle cx="9" cy="14.5" r="1.5"/></g></symbol><symbol id="i-junior" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><circle cx="10" cy="7.5" r="2.5"/><path d="M5.75 20.25V16.25C5.75 13.4 7.6 11.75 10 11.75C12.4 11.75 14.25 13.4 14.25 16.25V20.25"/><circle cx="18.5" cy="17.75" r="2.25"/></g></symbol><symbol id="i-family" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><circle cx="8.5" cy="6.25" r="2.75"/><path d="M3.25 20.25V15C3.25 12.2 5.5 10.5 8.5 10.5C11.5 10.5 13.75 12.2 13.75 15V20.25"/><circle cx="17.75" cy="10.75" r="2"/><path d="M14.5 20.25V17.25C14.5 15.4 15.9 14.25 17.75 14.25C19.6 14.25 21 15.4 21 17.25V20.25"/></g></symbol><symbol id="i-group" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><circle cx="7.25" cy="7" r="2.5"/><path d="M3.25 20.25V15.5C3.25 12.9 5 11.25 7.25 11.25C9.5 11.25 11.25 12.9 11.25 15.5V20.25"/><circle cx="16.75" cy="7" r="2.5"/><path d="M12.75 20.25V15.5C12.75 12.9 14.5 11.25 16.75 11.25C19 11.25 20.75 12.9 20.75 15.5V20.25"/></g></symbol><symbol id="i-location" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M12 21.25C12 21.25 5.25 14.6 5.25 9.75C5.25 6 8.25 3 12 3C15.75 3 18.75 6 18.75 9.75C18.75 14.6 12 21.25 12 21.25Z"/><circle cx="12" cy="9.75" r="2.5"/></g></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M3.5 12H20M14.5 6.5L20 12L14.5 17.5"/></g></symbol><symbol id="i-arrow-down" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M12 3.5V20M6.5 14.5L12 20L17.5 14.5"/></g></symbol><symbol id="i-external" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M6.5 17.5L17 7M8.5 6.75H17.25V15.5"/></g></symbol><symbol id="i-chevron" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M6 9L12 15L18 9"/></g></symbol><symbol id="i-plus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M12 4.5V19.5M4.5 12H19.5"/></g></symbol><symbol id="i-minus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M4.5 12H19.5"/></g></symbol><symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M4.5 12.5L9.5 17.5L19.5 6.5"/></g></symbol><symbol id="i-close" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M5.5 5.5L18.5 18.5M18.5 5.5L5.5 18.5"/></g></symbol><symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M3 5.75H21V18.25H3Z"/><path d="M3 6.25L12 13L21 6.25"/></g></symbol><symbol id="i-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M8.2 3.5L10.6 7.9L8.9 9.6C9.9 11.8 12.2 14.1 14.4 15.1L16.1 13.4L20.5 15.8L19.3 19.4C18.9 20.2 18 20.6 17.1 20.4C10.4 19 5 13.6 3.6 6.9C3.4 6 3.8 5.1 4.6 4.7Z"/></g></symbol><symbol id="i-alert" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><circle cx="12" cy="12" r="9"/><path d="M12 7V13.5M12 15.75V17.5"/></g></symbol><symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><circle cx="12" cy="12" r="9"/><path d="M12 10.5V17M12 6.75V8.5"/></g></symbol><symbol id="i-hourglass" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"><path d="M6.5 3.75H17.5M6.5 20.25H17.5"/><path d="M7.75 3.75C7.75 8.5 12 9.5 12 12C12 14.5 7.75 15.5 7.75 20.25M16.25 3.75C16.25 8.5 12 9.5 12 12C12 14.5 16.25 15.5 16.25 20.25"/></g></symbol></svg>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-header" id="top-header" >
+  <div class="site-header__bg" aria-hidden="true"></div>
+  <div class="wrap wrap--band site-header__row">
+    <a class="brand" href="index.html" aria-label="Thornhill Park Tennis Club, home">
+      <img class="brand__img brand__img--lockup" src="../../assets/brand/tptc-lockup-on-dark.svg" width="249" height="38" alt="">
+      <img class="brand__img brand__img--mark" src="../../assets/brand/tptc-mark-on-dark.svg" width="147" height="38" alt="">
+    </a>
+    <nav class="nav" aria-label="Main">
+      <ul class="nav__list">
+        <li class="nav__item" data-menu>
+          <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="menu-programs">Programs <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-chevron"/></svg></button>
+          <div class="nav__panel" id="menu-programs">
+            <ul>
+              <li><a href="#"><span class="nav__name">Junior Recreational</span><span class="nav__meta">Ages 4-17, Beginner to Advanced</span></a></li>
+              <li><a href="#"><span class="nav__name">Adult Programs</span><span class="nav__meta">Lessons, round robins and leagues</span></a></li>
+              <li><a href="high-performance.html" data-vt-link><span class="nav__name">High Performance</span><span class="nav__meta">Little Champs to Pro National</span></a></li>
+              <li><a href="#"><span class="nav__name">Private Lessons</span><span class="nav__meta">One hour, private or semi-private</span></a></li>
+              <li><a href="#"><span class="nav__name">Camps</span><span class="nav__meta">Summer, March Break and Holiday</span></a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a class="nav__link" href="#">Membership</a></li>
+        <li><a class="nav__link" href="#">Court Bookings</a></li>
+        <li><a class="nav__link" href="#">Leagues &amp; Events</a></li>
+        <li class="nav__item" data-menu>
+          <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="menu-about">About <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-chevron"/></svg></button>
+          <div class="nav__panel" id="menu-about">
+            <ul>
+              <li><a href="#"><span class="nav__name">Our Club</span><span class="nav__meta">Mission, vision and board</span></a></li>
+              <li><a href="#"><span class="nav__name">Our Coaches</span><span class="nav__meta">Led by Head Pro Josh Borenstein</span></a></li>
+              <li><a href="#"><span class="nav__name">Facilities</span><span class="nav__meta">Four courts, indoor and outdoor</span></a></li>
+              <li><a href="#"><span class="nav__name">Club History</span><span class="nav__meta">Founded in 1951</span></a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a class="nav__link" href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn--register btn--sm" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Register now</span><span class="btn__label btn__label--hover" aria-hidden="true">Register now</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="vh">Menu</span><span class="menu-btn__line" aria-hidden="true"></span><span class="menu-btn__line" aria-hidden="true"></span></button>
+    </div>
+  </div>
+</header>
+<div class="mnav ground-night" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" data-lenis-prevent>
+  <div class="mnav__inner">
+    <ul class="mnav__list">
+      <li class="mnav__stagger" style="--i:0">
+        <button class="mnav__toggle" type="button" aria-expanded="false" aria-controls="m-programs">Programs <span class="mnav__plus" aria-hidden="true"></span></button>
+        <div class="mnav__sub" id="m-programs" hidden>
+          <a href="#">Junior Recreational <span class="nav__meta">Ages 4-17, Beginner to Advanced</span></a>
+          <a href="#">Adult Programs <span class="nav__meta">Lessons, round robins and leagues</span></a>
+          <a href="high-performance.html" data-vt-link>High Performance <span class="nav__meta">Little Champs to Pro National</span></a>
+          <a href="#">Private Lessons <span class="nav__meta">One hour, private or semi-private</span></a>
+          <a href="#">Camps <span class="nav__meta">Summer, March Break and Holiday</span></a>
+        </div>
+      </li>
+      <li class="mnav__stagger" style="--i:1"><a class="mnav__item" href="#">Membership</a></li>
+      <li class="mnav__stagger" style="--i:2"><a class="mnav__item" href="#">Court Bookings</a></li>
+      <li class="mnav__stagger" style="--i:3"><a class="mnav__item" href="#">Leagues &amp; Events</a></li>
+      <li class="mnav__stagger" style="--i:4">
+        <button class="mnav__toggle" type="button" aria-expanded="false" aria-controls="m-about">About <span class="mnav__plus" aria-hidden="true"></span></button>
+        <div class="mnav__sub" id="m-about" hidden>
+          <a href="#">Our Club <span class="nav__meta">Mission, vision and board</span></a>
+          <a href="#">Our Coaches <span class="nav__meta">Led by Head Pro Josh Borenstein</span></a>
+          <a href="#">Facilities <span class="nav__meta">Four courts, indoor and outdoor</span></a>
+          <a href="#">Club History <span class="nav__meta">Founded in 1951</span></a>
+        </div>
+      </li>
+      <li class="mnav__stagger" style="--i:5"><a class="mnav__item" href="#">Contact</a></li>
+    </ul>
+    <div class="mnav__util mnav__stagger" style="--i:6">
+      <a class="link" href="#"><span class="link__text">FAQ</span></a>
+      <a class="link" href="tel:+19057315551"><span class="link__text">Call the front desk, 905-731-5551</span></a>
+    </div>
+    <div class="mnav__foot mnav__stagger" style="--i:7">
+      <a class="btn btn--register" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Register now</span><span class="btn__label btn__label--hover" aria-hidden="true">Register now</span></a>
+      <div class="mnav__colophon"><span>Corner of Yonge St and Centre St<br>Thornhill (Vaughan), ON</span><span class="fig">1951</span></div>
+    </div>
+  </div>
+</div>
+
+
+<main id="main">
+
+  <!-- 1. Hero: the thesis. A club that plays all year, because every October the Dome goes up over its courts.
+       Batch 5: full-bleed Dome night. The serve under the steel roof is whole on the left; the season ledger runs the
+       full width of the foot and its Dome arc rises across the photograph; the words stand under the arc. -->
+  <section class="hero hero--dome ground-night" aria-labelledby="hero-title">
+    <div class="frame frame--night  has-img" style="--ar:16/9" data-slot="hp-hero-01" data-hero-frame><div class="frame__inner"><div class="frame__media"><div class="frame__drift"><div class="frame__ground"><svg class="frame__court" viewBox="-10 -9 98 54" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1"><rect x="0" y="0" width="78" height="36" vector-effect="non-scaling-stroke"/><path d="M0 4.5H78M0 31.5H78M18 4.5V31.5M60 4.5V31.5M18 18H60M39 -3V39M0 18H.9M78 18H77.1" vector-effect="non-scaling-stroke"/></g></svg></div><img class="frame__img" src="../../assets/img/hp-hero-01.jpg" alt="A player at the top of his serve at night, arm reaching up under a steel roof." loading="eager" decoding="async" style="object-position:50% 100%" onerror="this.closest('.frame').classList.remove('has-img');this.remove()"></div></div><div class="frame__label" hidden><span class="frame__top"><span class="frame__kicker">Placeholder</span><span class="frame__ratio">16:9</span></span><span class="frame__id">hp-hero-01</span><span class="frame__desc">A sixteen-year-old competitor at the top of his serve under the Dome at night.</span></div><span class="frame__tag" aria-hidden="true"><span class="frame__tag-mark"></span><span class="frame__tag-text">Placeholder<span class="frame__tag-tail"> image</span></span></span></div></div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="hero__content">
+      <p class="label hero__eyebrow" data-hero-in>Thornhill Park Tennis Club</p>
+      <h1 class="hero__title" id="hero-title" data-rise data-hero-title><span>Tennis for every level.</span><span><em>A community since</em> <b class="fig">1951</b>.</span></h1>
+      <p class="hero__lede" data-hero-in>Year-round tennis, coaching, competition and community in Thornhill.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#find-your-program" data-hero-cta><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">View programs <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-down"/></svg></span><span class="btn__label btn__label--hover" aria-hidden="true">View programs <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-down"/></svg></span></a>
+        <a class="btn btn--secondary" href="#" data-hero-cta><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Become a member</span><span class="btn__label btn__label--hover" aria-hidden="true">Become a member</span></a>
+      </div>
+      <dl class="hero__figs" aria-label="The club in four figures">
+        <div><dt class="label">Years</dt><dd class="fig">75</dd></div>
+        <div><dt class="label">Months a year</dt><dd class="fig">12</dd></div>
+        <div><dt class="label">Courts</dt><dd class="fig">4</dd></div>
+        <div><dt class="label">Under the Dome</dt><dd class="fig">19.5<span class="fig__unit">&deg;C</span></dd></div>
+      </dl>
+    </div>
+    <div class="hero__season" data-hero-season>
+      <div class="season season--on-photo" data-season role="group" aria-labelledby="hero-season-cap">
+  <p class="vh" id="hero-season-cap">The club year. Outdoor courts from about May 1 to September 30. Indoor under the Dome from early October to April 25, 2027.</p>
+  <div class="season__sky" aria-hidden="true">
+    <div class="season__dome"><div class="season__inflate" data-dome><svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><path d="M0 100C0 22 16 0 50 0S100 22 100 100" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"/></svg></div></div>
+    
+    <div class="season__today" data-season-today style="--x:41.9%"><span class="season__today-label"><span class="season__today-dot"></span>Today, <span data-season-date>Oct 1</span></span></div>
+  </div>
+  <ol class="season__months" aria-hidden="true"><li><span class="season__m-long">May</span><span class="season__m-short">M</span></li><li><span class="season__m-long">Jun</span><span class="season__m-short">J</span></li><li><span class="season__m-long">Jul</span><span class="season__m-short">J</span></li><li><span class="season__m-long">Aug</span><span class="season__m-short">A</span></li><li><span class="season__m-long">Sep</span><span class="season__m-short">S</span></li><li><span class="season__m-long">Oct</span><span class="season__m-short">O</span></li><li><span class="season__m-long">Nov</span><span class="season__m-short">N</span></li><li><span class="season__m-long">Dec</span><span class="season__m-short">D</span></li><li><span class="season__m-long">Jan</span><span class="season__m-short">J</span></li><li><span class="season__m-long">Feb</span><span class="season__m-short">F</span></li><li><span class="season__m-long">Mar</span><span class="season__m-short">M</span></li><li><span class="season__m-long">Apr</span><span class="season__m-short">A</span></li></ol>
+  <div class="season__legend">
+    <p class="season__seg season__seg--out"><span class="season__name">Outdoor</span> <span class="season__dates">About May 1 to Sep 30</span></p>
+    <p class="season__seg season__seg--in"><span class="season__name">Under the Dome</span> <span class="season__dates">Early Oct to Apr 25, kept at 19.5&nbsp;&deg;C</span></p>
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  <!-- 2. Find your program: scoreboard rows (batch 5). No photographs: a row number, the name, one line, one figure, the way on. -->
+  <section class="sec ground-night board-sec" id="find-your-program" aria-labelledby="fyp-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="rule-tick" aria-hidden="true"></div>
+        <h2 class="title-h2" id="fyp-title" data-rise>What are you looking for?</h2>
+      </div>
+      <ol class="board">
+        <li class="board__row board__row--junior">
+          <span class="board__no fig" aria-hidden="true">1</span>
+          <div class="board__who">
+            <h3 class="board__name"><span class="board__serve" aria-hidden="true"></span>Junior Recreational</h3>
+            <p class="board__desc">Group lessons from age 4 to 17, Beginner to Advanced, for members and non-members.</p>
+          </div>
+          <p class="board__score"><span class="fig">4-17</span><span class="label">Ages</span></p>
+          <a class="link board__cta" href="#"><span class="link__text">See junior lessons</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+        </li>
+        <li class="board__row board__row--hp">
+          <span class="board__plate" aria-hidden="true"></span><span class="board__no fig" aria-hidden="true">2</span>
+          <div class="board__who">
+            <h3 class="board__name"><span class="board__serve" aria-hidden="true"></span>High Performance</h3>
+            <p class="board__desc">Little Champs, Transition Tour and Pro National, for players who compete.</p>
+          </div>
+          <p class="board__score"><span class="fig">3</span><span class="label">Steps, by assessment</span></p>
+          <a class="link board__cta" href="high-performance.html" data-vt-link><span class="link__text">See the pathway</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+        </li>
+        <li class="board__row board__row--adult">
+          <span class="board__no fig" aria-hidden="true">3</span>
+          <div class="board__who">
+            <h3 class="board__name"><span class="board__serve" aria-hidden="true"></span>Adult Programs</h3>
+            <p class="board__desc">Group and private lessons, round robins, house leagues and interclub.</p>
+          </div>
+          <p class="board__score"><span class="fig">5</span><span class="label">Ways to play</span></p>
+          <a class="link board__cta" href="#"><span class="link__text">See adult programs</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+        </li>
+        <li class="board__row board__row--camps">
+          <span class="board__no fig" aria-hidden="true">4</span>
+          <div class="board__who">
+            <h3 class="board__name"><span class="board__serve" aria-hidden="true"></span>Camps</h3>
+            <p class="board__desc">Recreational and High Performance camps: summer by the week, school breaks by the day.</p>
+          </div>
+          <p class="board__score"><span class="fig">3</span><span class="label">Summer, March Break, Holiday</span></p>
+          <a class="link board__cta" href="#"><span class="link__text">See the camps</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+        </li>
+      </ol>
+      <p class="doors__unsure board__unsure"><span class="doors__unsure-q">Not sure which level?</span> New players can have a quick assessment, at no charge. <a class="link" href="mailto:info@thornhillparktennisclub.ca?subject=Assessment%20for%20a%20new%20player"><span class="link__text">Request an assessment</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></p>
+    </div>
+  </section>
+
+  <!-- 3. Recreational and High Performance: the held split -->
+  <section class="split" id="recreational-or-high-performance" aria-labelledby="split-title" data-split>
+    <h2 class="vh" id="split-title">Recreational or High Performance</h2>
+    <div class="split__stage">
+      <div class="split__half split__half--rec ground-paper">
+        <div class="split__inner">
+          <div class="split__text">
+            <h3 class="split__kicker">Recreational tennis</h3>
+            <p class="split__tag" data-rise><span>Learn.</span><span>Play.</span><span>Improve.</span></p>
+            <p class="split__line">For players looking to learn tennis, improve their skills and enjoy the game.</p>
+            <div class="split__links">
+              <a class="link" href="#"><span class="link__text">Junior Recreational</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+              <a class="link" href="#"><span class="link__text">Adult Programs</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+          <div class="frame frame--day frame--compact has-img" style="--ar:4/5" data-slot="home-split-rec-01" data-split-rec><div class="frame__inner"><div class="frame__media"><div class="frame__drift"><div class="frame__ground"><svg class="frame__court" viewBox="-9 -10 54 98" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1"><rect x="0" y="0" width="36" height="78" vector-effect="non-scaling-stroke"/><path d="M4.5 0V78M31.5 0V78M4.5 18H31.5M4.5 60H31.5M18 18V60M-3 39H39M18 0V.9M18 78V77.1" vector-effect="non-scaling-stroke"/></g></svg></div><img class="frame__img" src="../../assets/img/home-split-rec-01.jpg" alt="A girl of about eleven laughing mid-rally in bright morning light." loading="lazy" decoding="async" onerror="this.closest('.frame').classList.remove('has-img');this.remove()"></div></div><div class="frame__label" hidden><span class="frame__top"><span class="frame__kicker">Placeholder</span><span class="frame__ratio">4:5</span></span><span class="frame__id">home-split-rec-01</span><span class="frame__desc">A girl of about eleven laughing mid-rally in bright morning light.</span></div><span class="frame__tag" aria-hidden="true"><span class="frame__tag-mark"></span><span class="frame__tag-text">Placeholder<span class="frame__tag-tail"> image</span></span></span></div></div>
+        </div>
+      </div>
+      <div class="split__half split__half--hp ground-night theme-performance" data-split-hp>
+        <div class="split__ground" aria-hidden="true" data-split-ground></div>
+        <div class="split__inner">
+          <div class="split__text" data-split-hp-text>
+            <h3 class="split__kicker">High Performance</h3>
+            <p class="split__tag"><span>Train.</span><span>Compete.</span><span>Develop.</span></p>
+            <p class="split__line">For dedicated players looking for structured competitive development.</p>
+            <div class="ladder" aria-label="The High Performance pathway">
+              <div class="ladder__rail" aria-hidden="true"><div class="ladder__fill" data-ladder-fill></div></div>
+              <ol class="ladder__steps">
+                <li><span class="fig">1</span><b>Little Champs</b><small>Ages 6-9</small></li>
+                <li><span class="fig">2</span><b>Transition Tour</b><small>By assessment</small></li>
+                <li><span class="fig">3</span><b>Pro National</b><small>By pre-approval</small></li>
+              </ol>
+            </div>
+            <div class="split__links">
+              <a class="link" href="high-performance.html" data-vt-source><span class="link__text">High Performance</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+          <div class="frame frame--night frame--compact" style="--ar:4/5" data-slot="hp-pro-national-01" data-split-hp-frame><div class="frame__inner"><div class="frame__media"><div class="frame__drift"><div class="frame__ground"><svg class="frame__court" viewBox="-9 -10 54 98" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1"><rect x="0" y="0" width="36" height="78" vector-effect="non-scaling-stroke"/><path d="M4.5 0V78M31.5 0V78M4.5 18H31.5M4.5 60H31.5M18 18V60M-3 39H39M18 0V.9M18 78V77.1" vector-effect="non-scaling-stroke"/></g></svg></div></div></div><div class="frame__label"><span class="frame__top"><span class="frame__kicker">Placeholder</span><span class="frame__ratio">4:5</span></span><span class="frame__id">hp-pro-national-01</span><span class="frame__desc">An elite junior, about seventeen, exploding into an open-stance forehand out of the dark.</span></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Why TPTC? -->
+  <section class="sec ground-fabric why" id="why-tptc" aria-labelledby="why-title">
+    <div class="wrap why__grid">
+      <div class="why__since">
+        <h2 class="title-h2" id="why-title" data-rise>Why TPTC?</h2>
+        <div class="why__numeral-wrap">
+          <p class="label">Since</p>
+          <p class="fig why__numeral" data-rise>1951</p>
+          <p class="why__years"><span class="num">75</span> years in 2026</p>
+        </div>
+        <p class="strength__line">Founded in 1951. Today the club plays at the corner of Yonge St and Centre St, Thornhill.</p>
+      </div>
+      <ul class="why__list">
+        <li class="strength"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-dome"/></svg><h3 class="strength__title">Year-round tennis</h3><p class="strength__line">Under the Dome in Fall &amp; Winter, outdoors in Spring &amp; Summer, on four courts.</p></li>
+        <li class="strength"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-family"/></svg><h3 class="strength__title">Programs for all ages and levels</h3><p class="strength__line">Group lessons from age 4, private lessons for juniors and adults, Beginner to Advanced.</p></li>
+        <li class="strength"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-trophy"/></svg><h3 class="strength__title">High Performance development</h3><p class="strength__line">A competitive pathway from Little Champs to the Pro National Academy, for provincial and national level players.</p></li>
+      </ul>
+      <div class="why__community">
+        <figure class="photo">
+          <div class="frame frame--night" style="--ar:7/5">
+            <div class="frame__inner"><div class="frame__media"><div class="frame__drift">
+              <img class="frame__img" style="object-position:50% 78%" src="../../assets/photos/majors-team-celebration-1600.jpg" srcset="../../assets/photos/majors-team-celebration-900.jpg 900w, ../../assets/photos/majors-team-celebration-1600.jpg 1600w, ../../assets/photos/majors-team-celebration-2400.jpg 2400w" sizes="(min-width: 1024px) 38vw, 100vw" loading="lazy" decoding="async" alt="The Majors team celebrating first place in their intercounty division, posed on a floodlit court at night, 2022.">
+            </div></div></div>
+          </div>
+          <figcaption><b>The Majors team celebrating 1st place, 2022.</b> Club photograph, published August 2022.</figcaption>
+        </figure>
+        <div class="why__side">
+          <p class="why__result"><span class="fig">1st</span><span class="label">Majors team, the toughest intercounty division, 2022</span></p>
+          <div class="strength"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-group"/></svg><h3 class="strength__title">A strong tennis community</h3>
+            <div class="strength__line" style="display:grid;gap:16px"><p>Round robins, house leagues, interclub and intercounty teams.</p>
+            <a class="link" href="#"><span class="link__text">Leagues &amp; Events</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. What's happening -->
+  <section class="sec ground-paper" id="whats-happening" aria-labelledby="happen-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="rule-tick" aria-hidden="true"></div>
+        <h2 class="title-h2" id="happen-title" data-rise>What&rsquo;s happening at TPTC?</h2>
+      </div>
+      <div class="happen">
+        <article class="happen__feature" aria-labelledby="h-indoor">
+          <div class="frame frame--day frame--compact has-img" style="--ar:3/2" data-slot="junior-indoor-01" ><div class="frame__inner"><div class="frame__media"><div class="frame__drift"><div class="frame__ground"><svg class="frame__court" viewBox="-10 -9 98 54" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1"><rect x="0" y="0" width="78" height="36" vector-effect="non-scaling-stroke"/><path d="M0 4.5H78M0 31.5H78M18 4.5V31.5M60 4.5V31.5M18 18H60M39 -3V39M0 18H.9M78 18H77.1" vector-effect="non-scaling-stroke"/></g></svg></div><img class="frame__img" src="../../assets/img/junior-indoor-01.jpg" alt="Four- to six-year-olds in a winter lesson under the Dome." loading="lazy" decoding="async" onerror="this.closest('.frame').classList.remove('has-img');this.remove()"></div></div><div class="frame__label" hidden><span class="frame__top"><span class="frame__kicker">Placeholder</span><span class="frame__ratio">3:2</span></span><span class="frame__id">junior-indoor-01</span><span class="frame__desc">Four- to six-year-olds in a winter lesson under the Dome.</span></div><span class="frame__tag" aria-hidden="true"><span class="frame__tag-mark"></span><span class="frame__tag-text">Placeholder<span class="frame__tag-tail"> image</span></span></span></div></div>
+          <div class="happen__body">
+            <h3 class="happen__title" id="h-indoor">Indoor programs</h3>
+            <p class="happen__line">Group lessons move indoors under the Dome for Fall &amp; Winter. Last season&rsquo;s first session ran <span class="num">Oct 2, 2025</span> to <span class="num">Jan 14, 2026</span>. <span class="confirm-inline"><span class="confirm-inline__tag">Club to confirm</span>Fall &amp; Winter 2026/27 dates and registration opening</span></p>
+            <a class="link" href="#"><span class="link__text">Programs</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <div class="happen__rows">
+          <article class="happen__row" data-pulse-host aria-labelledby="h-member">
+            <div class="happen__when"><span class="fig">2026/27</span><span class="label">Indoor season</span></div>
+            <div class="happen__body">
+              <p><span class="chip" data-status data-end="2027-04-25" data-label-end="Ended Apr 25">Early Oct to Apr 25</span></p>
+              <h3 class="happen__title" id="h-member">Indoor membership</h3>
+              <p class="happen__line">The Dome season began in early October (the club gave <span class="num">October 12</span> as likely) and runs to <span class="num">April 25, 2027</span>. Membership registration opened <span class="num">Aug 1</span>, online. <span class="confirm-inline"><span class="confirm-inline__tag">Club to confirm</span>Whether spaces remain, or a waiting list is open</span></p>
+              <a class="link" href="#"><span class="link__text">Membership</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+            </div>
+          </article>
+          <article class="happen__row" aria-labelledby="h-camps">
+            <div class="happen__when"><svg class="icon happen__wait" aria-hidden="true" focusable="false"><use href="#i-hourglass"/></svg><span class="label">Dates to confirm</span></div>
+            <div class="happen__body">
+              <h3 class="happen__title" id="h-camps">Holiday Camps</h3>
+              <p class="happen__line">Holiday Camps 2025/26 ran <span class="num">Dec 22, 2025</span> to <span class="num">Jan 2, 2026</span>. <span class="confirm-inline"><span class="confirm-inline__tag">Club to confirm</span>Holiday Camps 2026/27 dates and registration opening</span></p>
+              <a class="link" href="#"><span class="link__text">Camps</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+            </div>
+          </article>
+          <article class="happen__row" aria-labelledby="h-hp">
+            <div class="happen__when"><span class="fig">Oct 8</span><span class="label">Session ended</span></div>
+            <div class="happen__body">
+              <p><span class="chip" data-status data-start="2026-08-24" data-end="2026-10-08" data-label-end="Session ended Oct 8">Aug 24 to Oct 8</span></p>
+              <h3 class="happen__title" id="h-hp">High Performance, Fall Outdoor</h3>
+              <p class="happen__line">The last session ran <span class="num">Aug 24</span> to <span class="num">Oct 8, 2026</span>.</p>
+              <a class="link" href="high-performance.html" data-vt-source><span class="link__text">High Performance</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Closing -->
+  <section class="band ground-fabric" aria-labelledby="band-title">
+    <div class="wrap band__inner">
+      <h2 class="band__line" id="band-title" data-rise>Four courts, all year. <em>Find your program, or join for the indoor season.</em></h2>
+      <div class="band__actions">
+        <a class="btn btn--register" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label">Register now</span><span class="btn__label btn__label--hover" aria-hidden="true">Register now</span></a>
+        <a class="link" href="#"><span class="link__text">Become a member</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer ground-paper" aria-labelledby="footer-title">
+  <h2 class="vh" id="footer-title">Thornhill Park Tennis Club</h2>
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__id">
+        <a class="brand" href="index.html" aria-label="Thornhill Park Tennis Club, home">
+          <img class="brand__img brand__img--on-light" src="../../assets/brand/tptc-lockup.svg" width="249" height="38" alt="" loading="lazy">
+          <img class="brand__img brand__img--on-dark" src="../../assets/brand/tptc-lockup-on-dark.svg" width="249" height="38" alt="" loading="lazy">
+        </a>
+        <p class="footer__since"><span class="label">Since</span><span class="fig">1951</span></p>
+        <div class="footer__visit">
+          <p>Corner of Yonge St and Centre St<br>Thornhill (Vaughan), ON <span class="num">L4J 8C5</span></p>
+          <p><span class="confirm-inline"><span class="confirm-inline__tag">Club to confirm</span>Street number</span></p>
+          <p class="footer__contact"><a class="inline-link" href="tel:+19057315551">Front desk&nbsp;<span class="num">905-731-5551</span></a><a class="inline-link" href="mailto:info@thornhillparktennisclub.ca">info@thornhillparktennisclub.ca</a></p>
+        </div>
+      </div>
+      <div class="footer__cols">
+        <nav aria-labelledby="f-programs">
+          <h2 id="f-programs">Programs</h2>
+          <ul>
+            <li><a href="#">Junior Recreational</a></li>
+            <li><a href="#">Adult Programs</a></li>
+            <li><a href="high-performance.html" data-vt-link>High Performance</a></li>
+            <li><a href="#">Private Lessons</a></li>
+            <li><a href="#">Camps</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-club">
+          <h2 id="f-club">The club</h2>
+          <ul>
+            <li><a href="#">Membership</a></li>
+            <li><a href="#">Court Bookings</a></li>
+            <li><a href="#">Leagues &amp; Events</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-about">
+          <h2 id="f-about">About</h2>
+          <ul>
+            <li><a href="#">Our Club</a></li>
+            <li><a href="#">Our Coaches</a></li>
+            <li><a href="#">Facilities</a></li>
+            <li><a href="#">Club History</a></li>
+          </ul>
+          <h2 id="f-follow" style="margin-top:28px">Follow</h2>
+          <ul aria-labelledby="f-follow">
+            <li><a href="https://www.instagram.com/thornhillparktc/" target="_blank" rel="noopener">Instagram <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-external"/></svg><span class="vh">(opens in a new tab)</span></a></li>
+            <li><a href="https://www.facebook.com/Thornhill-Park-Tennis-Club-177871465583550" target="_blank" rel="noopener">Facebook <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-external"/></svg><span class="vh">(opens in a new tab)</span></a></li>
+            <li><a href="https://www.tiktok.com/@thornhillparktc" target="_blank" rel="noopener">TikTok <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-external"/></svg><span class="vh">(opens in a new tab)</span></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="footer__base">
+      <p class="footer__copy">&copy; <span data-year>2026</span> Thornhill Park Tennis Club</p>
+      <ul>
+        <li><a href="#">Club policies</a></li>
+        <li><a href="system.html">Style Guide</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<div class="toast" role="status" aria-live="polite"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-info"/></svg><span data-toast-text>This page is in the full site. This direction shows Home, High Performance and the Style Guide.</span></div>
+
+<script src="../../assets/vendor/gsap.min.js"></script>
+<script src="../../assets/vendor/ScrollTrigger.min.js"></script>
+<script src="../../assets/vendor/SplitText.min.js"></script>
+<script src="../../assets/vendor/CustomEase.min.js"></script>
+<script src="../../assets/vendor/lenis.min.js"></script>
+<script src="js/site.js"></script>
+<script src="js/motion.js"></script>
+
+</body>
+</html>

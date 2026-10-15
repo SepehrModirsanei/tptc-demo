@@ -14,3 +14,67 @@
   .strengths { grid-column: 2; grid-row: 1 / span 2; }
 }
 
+
+/* ---------- B7 (16 Oct 2026): the split, names over taglines, a photograph on both sides ----------
+   The program name is the heading (sans capitals, the larger type); the three words are its
+   tagline beneath (Spectral, smaller; italic on the High Performance side). On every width the
+   name runs across the half, then the words sit beside the photograph: Recreational keeps its
+   photograph toward the net on the right, High Performance mirrors it on the left. */
+.split--b7 .split__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 18px clamp(16px, 3vw, 48px); }
+.split--b7 .split__text { display: contents; }
+.split--b7 .split__name { grid-column: 1 / -1; font: 650 clamp(2rem, 0.9rem + 2.6vw, 3.25rem)/1.02 var(--font-sans); letter-spacing: -0.01em; text-transform: uppercase; }
+.split--b7 .split__half--hp .split__name { font-weight: 800; letter-spacing: var(--track-display-sans); }
+.split--b7 .split__tag { font: 300 clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem)/1.2 var(--font-serif); color: var(--fg-muted); }
+.split--b7 .split__tag .w { display: block; }
+.split--b7 .split__half--rec .split__tag, .split--b7 .split__half--rec .split__links { grid-column: 1; }
+.split--b7 .split__half--rec .frame { grid-column: 2; grid-row: 2 / span 2; width: 100%; justify-self: stretch; order: 0; }
+.split--b7 .split__half--hp .split__tag { grid-column: 2; grid-row: 2; }
+.split--b7 .split__half--hp .frame { grid-column: 1; grid-row: 2 / span 3; width: 100%; justify-self: stretch; order: 0; }
+.split--b7 .split__half--hp .pathmini, .split--b7 .split__half--hp .split__links { grid-column: 2; }
+.split--b7 .split__links { align-self: end; }
+/* Phones: the High Performance list and its link need the full width under the photograph */
+@media (max-width: 599px) {
+  .split--b7 .split__half--hp .frame { grid-row: 2; }
+  .split--b7 .split__half--hp .pathmini, .split--b7 .split__half--hp .split__links { grid-column: 1 / -1; }
+  .split--b7 .split__half--hp .split__tag { align-self: end; }
+  .split--b7 .split__half--hp .frame__tag { font-size: 9px; padding: 6px 8px; gap: 6px; letter-spacing: 0.06em; white-space: nowrap; }
+}
+@media (min-width: 900px) {
+  .split--b7 .split__half { align-items: start; }
+}
+
+/* ---------- B7: Why TPTC, the slideshow ----------
+   One frame at a time, the strip snapping slide to slide; the controls sit under it on one line:
+   previous, a dot per slide, next, then pause. Every control is a 44px target. */
+.show { display: grid; gap: var(--sp-3); min-width: 0; }
+.show__track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; }
+.show__track::-webkit-scrollbar { display: none; }
+.show__slide { scroll-snap-align: start; min-width: 0; }
+.show__slide .frame { margin: 0; }
+.show__slide .frame__cap { display: grid; gap: 6px; margin-top: var(--sp-3); max-width: 46ch; }
+.show__slide .frame__cap em { font: italic 300 var(--step-3)/1.4 var(--font-serif); color: var(--fg); }
+.show__slide .frame__cap span { font-size: var(--step-5); color: var(--fg-muted); }
+.show__bar { display: flex; align-items: center; gap: 0; }
+.show__bar[hidden] { display: none; }
+.show__btn { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--rule-strong); border-radius: 50%; background: none; color: var(--fg); cursor: pointer; }
+.show__btn:hover { border-color: var(--fg); }
+.show__btn:focus-visible, .show__dots button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.show__btn[data-show-prev] .icon { transform: rotate(90deg); }
+.show__btn[data-show-next] .icon { transform: rotate(-90deg); }
+.show__toggle { margin-left: auto; }
+.show__i-play { display: none; }
+.show.is-paused .show__i-play { display: block; }
+.show.is-paused .show__i-pause { display: none; }
+.show__dots { display: flex; list-style: none; margin: 0; padding: 0; }
+.show__dots button { position: relative; width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+.show__dots button::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--fg-muted); transition: width var(--dur-2, 240ms) var(--ease-out, ease), margin var(--dur-2, 240ms) var(--ease-out, ease); }
+.show__dots button[aria-current="true"]::after { width: 20px; margin-left: -10px; border-radius: 4px; background: var(--fg); box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .show__dots button::after { transition: none; } }
+
+/* The video slot: marked, not a photograph. Blazer ground, a play mark, what goes here. */
+.vslot { margin: 0; }
+.vslot__box { position: relative; aspect-ratio: 4 / 3; display: grid; place-content: center; justify-items: center; gap: 10px; padding: var(--sp-5); text-align: center; background: var(--blazer); color: #EDF1F6; border: 1px dashed rgba(237, 241, 246, 0.4); outline: 1px solid var(--blazer); }
+.vslot__play { width: 64px; height: 64px; padding: 18px; border: 1.5px solid currentColor; border-radius: 50%; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.vslot__label { font: 600 var(--step-5)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.vslot__what { font: 300 var(--step-3)/1.35 var(--font-serif); max-width: 22ch; }
+.vslot__tag { position: absolute; top: 0; right: 0; padding: 7px 10px; font: 600 11px/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; background: #EDF1F6; color: var(--blazer); }

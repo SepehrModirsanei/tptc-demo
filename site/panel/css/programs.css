@@ -198,3 +198,18 @@ button.pg-cell:focus-visible { outline: 2px solid var(--focus); outline-offset: 
 .pg-act .pn-btn { color: var(--bg); border-color: var(--bg); background: transparent; }
 .pg-act .pn-btn:focus-visible { outline-color: var(--bg); }
 .pg-act:focus-visible { outline: 2px solid var(--focus, var(--fg)); outline-offset: 2px; }
+
+/* B7: each program keeps its colour (panel.css): a court mark on its tab, the selected tab's rule,
+   the seat meters and the court plans in its panel. Junior grass, Adult teal, High Performance
+   blue, Private lessons violet, Camps ochre, Leagues clay. */
+#pg-tab-junior, #pg-panel-junior { --pg-c: var(--pn-prog-junior); }
+#pg-tab-adult, #pg-panel-adult { --pg-c: var(--pn-prog-adult); }
+#pg-tab-hp, #pg-panel-hp { --pg-c: var(--pn-prog-hp); }
+#pg-tab-private, #pg-panel-private { --pg-c: var(--pn-prog-private); }
+#pg-tab-camps, #pg-panel-camps { --pg-c: var(--pn-prog-camps); }
+#pg-tab-leagues, #pg-panel-leagues { --pg-c: var(--pn-prog-leagues); }
+.pg-tabs [role="tab"][id^="pg-tab-"] { display: inline-flex; align-items: center; gap: 8px; }
+.pg-tabs [role="tab"][id^="pg-tab-"]::before { content: ""; width: 10px; height: 6px; border-radius: 1px; background: var(--pg-c); flex: none; }
+.pg-tabs [role="tab"][id^="pg-tab-"][aria-selected="true"] { box-shadow: inset 0 -3px 0 var(--pg-c); }
+.pg-panel .pn-meter__fill { background: var(--pg-c, var(--pn-c-blue)); }
+.pg-panel .pg-court .cplan__area { fill: var(--pg-c); fill-opacity: 0.22; }

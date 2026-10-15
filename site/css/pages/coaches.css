@@ -121,9 +121,9 @@
   .coach--lead .ph__id { font-size: 10px; overflow-wrap: anywhere; }
   .record { margin-top: var(--sp-6); }
   .record__list li { grid-template-columns: 5.5rem minmax(0, 1fr); padding: 14px 0; }
-
 }
-}
+/* B7: a stray closing brace stood here; the browser then dropped the next rule (the hero card
+   hidden under 1000px), so phones drew the Head Pro's portrait twice. Removed. */
 
 /* ---------- Batch 5: the first coach card fills the hero's right half (desktop) ----------
    Story: "who will be on court with you" is answered by a person, so the Head Pro's card is in the
@@ -173,3 +173,36 @@
 @media (max-width: 899px) and (max-height: 700px) {
   .page-coaches .hero { min-height: calc(100svh - var(--header-h)); }
 }
+
+/* ---------- B7: anchors, and entries from the staff panel demo ----------
+   Every coach entry has a stable id (#josh-borenstein) so other pages link straight to the coach;
+   the sticky header must not cover the name when they do. */
+.coach[id] { scroll-margin-top: calc(var(--header-h) + 24px); }
+
+/* A short line under an entry the panel changed or added: it is shown in this browser only. */
+.coach-demo { margin: 0; padding: 8px 0 0; border-top: 1px dashed var(--rule-strong); font-size: 14px; line-height: 1.45; color: var(--fg-muted); max-width: 52ch; }
+.coach--lead .coach-demo { grid-column: 1 / -1; }
+
+/* Added coaches, set in the entry format above the format example: portrait left, the fields right. */
+.roster { display: grid; gap: var(--sp-5); margin-top: var(--sp-6); }
+.roster[hidden] { display: none; }
+.roster__title { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.coach--entry { display: grid; gap: 16px; padding: 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--surface); }
+@media (min-width: 640px) { .coach--entry { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); column-gap: var(--sp-5); padding: 20px; } }
+@media (min-width: 900px) { .coach--entry { max-width: calc(7 / 12 * 100%); } }
+.roster__pic { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); background: var(--ph-ground); max-width: 22rem; }
+.roster__img { display: block; width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); }
+.roster__ph { display: grid; align-items: end; height: 100%; padding: 12px; background: color-mix(in oklab, var(--ph-ground), var(--ph-court-mix) var(--ph-court-amt)); }
+.roster__ph span { font: 600 11px/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-photo); }
+.roster__body { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.roster__body .coach__role { margin: 0; }
+.roster__name { font: 300 clamp(1.75rem, 1.4rem + 1vw, 2.25rem)/1.1 var(--font-serif); overflow-wrap: anywhere; padding-bottom: 10px; border-bottom: 1px solid var(--rule-strong); }
+.roster__bio { font-size: 16px; line-height: 1.55; max-width: 52ch; overflow-wrap: anywhere; }
+.roster__fields { margin: 0; display: grid; }
+.roster__fields > div { display: grid; grid-template-columns: minmax(7.5rem, 2fr) minmax(0, 3fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: 15px; line-height: 1.4; }
+.roster__fields dt { color: var(--fg); font-weight: 500; }
+.roster__fields dd { margin: 0; color: var(--fg); display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; overflow-wrap: anywhere; }
+.roster__in > div, .roster__fields > .roster__in { align-items: start; }
+@media (max-width: 479px) { .roster__fields > div { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+/* On a phone an added entry keeps its portrait small, beside nothing: a 9rem frame, then the words */
+@media (max-width: 639px) { .coach--entry .roster__pic { max-width: 9rem; } }

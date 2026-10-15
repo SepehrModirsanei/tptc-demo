@@ -89,3 +89,32 @@
 /* Batch 5, QC round 1 (6 Oct 2026): on a desktop the key points row gives the five options the
    wider cell, so they read on two lines beside the booking window and the Vaughan saving. */
 @media (min-width: 900px) { .page-membership .hero__points { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); } }
+
+/* ---------- B7 (16 Oct 2026): why become a member, benefit-led ----------
+   The two benefits that carry a number lead as Blazer cards: the figure is the reason ($0 court
+   fees outdoors, 7 days ahead). The other five are icon tiles, a short headline and one line on
+   what it gives you. Phones: the cards side by side, the tiles one per row. */
+.mb { list-style: none; margin: var(--sp-6) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.mb__card { grid-column: span 1; display: grid; align-content: start; gap: 10px; padding: clamp(20px, 3vw, 40px); background: var(--blazer); color: #EDF1F6; }
+.mb__fig { font: 200 clamp(3.25rem, 2.2rem + 4.4vw, 6.5rem)/0.9 var(--font-serif); font-variant-numeric: lining-nums; letter-spacing: -0.03em; }
+.mb__fig small { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; margin-left: 8px; vertical-align: 0.5em; }
+.mb__h { font: 300 clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem)/1.15 var(--font-serif); }
+.mb__why { font-size: 15px; line-height: 1.5; color: var(--fg-muted); max-width: 40ch; }
+.mb__card .mb__why { color: var(--mist); }
+.mb__card .inline-link { color: #EDF1F6; }
+.mb__card .mb__h { font-size: clamp(1.25rem, 1.05rem + 0.9vw, 2rem); }
+.mb__tile { grid-column: 1 / -1; display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 14px; row-gap: 4px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.mb__tile .icon { grid-row: span 3; width: 28px; height: 28px; margin-top: 2px; }
+.mb__tile > :not(.icon) { grid-column: 2; }
+.mb .inline-link { white-space: nowrap; }
+@media (max-width: 599px) {
+  .mb__card { padding: 18px 16px 20px; }
+  .mb__card .mb__why { font-size: 14px; }
+}
+@media (min-width: 900px) {
+  .mb { grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 16px; }
+  .mb__card { grid-column: span 5; }
+  .mb__tile { grid-column: span 2; grid-template-columns: 1fr; padding: 22px 0 0; border-bottom: 0; border-top: 1px solid var(--rule-strong); align-content: start; }
+  .mb__tile .icon { grid-row: auto; width: 32px; height: 32px; margin-bottom: 8px; }
+  .mb__tile > :not(.icon) { grid-column: 1; }
+}

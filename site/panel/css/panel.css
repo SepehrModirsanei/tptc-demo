@@ -1,9 +1,64 @@
-/* TPTC staff panel: shared styles (owned by the foundation; module agents never edit this file).
+/* TPTC staff panel: shared styles (owned by the foundation; module agents never edit this file;
+   B7 added the colour palette, status chips, program tags and coloured accents).
    Loads after the site's tokens.css, site.css and components.css, so the panel speaks the same
    language: Spectral and Schibsted Grotesk, Whites, Blazer and Dome, the red net, the ball for
    live things only. It is a working tool, so the scale is denser than the site: 15px text,
    40px controls on a desk (44px on a phone), tables that read at a glance.
    Every class is documented with markup in ../PANEL.md. Tokens only, no raw colours. */
+
+/* ---------- B7 palette: the three court surfaces, from the club's colours ----------
+   Story: grass is done (paid, confirmed), hard-court blue is booked and scheduled, clay is what
+   needs attention (overdue, no-show), ochre the wait (pending). Violet and teal carry identity only
+   (programs). Marks are for fills and dots, inks for text on their tint, tints for chip grounds.
+   Validated with the dataviz validator (light and dark); every coloured tag also carries its label,
+   every status chip a shape. Red is not in this set: it stays the net, the logo and destructive
+   actions. */
+:root {
+  --pn-c-blue: #2F5FB3;   --pn-c-blue-ink: #234C94;   --pn-c-blue-tint: #E6ECF6;
+  --pn-c-ochre: #A87D10;  --pn-c-ochre-ink: #6B4F05;  --pn-c-ochre-tint: #F5EFE2;
+  --pn-c-violet: #7B52B8; --pn-c-violet-ink: #5E3B96; --pn-c-violet-tint: #EFEAF6;
+  --pn-c-grass: #2E8550;  --pn-c-grass-ink: #1B6338;  --pn-c-grass-tint: #E6F0EA;
+  --pn-c-clay: #C2571F;   --pn-c-clay-ink: #913D0E;   --pn-c-clay-tint: #F8EBE4;
+  --pn-c-teal: #00897B;   --pn-c-teal-ink: #00675C;   --pn-c-teal-tint: #E0F1EF;
+  --pn-c-stone: #566072;  --pn-c-stone-ink: #4A5466;  --pn-c-stone-tint: #EBECEE;
+  --pn-ink-btn: var(--blazer); --pn-ink-btn-fg: var(--white);
+  --pn-danger: var(--red); --pn-danger-fg: var(--white);
+  /* the same hues stepped for the Blazer sidebar (4.3:1 or more on #14254A, both themes) */
+  --pn-side-blue: #7EA6EE; --pn-side-grass: #6CC48C; --pn-side-violet: #B597EB;
+  --pn-side-teal: #4FC2C8; --pn-side-ochre: #DDB54A; --pn-side-clay: #EE9466;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pn-c-blue: #5F8EE0;   --pn-c-blue-ink: #A9C4F5;   --pn-c-blue-tint: #1C2C48;
+    --pn-c-ochre: #B08A1E;  --pn-c-ochre-ink: #E4C46B;  --pn-c-ochre-tint: #2C2B21;
+    --pn-c-violet: #A07FE0; --pn-c-violet-ink: #CDB8F4; --pn-c-violet-tint: #292948;
+    --pn-c-grass: #3FA86A;  --pn-c-grass-ink: #8AD5A3;  --pn-c-grass-tint: #153130;
+    --pn-c-clay: #D06A36;   --pn-c-clay-ink: #F2AA84;   --pn-c-clay-tint: #322426;
+    --pn-c-teal: #1EA0AA;   --pn-c-teal-ink: #7FD3CB;   --pn-c-teal-tint: #0F2F3D;
+    --pn-c-stone: #9FACC2;  --pn-c-stone-ink: #B4BFD1;  --pn-c-stone-tint: #293242;
+    --pn-ink-btn: #E9EEF5; --pn-ink-btn-fg: #0B1322;
+  }
+}
+:root[data-theme="dark"] {
+  --pn-c-blue: #5F8EE0;   --pn-c-blue-ink: #A9C4F5;   --pn-c-blue-tint: #1C2C48;
+  --pn-c-ochre: #B08A1E;  --pn-c-ochre-ink: #E4C46B;  --pn-c-ochre-tint: #2C2B21;
+  --pn-c-violet: #A07FE0; --pn-c-violet-ink: #CDB8F4; --pn-c-violet-tint: #292948;
+  --pn-c-grass: #3FA86A;  --pn-c-grass-ink: #8AD5A3;  --pn-c-grass-tint: #153130;
+  --pn-c-clay: #D06A36;   --pn-c-clay-ink: #F2AA84;   --pn-c-clay-tint: #322426;
+  --pn-c-teal: #1EA0AA;   --pn-c-teal-ink: #7FD3CB;   --pn-c-teal-tint: #0F2F3D;
+  --pn-c-stone: #9FACC2;  --pn-c-stone-ink: #B4BFD1;  --pn-c-stone-tint: #293242;
+  --pn-ink-btn: #E9EEF5; --pn-ink-btn-fg: #0B1322;
+}
+/* What each colour means, in one place. Programs (and the bookings that belong to them) keep one
+   colour everywhere: the panel's tags, the dashboard's bars, the bookings calendar. */
+:root {
+  --pn-prog-junior: var(--pn-c-grass);  --pn-prog-junior-ink: var(--pn-c-grass-ink);  --pn-prog-junior-tint: var(--pn-c-grass-tint);
+  --pn-prog-adult: var(--pn-c-teal);    --pn-prog-adult-ink: var(--pn-c-teal-ink);    --pn-prog-adult-tint: var(--pn-c-teal-tint);
+  --pn-prog-hp: var(--pn-c-blue);       --pn-prog-hp-ink: var(--pn-c-blue-ink);       --pn-prog-hp-tint: var(--pn-c-blue-tint);
+  --pn-prog-camps: var(--pn-c-ochre);   --pn-prog-camps-ink: var(--pn-c-ochre-ink);   --pn-prog-camps-tint: var(--pn-c-ochre-tint);
+  --pn-prog-private: var(--pn-c-violet);--pn-prog-private-ink: var(--pn-c-violet-ink);--pn-prog-private-tint: var(--pn-c-violet-tint);
+  --pn-prog-leagues: var(--pn-c-clay);  --pn-prog-leagues-ink: var(--pn-c-clay-ink);  --pn-prog-leagues-tint: var(--pn-c-clay-tint);
+}
 
 :root {
   --pn-side-w: 264px;
@@ -52,7 +107,7 @@ body.pn { font-size: var(--pn-text); line-height: 1.5; background: var(--bg); mi
 }
 .pn-side__inner { display: flex; flex-direction: column; min-height: 100%; padding: 20px 14px 18px; gap: 20px; }
 .pn-side__brand { position: relative; padding: 4px 10px 18px; border-bottom: 1px solid var(--line-chalk); }
-.pn-logo { display: inline-block; text-decoration: none; }
+.pn-logo { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
 .pn-logo img { width: 196px; height: auto; }
 .pn-side__kicker { margin-top: 12px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
   font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--chalk); }
@@ -337,3 +392,84 @@ html.motion .pn-sheet[open] { animation: pn-sheet-in var(--dur-ui) var(--ease-ou
   .pn-sheet[open] { animation: none !important; }
 }
 @media print { .pn-side, [data-shell-top], .pn-toasts { display: none !important; } .pn-app { display: block; } }
+
+/* ==========================================================================
+   B7: colour, applied. Calm by default: colour marks state and identity, never a whole ground.
+   ========================================================================== */
+
+/* Buttons: the screen's own action is Blazer (the club navy), destructive actions are club red
+   (white on red 4.56:1, both themes). Red appears nowhere else in the panel. */
+.pn-btn--ink { background: var(--pn-ink-btn); border-color: var(--pn-ink-btn); color: var(--pn-ink-btn-fg); }
+.pn-btn--ink:hover { background: var(--pn-c-blue-ink); border-color: var(--pn-c-blue-ink); color: var(--white); }
+:root[data-theme="dark"] .pn-btn--ink:hover { background: var(--pn-c-blue-ink); border-color: var(--pn-c-blue-ink); color: var(--night-deep); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pn-btn--ink:hover { background: var(--pn-c-blue-ink); border-color: var(--pn-c-blue-ink); color: var(--night-deep); } }
+.pn-btn--danger { background: var(--pn-danger); border-color: var(--pn-danger); color: var(--pn-danger-fg); box-shadow: none; }
+.pn-btn--danger:hover { background: var(--night-deep); border-color: var(--pn-danger); color: var(--pn-danger-fg); box-shadow: inset 0 -3px 0 var(--pn-danger); }
+.pn-btn:disabled, .pn-btn[aria-disabled="true"] { border-color: var(--rule); background: var(--bg-alt); color: var(--fg-muted); box-shadow: none; }
+
+/* Pressed segments and selected tabs: Blazer by day, chalk by night */
+.pn-seg > button[aria-pressed="true"], .pn-seg > button[aria-checked="true"] { background: var(--pn-ink-btn); color: var(--pn-ink-btn-fg); }
+.pn-tabs [role="tab"][aria-selected="true"] { box-shadow: inset 0 -3px 0 var(--pn-c-blue); }
+
+/* Seats meter: hard-court blue, clay when the session is full (set .is-full on .pn-meter) */
+.pn-meter__fill { background: var(--pn-c-blue); }
+.pn-meter.is-full .pn-meter__fill { background: var(--pn-c-clay); }
+
+/* KPI tiles: a short coloured baseline over each figure, in the fixed order blue, teal, ochre,
+   violet, grass (labels carry the meaning; the colour only separates the tiles at a glance). */
+.pn-kpi { position: relative; }
+.pn-kpi::before { content: ""; position: absolute; top: -1px; left: 0; width: 32px; height: 3px; background: var(--pn-kpi-c, var(--pn-c-blue)); }
+.pn-kpi + .pn-kpi::before { left: 20px; }
+@media (max-width: 599.98px) { .pn-kpi + .pn-kpi::before { left: 0; } }
+.pn-kpi:nth-child(5n+1) { --pn-kpi-c: var(--pn-c-blue); }
+.pn-kpi:nth-child(5n+2) { --pn-kpi-c: var(--pn-c-teal); }
+.pn-kpi:nth-child(5n+3) { --pn-kpi-c: var(--pn-c-ochre); }
+.pn-kpi:nth-child(5n+4) { --pn-kpi-c: var(--pn-c-violet); }
+.pn-kpi:nth-child(5n+5) { --pn-kpi-c: var(--pn-c-grass); }
+
+/* Status chips: tone + shape, never colour alone.
+   ok (grass, filled dot) | info (blue, ring) | pending (ochre, hollow dot) | alert (clay, diamond)
+   | off (stone, a dash). The live chip and Club to confirm keep the site's own styles. */
+.pn-chip[class*="pn-chip--t-"] { border-color: transparent; }
+.pn-chip--t-ok { background: var(--pn-c-grass-tint); color: var(--pn-c-grass-ink); }
+.pn-chip--t-info { background: var(--pn-c-blue-tint); color: var(--pn-c-blue-ink); }
+.pn-chip--t-pending { background: var(--pn-c-ochre-tint); color: var(--pn-c-ochre-ink); border: 1px dashed currentColor; }
+.pn-chip--t-alert { background: var(--pn-c-clay-tint); color: var(--pn-c-clay-ink); }
+.pn-chip--t-off { background: var(--pn-c-stone-tint); color: var(--pn-c-stone-ink); }
+.pn-chip--t-ok::before, .pn-chip--t-info::before, .pn-chip--t-pending::before, .pn-chip--t-off::before { content: ""; flex: none; }
+.pn-chip--t-ok::before { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pn-chip--t-info::before { width: 7px; height: 7px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px currentColor; }
+.pn-chip--t-pending::before { width: 7px; height: 7px; border-radius: 50%; border: 1px solid currentColor; }
+.pn-chip--t-off::before { width: 8px; height: 1.5px; background: currentColor; }
+.pn-chip--t-alert.pn-chip--warn { border-color: transparent; border-width: 1px; }
+
+/* Program tags: one colour per program, a filled court mark before the name.
+   <span class="pn-tag pn-tag--hp">High Performance</span> (junior, adult, hp, camps, private, leagues) */
+.pn-tag { display: inline-flex; align-items: center; gap: 7px; min-height: 24px; padding: 0 9px 0 7px; border-radius: var(--radius);
+  background: var(--pn-tag-tint, var(--pn-c-stone-tint)); color: var(--pn-tag-ink, var(--pn-c-stone-ink));
+  font: 600 12px/1.2 var(--font-sans); white-space: nowrap; }
+.pn-tag::before { content: ""; width: 10px; height: 6px; flex: none; background: var(--pn-tag-c, var(--pn-c-stone)); box-shadow: inset 0 0 0 1px var(--pn-tag-c, var(--pn-c-stone)); border-radius: 1px; }
+.pn-tag--junior { --pn-tag-c: var(--pn-prog-junior); --pn-tag-ink: var(--pn-prog-junior-ink); --pn-tag-tint: var(--pn-prog-junior-tint); }
+.pn-tag--adult { --pn-tag-c: var(--pn-prog-adult); --pn-tag-ink: var(--pn-prog-adult-ink); --pn-tag-tint: var(--pn-prog-adult-tint); }
+.pn-tag--hp { --pn-tag-c: var(--pn-prog-hp); --pn-tag-ink: var(--pn-prog-hp-ink); --pn-tag-tint: var(--pn-prog-hp-tint); }
+.pn-tag--camps { --pn-tag-c: var(--pn-prog-camps); --pn-tag-ink: var(--pn-prog-camps-ink); --pn-tag-tint: var(--pn-prog-camps-tint); }
+.pn-tag--private { --pn-tag-c: var(--pn-prog-private); --pn-tag-ink: var(--pn-prog-private-ink); --pn-tag-tint: var(--pn-prog-private-tint); }
+.pn-tag--leagues { --pn-tag-c: var(--pn-prog-leagues); --pn-tag-ink: var(--pn-prog-leagues-ink); --pn-tag-tint: var(--pn-prog-leagues-tint); }
+
+/* Sidebar: each module's icon in its own colour (the night steps, 4.3:1 or more on Blazer) */
+.pn-nav__item[data-module="bookings"] .icon { color: var(--pn-side-blue); }
+.pn-nav__item[data-module="programs"] .icon { color: var(--pn-side-grass); }
+.pn-nav__item[data-module="coaches"] .icon { color: var(--pn-side-violet); }
+.pn-nav__item[data-module="members"] .icon { color: var(--pn-side-teal); }
+.pn-nav__item[data-module="payments"] .icon { color: var(--pn-side-ochre); }
+.pn-nav__item[data-module="content"] .icon { color: var(--mist); }
+.pn-nav__item[data-module="dashboard"] .icon { color: var(--pn-side-clay); }
+.pn-nav__item.is-current { box-shadow: inset 0 0 0 1px var(--line-chalk); }
+
+/* Toasts: a coloured rule on the leading edge (grass done, clay warning) */
+.pn-toast { box-shadow: inset 4px 0 0 var(--pn-c-grass), 0 12px 32px var(--shadow-tint); }
+.pn-toast--warn { box-shadow: inset 4px 0 0 var(--pn-c-clay), 0 12px 32px var(--shadow-tint); }
+
+/* Selected table rows and the demo banner pick up the blue tint */
+.pn-table tbody tr.is-selected { background: var(--pn-c-blue-tint); }
+.pn-banner { background: var(--pn-c-blue-tint); }

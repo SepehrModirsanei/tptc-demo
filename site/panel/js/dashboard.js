@@ -652,7 +652,7 @@
       var fill = pct(x.reg, x.cap), w = max ? Math.max(1.5, x.reg / max * 100) : 0;
       var bits = [plural(x.terms.length - x.pending.length, 'term'), fill + '% of seats filled'];
       if (x.wait) bits.push(n(x.wait) + ' waiting');
-      return '<li><button type="button" class="db-prow" data-prog="' + i + '"' + attr({ 'data-tip-v': n(x.reg) + ' registrations', 'data-tip-l': x.p.id + '\n' + n(x.reg) + ' of ' + n(x.cap) + ' seats, ' + fill + '%' + (x.wait ? '\n' + x.wait + ' waiting' : '') }) + '>' +
+      return '<li><button type="button" class="db-prow" data-prog="' + i + '" data-tab="' + esc(PROGRAM_TAB[x.p.id] || '') + '"' + attr({ 'data-tip-v': n(x.reg) + ' registrations', 'data-tip-l': x.p.id + '\n' + n(x.reg) + ' of ' + n(x.cap) + ' seats, ' + fill + '%' + (x.wait ? '\n' + x.wait + ' waiting' : '') }) + '>' +
         '<span class="db-hbar__label">' + esc(x.p.id) + '<span class="pn-sub">' + esc(x.p.note + '. ' + bits.join(', ')) + (x.pending.length ? '. Next term: dates to confirm' : '') + '</span></span>' +
         '<span class="db-hbar__track"><span class="db-hbar__fill" style="width:' + w.toFixed(2) + '%"></span></span>' +
         '<span class="db-hbar__val pn-num">' + n(x.reg) + '</span>' + UI.icon('chevron', 'icon--16 db-prow__go') + '</button></li>';
@@ -780,7 +780,7 @@
     r.lines.forEach(function (l) { max = Math.max(max, l.net); });
     var sum = $('[data-db-rev-sum]'); if (sum) sum.textContent = money(r.total) + ' net of refunds, January to ' + F.day(todayIso()) + '.';
     var bars = hbars(r.lines.map(function (l) {
-      return { label: l.L.name, sub: esc(l.L.tax + ', ' + plural(l.count, 'payment') + (l.refunded ? ', ' + money(l.refunded) + ' refunded' : '')), value: l.net, max: max, text: moneyShort(l.net), tipV: money(l.net), tipL: l.L.name + ', net of refunds\n' + (l.hst ? 'HST ' + money(l.hst) + (l.L.id === 'court' ? ' inside the fees' : ' added') : 'No HST added') };
+      return { key: l.L.id, label: l.L.name, sub: esc(l.L.tax + ', ' + plural(l.count, 'payment') + (l.refunded ? ', ' + money(l.refunded) + ' refunded' : '')), value: l.net, max: max, text: moneyShort(l.net), tipV: money(l.net), tipL: l.L.name + ', net of refunds\n' + (l.hst ? 'HST ' + money(l.hst) + (l.L.id === 'court' ? ' inside the fees' : ' added') : 'No HST added') };
     }));
     var colW = width >= 900 ? Math.round(width * 0.48) : width;
     box.innerHTML = '<div class="db-rev"><div class="db-rev__bars"><h3 class="db-card__h">By line, net of refunds</h3>' + bars +

@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="en-CA" class="ph-tags">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style Guide, A Clubhouse | Thornhill Park Tennis Club</title>
+<meta name="description" content="A Clubhouse: the Style Guide for Thornhill Park Tennis Club, with colour, type, motion, components and icons.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F1E8">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121512">
+<link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
+<script>
+/* Motion bootstrap: the motion class exists only when the visitor allows motion and the
+   scripts arrive. Without it every element is visible from first paint. */
+(function (d) {
+  var h = d.documentElement;
+  /* Colour scheme: follows the system. A choice made on the system sheet is remembered per
+     visitor; storage can be missing or blocked, so every access is guarded. */
+  try { var t = localStorage.getItem('tptc-theme'); if (t === 'light' || t === 'dark') h.setAttribute('data-theme', t); } catch (e) {}
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    h.classList.add('motion');
+    setTimeout(function () { if (!h.classList.contains('motion-ready')) h.classList.remove('motion'); }, 2500);
+  }
+  window.addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) { h.classList.add('turn'); window.__tptcTurn = e.viewTransition; }
+  });
+  /* Image slots: show assets/img/SLOT.jpg over the placeholder when it exists */
+  window.tptcImg = function (img, ok) {
+    if (ok) { var f = img.closest('.frame'); if (f) f.classList.add('has-img'); }
+    else { img.remove(); }
+  };
+})(document);
+</script>
+<style>
+/* Turn: cross-document View Transitions (energy.md 3.4), inline so they apply at reveal */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 320ms cubic-bezier(0.76, 0, 0.24, 1) both tptc-leave; }
+::view-transition-new(root) { animation: 560ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both tptc-enter; }
+@keyframes tptc-leave { to { opacity: 0; transform: translateY(-12px); } }
+@keyframes tptc-enter { from { opacity: 0; transform: translateY(24px); } }
+.site-header { view-transition-name: site-header; }
+::view-transition-group(site-header) { animation-duration: 240ms; }
+.door--hp .court, .hero--hpw .frame__media { view-transition-name: prog-hp; }
+::view-transition-group(prog-hp) {
+  animation-duration: 640ms;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+}
+/* The door and the hero frame the same photograph with different crops, so a crossfade over
+   the whole 640ms showed two faces and two racquets. The photographs swap in the first 180ms,
+   while the frame is still door-sized, and the hero crop then grows alone. */
+::view-transition-old(prog-hp) { animation: 180ms linear both tptc-fade-out; }
+::view-transition-new(prog-hp) { animation: 180ms linear both tptc-fade-in; }
+::view-transition-group(hp-copy) { z-index: 3; }
+::view-transition-new(hp-copy) { animation: 360ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both tptc-fade-in; }
+::view-transition-old(*), ::view-transition-new(*) { height: 100%; object-fit: cover; }
+@keyframes tptc-fade-in { from { opacity: 0; } }
+@keyframes tptc-fade-out { to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) { animation-name: none; }
+  ::view-transition-old(*) { animation: 180ms linear both tptc-fade-out; }
+  ::view-transition-new(*), ::view-transition-new(hp-copy) { animation: 180ms linear both tptc-fade-in; }
+}
+</style>
+<link rel="expect" href="#first-view" blocking="render">
+<link rel="stylesheet" href="css/tptc.css">
+<link rel="stylesheet" href="../../assets/vendor/lenis.css">
+<script defer src="../../assets/vendor/gsap.min.js"></script>
+<script defer src="../../assets/vendor/ScrollTrigger.min.js"></script>
+<script defer src="../../assets/vendor/SplitText.min.js"></script>
+<script defer src="../../assets/vendor/CustomEase.min.js"></script>
+<script defer src="../../assets/vendor/lenis.min.js"></script>
+<script defer src="js/site.js"></script>
+<script defer src="js/motion.js"></script>
+<script defer src="js/serve.js"></script>
+</head>
+<body class="page-system">
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+<symbol id="i-racquet" viewBox="0 0 24 24"><g transform="rotate(45 12 12)"><ellipse cx="12" cy="7" rx="4.75" ry="6"/><path d="M10 1.56 V12.44 M14 1.56 V12.44 M7.52 5 H16.48 M7.52 9 H16.48"/><path d="M9.15 11.8 L12 16.5 L14.85 11.8 M12 16.5 V23"/></g></symbol>
+<symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25"/><path d="M4.95 7.72 C8.4 9.9 8.4 14.1 4.95 16.28"/><path d="M19.05 7.72 C15.6 9.9 15.6 14.1 19.05 16.28"/></symbol>
+<symbol id="i-court" viewBox="0 0 24 24"><rect x="1.5" y="8.37" width="21" height="7.26"/><path stroke-width="1" d="M12 7.56 V16.44 M6.35 8.37 V15.63 M17.65 8.37 V15.63 M6.35 12 H17.65 M1.5 12 H2.6 M21.4 12 H22.5"/></symbol>
+<symbol id="i-dome" viewBox="0 0 24 24"><path d="M2.75 19.25 H21.25"/><path d="M4.25 19.25 V15 C4.25 9.5 7.8 6.25 12 6.25 C16.2 6.25 19.75 9.5 19.75 15 V19.25"/><path d="M4.4 13.25 C9.2 11.9 14.8 11.9 19.6 13.25"/><path d="M10 19.25 V15.75 H14 V19.25"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.75" y="5.25" width="16.5" height="15"/><path d="M3.75 9.75 H20.25"/><path d="M8 3 V7 M16 3 V7"/><rect x="13.5" y="13.5" width="3" height="3"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25"/><path d="M12 7 V12 L15.25 14"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7.75 4.25 H16.25 V9.75 C16.25 12.1 14.35 14 12 14 C9.65 14 7.75 12.1 7.75 9.75 Z"/><path d="M7.75 6 H4.75 V7.75 C4.75 9.6 6.1 11 7.9 11.1"/><path d="M16.25 6 H19.25 V7.75 C19.25 9.6 17.9 11 16.1 11.1"/><path d="M12 14 V17.25"/><rect x="8.25" y="17.25" width="7.5" height="3"/></symbol>
+<symbol id="i-coach" viewBox="0 0 24 24"><circle cx="9.5" cy="7.25" r="3"/><path d="M3.75 20.25 V18.5 C3.75 15.3 6.3 12.75 9.5 12.75 C12.7 12.75 15.25 15.3 15.25 18.5 V20.25"/><circle cx="18.5" cy="6" r="1.75"/></symbol>
+<symbol id="i-junior" viewBox="0 0 24 24"><circle cx="9.5" cy="9" r="2.25"/><path d="M5 20.25 V19.25 C5 16.9 7 15 9.5 15 C12 15 14 16.9 14 19.25 V20.25"/><ellipse cx="18" cy="8.25" rx="2.25" ry="2.75"/><path d="M18 11 V15.75"/></symbol>
+<symbol id="i-family" viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.25"/><circle cx="17" cy="7" r="2.25"/><path d="M2.75 20.25 V17.5 C2.75 14.6 4.65 12.5 7 12.5 C8.2 12.5 9.25 13 10 13.85"/><path d="M21.25 20.25 V17.5 C21.25 14.6 19.35 12.5 17 12.5 C15.8 12.5 14.75 13 14 13.85"/><circle cx="12" cy="12.75" r="1.75"/><path d="M8.75 20.25 V19.5 C8.75 17.7 10.2 16.25 12 16.25 C13.8 16.25 15.25 17.7 15.25 19.5 V20.25"/></symbol>
+<symbol id="i-location" viewBox="0 0 24 24"><path d="M12 20.75 C12 20.75 5.25 14.6 5.25 9.75 C5.25 6 8.25 3.25 12 3.25 C15.75 3.25 18.75 6 18.75 9.75 C18.75 14.6 12 20.75 12 20.75 Z"/><circle cx="12" cy="9.75" r="2.5"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M3.75 12 H19.5 M14 6.5 L19.5 12 L14 17.5"/></symbol>
+<symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17 L17 7 M9.5 7 H17 V14.5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9.25 L12 15.25 L18 9.25"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4.75 V19.25 M4.75 12 H19.25"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M4.75 12 H19.25"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M3.75 8.5 H20.25 M3.75 15.5 H20.25"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M5.75 5.75 L18.25 18.25 M18.25 5.75 L5.75 18.25"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M8.6 3.75 L10.6 8.4 L8.55 9.9 C9.6 12.15 11.85 14.4 14.1 15.45 L15.6 13.4 L20.25 15.4 V18.25 C20.25 19.35 19.35 20.25 18.25 20.25 C10.4 20.25 3.75 13.6 3.75 5.75 C3.75 4.65 4.65 3.75 5.75 3.75 Z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.75" y="5.75" width="16.5" height="12.5"/><path d="M3.75 6.25 L12 12.75 L20.25 6.25"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M4.75 12.75 L9.5 17.5 L19.25 7.25"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25"/><path d="M12 10.5 V16.75 M12 7 V8.75"/></symbol>
+<symbol id="i-confirm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.25" stroke-dasharray="2.16 2.16"/><path d="M8.75 12 H15.25"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.75"/><path d="M12 2.75 V5.25 M12 18.75 V21.25 M2.75 12 H5.25 M18.75 12 H21.25 M5.46 5.46 L7.23 7.23 M16.77 16.77 L18.54 18.54 M5.46 18.54 L7.23 16.77 M16.77 7.23 L18.54 5.46"/></symbol>
+<symbol id="m-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" style="fill:var(--red)"/><path d="M2.4 5.67 C6.8 8.5 6.8 15.5 2.4 18.33 M21.6 5.67 C17.2 8.5 17.2 15.5 21.6 18.33" style="fill:none;stroke:var(--paper);stroke-width:1.5"/></symbol>
+<symbol id="court-h" viewBox="0 0 120 60" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"><rect x="21" y="12" width="78" height="36" vector-effect="non-scaling-stroke"/><path vector-effect="non-scaling-stroke" d="M21 16.5 H99 M21 43.5 H99 M60 8.5 V51.5 M39 16.5 V43.5 M81 16.5 V43.5 M39 30 H81 M21 30 H22.2 M97.8 30 H99"/></g></symbol>
+<symbol id="court-v" viewBox="0 0 60 120" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke"><rect x="12" y="21" width="36" height="78" vector-effect="non-scaling-stroke"/><path vector-effect="non-scaling-stroke" d="M16.5 21 V99 M43.5 21 V99 M8.5 60 H51.5 M16.5 39 H43.5 M16.5 81 H43.5 M30 39 V81 M30 21 V22.2 M30 97.8 V99"/></g></symbol>
+</svg>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header class="site-header" data-header>
+  <div class="wrap site-header__in">
+    <a class="logo" href="index.html" aria-label="Thornhill Park Tennis Club, home">
+      <img class="logo__img logo__img--lockup logo__img--light" src="../../assets/brand/tptc-lockup.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--lockup logo__img--dark" src="../../assets/brand/tptc-lockup-on-dark.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--light" src="../../assets/brand/tptc-mark.svg" width="147" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--dark" src="../../assets/brand/tptc-mark-on-dark.svg" width="147" height="38" alt="" decoding="async">
+    </a>
+    <nav class="nav" aria-label="Main">
+      <ul class="nav__list">
+        <li class="nav__item has-menu" data-menu>
+          <button class="nav__link nav__trigger" type="button" aria-expanded="false" aria-controls="menu-programs">Programs<svg class="icon icon--chevron" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg></button>
+          <div class="nav__panel" id="menu-programs"><div class="nav__panel-head"><span class="eyebrow">Programs</span><span class="small">For every age and level</span></div><ul><li><a class="menu-item" href="#"><svg class="icon icon--junior" aria-hidden="true" focusable="false"><use href="#i-junior"></use></svg><span class="menu-item__name">Junior Recreational</span><span class="menu-item__meta">Ages 4-17, Beginner to Advanced</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--racquet" aria-hidden="true" focusable="false"><use href="#i-racquet"></use></svg><span class="menu-item__name">Adult Programs</span><span class="menu-item__meta">Lessons, round robins and leagues</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="high-performance.html"><svg class="icon icon--ball" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><span class="menu-item__name">High Performance</span><span class="menu-item__meta">Little Champs to Pro National</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--coach" aria-hidden="true" focusable="false"><use href="#i-coach"></use></svg><span class="menu-item__name">Private Lessons</span><span class="menu-item__meta">One hour, private or semi-private</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--sun" aria-hidden="true" focusable="false"><use href="#i-sun"></use></svg><span class="menu-item__name">Camps</span><span class="menu-item__meta">Summer, March Break and Holiday</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li></ul></div>
+        </li>
+        <li class="nav__item"><a class="nav__link" href="#">Membership</a></li><li class="nav__item"><a class="nav__link" href="#">Court Bookings</a></li><li class="nav__item"><a class="nav__link" href="#">Leagues & Events</a></li>
+        <li class="nav__item has-menu" data-menu>
+          <button class="nav__link nav__trigger" type="button" aria-expanded="false" aria-controls="menu-about">About<svg class="icon icon--chevron" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg></button>
+          <div class="nav__panel nav__panel--end" id="menu-about"><div class="nav__panel-head"><span class="eyebrow">About</span><span class="small">Founded 1951</span></div><ul><li><a class="menu-item" href="#"><svg class="icon icon--court" aria-hidden="true" focusable="false"><use href="#i-court"></use></svg><span class="menu-item__name">Our Club</span><span class="menu-item__meta">Mission, vision and board</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--coach" aria-hidden="true" focusable="false"><use href="#i-coach"></use></svg><span class="menu-item__name">Our Coaches</span><span class="menu-item__meta">Led by Head Pro Josh Borenstein</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--dome" aria-hidden="true" focusable="false"><use href="#i-dome"></use></svg><span class="menu-item__name">Facilities</span><span class="menu-item__meta">Four courts, indoor and outdoor</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li><a class="menu-item" href="#"><svg class="icon icon--calendar" aria-hidden="true" focusable="false"><use href="#i-calendar"></use></svg><span class="menu-item__name">Club History</span><span class="menu-item__meta">Founded in 1951</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li></ul></div>
+        </li>
+        <li class="nav__item"><a class="nav__link" href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn--primary btn--sm" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" data-sheet-open>
+        <span class="menu-btn__bar"></span><span class="menu-btn__bar"></span><span class="vh">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menu" data-lenis-prevent data-sheet>
+  <div class="wrap sheet__top">
+    <a class="logo" href="index.html" aria-label="Thornhill Park Tennis Club, home">
+      <img class="logo__img logo__img--lockup logo__img--light" src="../../assets/brand/tptc-lockup.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--lockup logo__img--dark" src="../../assets/brand/tptc-lockup-on-dark.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--light" src="../../assets/brand/tptc-mark.svg" width="147" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--dark" src="../../assets/brand/tptc-mark-on-dark.svg" width="147" height="38" alt="" decoding="async">
+    </a>
+    <button class="sheet__close" type="button" data-sheet-close><svg class="icon icon--close" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg><span class="vh">Close menu</span></button>
+  </div>
+  <div class="wrap sheet__body">
+    <nav aria-label="Main">
+      <ul class="sheet__list">
+        <li data-sheet-item style="--i:4"><button class="sheet__link" type="button" aria-expanded="false" aria-controls="sheet-programs" data-disclosure>Programs<svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></button><ul class="sheet__sub" id="sheet-programs" hidden><li><a href="#">Junior Recreational<small>Ages 4-17, Beginner to Advanced</small></a></li><li><a href="#">Adult Programs<small>Lessons, round robins and leagues</small></a></li><li><a href="high-performance.html">High Performance<small>Little Champs to Pro National</small></a></li><li><a href="#">Private Lessons<small>One hour, private or semi-private</small></a></li><li><a href="#">Camps<small>Summer, March Break and Holiday</small></a></li></ul></li>
+        <li data-sheet-item style="--i:1"><a class="sheet__link" href="#">Membership<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li data-sheet-item style="--i:2"><a class="sheet__link" href="#">Court Bookings<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li><li data-sheet-item style="--i:3"><a class="sheet__link" href="#">Leagues & Events<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li>
+        <li data-sheet-item style="--i:5"><button class="sheet__link" type="button" aria-expanded="false" aria-controls="sheet-about" data-disclosure>About<svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></button><ul class="sheet__sub" id="sheet-about" hidden><li><a href="#">Our Club<small>Mission, vision and board</small></a></li><li><a href="#">Our Coaches<small>Led by Head Pro Josh Borenstein</small></a></li><li><a href="#">Facilities<small>Four courts, indoor and outdoor</small></a></li><li><a href="#">Club History<small>Founded in 1951</small></a></li></ul></li>
+        <li data-sheet-item style="--i:6"><a class="sheet__link" href="#">Contact<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></li>
+      </ul>
+    </nav>
+    <div class="sheet__util" data-sheet-item style="--i:7"><a href="#">FAQ</a><a href="#">Contact</a><a href="tel:+19057315551">905-731-5551</a></div>
+    <div class="sheet__foot" data-sheet-item style="--i:8">
+      <a class="btn btn--primary btn--block" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a>
+      <p class="sheet__prov">Founded 1951 · Thornhill, Ontario</p>
+    </div>
+  </div>
+</div>
+<main id="main">
+
+  <section class="hero hero--sys" data-hero aria-labelledby="sys-title">
+    <div class="wrap">
+      <div class="prov">
+        <p class="eyebrow">Style guide · A Clubhouse</p>
+        <span class="prov__rule" data-draw aria-hidden="true"></span>
+        <p class="prov__date">Thornhill Park Tennis Club · Oct 5, 2026</p>
+      </div>
+      <div class="hero__grid">
+        <h1 class="h-display" id="sys-title" data-rise-lines>
+          <span class="line"><span class="line__in">The Clubhouse</span></span>
+          <span class="line"><span class="line__in">style guide.</span></span>
+        </h1>
+        <div class="hero__aside">
+          <p class="lede" data-settle>Every colour, typeface, movement and component the full TPTC site is built from. Each section opens with one plain sentence on what it is and why it is this way.</p>
+          <div class="actions" data-settle>
+            <a class="link" href="index.html"><span class="link__text">Home</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+            <a class="link" href="high-performance.html"><span class="link__text">High Performance</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+          </div>
+        </div>
+      </div>
+      <ul class="principles" aria-label="The six ideas behind this direction">
+        <li data-settle><b>A clubhouse wall</b><span>An ivory wall by day, a dark wall after dark. Warm ink, never navy.</span></li>
+        <li data-settle><b>Framed prints</b><span>Every photograph hangs like a print in a clubhouse: a dark frame, a white mat and a caption plate.</span></li>
+        <li data-settle><b>Centred Caslon</b><span>One classic serif, centred, speaks for the club. Bold capitals are kept for the Pro National mark.</span></li>
+        <li data-settle><b>Four courts</b><span>The signature: the club's four courts drawn in lawn green with white lines, one for each program, each with a ball served by the rules.</span></li>
+        <li data-settle><b>Red is Register now</b><span>The club's red is in the logo and on Register now. Nothing else is red.</span></li>
+        <li data-settle><b>Live means now</b><span>The yellow of the ball marks only what a real date makes current.</span></li>
+      </ul>
+    </div>
+  </section>
+  <div id="first-view"></div>
+
+  <div class="wrap sys">
+    <aside class="sys__index" aria-label="Contents">
+      <nav>
+        <a href="#colour">Colour</a>
+        <a href="#dark">Colour at night</a>
+        <a href="#type">Type</a>
+        <a href="#space">Space and grid</a>
+        <a href="#motion">Motion</a>
+        <a href="#buttons">Buttons</a>
+        <a href="#wayfinding">Links and breadcrumbs</a>
+        <a href="#status">Status chips</a>
+        <a href="#cards">Cards</a>
+        <a href="#prices">Membership rates</a>
+        <a href="#rows">League and schedule rows</a>
+        <a href="#faq">FAQ</a>
+        <a href="#forms">Form fields</a>
+        <a href="#states">Loading, empty and error</a>
+        <a href="#frames">Placeholder image</a>
+        <a href="#confirm">Club to confirm</a>
+        <a href="#icons">Icons</a>
+        <a href="#logo">Logo</a>
+      </nav>
+    </aside>
+    <div class="sys__body">
+
+      
+
+      <!-- COLOUR -->
+      <section class="sys-sec" id="colour" aria-labelledby="c-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Colour</p>
+          <h2 class="h2" id="c-title" data-rise>An ivory wall, warm ink, lawn green and the club's red.</h2>
+          <p class="sys-sec__what">These are the colours of the whole site: an ivory wall and warm near-black ink for reading, a dark panel where a page needs weight, lawn green for the four drawn courts, and the club's own red, kept for Register now and the logo, so red always means the same thing.</p>
+          <p class="sys-sec__detail">No gold, no brass and no navy. Green is the courts and nothing else. Every colour has one name and one job. The contrast figures below are measured in your browser from the colours as they are drawn, so they stay true if a colour changes.</p>
+        </header>
+        <div class="swatches">
+          <div><div class="swatch__chip sw-paper"></div><p class="swatch__name">Paper</p><p class="swatch__meta"><code>--paper</code> <span data-hex="--paper">#F4F1E8</span><br>The wall: the ground of the whole site. Ivory, never pure white.</p></div>
+          <div><div class="swatch__chip sw-ink"></div><p class="swatch__name">Ink</p><p class="swatch__meta"><code>--ink</code> <span data-hex="--ink">#171B18</span><br>Text, ink buttons, the frame of a print. A warm near-black.</p></div>
+          <div><div class="swatch__chip sw-ink2"></div><p class="swatch__name">Ink 2</p><p class="swatch__meta"><code>--ink-2</code> <span data-hex="--ink-2">#454C46</span><br>Body copy and ledes.</p></div>
+          <div><div class="swatch__chip sw-ink3"></div><p class="swatch__name">Ink 3</p><p class="swatch__meta"><code>--ink-3</code> <span data-hex="--ink-3">#596059</span><br>Captions and labels.</p></div>
+          <div><div class="swatch__chip sw-chalk"></div><p class="swatch__name">Chalk</p><p class="swatch__meta"><code>--chalk</code> <span data-hex="--chalk">#E9E5D8</span><br>The Recreational half, the closing band, day frames.</p></div>
+          <div><div class="swatch__chip sw-rule"></div><p class="swatch__name">Rule</p><p class="swatch__meta"><code>--rule</code> ink at 16%<br>Hairlines where rows exist.</p></div>
+          <div><div class="swatch__chip sw-blazer"></div><p class="swatch__name">Dark panel</p><p class="swatch__meta"><code>--blazer</code> <span data-hex="--blazer">#1F2421</span><br>The dark panel: the High Performance half on Home.</p></div>
+          <div><div class="swatch__chip sw-night"></div><p class="swatch__name">Night</p><p class="swatch__meta"><code>--night</code> <span data-hex="--night">#141714</span><br>The wall at night: the High Performance page, the Pro National Academy.</p></div>
+          <div><div class="swatch__chip sw-red"></div><p class="swatch__name">Club red</p><p class="swatch__meta"><code>--red</code> <span data-hex="--red">#DF3124</span><br>Register now and the letters of the logo. Nothing else.</p></div>
+          <div><div class="swatch__chip sw-redp"></div><p class="swatch__name">Red, pressed</p><p class="swatch__meta"><code>--red-press</code> <span data-hex="--red-press">#B4271C</span><br>The fill that rises on press.</p></div>
+          <div><div class="swatch__chip sw-ondark2"></div><p class="swatch__name">On dark 2</p><p class="swatch__meta"><code>--on-dark-2</code> <span data-hex="--on-dark-2">#C9CCC4</span><br>Secondary text on the dark panel and night.</p></div>
+          <div><div class="swatch__chip sw-lawn"></div><p class="swatch__name">Lawn</p><p class="swatch__meta"><code>--lawn</code> <span data-hex="--lawn">#2F6D49</span><br>The surround of the four drawn courts.</p></div>
+          <div><div class="swatch__chip sw-lawnc"></div><p class="swatch__name">Lawn, court</p><p class="swatch__meta"><code>--lawn-court</code> <span data-hex="--lawn-court">#3A7D55</span><br>The playing surface inside the white lines.</p></div>
+          <div><div class="swatch__chip sw-mat"></div><p class="swatch__name">Mat</p><p class="swatch__meta"><code>--mat</code> <span data-hex="--mat">#FDFCF8</span><br>The white mat around every photograph.</p></div>
+          <div><div class="swatch__chip swatch__chip--live sw-live"></div><p class="swatch__name">Live</p><p class="swatch__meta"><code>--live</code> <span data-hex="--live">#CFEE3A</span><br>Only on states a real date makes current.</p></div>
+        </div>
+
+        <p class="sys-sub">Measured contrast</p>
+        <div class="table-scroll">
+          <table class="cr-table">
+            <thead><tr><th scope="col">Pair</th><th scope="col">Ratio</th><th scope="col">WCAG</th><th scope="col">Where it is used</th></tr></thead>
+            <tbody>
+              <tr><td><span class="cr-sample" style="background:var(--paper);color:var(--ink)">Ink</span></td><td><span class="cr-val" data-cr="--ink --paper">17.79</span></td><td><span class="cr-pass" data-cr-pass>AAA</span></td><td class="cr-use">Headings and text on paper</td></tr>
+              <tr><td><span class="cr-sample" style="background:var(--paper);color:var(--ink-2)">Ink 2</span></td><td><span class="cr-val" data-cr="--ink-2 --paper">8.27</span></td><td><span class="cr-pass" data-cr-pass>AAA</span></td><td class="cr-use">Body copy, ledes</td></tr>
+              <tr><td><span class="cr-sample" style="background:var(--paper);color:var(--ink-3)">Ink 3</span></td><td><span class="cr-val" data-cr="--ink-3 --paper">5.78</span></td><td><span class="cr-pass" data-cr-pass>AA</span></td><td class="cr-use">Captions, labels, meta</td></tr>
+              <tr><td><span class="cr-sample" style="background:var(--red);color:var(--white);border-color:var(--red)">Register</span></td><td><span class="cr-val" data-cr="--white --red">4.56</span></td><td><span class="cr-pass" data-cr-pass>AA</span></td><td class="cr-use">Register now label, 13px bold capitals</td></tr>
+              <tr><td><span class="cr-sample" style="background:var(--lawn-court);color:var(--lawn-line);border-color:var(--lawn-court)">Lines</span></td><td><span class="cr-val" data-cr="--lawn-line --lawn-court" data-cr-graphic>5.0</span></td><td><span class="cr-pass" data-cr-pass>Graphic 3:1</span></td><td class="cr-use">White court lines on the lawn of the four courts. Never text.</td></tr>
+              <tr><td><span class="cr-sample" style="background:var(--mat);color:var(--plate-fg-2);border-color:var(--rule-strong)">Plate</span></td><td><span class="cr-val" data-cr="--plate-fg-2 --mat">6.7</span></td><td><span class="cr-pass" data-cr-pass>AA</span></td><td class="cr-use">The caption plate under a print, on the mat</td></tr>
+              <tr><td><span class="cr-sample" style="background:var(--red-press);color:var(--white);border-color:var(--red-press)">Pressed</span></td><td><span class="cr-val" data-cr="--white --red-press">6.47</span></td><td><span class="cr-pass" data-cr-pass>AA</span></td><td class="cr-use">Register now on hover and press</td></tr>
+              <tr><td><span class="cr-sample" style="background:var(--blazer);color:var(--on-dark);border-color:var(--blazer)">Dark panel</span></td><td><span class="cr-val" data-cr="--on-dark --blazer">13.96</span></td><td><span class="cr-pass" data-cr-pass>AAA</span></td><td class="cr-use">Text on inverse bands</td></tr>
+              <tr><td><span class="cr-sample" style="background:var(--blazer);color:var(--on-dark-2);border-color:var(--blazer)">Dark panel 2</span></td><td><span class="cr-val" data-cr="--on-dark-2 --blazer">8.52</span></td><td><span class="cr-pass" data-cr-pass>AAA</span></td><td class="cr-use">Secondary text on inverse bands</td></tr>
+              <tr><td><span class="cr-sample" style="background:var(--night);color:var(--on-dark);border-color:var(--night)">Night</span></td><td><span class="cr-val" data-cr="--on-dark --night">18.80</span></td><td><span class="cr-pass" data-cr-pass>AAA</span></td><td class="cr-use">Performance theme text</td></tr>
+              <tr><td><span class="cr-sample cr-sample--mark" style="background:var(--live-ground);color:var(--live-ground-fg);border-color:var(--live-ground);--mark:var(--live)"><i class="cr-ball" aria-hidden="true"></i>Live</span></td><td><span class="cr-val" data-cr="--live --live-ground" data-cr-graphic>13.50</span></td><td><span class="cr-pass" data-cr-pass>Graphic 3:1</span></td><td class="cr-use">Live dot on the running-now chip: an ink chip by day, a hairline chip on the night ground after dark (meaning carried by its text)</td></tr>
+              <tr><td><span class="cr-sample cr-sample--mark" style="background:var(--white);color:var(--ink-fixed);border-color:var(--rule-strong);--mark:var(--live)"><i class="cr-ball" aria-hidden="true"></i>On day paper</span></td><td><span class="cr-val" data-cr="--live --white" data-cr-graphic>1.32</span></td><td><span class="cr-pass" data-cr-pass>Fail</span></td><td class="cr-use">Why the live dot never sits on the day ground: it always has ink or the night ground behind it.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- DARK THEME -->
+      <section class="sys-sec" id="dark" aria-labelledby="dk-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Colour at night</p>
+          <h2 class="h2" id="dk-title" data-rise>The same wall, after dark.</h2>
+          <p class="sys-sec__what">This is the same site on a phone or computer set to dark: the ivory wall becomes a dark one, so an evening visitor reads in comfort and the club still looks like itself.</p>
+          <p class="sys-sec__detail">The site follows the visitor's own setting. The dark is a warm near-black, never navy. The mats of the prints stay pale, a little dimmed, so the photographs still hang on the wall. The lawn of the courts is one step deeper. Red is never dimmed. Photographs drop to 86% brightness so they sit in the dark instead of glowing.</p>
+        </header>
+        <fieldset class="rate theme-pick">
+          <legend class="vh">Show this page in</legend>
+          <input class="vh" type="radio" name="theme" id="th-auto" value="auto" checked data-theme-pick><label for="th-auto">System</label>
+          <input class="vh" type="radio" name="theme" id="th-light" value="light" data-theme-pick><label for="th-light">Day</label>
+          <input class="vh" type="radio" name="theme" id="th-dark" value="dark" data-theme-pick><label for="th-dark">Night</label>
+        </fieldset>
+        <p class="sys-note">Your choice is remembered on this device for these three pages. The contrast figures above are measured again each time you switch.</p>
+        <div class="dk-pair">
+          <div class="dk-pair__day">
+            <p class="dk-pair__k">Day</p>
+            <ul class="dk-list">
+              <li><span class="dk-chip" style="background:#F4F1E8"></span><code>--paper</code> #F4F1E8</li>
+              <li><span class="dk-chip" style="background:#171B18"></span><code>--ink</code> #171B18</li>
+              <li><span class="dk-chip" style="background:#E9E5D8"></span><code>--chalk</code> #E9E5D8</li>
+              <li><span class="dk-chip" style="background:#1F2421"></span><code>--blazer</code> #1F2421</li>
+              <li><span class="dk-chip" style="background:#DF3124"></span><code>--red</code> #DF3124</li>
+            </ul>
+          </div>
+          <div class="dk-pair__night">
+            <p class="dk-pair__k">Night</p>
+            <ul class="dk-list">
+              <li><span class="dk-chip" style="background:#121512"></span><code>--paper</code> #121512</li>
+              <li><span class="dk-chip" style="background:#EFEDE6"></span><code>--ink</code> #EFEDE6</li>
+              <li><span class="dk-chip" style="background:#1B1F1B"></span><code>--chalk</code> #1B1F1B</li>
+              <li><span class="dk-chip" style="background:#242A25"></span><code>--blazer</code> #242A25</li>
+              <li><span class="dk-chip" style="background:#DF3124"></span><code>--red</code> #DF3124, unchanged</li>
+            </ul>
+          </div>
+        </div>
+        <ul class="rules-list">
+          <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>Text at night is measured in the table above each time you switch: ink, ink 2 and ink 3 all pass on the dark wall.</li>
+          <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>Labels on red stay fixed white in both schemes, 4.56:1. A dark label on red would fail.</li>
+          <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>A white button on a photograph stays white at night: it belongs to the picture, not to the page.</li>
+          <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>One theme per page. No section flips to the other scheme. The High Performance half on Home is the one deliberate colour block.</li>
+        </ul>
+      </section>
+
+      <!-- TYPE -->
+      <section class="sys-sec" id="type" aria-labelledby="t-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Type</p>
+          <h2 class="h2" id="t-title" data-rise>Caslon, centred, for the club.</h2>
+          <p class="sys-sec__what">Two typefaces give the club its voice: Caslon, a classic book serif, speaks for the club in every headline and date, and Hanken Grotesk, a plain modern sans, carries prices, times and buttons, so the site reads as a club with a history and is still quick to use.</p>
+          <p class="sys-sec__detail">Libre Caslon Display for headlines and figures. Headlines and section headings are centred, the way a club sets a notice or a menu. Libre Caslon Text for ledes, captions and plates; its italic is the voice of High Performance on Home (Train. Compete. Develop.). Hanken Grotesk for body copy and controls, with its heaviest capitals kept for one job, the Pro National mark. The serif is never bold. All three are open-licence fonts (SIL Open Font License 1.1) served from the club's own site, with nothing loaded from another company.</p>
+        </header>
+        <div class="families">
+          <div class="family"><span class="family__glyph" style="font-family:var(--f-display)">Aa 19</span><p class="family__meta"><strong>Libre Caslon Display 400</strong>Headlines from 32px up, dates as display. 24 KB.</p></div>
+          <div class="family"><span class="family__glyph" style="font-family:var(--f-serif);font-style:italic">Aa 51</span><p class="family__meta"><strong>Libre Caslon Text 400 and italic</strong>Ledes, captions, confirm slots, placeholder descriptions. 53 KB.</p></div>
+          <div class="family"><span class="family__glyph" style="font-family:var(--f-sans);font-weight:800;letter-spacing:-0.04em">AA 75</span><p class="family__meta"><strong>Hanken Grotesk, weight 100 to 900</strong>Body, nav, times. Capitals at 800 for the Pro National mark only. Tabular lining figures by default. 35 KB.</p></div>
+        </div>
+
+        <p class="sys-sub">The scale, seven steps</p>
+        <div class="type-row"><p class="type-row__meta"><strong>1 Display capitals</strong>Hanken 800, -0.045em, 44 to 124px, for the Pro National mark only; every headline is Caslon</p><p class="type-row__sample h-caps" style="font-size:clamp(2.5rem,1rem + 5vw,5.5rem)">Pro National</p></div>
+        <div class="type-row"><p class="type-row__meta"><strong>2 Display serif</strong>Caslon Display, centred, 24 to 68px, one per page</p><p class="type-row__sample h-display" style="font-size:clamp(2.5rem,1.2rem + 4vw,5rem)">Tennis for every level.</p></div>
+        <div class="type-row"><p class="type-row__meta"><strong>2b The two halves</strong>Caslon Display for recreation, Caslon Text italic for High Performance, 44 to 76px</p><p class="type-row__sample split__words" style="font:italic 400 clamp(2.5rem,1.2rem + 4vw,4.75rem)/1 var(--f-serif);text-transform:none;letter-spacing:-0.012em">Train. Compete. Develop.</p></div>
+        <div class="type-row"><p class="type-row__meta"><strong>3 Section heading</strong>Caslon Display, 32 to 52px</p><p class="type-row__sample h2">What are you looking for?</p></div>
+        <div class="type-row"><p class="type-row__meta"><strong>4 Card heading</strong>Caslon Display, 28 to 40px</p><p class="type-row__sample"><span class="door__name">Junior Recreational</span></p></div>
+        <div class="type-row"><p class="type-row__meta"><strong>5 Lede</strong>Caslon Text, 19 to 22px, +0.01em</p><p class="type-row__sample lede">Year-round tennis, coaching, competition and community in Thornhill.</p></div>
+        <div class="type-row"><p class="type-row__meta"><strong>6 Body</strong>Hanken 400, 17px / 1.6, 40rem measure</p><p class="type-row__sample body">Group Lessons are run in multiple week sessions and classes are available for members and non-members.</p></div>
+        <div class="type-row"><p class="type-row__meta"><strong>7 Label and caption</strong>Hanken 650 capitals +0.16em, or 400, 14px</p><p class="type-row__sample"><span class="eyebrow">Fall &amp; Winter Indoor 2026/27</span><br><span class="small">Club news post, 2022. <span class="serif-i">Photographer not recorded.</span></span></p></div>
+
+        <p class="sys-sub">Figures, set like a timetable</p>
+        <div class="numerals"><span>$368.50</span><span>7:30am</span><span>Ages 4-6</span><span>6:30am-11:30pm</span></div>
+        <p class="sys-sub">The 1951 test</p>
+        <p class="test1951">1951 Il1</p>
+        <p class="sys-note">Rendered in Caslon Display: the figure one carries a flag and a foot, so 1951 never reads as l95l.</p>
+      </section>
+
+      <!-- SPACE -->
+      <section class="sys-sec" id="space" aria-labelledby="s-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Space and grid</p>
+          <h2 class="h2" id="s-title" data-rise>An 8px grid, and room to breathe.</h2>
+          <p class="sys-sec__what">Every gap on the site comes from one short scale and every block sits on twelve columns: the calm, unhurried feel of a private club comes from this space more than from any ornament.</p>
+          <p class="sys-sec__detail">Twelve columns inside 1312px. Gutters are 16px on a phone and 32px on a desktop. Sections are 72px apart on a phone and up to 136px on a desktop. A line of text never runs wider than is comfortable to read.</p>
+        </header>
+        <div>
+          <div class="space-row"><code>--s-1</code><span>4</span><span class="space-bar" style="width:4px"></span></div>
+          <div class="space-row"><code>--s-2</code><span>8</span><span class="space-bar" style="width:8px"></span></div>
+          <div class="space-row"><code>--s-3</code><span>12</span><span class="space-bar" style="width:12px"></span></div>
+          <div class="space-row"><code>--s-4</code><span>16</span><span class="space-bar" style="width:16px"></span></div>
+          <div class="space-row"><code>--s-5</code><span>24</span><span class="space-bar" style="width:24px"></span></div>
+          <div class="space-row"><code>--s-6</code><span>32</span><span class="space-bar" style="width:32px"></span></div>
+          <div class="space-row"><code>--s-7</code><span>48</span><span class="space-bar" style="width:48px"></span></div>
+          <div class="space-row"><code>--s-8</code><span>64</span><span class="space-bar" style="width:64px"></span></div>
+          <div class="space-row"><code>--s-9</code><span>96</span><span class="space-bar" style="width:96px"></span></div>
+          <div class="space-row"><code>--s-10</code><span>128</span><span class="space-bar" style="width:128px"></span></div>
+          <div class="space-row"><code>--s-11</code><span>160</span><span class="space-bar" style="width:160px"></span></div>
+        </div>
+        <div class="grid-demo" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="sys-note">Radius is 2px on buttons, cards, inputs and frames. No shadows anywhere except the focus ring's outline.</p>
+      </section>
+
+      <!-- MOTION -->
+      <section class="sys-sec" id="motion" aria-labelledby="m-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Motion</p>
+          <h2 class="h2" id="m-title" data-rise>Arrive like a first serve. Settle like a held follow-through.</h2>
+          <p class="sys-sec__what">This is how the site moves: quickly in and gently to rest, like a serve and its follow-through, and only where movement helps a visitor see what has changed.</p>
+          <p class="sys-sec__detail">Three curves and a short scale of durations. Only position and opacity are animated, so pages stay smooth on a phone. Nothing loops. For a visitor whose device asks for less motion, every page is complete and still, and a page change becomes a short fade.</p>
+        </header>
+        <div class="curves">
+          <div class="curve">
+            <svg viewBox="-4 -4 128 128" aria-hidden="true"><rect x="0" y="0" width="120" height="120" fill="none" stroke="var(--rule)"/><path d="M0 120 C19.2 0 36 0 120 0" fill="none" stroke="var(--ink)" stroke-width="1.5"/></svg>
+            <p class="curve__name">Arrive <span class="code">--ease-out</span></p>
+            <p class="curve__meta">0.16, 1, 0.3, 1. Reveals and entrances.</p>
+          </div>
+          <div class="curve">
+            <svg viewBox="-4 -4 128 128" aria-hidden="true"><rect x="0" y="0" width="120" height="120" fill="none" stroke="var(--rule)"/><path d="M0 120 C91.2 120 28.8 0 120 0" fill="none" stroke="var(--ink)" stroke-width="1.5"/></svg>
+            <p class="curve__name">Travel <span class="code">--ease-in-out</span></p>
+            <p class="curve__meta">0.76, 0, 0.24, 1. The page turn, the morph, the menu sheet.</p>
+          </div>
+          <div class="curve">
+            <svg viewBox="-4 -4 128 128" aria-hidden="true"><rect x="0" y="0" width="120" height="120" fill="none" stroke="var(--rule)"/><path d="M0 120 C38.4 33.6 0 0 120 0" fill="none" stroke="var(--ink)" stroke-width="1.5"/></svg>
+            <p class="curve__name">Respond <span class="code">--ease-ui</span></p>
+            <p class="curve__meta">0.32, 0.72, 0, 1. Hover, press, state.</p>
+          </div>
+        </div>
+        <div class="durations">
+          <div><b>120</b><span>Press ms</span></div>
+          <div><b>240</b><span>UI ms</span></div>
+          <div><b>560</b><span>Turn ms</span></div>
+          <div><b>900</b><span>Rise ms</span></div>
+          <div><b>1200</b><span>Unveil ms</span></div>
+          <div><b>70 / 90</b><span>Stagger ms</span></div>
+        </div>
+
+        <p class="sys-sub">The eight movements, and where each is used</p>
+        <div class="prims">
+          <div class="prim">
+            <p class="prim__name"><b>Rise</b><span>Headlines, masked by line</span></p>
+            <div class="prim__stage"><p class="demo-words" id="demo-rise" data-rise-lines><span class="line"><span class="line__in">Train.</span></span><span class="line"><span class="line__in">Compete.</span></span></p></div>
+            <p>0.9s on Arrive, 70ms between lines. Every H1 and section heading. Never body copy.</p>
+            <div class="sys-row"><button class="btn btn--outline btn--sm" type="button" data-play="rise" data-target="#demo-rise"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Play Rise</span><span class="btn__label btn__label--2" aria-hidden="true">Play Rise</span></span></button></div>
+          </div>
+          <div class="prim">
+            <p class="prim__name"><b>Settle</b><span>Blocks, 24px and opacity</span></p>
+            <div class="prim__stage"><div class="demo-cards" id="demo-settle"><span></span><span></span><span></span></div></div>
+            <p>0.7s on Arrive, batched with 90ms between items. Doors, cards, rows and paragraphs.</p>
+            <div class="sys-row"><button class="btn btn--outline btn--sm" type="button" data-play="settle" data-target="#demo-settle"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Play Settle</span><span class="btn__label btn__label--2" aria-hidden="true">Play Settle</span></span></button></div>
+          </div>
+          <div class="prim">
+            <p class="prim__name"><b>Unveil</b><span>Frames and photographs</span></p>
+            <div class="prim__stage" id="demo-unveil"><figure class="frame frame--day" data-slot="junior-hero-01" data-master="3:2" style="--ar:3 / 2"><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-h" width="100%" height="100%"></use></svg><img class="frame__img" src="../../assets/img/junior-hero-01.jpg" srcset="../../assets/img/_w/junior-hero-01-480.webp 480w, ../../assets/img/_w/junior-hero-01-800.webp 800w, ../../assets/img/_w/junior-hero-01-1200.webp 1200w, ../../assets/img/_w/junior-hero-01-1600.webp 1600w, ../../assets/img/junior-hero-01.jpg 2400w" sizes="auto, (max-width: 719px) 100vw, 50vw" alt="A junior group lesson in motion, ages 7-9, on a summer afternoon." loading="lazy" decoding="async" onload="tptcImg(this,1)" onerror="tptcImg(this,0)"></div></div></div></div><p class="frame__label"><span class="frame__tag">Placeholder</span><span class="frame__id">junior-hero-01<span class="frame__ratio">3:2</span></span><span class="frame__desc">A junior group lesson in motion, ages 7-9, on a summer afternoon.</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div></figure></div>
+            <p>A wipe built from two counter-moving layers, 1.2s, the image settling from 1.12. Every photograph and placeholder.</p>
+            <div class="sys-row"><button class="btn btn--outline btn--sm" type="button" data-play="unveil" data-target="#demo-unveil .frame"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Play Unveil</span><span class="btn__label btn__label--2" aria-hidden="true">Play Unveil</span></span></button></div>
+          </div>
+          <div class="prim">
+            <p class="prim__name"><b>Press</b><span>Buttons, links, doors</span></p>
+            <div class="prim__stage"><div class="sys-row" id="demo-press"><a class="btn btn--primary" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div></div>
+            <p>A fill rises from the base in 240ms while the label crossfades, so the words never double. Pressed scales to 0.98. Hover only on fine pointers.</p>
+            <div class="sys-row"><button class="btn btn--outline btn--sm" type="button" data-play="press" data-target="#demo-press .btn"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Play Press</span><span class="btn__label btn__label--2" aria-hidden="true">Play Press</span></span></button></div>
+          </div>
+          <div class="prim">
+            <p class="prim__name"><b>Drift</b><span>Photo inside its frame</span></p>
+            <p>The photograph moves a little against the scroll, on desktop only and on at most two frames per page: the Home hero and the High Performance half; the High Performance hero and the Pro National band.</p>
+          </div>
+          <div class="prim">
+            <p class="prim__name"><b>Hold</b><span>One use, site-wide</span></p>
+            <p>The High Performance pathway: a sticky column and a 1px rail that fills as you read Little Champs, Transition Tour and Pro National. The page keeps scrolling freely; nothing is locked in place.</p>
+            <a class="link" href="high-performance.html#pathway"><span class="link__text">See it on the pathway</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+          </div>
+          <div class="prim">
+            <p class="prim__name"><b>Turn</b><span>The page itself</span></p>
+            <p>The old page lifts 12px and fades in 320ms, the new one arrives 24px up in 560ms, the header stays put. The High Performance door morphs into that page's hero in 640ms. Try the door below, or the one on Home.</p>
+          </div>
+          <div class="prim">
+            <p class="prim__name"><b>Pulse</b><span>The live accent</span></p>
+            <div class="prim__stage" data-pulse-host><span class="chip" data-live data-no-pulse id="demo-pulse"><span class="chip__dot"></span><span class="chip__text">Running now</span></span></div>
+            <p>The yellow dot is the ball, so it bounces like one: up, down under gravity, three rebounds each keeping 0.75 of its speed (the ITF rebound test), then it rests. 1.15s, under the five-second rule. One per screen.</p>
+            <div class="sys-row"><button class="btn btn--outline btn--sm" type="button" data-play="pulse" data-target="#demo-pulse"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Play Pulse</span><span class="btn__label btn__label--2" aria-hidden="true">Play Pulse</span></span></button></div>
+          </div>
+        </div>
+        <p class="play-msg" data-play-msg hidden>Motion is off because your system asks for reduced motion. Every element is already in its final state.</p>
+      </section>
+
+      <!-- BUTTONS -->
+      <section class="sys-sec" id="buttons" aria-labelledby="b-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Buttons</p>
+          <h2 class="h2" id="b-title" data-rise>Four buttons. Red is Register now, and nothing else.</h2>
+          <p class="sys-sec__what">These are the site's four buttons in every state a visitor can meet (at rest, under the pointer, reached by keyboard, pressed, unavailable), so each one looks and behaves the same on every page.</p>
+          <p class="sys-sec__detail">Red belongs to Register now. Ink is for a page's own main action, outline for the second, and light for dark grounds. Buttons are 48px tall (44px in the header), a comfortable target for a thumb. Labels are typed in sentence case; the capitals are a matter of style.</p>
+        </header>
+        <div class="bm"><div class="bm__row"><p class="bm__name">Red<small>Register now only</small></p><div class="bm__cells"><div class="bm__cell"><span class="bm__k">At rest</span><a class="btn btn--primary" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a></div><div class="bm__cell"><span class="bm__k">Hover</span><a class="btn btn--primary is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a></div><div class="bm__cell"><span class="bm__k">Focus</span><a class="btn btn--primary is-focus" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a></div><div class="bm__cell"><span class="bm__k">Pressed</span><a class="btn btn--primary is-active is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a></div><div class="bm__cell"><span class="bm__k">Disabled</span><a class="btn btn--primary is-disabled" href="#" tabindex="-1" aria-disabled="true"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now</span><span class="btn__label btn__label--2" aria-hidden="true">Register now</span></span></a></div></div></div><div class="bm__row"><p class="bm__name">Ink<small>The page's own action</small></p><div class="bm__cells"><div class="bm__cell"><span class="bm__k">At rest</span><a class="btn btn--ink" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Hover</span><a class="btn btn--ink is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Focus</span><a class="btn btn--ink is-focus" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Pressed</span><a class="btn btn--ink is-active is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Disabled</span><a class="btn btn--ink is-disabled" href="#" tabindex="-1" aria-disabled="true"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">View programs<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div></div></div><div class="bm__row"><p class="bm__name">Outline<small>The second action</small></p><div class="bm__cells"><div class="bm__cell"><span class="bm__k">At rest</span><a class="btn btn--outline" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Become a member</span><span class="btn__label btn__label--2" aria-hidden="true">Become a member</span></span></a></div><div class="bm__cell"><span class="bm__k">Hover</span><a class="btn btn--outline is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Become a member</span><span class="btn__label btn__label--2" aria-hidden="true">Become a member</span></span></a></div><div class="bm__cell"><span class="bm__k">Focus</span><a class="btn btn--outline is-focus" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Become a member</span><span class="btn__label btn__label--2" aria-hidden="true">Become a member</span></span></a></div><div class="bm__cell"><span class="bm__k">Pressed</span><a class="btn btn--outline is-active is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Become a member</span><span class="btn__label btn__label--2" aria-hidden="true">Become a member</span></span></a></div><div class="bm__cell"><span class="bm__k">Disabled</span><a class="btn btn--outline is-disabled" href="#" tabindex="-1" aria-disabled="true"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Become a member</span><span class="btn__label btn__label--2" aria-hidden="true">Become a member</span></span></a></div></div></div></div>
+        <div class="sys-panel theme-night" style="margin-top:var(--s-6)"><div class="bm"><div class="bm__row"><p class="bm__name">Light<small>On a photograph or night ground</small></p><div class="bm__cells"><div class="bm__cell"><span class="bm__k">At rest</span><a class="btn btn--light" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Hover</span><a class="btn btn--light is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Focus</span><a class="btn btn--light is-focus" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Pressed</span><a class="btn btn--light is-active is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Disabled</span><a class="btn btn--light is-disabled" href="#" tabindex="-1" aria-disabled="true"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Request an assessment<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div></div></div><div class="bm__row"><p class="bm__name">Outline<small>On dark</small></p><div class="bm__cells"><div class="bm__cell"><span class="bm__k">At rest</span><a class="btn btn--outline" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Ask about pre-approval</span><span class="btn__label btn__label--2" aria-hidden="true">Ask about pre-approval</span></span></a></div><div class="bm__cell"><span class="bm__k">Hover</span><a class="btn btn--outline is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Ask about pre-approval</span><span class="btn__label btn__label--2" aria-hidden="true">Ask about pre-approval</span></span></a></div><div class="bm__cell"><span class="bm__k">Focus</span><a class="btn btn--outline is-focus" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Ask about pre-approval</span><span class="btn__label btn__label--2" aria-hidden="true">Ask about pre-approval</span></span></a></div><div class="bm__cell"><span class="bm__k">Pressed</span><a class="btn btn--outline is-active is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Ask about pre-approval</span><span class="btn__label btn__label--2" aria-hidden="true">Ask about pre-approval</span></span></a></div><div class="bm__cell"><span class="bm__k">Disabled</span><a class="btn btn--outline is-disabled" href="#" tabindex="-1" aria-disabled="true"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Ask about pre-approval</span><span class="btn__label btn__label--2" aria-hidden="true">Ask about pre-approval</span></span></a></div></div></div><div class="bm__row"><p class="bm__name">Red<small>On dark</small></p><div class="bm__cells"><div class="bm__cell"><span class="bm__k">At rest</span><a class="btn btn--primary" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Hover</span><a class="btn btn--primary is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Focus</span><a class="btn btn--primary is-focus" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Pressed</span><a class="btn btn--primary is-active is-hover" href="#" tabindex="-1"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div><div class="bm__cell"><span class="bm__k">Disabled</span><a class="btn btn--primary is-disabled" href="#" tabindex="-1" aria-disabled="true"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a></div></div></div></div></div>
+      </section>
+
+      <!-- LINKS AND BREADCRUMBS -->
+      <section class="sys-sec" id="wayfinding" aria-labelledby="w-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Links and breadcrumbs</p>
+          <h2 class="h2" id="w-title" data-rise>Name the destination.</h2>
+          <p class="sys-sec__what">A link says where it goes or what it does, and the breadcrumb trail shows where the visitor is, so nobody has to guess what a vague "Learn more" would have meant.</p>
+          <p class="sys-sec__detail">Text links carry a quiet underline that draws in full under the pointer, and an arrow that steps forward. Links that leave the club's site open a new tab and say so.</p>
+        </header>
+        <div class="sys-row">
+          <a class="link" href="#"><span class="link__text">Request an assessment</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+          <a class="link is-hover" href="#"><span class="link__text">Hover state</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+          <a class="link" href="https://www.instagram.com/thornhillparktc/" target="_blank" rel="noopener"><span class="link__text">Instagram</span><svg class="icon icon--ext" aria-hidden="true" focusable="false"><use href="#i-ext"></use></svg><span class="vh"> (opens in a new tab)</span></a>
+          <a class="link link--caps" href="#"><span class="link__text">View programs</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+        </div>
+        <p class="sys-sub">Breadcrumbs, on paper and on dark</p>
+        <nav class="crumbs" aria-label="Breadcrumb example on paper"><ol><li><a href="index.html">Home</a></li><li><a href="#">Programs</a></li><li><a href="#">Camps</a></li><li><span aria-current="page">Summer</span></li></ol></nav>
+        <div class="sys-panel theme-night" style="margin-top:var(--s-5)">
+          <nav class="crumbs" aria-label="Breadcrumb example on dark"><ol><li><a href="index.html">Home</a></li><li><a href="#">Programs</a></li><li><span aria-current="page">High Performance</span></li></ol></nav>
+        </div>
+      </section>
+
+      <!-- STATUS -->
+      <section class="sys-sec" id="status" aria-labelledby="st-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Status chips</p>
+          <h2 class="h2" id="st-title" data-rise>Live means a date says so.</h2>
+          <p class="sys-sec__what">These small labels say whether something is running, opening, full, closed or still to be confirmed, so a parent can tell at a glance what can be joined today.</p>
+          <p class="sys-sec__detail">A status is worked out from the dates the club has published. With no date there is nothing live, only a Club to confirm slot. The bright ball-yellow dot appears on nothing else: no hover effects, no decoration.</p>
+        </header>
+        <div class="live-demo">
+          <div class="live-demo__stage">
+            <span class="chip" data-live data-no-pulse><span class="chip__dot"></span><span class="chip__text">Running now</span></span>
+            <span class="chip"><span class="chip__dot"></span>Opened Aug 1</span>
+            <span class="chip chip--soon"><span class="chip__dot"></span>Opens Aug 18, 10am</span>
+            <span class="chip"><span class="chip__dot"></span>Waiting list</span>
+            <span class="chip"><span class="chip__dot"></span>Full</span>
+            <span class="chip chip--closed"><span class="chip__dot"></span>Closed</span>
+            <span class="chip chip--confirm"><span class="chip__dot"></span>To confirm</span>
+          </div>
+          <ul class="rules-list">
+            <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>The live colour is the optic yellow of the ball, never red, so "act" and "now" never blur.</li>
+            <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>A dot beside words. The words carry the meaning; colour never works alone.</li>
+            <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>On paper the live chip is set in ink, like a scoreboard, because yellow on white is too faint to read.</li>
+            <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>One live element per screen. The ball bounces to rest in 1.15s. Replays on hover or focus.</li>
+            <li><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>On Home it appears once: Fall &amp; Winter Indoor, under the Dome, running to April 25, 2027.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- CARDS -->
+      <section class="sys-sec" id="cards" aria-labelledby="k-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Cards</p>
+          <h2 class="h2" id="k-title" data-rise>Doors choose a path. Cards answer in one order.</h2>
+          <p class="sys-sec__what">The site is built from three cards: the court door that leads to a program, the program card that answers who, level, when, where and fee in the same order every time, and the compact card for a smaller choice.</p>
+          <p class="sys-sec__detail">A fact the club has not yet published keeps its place on the card as a Club to confirm slot, so cards line up and nothing is guessed.</p>
+        </header>
+        <div class="cards-demo">
+          <div class="door-demo">
+            <a class="door door--hp" href="high-performance.html" aria-label="High Performance: see the pathway">
+              <div class="court">
+                <svg class="court__lines" aria-hidden="true" focusable="false"><use href="#court-h" width="100%" height="100%"></use></svg>
+                <span class="court__ball" aria-hidden="true"><img src="../../assets/brand/tptc-ball.svg" width="24" height="24" alt="" decoding="async"></span>
+              </div>
+              <div class="door__body">
+                <p class="door__meta">By assessment</p>
+                <h3 class="door__name">High Performance</h3>
+                <p class="door__line">Little Champs, Transition Tour and Pro National, for players who compete.</p>
+                <span class="link door__cta"><span class="link__text">See the pathway</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span>
+              </div>
+            </a>
+            <p class="sys-note">The court door, the signature of this direction. There is no photograph: the door is a court drawn in lawn green, its white lines at the true 78 by 36 ft, and the ball is the ball from the club's logo. Under the pointer, or on keyboard focus, the ball is served by the rules: tossed from behind the baseline beside the centre mark, struck near the top of the toss, down over the net into the diagonal service box, one bounce, then on toward the back fence. The next serve comes from the other side. It stays still for a visitor who asks for less motion. The whole door is one link, named "High Performance: see the pathway".</p>
+          </div>
+          <article class="pcard" aria-labelledby="pc-name">
+            <div class="pcard__head">
+              <p class="pcard__kicker">Junior Recreational · Ages 7-9</p>
+              <h3 class="pcard__name" id="pc-name">Intermediate 1</h3>
+              <p class="small">Three-quarter court stage.</p>
+            </div>
+            <dl class="dl">
+              <div class="dl__row"><dt>Who</dt><dd>Ages 7-9, members and non-members.</dd></div>
+              <div class="dl__row"><dt>Level</dt><dd>Can rally consistently from three-quarter court: a 6 ball rally with a partner, 3 balls each.</dd></div>
+              <div class="dl__row"><dt>When</dt><dd><span class="confirm-inline"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Class days and times, <span class="confirm__yr">2026/27</span></span></span></dd></div>
+              <div class="dl__row"><dt>Where</dt><dd><span class="confirm-inline"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Indoor location for this class</span></span></dd></div>
+              <div class="dl__row"><dt>Fee</dt><dd><span class="confirm-inline"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Fee per session and its tax, <span class="confirm__yr">2026/27</span></span></span></dd></div>
+            </dl>
+            <div class="actions"><a class="btn btn--ink" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register for Intermediate 1<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Register for Intermediate 1<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a><a class="link" href="#"><span class="link__text">Request a free assessment</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
+          </article>
+          <div class="cd-pair pair">
+            <a class="cdoor" href="#">
+              <svg class="icon icon--sun" aria-hidden="true" focusable="false"><use href="#i-sun"></use></svg>
+              <span class="cdoor__t">High Performance camps</span>
+              <span class="cdoor__d">In summer, Little Champs, Transition Tour and Pro National camps. Over school breaks, Rookie Pro National and 4+UTR Pro National.</span>
+              <span class="link"><span class="link__text">See the camps</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span>
+            </a>
+            <div class="notice">
+              <svg class="icon icon--coach" aria-hidden="true" focusable="false"><use href="#i-coach"></use></svg>
+              <p class="notice__t">Led by Head Pro Josh Borenstein</p>
+              <p class="notice__d">Every coach and every biography lives on one page.</p>
+              <a class="link" href="#"><span class="link__text">Meet the coaches</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICES -->
+      <section class="sys-sec" id="prices" aria-labelledby="p-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Membership rates</p>
+          <h2 class="h2" id="p-title" data-rise>Fall &amp; Winter Indoor 2026/27 rates.</h2>
+          <p class="sys-sec__what">This is how a rate is shown: the five membership options on one card, the Vaughan resident rate first, and the tax stated once, so a family reads its own number without doing arithmetic.</p>
+          <p class="sys-sec__detail">Figures are set so the dollars and cents line up down the column. The season runs from early October 2026 to April 25, 2027.</p>
+        </header>
+        <!-- The price card: a membership card on chalk. One rate at a time, chosen by the visitor
+             (CSS only, radios and :has), five tiers as a ledger, the one action at its foot. -->
+        <div class="mcard">
+          <div class="mcard__head">
+            <div>
+              <p class="mcard__season">Fall &amp; Winter Indoor</p>
+              <p class="mcard__dates num">Early October 2026 to April 25, 2027</p>
+            </div>
+            <fieldset class="rate">
+              <legend class="vh">Show rates for</legend>
+              <input class="vh" type="radio" name="rate" id="rate-res" value="res" checked><label for="rate-res">Vaughan resident</label>
+              <input class="vh" type="radio" name="rate" id="rate-non" value="non"><label for="rate-non">Non-resident</label>
+            </fieldset>
+          </div>
+          <ul class="tiers" aria-live="polite">
+            <li class="tier"><p class="tier__name">Adult</p><p class="tier__who">Ages 18-64</p><p class="tier__price num"><span class="tier__amt tier__amt--res">$368.50</span><span class="tier__amt tier__amt--non">$433.53</span></p></li>
+            <li class="tier"><p class="tier__name">Couple</p><p class="tier__who">Married</p><p class="tier__price num"><span class="tier__amt tier__amt--res">$637.75</span><span class="tier__amt tier__amt--non">$750.29</span></p></li>
+            <li class="tier"><p class="tier__name">Family</p><p class="tier__who">Same household</p><p class="tier__price num"><span class="tier__amt tier__amt--res">$756.90</span><span class="tier__amt tier__amt--non">$890.47</span></p></li>
+            <li class="tier"><p class="tier__name">Junior</p><p class="tier__who">Ages 17 and under</p><p class="tier__price num"><span class="tier__amt tier__amt--res">$143.50</span><span class="tier__amt tier__amt--non">$168.82</span></p></li>
+            <li class="tier"><p class="tier__name">Senior</p><p class="tier__who">Ages 65 and over</p><p class="tier__price num"><span class="tier__amt tier__amt--res">$258.50</span><span class="tier__amt tier__amt--non">$304.12</span></p></li>
+          </ul>
+          <div class="mcard__foot">
+            <div class="tiers-note">
+              <p><strong>Plus HST.</strong> Vaughan resident rates include a 15% discount. Members from the preceding Spring &amp; Summer season receive $25 off.</p>
+              <p>Intercounty only (Sunday night matches): $90.00, by pre-approval, no discount.</p>
+            </div>
+            <div class="tiers-act">
+              <a class="btn btn--ink btn--block" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Become a member<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Become a member<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a>
+              <p class="small">Register online, then choose your membership option.</p>
+            </div>
+          </div>
+        </div>
+        <p class="sys-note confirm-inline"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">The date ages are counted from, and whether spaces remain</span> <span class="small">The club's site gives both Jan 1, 2025 and Jan 1, 2026.</span></p>
+      </section>
+
+      <!-- ROWS -->
+      <section class="sys-sec" id="rows" aria-labelledby="r-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">League and schedule rows</p>
+          <h2 class="h2" id="r-title" data-rise>One row, one answer.</h2>
+          <p class="sys-sec__what">Leagues, round robins and court fees are listed in rows that always read in the same order, so a long list can be scanned like an order of play.</p>
+          <p class="sys-sec__detail">A league row reads name, day and time, level, fee, status, how to join. A schedule row reads day, time, fee, note. On a phone a wide table scrolls inside itself, never the page.</p>
+        </header>
+        <p class="sys-sub" style="margin-top:0">League row</p>
+        <div class="rows">
+          <div class="lrow">
+            <div><p class="lrow__name">Men's &amp; Women's Doubles House Leagues</p><span class="lrow__season">Fall &amp; Winter, dates to confirm</span></div>
+            <div><span class="lrow__k">Day and time</span><p class="lrow__v num">Thursdays 7:30-11:30pm, 2 hours</p></div>
+            <div><span class="lrow__k">Level</span><p class="lrow__v num">3.0-4.0</p></div>
+            <div><span class="lrow__k">Fee</span><p class="lrow__v num">$18 a week</p></div>
+            <div class="lrow__act"><span class="chip"><span class="chip__dot"></span>Waiting list</span><a class="link" href="#"><span class="link__text">Join the waiting list</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
+          </div>
+          <div class="lrow">
+            <div><p class="lrow__name">Weekday Mixed Doubles Round Robins</p><span class="lrow__season">Fall &amp; Winter, dates to confirm</span></div>
+            <div><span class="lrow__k">Day and time</span><p class="lrow__v num">Monday, Wednesday, Friday 9:30-11:30am</p></div>
+            <div><span class="lrow__k">Level</span><p class="lrow__v">Ages 18+</p></div>
+            <div><span class="lrow__k">Fee</span><p class="lrow__v num">$12</p></div>
+            <div class="lrow__act"><span class="chip chip--confirm"><span class="chip__dot"></span>To confirm</span><span class="confirm-inline small"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">How to sign up</span></span></div>
+          </div>
+        </div>
+        <p class="rows__tax confirm-inline small"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Whether these fees include HST</span></p>
+        <p class="sys-note">The club's site does not say whether these fees include HST, so the tax is one Club to confirm slot under the list: never a guess, and never repeated on every row.</p>
+
+        <p class="sys-sub">Schedule row: indoor court fees, an hour</p>
+        <div class="rows">
+          <div class="srow"><span class="srow__day">Regular time<br><span class="small">Weekdays</span></span><span class="srow__time">6:30am-6:30pm</span><span class="srow__price">$24</span><span class="srow__note">HST included</span></div>
+          <div class="srow"><span class="srow__day">Prime time<br><span class="small">Weeknights</span></span><span class="srow__time">6:30pm-11:30pm</span><span class="srow__price">$28</span><span class="srow__note">HST included</span></div>
+          <div class="srow"><span class="srow__day">Prime time<br><span class="small">Saturday and Sunday</span></span><span class="srow__time">7am-11pm</span><span class="srow__price">$28</span><span class="srow__note">HST included. Non-members add $10 per player.</span></div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="sys-sec" id="faq" aria-labelledby="f-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">FAQ</p>
+          <h2 class="h2" id="f-title" data-rise>Every repeated answer, once.</h2>
+          <p class="sys-sec__what">Every question the front desk hears often is answered once, filed under one of the club's six topics, and each answer ends with one link to the page that goes further.</p>
+          <p class="sys-sec__detail">The open answer sits on chalk. Each question can be opened from the keyboard and has its own address, so the front desk can send a link to a single answer.</p>
+        </header>
+        <div class="faq" data-accordion>
+          <div class="faq__item" id="faq-age">
+            <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="true" aria-controls="faq-a1"><span class="faq__topic">Programs</span><span class="faq__qt">At what age should my child begin lessons?</span><span class="faq__mark" aria-hidden="true"><svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg><svg class="icon icon--minus" aria-hidden="true" focusable="false"><use href="#i-minus"></use></svg></span></button></h3>
+            <div class="faq__a" id="faq-a1"><p>Group lessons begin at age 4. As there are many other activities to choose from, the primary focus at this age is to develop some fundamental skills through a fun based approach.</p><a class="link" href="#"><span class="link__text">Junior Recreational</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
+          </div>
+          <div class="faq__item" id="faq-dome">
+            <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a2"><span class="faq__topic">Club</span><span class="faq__qt">What is the temperature in the Dome?</span><span class="faq__mark" aria-hidden="true"><svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg><svg class="icon icon--minus" aria-hidden="true" focusable="false"><use href="#i-minus"></use></svg></span></button></h3>
+            <div class="faq__a" id="faq-a2" hidden><p>We keep the Dome at 19.5 celsius. Students should wear athletic pants and a long sleeve shirt with shorts and a t shirt underneath.</p><a class="link" href="#"><span class="link__text">Facilities</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
+          </div>
+          <div class="faq__item" id="faq-bring">
+            <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a3"><span class="faq__topic">Programs</span><span class="faq__qt">What should a student bring to each lesson?</span><span class="faq__mark" aria-hidden="true"><svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg><svg class="icon icon--minus" aria-hidden="true" focusable="false"><use href="#i-minus"></use></svg></span></button></h3>
+            <div class="faq__a" id="faq-a3" hidden><p>Bring a racquet, water bottle and non marking shoes. Racquets are available for students who do not have their own racquet.</p><a class="link" href="#"><span class="link__text">Junior Recreational</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORMS -->
+      <section class="sys-sec" id="forms" aria-labelledby="fo-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Form fields</p>
+          <h2 class="h2" id="fo-title" data-rise>Labels above, help below, errors in words.</h2>
+          <p class="sys-sec__what">These are the fields a visitor fills in, for example to submit a question: large, plainly labelled, and when something is wrong the field says in words how to put it right.</p>
+          <p class="sys-sec__detail">Fields are 52px tall with a clear ring when selected, on light and dark grounds. An error never relies on colour alone: it has an icon, a heavier border and a sentence.</p>
+        </header>
+        <div style="display:grid;gap:var(--s-7)">
+          <div class="field">
+            <label class="field__label" for="f-email">Parent or guardian email</label>
+            <input class="input" id="f-email" type="email" placeholder="name@example.com" autocomplete="email" aria-describedby="f-email-h">
+            <p class="field__help" id="f-email-h">Help sits here, under the field, in plain words.</p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="f-name">Player's first name <span class="small">(shown selected)</span></label>
+            <input class="input is-focus" id="f-name" type="text" value="" placeholder="First name" autocomplete="off">
+          </div>
+          <div class="field is-error">
+            <label class="field__label" for="f-code">Assessment code</label>
+            <input class="input" id="f-code" type="text" value="TPTC" aria-invalid="true" aria-describedby="f-code-e">
+            <p class="field__error" id="f-code-e"><svg class="icon icon--info" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>Enter the full code from the Head Pro or the front desk.</p>
+          </div>
+          <fieldset class="radios">
+            <legend>Your child's age</legend>
+            <label class="rcard"><input type="radio" name="age" value="4-6">4-6</label>
+            <label class="rcard"><input type="radio" name="age" value="7-9" checked>7-9</label>
+            <label class="rcard"><input type="radio" name="age" value="10-13">10-13</label>
+            <label class="rcard"><input type="radio" name="age" value="14-17">14-17</label>
+          </fieldset>
+          <div class="field">
+            <label class="field__label" for="f-season">Season</label>
+            <div class="select-wrap">
+              <select class="select" id="f-season"><option>Fall &amp; Winter Indoor 2026/27</option><option>Spring &amp; Summer Outdoor</option></select>
+              <svg class="icon icon--chevron" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg>
+            </div>
+          </div>
+          <label class="check"><input type="checkbox" checked> I have an assessment code</label>
+        </div>
+      </section>
+
+      <!-- STATES -->
+      <section class="sys-sec" id="states" aria-labelledby="sa-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Loading, empty and error</p>
+          <h2 class="h2" id="sa-title" data-rise>Every list has three more states.</h2>
+          <p class="sys-sec__what">This is what a list looks like while it loads, when nothing matches and when something fails, so a page never shows a blank space or a dead end.</p>
+          <p class="sys-sec__detail">Schedules and court times will come from the club's own systems. While they load, each row keeps its exact shape. When nothing matches, the page says so and offers the way back. When a source fails, the message sits where the content would have been, with a way to try again and the front desk's number.</p>
+        </header>
+        <div class="states">
+          <div class="state">
+            <p class="sys-sub">Loading: the schedule row, in outline</p>
+            <div class="rows skel" role="status" aria-label="Loading indoor court fees">
+              <div class="srow skel__row" aria-hidden="true"><span class="skel__bar" style="--w:62%"></span><span class="skel__bar" style="--w:78%"></span><span class="skel__bar skel__bar--fig" style="--w:40%"></span><span class="skel__bar" style="--w:56%"></span></div>
+              <div class="srow skel__row" aria-hidden="true"><span class="skel__bar" style="--w:54%"></span><span class="skel__bar" style="--w:70%"></span><span class="skel__bar skel__bar--fig" style="--w:40%"></span><span class="skel__bar" style="--w:44%"></span></div>
+              <div class="srow skel__row" aria-hidden="true"><span class="skel__bar" style="--w:66%"></span><span class="skel__bar" style="--w:58%"></span><span class="skel__bar skel__bar--fig" style="--w:40%"></span><span class="skel__bar" style="--w:72%"></span></div>
+            </div>
+          </div>
+          <div class="state">
+            <p class="sys-sub">Empty: nothing matches</p>
+            <div class="empty">
+              <svg class="empty__court" aria-hidden="true" focusable="false"><use href="#court-h" width="100%" height="100%"></use></svg>
+              <div class="empty__body">
+                <p class="empty__t">No sessions match these filters.</p>
+                <p class="empty__d">Clear a filter to see every day, or ask the front desk about a waiting list.</p>
+                <div class="actions"><a class="btn btn--outline" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Clear filters</span><span class="btn__label btn__label--2" aria-hidden="true">Clear filters</span></span></a><a class="link" href="tel:+19057315551"><span class="link__text">905-731-5551</span><svg class="icon icon--phone" aria-hidden="true" focusable="false"><use href="#i-phone"></use></svg></a></div>
+              </div>
+            </div>
+          </div>
+          <div class="state">
+            <p class="sys-sub">Error: the schedule did not arrive</p>
+            <div class="errorbox">
+              <svg class="icon icon--info errorbox__icon" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
+              <div class="errorbox__body">
+                <p class="errorbox__t">The court schedule did not load.</p>
+                <p class="errorbox__d">Try again in a moment. To book now, call the front desk.</p>
+                <div class="actions"><a class="btn btn--ink" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Try again</span><span class="btn__label btn__label--2" aria-hidden="true">Try again</span></span></a><a class="link" href="tel:+19057315551"><span class="link__text">905-731-5551</span><svg class="icon icon--phone" aria-hidden="true" focusable="false"><use href="#i-phone"></use></svg></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FRAMES -->
+      <section class="sys-sec" id="frames" aria-labelledby="fr-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Placeholder image</p>
+          <h2 class="h2" id="fr-title" data-rise>A drawing of the court until the photograph arrives.</h2>
+          <p class="sys-sec__what">Every photograph the club has yet to take has a frame holding its place: a drawing of the court, labelled with the shot it is waiting for, so the site looks finished today and the photographer has a shot list.</p>
+          <p class="sys-sec__detail">The court is drawn in fine lines to its real proportions, 78 by 36 ft, on a day or night ground to match the light of the planned shot. When the photograph is added under the frame's name, it takes the frame's place.</p>
+        </header>
+        <div class="anatomy">
+          <figure class="frame frame--day" data-slot="coaches-head-pro-01" data-master="4:5" style="--ar:4 / 5"><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-v" width="100%" height="100%"></use></svg></div></div></div></div><p class="frame__label"><span class="frame__tag">Placeholder</span><span class="frame__id">coaches-head-pro-01<span class="frame__ratio">4:5</span></span><span class="frame__desc">Real portrait of the Head Pro, Josh Borenstein (title CLUB TO CONFIRM).</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div></figure>
+          <figure class="frame frame--night" data-slot="facilities-hero-01" data-master="3:2" style="--ar:3 / 2"><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-h" width="100%" height="100%"></use></svg></div></div></div></div><p class="frame__label"><span class="frame__tag">Placeholder</span><span class="frame__id">facilities-hero-01<span class="frame__ratio">3:2</span></span><span class="frame__desc">The club&#x27;s own Dome at night, from inside.</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div></figure>
+          <ul class="anatomy__list">
+            <li><b>Ground</b>Chalk for daylight shots, the dark panel and night for floodlights and the Dome.</li>
+            <li><b>Court plan</b>Portrait or landscape, cropped by each frame's ratio, never a grey box.</li>
+            <li><b>Label</b>The word Placeholder, the name of the shot, its proportions and one line describing it, set like the title block on a drawing.</li>
+            <li><b>Swap</b>When the photograph arrives it takes the frame's place. If it is ever missing, the drawing returns.</li>
+          </ul>
+        </div>
+        <p class="sys-sub">A photograph hangs as a print</p>
+        <div class="phdemo">
+          <figure class="frame frame--day frame--print" data-slot="leagues-junior-events-01" data-master="3:2" style="--ar:3 / 2"><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-h" width="100%" height="100%"></use></svg><img class="frame__img" src="../../assets/img/leagues-junior-events-01.jpg" srcset="../../assets/img/_w/leagues-junior-events-01-480.webp 480w, ../../assets/img/_w/leagues-junior-events-01-800.webp 800w, ../../assets/img/leagues-junior-events-01.jpg 1200w" sizes="auto, (max-width: 719px) 100vw, 50vw" alt="A junior player moves to the ball on a green hard court, a tiled clubhouse roof beyond the far fence. Placeholder image." loading="lazy" decoding="async" onload="tptcImg(this,1)" onerror="tptcImg(this,0)"></div></div></div></div><p class="frame__label"><span class="frame__tag">Placeholder</span><span class="frame__id">leagues-junior-events-01<span class="frame__ratio">3:2</span></span><span class="frame__desc">A twelve-year-old clenching her fist after winning a long point.</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div><figcaption class="plate"><span class="plate__title">An afternoon on court</span><span class="plate__ph">Placeholder image</span></figcaption></figure>
+          <div class="phdemo__txt">
+            <p class="body">Every photograph that stands on a page is hung like a print on a clubhouse wall: a dark frame, a white mat, a fine line closing the picture, and a caption plate beneath that says what it is. A stand-in photograph says Placeholder image on its plate, so nothing is laid over the picture. The hero prints on Home and High Performance are shown whole, never cropped, and are sized so the whole print sits inside the first screen.</p>
+          </div>
+        </div>
+        <p class="sys-sub">Interim photographs behind words carry a tag</p>
+        <div class="phdemo">
+          <figure class="frame frame--day frame--ph-tr" data-slot="hp-little-champs-01" data-master="4:5" style="--ar:4 / 5"><div class="frame__box"><div class="frame__media"><div class="frame__wipe"><div class="frame__plate"><div class="frame__drift"><svg class="frame__court" aria-hidden="true" focusable="false"><use href="#court-v" width="100%" height="100%"></use></svg></div></div></div></div><p class="frame__label"><span class="frame__tag">Placeholder</span><span class="frame__id">hp-little-champs-01<span class="frame__ratio">4:5</span></span><span class="frame__desc">An eight-year-old in a split-step, eyes locked on the ball, fierce focus.</span></p><span class="frame__ph" aria-hidden="true">Placeholder<span class="frame__ph-x">&nbsp;image</span></span></div></figure>
+          <div class="phdemo__txt">
+            <p class="body">Where a photograph runs behind words (the Pro National Academy band), there is no plate, so the interim photograph carries a small Placeholder image tag in its corner. One switch hides every tag and every plate line on the site at once, for the day the final photographs arrive. The club's own four photographs never carry the tag; they carry an archival caption.</p>
+            <button class="btn btn--outline" type="button" data-ph-toggle aria-pressed="true"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Hide placeholder tags</span><span class="btn__label btn__label--2" aria-hidden="true">Hide placeholder tags</span></span></button>
+          </div>
+        </div>
+        <p class="sys-sub">Real photographs, captioned as an archive</p>
+        <p class="body">The club's four photographs appear only where a community moment fits, and always with a record, a source and the consent status beneath. See one in place under Why TPTC? on Home.</p>
+        <div class="archival" style="max-width:34rem">
+          <span class="archival__k">Record</span><span class="archival__v">The Majors team, 1st place in the toughest intercounty division, 2022.</span>
+          <span class="archival__k">Source</span><span class="archival__v">Club news post, 2022. <em>Photographer not recorded.</em></span>
+          <span class="archival__k">Consent</span><span class="archival__v"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span></span>
+        </div>
+        <a class="link" href="index.html#why-title"><span class="link__text">The photograph on Home</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+      </section>
+
+      <!-- CONFIRM -->
+      <section class="sys-sec" id="confirm" aria-labelledby="co-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Club to confirm</p>
+          <h2 class="h2" id="co-title" data-rise>A blank on the program, waiting for the club.</h2>
+          <p class="sys-sec__what">Where only the club can supply a fact, the site shows a Club to confirm slot that names exactly what is missing: nothing is invented, and the club has a clear list of what to send.</p>
+          <p class="sys-sec__detail">The slot is set with the same care as a real answer, with a dashed hairline and its own mark, so a page with open questions still reads as finished.</p>
+        </header>
+        <div class="confirm-demo">
+          <div><p class="sys-sub" style="margin:0">Inline</p><p class="body">Little Champs meets <span class="confirm-inline"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">weekly days and times</span></span> under the Dome.</p></div>
+          <div><p class="sys-sub" style="margin:0">Block</p>
+            <div class="confirm-block"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><p class="confirm-block__fact">Holiday Camps <span class="confirm__yr">2026/27</span> dates and registration opening</p><p class="confirm-block__note">Last season ran Dec 22, 2025 to Jan 2, 2026, registration opened Dec 8 at 3pm.</p></div>
+          </div>
+          <div><p class="sys-sub" style="margin:0">In a card</p>
+            <div class="pcard"><div class="pcard__head"><p class="pcard__kicker">Private Lessons</p><p class="pcard__name">Semi-private</p></div><dl class="dl"><div class="dl__row"><dt>Rate</dt><dd class="num">$110 + HST an hour, starting rate</dd></div><div class="dl__row"><dt>Request</dt><dd><span class="confirm-inline"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">How to request a lesson</span></span></dd></div></dl></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ICONS -->
+      <section class="sys-sec" id="icons" aria-labelledby="i-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Icons</p>
+          <h2 class="h2" id="i-title" data-rise>Drawn for TPTC, like court lines.</h2>
+          <p class="sys-sec__what">The site has its own set of twenty-four small symbols, drawn in one line weight like the lines painted on a court, so they look like part of the club and not like a stock set.</p>
+          <p class="sys-sec__detail">One family, drawn for this site. No icon font and no outside library.</p>
+        </header>
+        <div class="icon-grid">
+          <div class="icon-cell"><svg class="icon icon--racquet" aria-hidden="true" focusable="false"><use href="#i-racquet"></use></svg><span>Racquet</span></div>
+          <div class="icon-cell"><svg class="icon icon--ball" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><span>Ball</span></div>
+          <div class="icon-cell"><svg class="icon icon--court" aria-hidden="true" focusable="false"><use href="#i-court"></use></svg><span>Court</span></div>
+          <div class="icon-cell"><svg class="icon icon--dome" aria-hidden="true" focusable="false"><use href="#i-dome"></use></svg><span>Dome</span></div>
+          <div class="icon-cell"><svg class="icon icon--calendar" aria-hidden="true" focusable="false"><use href="#i-calendar"></use></svg><span>Calendar</span></div>
+          <div class="icon-cell"><svg class="icon icon--clock" aria-hidden="true" focusable="false"><use href="#i-clock"></use></svg><span>Clock</span></div>
+          <div class="icon-cell"><svg class="icon icon--trophy" aria-hidden="true" focusable="false"><use href="#i-trophy"></use></svg><span>Trophy</span></div>
+          <div class="icon-cell"><svg class="icon icon--coach" aria-hidden="true" focusable="false"><use href="#i-coach"></use></svg><span>Coach</span></div>
+          <div class="icon-cell"><svg class="icon icon--junior" aria-hidden="true" focusable="false"><use href="#i-junior"></use></svg><span>Junior</span></div>
+          <div class="icon-cell"><svg class="icon icon--family" aria-hidden="true" focusable="false"><use href="#i-family"></use></svg><span>Family</span></div>
+          <div class="icon-cell"><svg class="icon icon--location" aria-hidden="true" focusable="false"><use href="#i-location"></use></svg><span>Location</span></div>
+          <div class="icon-cell"><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg><span>Arrow</span></div>
+          <div class="icon-cell"><svg class="icon icon--sun" aria-hidden="true" focusable="false"><use href="#i-sun"></use></svg><span>Outdoor season</span></div>
+          <div class="icon-cell"><svg class="icon icon--phone" aria-hidden="true" focusable="false"><use href="#i-phone"></use></svg><span>Phone</span></div>
+          <div class="icon-cell"><svg class="icon icon--mail" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg><span>Email</span></div>
+          <div class="icon-cell"><svg class="icon icon--ext" aria-hidden="true" focusable="false"><use href="#i-ext"></use></svg><span>External</span></div>
+          <div class="icon-cell"><svg class="icon icon--chevron" aria-hidden="true" focusable="false"><use href="#i-chevron"></use></svg><span>Chevron</span></div>
+          <div class="icon-cell"><svg class="icon icon--plus" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg><span>Open</span></div>
+          <div class="icon-cell"><svg class="icon icon--minus" aria-hidden="true" focusable="false"><use href="#i-minus"></use></svg><span>Close group</span></div>
+          <div class="icon-cell"><svg class="icon icon--menu" aria-hidden="true" focusable="false"><use href="#i-menu"></use></svg><span>Menu</span></div>
+          <div class="icon-cell"><svg class="icon icon--close" aria-hidden="true" focusable="false"><use href="#i-close"></use></svg><span>Close</span></div>
+          <div class="icon-cell"><svg class="icon icon--check" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg><span>Check</span></div>
+          <div class="icon-cell"><svg class="icon icon--info" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg><span>Notice</span></div>
+          <div class="icon-cell"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg><span>To confirm</span></div>
+        </div>
+        <div class="icon-spec">
+          <div class="icon-spec__big">
+            <svg viewBox="-1 -1 26 26" aria-hidden="true">
+              <g stroke="var(--rule)" stroke-width="0.05" fill="none">
+                <path d="M0 0 H24 V24 H0 Z M1 0 V24 M2 0 V24 M3 0 V24 M4 0 V24 M5 0 V24 M6 0 V24 M7 0 V24 M8 0 V24 M9 0 V24 M10 0 V24 M11 0 V24 M12 0 V24 M13 0 V24 M14 0 V24 M15 0 V24 M16 0 V24 M17 0 V24 M18 0 V24 M19 0 V24 M20 0 V24 M21 0 V24 M22 0 V24 M23 0 V24 M0 1 H24 M0 2 H24 M0 3 H24 M0 4 H24 M0 5 H24 M0 6 H24 M0 7 H24 M0 8 H24 M0 9 H24 M0 10 H24 M0 11 H24 M0 12 H24 M0 13 H24 M0 14 H24 M0 15 H24 M0 16 H24 M0 17 H24 M0 18 H24 M0 19 H24 M0 20 H24 M0 21 H24 M0 22 H24 M0 23 H24"/>
+              </g>
+              <rect x="2" y="2" width="20" height="20" fill="none" stroke="var(--red)" stroke-width="0.08" stroke-dasharray="0.4 0.3"/>
+              <!-- The enlarged racquet is drawn as the line it is at 24px: the 264px figure is about 10x, so 0.15 units reads as the 1.5px stroke, an open head with its string grid -->
+              <use class="icon-spec__glyph" href="#i-racquet" width="24" height="24"/>
+            </svg>
+          </div>
+          <div class="icon-spec__text">
+            <p class="icon-rule">One grid, one stroke, one terminal: a 24px square with a 20px live area, a 1.5px line, square ends and mitred corners like painted court lines, and only circles and straights.</p>
+            <div class="icon-sizes">
+              <div><svg class="icon icon--ball icon--16" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><span>16</span></div>
+              <div><svg class="icon icon--ball icon--20" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><span>20</span></div>
+              <div><svg class="icon icon--ball" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><span>24</span></div>
+              <div><svg class="icon icon--ball icon--32" aria-hidden="true" focusable="false"><use href="#i-ball"></use></svg><span>32, 1.25 stroke</span></div>
+            </div>
+            <p class="sys-note">Each icon is also supplied as its own file, and all twenty-four as one sheet, so the club can use them outside the website.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOGO -->
+      <section class="sys-sec" id="logo" aria-labelledby="l-title">
+        <header class="sys-sec__head">
+          <p class="eyebrow">Logo</p>
+          <h2 class="h2" id="l-title" data-rise>One logo, drawn one way.</h2>
+          <p class="sys-sec__what">The club has one logo: its letters, and the lit yellow ball with its white seam. It is used as artwork on every page, never retyped. Only the letters change with the ground: club red on light, white on dark. The ball is the same drawing on both.</p>
+          <p class="sys-sec__detail">The wide logo is used from 200px across; below that, on a phone header, the short mark (TPTC and the ball). These files are a faithful redraw of the club's current logo and stand in until the club supplies its own master files.</p>
+        </header>
+        <div class="logo-demo">
+          <div style="background:var(--paper);border:1px solid var(--rule)"><img src="../../assets/brand/tptc-lockup.svg" width="249" height="38" alt="The club logo on a light ground: red letters, the yellow ball"></div>
+          <div style="background:#141714"><img src="../../assets/brand/tptc-lockup-on-dark.svg" width="249" height="38" alt="The club logo on a dark ground: white letters, the same yellow ball"></div>
+          <div style="background:var(--paper);border:1px solid var(--rule)"><img src="../../assets/brand/tptc-mark.svg" width="147" height="38" alt="The short mark on a light ground"></div>
+          <div style="background:#141714"><img src="../../assets/brand/tptc-mark-on-dark.svg" width="147" height="38" alt="The short mark on a dark ground"></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <section class="cta-band" aria-labelledby="cta-title">
+    <div class="wrap cta-band__grid">
+      <h2 class="cta-band__line" id="cta-title" data-rise-lines>
+        <span class="line"><span class="line__in">Tennis for every level.</span></span>
+        <span class="line"><span class="line__in">Since 1951.</span></span>
+      </h2>
+      <div class="cta-band__act" data-settle>
+        <a class="btn btn--primary" href="#"><span class="btn__fill" aria-hidden="true"></span><span class="btn__labels"><span class="btn__label btn__label--1">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span><span class="btn__label btn__label--2" aria-hidden="true">Register now<svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></span></span></a>
+        <a class="link" href="index.html#find"><span class="link__text">View programs</span><svg class="icon icon--arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"></use></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" aria-labelledby="footer-title">
+  <div class="wrap">
+    <div class="footer__letterhead">
+      <a class="logo" href="index.html" aria-label="Thornhill Park Tennis Club, home">
+        <img class="logo__img logo__img--lockup logo__img--light" src="../../assets/brand/tptc-lockup.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--lockup logo__img--dark" src="../../assets/brand/tptc-lockup-on-dark.svg" width="249" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--light" src="../../assets/brand/tptc-mark.svg" width="147" height="38" alt="" decoding="async"><img class="logo__img logo__img--mark logo__img--dark" src="../../assets/brand/tptc-mark-on-dark.svg" width="147" height="38" alt="" decoding="async">
+      </a>
+      <p class="footer__motto" id="footer-title">Tennis for every level. A community since 1951.</p>
+    </div>
+    <div class="footer__grid">
+      <div class="footer__col footer__visit">
+        <h2>Visit</h2>
+        <address>Corner of Yonge St and Centre St<br>Thornhill (Vaughan), Ontario L4J 8C5</address>
+        <p class="confirm-inline small"><span class="confirm-tag"><svg class="icon icon--confirm" aria-hidden="true" focusable="false"><use href="#i-confirm"></use></svg>Club to confirm</span><span class="confirm">Street number to publish</span></p>
+        <div class="footer__contact">
+          <a class="f-link" href="tel:+19057315551"><svg class="icon icon--phone icon--16" aria-hidden="true" focusable="false"><use href="#i-phone"></use></svg>905-731-5551 <span class="small">Front desk</span></a>
+          <a class="f-link" href="mailto:info@thornhillparktennisclub.ca"><svg class="icon icon--mail icon--16" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg>info@thornhillparktennisclub.ca</a>
+        </div>
+      </div>
+      <div class="footer__col footer__col--p">
+        <h2>Programs</h2>
+        <ul><li><a href="#">Junior Recreational</a></li><li><a href="#">Adult Programs</a></li><li><a href="high-performance.html">High Performance</a></li><li><a href="#">Private Lessons</a></li><li><a href="#">Camps</a></li></ul>
+      </div>
+      <div class="footer__col footer__col--c">
+        <h2>The club</h2>
+        <ul><li><a href="#">Membership</a></li><li><a href="#">Court Bookings</a></li><li><a href="#">Leagues &amp; Events</a></li><li><a href="#">FAQ</a></li><li><a href="#">Contact</a></li><li><a href="#">Register Now</a></li></ul>
+      </div>
+      <div class="footer__col footer__col--a">
+        <h2>About</h2>
+        <ul><li><a href="#">Our Club</a></li><li><a href="#">Our Coaches</a></li><li><a href="#">Facilities</a></li><li><a href="#">Club History</a></li><li><a href="system.html">Style Guide</a></li></ul>
+      </div>
+    </div>
+    <div class="footer__base">
+      <p>&copy; <span data-year>2026</span> Thornhill Park Tennis Club. Founded 1951.</p>
+      <ul>
+        <li><a href="#">Club policies</a></li>
+        <li><a href="https://www.instagram.com/thornhillparktc/" target="_blank" rel="noopener">Instagram<svg class="icon icon--ext" aria-hidden="true" focusable="false"><use href="#i-ext"></use></svg><span class="vh"> (opens in a new tab)</span></a></li>
+        <li><a href="https://www.facebook.com/Thornhill-Park-Tennis-Club-177871465583550" target="_blank" rel="noopener">Facebook<svg class="icon icon--ext" aria-hidden="true" focusable="false"><use href="#i-ext"></use></svg><span class="vh"> (opens in a new tab)</span></a></li>
+        <li><a href="https://www.tiktok.com/@thornhillparktc" target="_blank" rel="noopener">TikTok<svg class="icon icon--ext" aria-hidden="true" focusable="false"><use href="#i-ext"></use></svg><span class="vh"> (opens in a new tab)</span></a></li>
+      </ul>
+      <p>A Clubhouse, one of three directions. Demo.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
