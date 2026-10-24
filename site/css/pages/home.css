@@ -82,3 +82,10 @@
 /* the control row wraps on the smallest phones instead of widening the page */
 .show__bar { flex-wrap: wrap; row-gap: 4px; }
 .show { max-width: 100%; }
+
+/* b10: Book a court, quiet, under the four doors on phones and tablets */
+.hero__court { display: none; }
+@media (max-width: 899px) {
+  .hero__court { display: block; grid-column: 1 / -1; grid-row: 5; margin: 6px var(--gutter) 0 0; }
+  .hero__court .link { min-height: var(--target); color: var(--fg); }
+}

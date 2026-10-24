@@ -1,12 +1,12 @@
-/* Register page script (b7, end reworked in b8): one question at a time, then one filled form.
+/* Register page script (b7; b13: a guide to JustBookIt): one question at a time, then the steps.
    Story: registering is the first serve of your season. Who is playing: the toss. What for: the
    ball crosses the net. Finish: the bounce, inside the service box.
-   Flow: who, what, the program's detail questions, registered before, then "Your registration":
-   every answer filled in and ticked (Change reopens it), and the phone number as the only empty
-   required field. With a valid phone: finish here (demo, sends nothing) or, quieter, on
-   JustBookIt (new tab) with the same answers in view. Private lessons: the summary, then Call the
-   front desk. Leagues: the summary, then their own sign-up. Every answer lives in sessionStorage
-   (tptc-register), so going back never loses it. */
+   Flow: who, what, the program's detail questions, registered before, then "Your steps on
+   JustBookIt": every answer ticked (Change reopens it), the exact clicks for this program on
+   JustBookIt and one button, Continue on JustBookIt (new tab). Registration and payment happen
+   there only (b13). The JustBookIt link is one tap away at every step (b10). Private lessons:
+   the summary, then Call the front desk. Leagues: the summary, then their own sign-up. Every
+   answer lives in sessionStorage (tptc-register), so going back never loses it. */
 (function () {
   'use strict';
   var doc = document;
@@ -30,11 +30,12 @@
   var QUESTIONS = ['who', 'what', 'age', 'level', 'hpstep', 'camp', 'mtype', 'ptype', 'before'];
   var KEYS = { who: 'Player', what: 'Program', age: 'Age', level: 'Level', hpstep: 'Step', camp: 'Camp', mtype: 'Membership', ptype: 'Lesson', before: 'With the club' };
   var SR = { who: 'who is playing', what: 'what you are registering for', age: 'age', level: 'level', hpstep: 'step', camp: 'camp', mtype: 'membership', ptype: 'lesson type', before: 'registered before' };
-  var SEASON = { junior: 'Fall & Winter Indoor 2026/27', adult: 'Fall & Winter Indoor 2026/27', hp: 'Fall & Winter Indoor 2026/27', 'pro-national': 'Fall & Winter Indoor 2026/27', membership: 'Fall & Winter Indoor 2026/27', camps: '2027, dates to be confirmed by the club', private: 'Arranged with your coach' };
+  var LESSONS = 'Fall & Winter 2026/27, Oct 13, 2026 to Jan 18, 2027';
+  var SEASON = { junior: LESSONS, adult: LESSONS, hp: LESSONS, 'pro-national': LESSONS, membership: 'Fall & Winter Indoor 2026/27, Oct 12, 2026 to Apr 25, 2027', camps: '2027, dates to be confirmed by the club', private: 'Arranged with your coach' };
 
   /* ---------- State ---------- */
   var S = load() || fresh();
-  if (S.stage === 'form') S.stage = null; /* b7 sessions: the separate form is gone */
+  if (S.stage === 'form' || S.stage === 'done') S.stage = null; /* older sessions: the form and the on-site finish are gone (b7, b13) */
   function fresh() { return { a: {}, f: {}, stage: null, edit: null }; }
   function load() {
     try { var v = JSON.parse(sessionStorage.getItem(KEY) || 'null'); return v && v.a ? v : null; } catch (e) { return null; }
@@ -55,15 +56,6 @@
     for (var i = 0; i < s.length; i++) if (!answered(s[i])) return s[i];
     return S.stage || 'finish';
   }
-
-  /* ---------- Phone ---------- */
-  function phoneDigits(v) {
-    var d = String(v || '').replace(/\D/g, '');
-    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
-    return d;
-  }
-  function phoneOk(v) { var d = phoneDigits(v); return d.length === 10 && /[2-9]/.test(d.charAt(0)); }
-  function phoneFmt(v) { var d = phoneDigits(v); return d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6); }
 
   /* ---------- Labels ---------- */
   function optLabel(q, v) {
@@ -90,21 +82,27 @@
   }
 
   /* ---------- The route inside JustBookIt ---------- */
+  /* b13: the exact clicks for this program, from the club's own "How to register online" steps,
+     filled in with the answers given here */
   function jbiPath() {
     var w = S.a.what, first = S.a.before !== 'returning';
-    var acct = first ? 'Choose first time registration and create your account' : 'Log in to your account';
-    var tail = 'Agree to the terms, enroll and pay online';
-    if (w === 'membership') return [first ? 'TPTC Membership Registration' : 'TPTC Membership Renewal', 'Single, Couple or Family', 'Your category: age as of Jan 1', 'Pay online'];
-    if (w === 'camps') return [acct, 'Program registration, then Camps', 'Camps are listed by location', 'Select your camp days or weeks', tail];
-    if (w === 'hp') return [acct, 'Program registration, then Group lessons', 'Select your class', 'Enter its assessment code', tail];
-    if (w === 'pro-national') return [acct, 'Program registration, then Group lessons', 'Select your class', tail];
-    return [acct, 'Program registration, then Group lessons', 'Filter by level, age and day', 'Select your class: its name gives the location', tail];
+    var acct = first ? 'Choose First time lessons registration and create your account' : 'Log in to your account';
+    var tail = 'Agree to the terms and conditions, Enroll, then pay online';
+    var lv = S.a.level && S.a.level !== 'unsure' ? optLabel('level', S.a.level) : '';
+    var unsure = S.a.level === 'unsure' ? ['Not sure of the level: ask for the free assessment first (front desk, 905-731-5551)'] : [];
+    if (w === 'membership') {
+      var m = S.a.mtype, cat = m === 'couple' ? 'Couple' : m === 'family' ? 'Family' : m ? 'Single, then your category: ' + optLabel('mtype', m) : 'Single, Couple or Family (Single covers Adult, Junior and Senior)';
+      return [first ? 'TPTC Membership Registration' : 'TPTC Membership Renewal', 'Choose ' + cat, 'Your category goes by age as of Jan 1', 'Pay online'];
+    }
+    if (w === 'camps') return [acct, 'Program registration, then Camps', 'Camps are listed by location', 'Select your ' + (S.a.camp ? optLabel('camp', S.a.camp) + ' ' : '') + 'camp days or weeks', tail];
+    if (w === 'hp') return [acct, 'Program registration, then Group lessons', 'Select your ' + (S.a.hpstep ? optLabel('hpstep', S.a.hpstep) + ' ' : '') + 'class', 'Enter its assessment code (from the front desk after the assessment)', tail];
+    if (w === 'pro-national') return [acct, 'Program registration, then Group lessons', 'Select your Pro National class, after pre-approval', tail];
+    var filt = 'Filter by ' + [lv ? 'level ' + lv : 'level', w === 'junior' && S.a.age ? 'age ' + S.a.age : w === 'adult' ? 'Adults' : 'age', 'day'].join(', ');
+    return unsure.concat([acct, 'Program registration, then Group lessons', filt, 'Tick Select beside your class: its name gives the location', tail]);
   }
 
   /* ---------- Rendering ---------- */
   var steps = $$('[data-q]', flow);
-  var phoneIn = $('#reg-phone');
-  var codeIn = $('#f-code');
   function render() {
     var s = seq(), cur = current();
     var order = s.concat(['finish', 'done']);
@@ -129,6 +127,11 @@
       o.hidden = !!S.a.who && o.getAttribute('data-who').split(' ').indexOf(S.a.who) === -1;
     });
     var low = S.a.what === 'junior' && S.a.age ? parseInt(S.a.age, 10) : 99;
+    /* The club's criteria: Intermediate at 7-9 rallies from three-quarter court, from 10 up and
+       adults from the baseline; before an age is known, the neutral line */
+    var rally = $('[data-rally-line]', flow);
+    if (rally) rally.textContent = S.a.what === 'junior' && S.a.age === '7-9' ? 'Rallies from three-quarter court'
+      : S.a.what === 'adult' || (S.a.what === 'junior' && S.a.age && low >= 10) ? 'Rallies from the baseline' : 'Rallies consistently';
     $$('.reg-opt[data-level-min]', flow).forEach(function (o) {
       var off = low < parseInt(o.getAttribute('data-level-min'), 10);
       o.classList.toggle('is-off', off);
@@ -138,21 +141,21 @@
     QUESTIONS.forEach(function (q) {
       $$('input[name="' + q + '"]', flow).forEach(function (i) { i.checked = S.a[q] === i.value; });
     });
-    if (phoneIn && doc.activeElement !== phoneIn) phoneIn.value = S.a.phone || '';
-    if (codeIn && doc.activeElement !== codeIn) codeIn.value = S.f.code || '';
 
     /* Finish: notes and ways for this route */
     var w = S.a.what || '';
     $$('[data-route]', flow).forEach(function (n) { n.hidden = n.getAttribute('data-route').split(' ').indexOf(w) === -1; });
     var show = { jbi: JBI_ROUTES.indexOf(w) !== -1, call: w === 'private', here: JBI_ROUTES.indexOf(w) !== -1, leagues: w === 'leagues' };
     $$('[data-way]', flow).forEach(function (el) { el.hidden = !show[el.getAttribute('data-way')]; });
+    /* b13: JustBookIt routes end in its steps; private lessons and leagues in their own next step */
+    var fin = $('#fin-title', flow);
+    if (fin) fin.textContent = JBI_ROUTES.indexOf(w) !== -1 || !w ? 'Your steps on JustBookIt' : 'Your next step';
     var path = $('[data-jbi-path]', flow);
     if (path) path.innerHTML = jbiPath().map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
 
     /* Fields for this route, the ticked summary, the progress line */
     $$('[data-for-what]', flow).forEach(function (el) { el.hidden = el.getAttribute('data-for-what') !== w; });
     fillSum();
-    fillDone();
     progress();
 
     /* The court: toss, net, bounce */
@@ -178,34 +181,21 @@
         (r[0] ? '<button class="reg-step__edit" type="button" data-edit="' + r[0] + '">Change<span class="sr-only"> ' + SR[r[0]] + '</span></button>' : '<span></span>') + '</li>';
     }).join('');
   }
-  function fillDone() {
-    var dl = $('[data-done-sum]', flow); if (!dl) return;
-    var r = [['Program', programText()], ['Season', SEASON[S.a.what] || ''], ['Player', S.a.who ? answerText('who') : ''],
-      ['With the club', S.a.before ? answerText('before') : ''], ['Phone', S.a.phone || '']];
-    if (S.a.what === 'hp') r.push(['Assessment code', S.f.code || '']);
-    dl.innerHTML = r.filter(function (x) { return x[1]; }).map(function (x) { return '<div><dt>' + x[0] + '</dt><dd>' + esc(x[1]) + '</dd></div>'; }).join('');
-  }
-  /* The progress line: every answer counts, the phone is the one left */
+  /* The progress line: every answer is in; what is left happens on JustBookIt (b13) */
   function progress() {
-    var w = S.a.what, n = rows().filter(function (r) { return r[0]; }).length;
-    var jbi = JBI_ROUTES.indexOf(w) !== -1;
-    var ok = jbi && phoneIn && phoneOk(phoneIn.value);
-    var txt = jbi ? (ok ? 'All filled in: ready to finish' : 'Almost done: one field left')
-      : w === 'private' ? 'Almost done: one call to book' : 'Almost done: pick your league';
+    var w = S.a.what;
+    var txt = JBI_ROUTES.indexOf(w) !== -1 ? 'Every answer in: now on JustBookIt'
+      : w === 'private' ? 'Every answer in: one call to book' : 'Every answer in: pick your league';
     var t = $('[data-progress-text]', flow), bar = $('[data-progress-bar]', flow);
     if (t) t.textContent = txt;
-    if (bar) bar.style.width = Math.round(100 * (ok ? 1 : n / (n + 1))) + '%';
-    var box = $('[data-progress]', flow); if (box) box.classList.toggle('is-ready', !!ok);
-    $$('[data-finish], [data-jbi]', flow).forEach(function (b) { b.setAttribute('aria-disabled', ok ? 'false' : 'true'); });
-    var need = $('[data-need]', flow);
-    if (need) need.textContent = ok ? 'Ready: your phone number is in.' : 'Add your phone number to finish.';
+    if (bar) bar.style.width = '100%';
   }
 
   var caps = {
     0: 'Your first serve of the season.',
     1: 'The toss: who is playing.',
     2: 'Over the net: what you are registering for.',
-    3: 'In the box: one field left.'
+    3: 'In the box: on to JustBookIt.'
   };
   var timer = null;
   function serve(n) {
@@ -233,13 +223,13 @@
     var el = $('[data-state="current"]', flow);
     if (!el) return;
     var t = $('.reg-step__q', el), stg = el.getAttribute('data-q');
-    if (live && t) live.textContent = stg === 'finish' ? 'Almost done: ' + t.textContent + ', every answer filled in.' : stg === 'done' ? t.textContent : 'Next: ' + t.textContent;
+    if (live && t) live.textContent = stg === 'finish' ? t.textContent + ': every answer in.' : 'Next: ' + t.textContent;
     var r = el.getBoundingClientRect();
     if (scroll !== false && (r.top < 80 || r.top > window.innerHeight * 0.6)) scrollBelowHeader(el, false);
     var f = $('input:not([disabled]):not([type="hidden"]), [tabindex="-1"]', el);
     var opt = $('.reg-opt:not([hidden]) input:not([disabled])', el);
-    /* The final form and the confirmation: focus their heading */
-    var target = stg === 'finish' || stg === 'done' ? t : (opt || f);
+    /* The steps on JustBookIt: focus their heading */
+    var target = stg === 'finish' ? t : (opt || f);
     if (target) target.focus({ preventScroll: true });
   }
   function advance() { S.edit = null; save(); render(); focusCurrent(); }
@@ -287,45 +277,15 @@
     S.edit = b.getAttribute('data-edit'); S.stage = null; save(); render(); focusCurrent();
   });
 
-  /* Your registration: the phone number is the one field left */
-  var form = $('[data-q="finish"]', flow);
-  var phoneErr = $('[data-err="phone"]', flow);
-  function phoneError(on) { phoneErr.hidden = !on; phoneIn.setAttribute('aria-invalid', on ? 'true' : 'false'); }
-  /* Both ways need a valid phone: until then the buttons look unavailable and a press shows why */
-  function needPhone() {
-    if (phoneOk(phoneIn.value)) { phoneError(false); S.a.phone = phoneFmt(phoneIn.value); save(); return true; }
-    phoneError(true); phoneIn.focus(); return false;
-  }
-  phoneIn.addEventListener('input', function () {
-    var ok = phoneOk(phoneIn.value);
-    S.a.phone = ok ? phoneFmt(phoneIn.value) : '';
-    if (ok && !phoneErr.hidden) phoneError(false);
-    save(); progress();
-  });
-  phoneIn.addEventListener('blur', function () {
-    var v = phoneIn.value.trim();
-    if (v && !phoneOk(v)) phoneError(true);
-    else if (phoneOk(v)) phoneIn.value = phoneFmt(v);
-  });
-  if (codeIn) codeIn.addEventListener('input', function () { S.f.code = codeIn.value.trim(); save(); });
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (JBI_ROUTES.indexOf(S.a.what) === -1 || !needPhone()) return;
-    S.stage = 'done';
-    save(); render(); focusCurrent();
-  });
   var jbiLink = $('[data-jbi]', flow);
-  jbiLink.addEventListener('click', function (e) {
-    if (!needPhone()) { e.preventDefault(); return; }
-    /* The link opens JustBookIt in a new tab; this page keeps the answers and shows the route */
-    var d = $('[data-jbi-details]', flow); if (d) d.open = true;
+  jbiLink.addEventListener('click', function () {
+    /* The button opens JustBookIt in a new tab; this page keeps the answers and the steps */
     var o = $('[data-jbi-opened]', flow); if (o) o.hidden = false;
   });
 
   /* Start again: clears every answer */
   $('[data-restart]', flow).addEventListener('click', function () {
     S = fresh(); save();
-    phoneIn.value = ''; if (codeIn) codeIn.value = ''; phoneError(false);
     var o = $('[data-jbi-opened]', flow); if (o) o.hidden = true;
     render();
     scrollBelowHeader($('#start'), false);

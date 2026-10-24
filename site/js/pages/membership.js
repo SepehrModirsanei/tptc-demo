@@ -1,13 +1,13 @@
-/* Membership page script (B8): the membership request finishes on this page.
+/* Membership page script (B8; b13: a guide to JustBookIt, where membership registration happens).
    Same pattern as the Register flow: one question at a time (season, membership, Vaughan resident,
    members in the household for a Family), answered questions fold into one line with Change, then
-   ONE form already filled in where only the phone number is required (name and email optional),
-   then the demo confirmation. The membership card beside the flow shows the price as you answer;
+   the hand-off: every answer ticked, the steps on JustBookIt and one button, Continue on
+   JustBookIt (new tab). The membership card beside the flow shows the rate as you answer;
    the rates sit on the radios (data-res, data-non), copied from content/membership.json, the
    resident rate already including the 15%. Plus HST, never computed here.
    A Couple is two members by definition, so the household question is asked only for a Family.
-   Answers live in sessionStorage (tptc-membership). Every "Become a member" (#join) and every
-   "Choose" on a rate card lands on the question you are on and focuses it. */
+   Answers live in sessionStorage (tptc-membership). Every "Choose" on a rate card lands on the
+   question you are on and focuses it; Become a member goes straight to JustBookIt (b13). */
 (function () {
   'use strict';
   var doc = document;
@@ -25,6 +25,7 @@
 
   /* ---------- State ---------- */
   var S = load() || fresh();
+  if (S.stage === 'done') S.stage = null; /* older sessions: the on-page request is gone (b13) */
   function fresh() { return { a: {}, f: {}, stage: null, edit: null }; }
   function load() {
     try { var v = JSON.parse(sessionStorage.getItem(KEY) || 'null'); return v && v.a ? v : null; } catch (e) { return null; }
@@ -42,15 +43,6 @@
     for (var i = 0; i < s.length; i++) if (!S.a[s[i]]) return s[i];
     return S.stage || 'finish';
   }
-
-  /* ---------- Phone (same rule as Register) ---------- */
-  function phoneDigits(v) {
-    var d = String(v || '').replace(/\D/g, '');
-    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
-    return d;
-  }
-  function phoneOk(v) { var d = phoneDigits(v); return d.length === 10 && /[2-9]/.test(d.charAt(0)); }
-  function phoneFmt(v) { var d = phoneDigits(v); return d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6); }
 
   /* ---------- Labels and price ---------- */
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -102,7 +94,7 @@
     } else {
       opt.textContent = optLabel('mtype', S.a.mtype) + ', a season';
       pr.textContent = '$' + (r === 'no' ? p.non : p.res);
-      who.textContent = r === 'yes' ? '+ HST, Vaughan resident, 15% saved' : r === 'no' ? '+ HST, non-resident. Vaughan residents pay $' + p.res + '.' : '+ HST, Vaughan resident price. Non-resident $' + p.non + '.';
+      who.textContent = r === 'yes' ? '+ HST, Vaughan resident, 15% saved' : r === 'no' ? '+ HST, non-resident. Vaughan residents pay $' + p.res + '.' : '+ HST, Vaughan resident rate. Non-resident $' + p.non + '.';
     }
     res.textContent = r === 'yes' ? 'Yes' : r === 'no' ? 'No' : ' ';
     mem.textContent = membersText() || ' ';
@@ -112,12 +104,11 @@
 
   /* ---------- Rendering ---------- */
   var steps = $$('[data-q]', flow);
-  var phoneIn = $('#mf-phone'), nameIn = $('#mf-name'), mailIn = $('#mf-email');
   function render() {
     var s = seq(), cur = current();
-    var order = s.concat(['finish', 'done']);
+    var order = s.concat(['finish']);
     var ci = order.indexOf(cur);
-    var end = cur === 'finish' || cur === 'done';
+    var end = cur === 'finish';
     steps.forEach(function (el) {
       var q = el.getAttribute('data-q'), i = order.indexOf(q), st;
       if (i === -1) st = 'off';
@@ -136,16 +127,13 @@
     QUESTIONS.forEach(function (q) {
       $$('input[name="' + q + '"]', flow).forEach(function (i) { i.checked = S.a[q] === i.value; });
     });
-    if (phoneIn && doc.activeElement !== phoneIn) phoneIn.value = S.a.phone || '';
-    if (nameIn && doc.activeElement !== nameIn) nameIn.value = S.f.name || '';
-    if (mailIn && doc.activeElement !== mailIn) mailIn.value = S.f.email || '';
-    fillSum(); fillDone(); progress(); fillCard();
+    fillSum(); fillPath(); fillCard();
   }
   function rows() {
     var r = [];
     seq().forEach(function (q) { if (S.a[q]) r.push([q, KEYS[q], answerText(q)]); });
     if (S.a.mtype === 'couple') r.push(['', 'Members', membersText()]);
-    var pt = priceText(); if (pt) r.push(['', 'Price', pt]);
+    var pt = priceText(); if (pt) r.push(['', 'Rate', pt]);
     return r;
   }
   function fillSum() {
@@ -155,22 +143,13 @@
         (x[0] ? '<button class="reg-step__edit" type="button" data-edit="' + x[0] + '">Change<span class="sr-only"> ' + SR[x[0]] + '</span></button>' : '<span></span>') + '</li>';
     }).join('');
   }
-  function fillDone() {
-    var dl = $('[data-done-sum]', flow); if (!dl) return;
-    var r = rows().map(function (x) { return [x[1], x[2]]; });
-    r.push(['Phone', S.a.phone || ''], ['Name', S.f.name || ''], ['Email', S.f.email || '']);
-    dl.innerHTML = r.filter(function (x) { return x[1]; }).map(function (x) { return '<div><dt>' + x[0] + '</dt><dd>' + esc(x[1]) + '</dd></div>'; }).join('');
-  }
-  function progress() {
-    var n = rows().filter(function (x) { return x[0]; }).length;
-    var ok = phoneIn && phoneOk(phoneIn.value);
-    var t = $('[data-progress-text]', flow), bar = $('[data-progress-bar]', flow);
-    if (t) t.textContent = ok ? 'All filled in: ready to finish' : 'Almost done: one field left';
-    if (bar) bar.style.width = Math.round(100 * (ok ? 1 : n / (n + 1))) + '%';
-    var box = $('[data-progress]', flow); if (box) box.classList.toggle('is-ready', !!ok);
-    $$('[data-finish]', flow).forEach(function (b) { b.setAttribute('aria-disabled', ok ? 'false' : 'true'); });
-    var need = $('[data-need]', flow);
-    if (need) need.textContent = ok ? 'Ready: your phone number is in.' : 'Add your phone number to finish.';
+  /* b13: the steps on JustBookIt, with this membership's own choice */
+  function fillPath() {
+    var ol = $('[data-mf-path]', flow); if (!ol) return;
+    var m = S.a.mtype;
+    var cat = m === 'couple' ? 'Couple' : m === 'family' ? 'Family' : m ? 'Single, then your category: ' + optLabel('mtype', m) : 'Single, Couple or Family (Single covers Adult, Junior and Senior)';
+    var st = ['TPTC Membership Registration (or TPTC Membership Renewal if you were a member before)', 'Choose ' + cat, 'Your category goes by age as of Jan 1', 'Pay online'];
+    ol.innerHTML = st.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
   }
 
   /* ---------- Moving on ---------- */
@@ -190,11 +169,11 @@
     var el = $('[data-state="current"]', flow);
     if (!el) return;
     var t = $('.reg-step__q', el), stg = el.getAttribute('data-q');
-    if (live && t) live.textContent = stg === 'finish' ? 'Almost done: ' + t.textContent + ', every answer filled in.' : stg === 'done' ? t.textContent : 'Next: ' + t.textContent;
+    if (live && t) live.textContent = stg === 'finish' ? t.textContent + ': every answer in.' : 'Next: ' + t.textContent;
     var r = el.getBoundingClientRect();
     if (scroll !== false && (r.top < 160 || r.top > window.innerHeight * 0.6)) scrollBelowHeader(el);
     var opt = $('.reg-opt:not([hidden]) input:not([disabled])', el);
-    var target = stg === 'finish' || stg === 'done' ? t : opt;
+    var target = stg === 'finish' ? t : opt;
     if (target) target.focus({ preventScroll: true });
   }
   function advance() { S.edit = null; save(); render(); focusCurrent(); }
@@ -230,32 +209,12 @@
     S.edit = b.getAttribute('data-edit'); S.stage = null; save(); render(); focusCurrent();
   });
 
-  /* ---------- The one form ---------- */
-  var form = $('[data-q="finish"]', flow);
-  var phoneErr = $('[data-err="phone"]', flow);
-  function phoneError(on) { phoneErr.hidden = !on; phoneIn.setAttribute('aria-invalid', on ? 'true' : 'false'); }
-  phoneIn.addEventListener('input', function () {
-    var ok = phoneOk(phoneIn.value);
-    S.a.phone = ok ? phoneFmt(phoneIn.value) : '';
-    if (ok && !phoneErr.hidden) phoneError(false);
-    save(); progress();
-  });
-  phoneIn.addEventListener('blur', function () {
-    var v = phoneIn.value.trim();
-    if (v && !phoneOk(v)) phoneError(true);
-    else if (phoneOk(v)) phoneIn.value = phoneFmt(v);
-  });
-  nameIn.addEventListener('input', function () { S.f.name = nameIn.value.trim(); save(); });
-  mailIn.addEventListener('input', function () { S.f.email = mailIn.value.trim(); save(); });
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (!phoneOk(phoneIn.value)) { phoneError(true); phoneIn.focus(); return; }
-    phoneError(false); S.a.phone = phoneFmt(phoneIn.value);
-    S.stage = 'done'; save(); render(); focusCurrent();
-  });
+  /* ---------- The hand-off ---------- */
+  var jbi = $('[data-mf-jbi]', flow);
+  if (jbi) jbi.addEventListener('click', function () { var o = $('[data-mf-opened]', flow); if (o) o.hidden = false; });
   $('[data-restart]', flow).addEventListener('click', function () {
     S = fresh(); save();
-    phoneIn.value = ''; nameIn.value = ''; mailIn.value = ''; phoneError(false);
+    var o = $('[data-mf-opened]', flow); if (o) o.hidden = true;
     render(); scrollBelowHeader($('#join')); focusCurrent(false);
   });
 
@@ -273,7 +232,6 @@
       if (pick) {
         if (S.a.mtype !== pick) delete S.a.members;
         S.a.season = 'indoor'; S.a.mtype = pick; S.edit = null;
-        if (S.stage === 'done') S.stage = null;
         save(); render();
       }
       begin(e);

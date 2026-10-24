@@ -364,6 +364,8 @@ body.is-locked { overflow: hidden; }
 .link--quiet { font: 500 var(--step-5)/1.4 var(--font-sans); letter-spacing: 0; text-transform: none; }
 
 .inline-link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--rule-strong); }
+/* b10: a link inside a sentence is still a 24px tap target; inline padding does not move the line */
+a.inline-link { padding-block: 3px; }
 .inline-link:hover { text-decoration-color: currentColor; }
 .ext-mark { display: inline-block; width: 13px; height: 13px; margin-left: 6px; stroke-width: 1.5; }
 
@@ -829,7 +831,8 @@ html.motion .split__net[data-chalk-self] { transition: transform 1100ms var(--ea
 /* Footer: the dome tint in both themes, so the page ends in the same light it began in */
 .footer { padding-block: clamp(56px, 7vw, 104px) var(--sp-5); }
 .footer--dome { --bg: var(--surface-alt); --ph-ground: var(--surface); background: var(--surface-alt); color: var(--fg); }
-.fcell h2 { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; margin-bottom: 14px; color: var(--fg-muted); }
+/* b10: column headings outrank the 15px links and address under them */
+.fcell h2 { font: 300 var(--step-3)/1.25 var(--font-serif); letter-spacing: -0.005em; margin-bottom: 8px; color: var(--fg); }
 .fcell ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
 .fcell a:not(.btn) { display: inline-flex; align-items: center; min-height: var(--target); min-width: var(--target); font-size: 15px; text-decoration: none; }
 .fcell a:not(.btn):hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }

@@ -112,5 +112,108 @@
    1200,
    1600
   ]
+ },
+ "site-about-hero-01b": {
+  "master": 2400,
+  "webp": [
+   480,
+   800,
+   1200,
+   1600
+  ]
+ },
+ "site-camps-hero-01": {
+  "master": 2400,
+  "webp": [
+   480,
+   800,
+   1200,
+   1600
+  ]
+ },
+ "site-camps-holiday-hero-01": {
+  "master": 2400,
+  "webp": [
+   480,
+   800,
+   1200,
+   1600
+  ]
+ },
+ "site-camps-summer-hero-01": {
+  "master": 2400,
+  "webp": [
+   480,
+   800,
+   1200,
+   1600
+  ]
+ },
+ "site-facilities-courts-01": {
+  "master": 2400,
+  "webp": [
+   480,
+   800,
+   1200,
+   1600
+  ]
+ },
+ "site-facilities-hero-01": {
+  "master": 2400,
+  "webp": [
+   480,
+   800,
+   1200,
+   1600
+  ]
+ },
+ "site-hp-little-champs-01": {
+  "master": 1200,
+  "webp": [
+   480,
+   800
+  ]
+ },
+ "site-hp-pro-national-01": {
+  "master": 3024,
+  "webp": [
+   480,
+   800,
+   1200,
+   1600,
+   2400
+  ]
+ },
+ "site-hp-transition-tour-01": {
+  "master": 1200,
+  "webp": [
+   480,
+   800
+  ]
+ },
+ "site-leagues-hero-01": {
+  "master": 2400,
+  "webp": [
+   480,
+   800,
+   1200,
+   1600
+  ]
+ },
+ "site-leagues-round-robin-01": {
+  "master": 1600,
+  "webp": [
+   480,
+   800,
+   1200
+  ]
+ },
+ "site-membership-hero-01": {
+  "master": 1600,
+  "webp": [
+   480,
+   800,
+   1200
+  ]
  }
 }

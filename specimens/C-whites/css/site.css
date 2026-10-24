@@ -1245,3 +1245,11 @@ html.hold-on .pathway__steps-nav a:not(.is-active) strong { opacity: 0.6; }
 @media (max-width: 479px) {
   .hero.hero--hp .status-line { grid-row: 4; margin-top: 14px; }
 }
+
+/* b12, as on the site (b10): the club's two lines in at most three on a phone. This hero has no
+   lede beside the photograph, so its words take a wider share of the row (1.85 to 1) and a hair
+   less size at 360px; "Train with purpose." holds one line, "Compete with confidence." two. */
+@media (max-width: 899px) {
+  .page-hp .hero.hero--hp .hero__grid { grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr); }
+  .page-hp .hero.hero--hp .hero__title { padding-right: 8px; font-size: clamp(1.55rem, 0.6rem + 4.4vw, 3rem); }
+}

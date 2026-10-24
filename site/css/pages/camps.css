@@ -15,11 +15,15 @@
 html.motion .campyear__base[data-chalk-self] { transition: transform 1100ms var(--ease-out); }
 html.motion .campyear__base[data-chalk-self]:not(.is-drawn) { transform: scaleX(0); }
 
-.campyear__win { position: absolute; bottom: 0; left: var(--l); width: max(var(--w), 4px); height: 100%; text-decoration: none; color: var(--fg); }
-.campyear__win::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 5px; background: var(--fg); transform-origin: 0 50%; }
+.campyear__win { position: absolute; bottom: 0; left: var(--l); width: max(var(--w), 24px); height: 100%; text-decoration: none; color: var(--fg); }
+/* b10: the bar keeps the window's true width; the link around it is a 24px tap target at least */
+.campyear__bar { position: absolute; left: var(--l); width: max(var(--w), 4px); bottom: -1px; height: 5px; background: var(--fg); transform-origin: 0 50%; pointer-events: none; }
 .campyear__win::before { content: ""; position: absolute; left: 0; bottom: 4px; width: 1px; height: calc(100% - var(--lift, 0px) - 30px); background: var(--rule-strong); }
-html.motion .campyear__win[data-chalk-self]::after { transition: transform 1100ms var(--ease-out) var(--d, 0ms); }
-html.motion .campyear__win[data-chalk-self]:not(.is-drawn)::after { transform: scaleX(0); }
+html.motion .campyear__bar[data-chalk-self] { transition: transform 1100ms var(--ease-out) var(--d, 0ms); }
+html.motion .campyear__bar[data-chalk-self]:not(.is-drawn) { transform: scaleX(0); }
+.campyear__bar--holiday { --d: 70ms; }
+.campyear__bar--march { --d: 140ms; }
+.campyear__bar--summer { --d: 210ms; }
 .campyear__win--holiday { --d: 70ms; }
 .campyear__win--march { --d: 140ms; --lift: 0px; }
 .campyear__win--summer { --d: 210ms; }

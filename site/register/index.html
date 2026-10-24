@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Register Now | Thornhill Park Tennis Club</title>
-<meta name="description" content="Register for lessons, camps, membership or leagues at Thornhill Park Tennis Club in about a minute: a few quick questions fill in your registration, then add your phone number to finish.">
+<meta name="description" content="Register for lessons, camps, membership or leagues at Thornhill Park Tennis Club: a few quick questions show exactly where to register on JustBookIt, the club&#x27;s registration system.">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1322" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../assets/brand/favicon.svg" type="image/svg+xml">
@@ -32,13 +32,43 @@
 <main id="main">
 <!-- Hero (b7): what you can register for, and that it takes a minute. The first question sits
      straight under it, in #start. -->
-<section class="hero hero--inner hero--compact hero--nomedia reg-hero" data-intro-root aria-labelledby="page-title">
+<section class="hero hero--inner hero--compact hero--nomedia hero--aside reg-hero" data-intro-root aria-labelledby="page-title">
   <div class="hero__grid"><div class="hero__words">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><span aria-current="page">Register Now</span></li></ol></nav>
     <h1 class="display hero__title" id="page-title" data-rise data-intro><span class="line">Lessons, camps, membership.</span><span class="line"><em>Register in a minute.</em></span></h1>
-    <p class="lede hero__lede" data-settle data-intro="0.45">A few quick questions fill in your registration. Add a phone number and you are done.</p>
+    <p class="lede hero__lede" data-settle data-intro="0.45">A few quick questions show exactly where to register on JustBookIt.</p>
     <p class="reg-hero__for" data-reg-for hidden>Registering for <strong data-reg-for-what></strong>.</p>
     <div class="hero__actions" data-settle data-intro="0.6"><a class="btn btn--ink" href="#start" data-reg-begin><span class="btn__fill" aria-hidden="true"></span><span class="btn__label"><span data-reg-begin-label>Start</span><span aria-hidden="true" data-reg-begin-label>Start</span></span></a><a class="link" href="#steps"><span class="link__text">How it works</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></div>
+    <p class="reg-jbi reg-jbi--hero small" data-settle data-intro="0.7" data-reg-mode="jbi">Or skip the questions: <a class="link link--quiet" href="https://justbookit.ca/imgr/srv/PreEnroll.do?tla=thp" target="_blank" rel="noopener"><span class="link__text">Register on JustBookIt</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a></p>
+  </div>
+  <!-- b11, desktop only: what you can register for, as a draw sheet (the shared .draw, as on
+       Programs). Each entry starts the flow below on its own route (?for=), so the first two
+       questions are already answered. Dates are the club's published 2026/27 facts. -->
+  <div class="hero__aside" data-settle data-intro="0.6">
+  <nav class="draw" aria-label="What you can register for">
+    <div class="draw__sec" style="--k: 4">
+      <ol class="draw__entries" role="list">
+        <li><a class="draw__entry" href="../register/index.html?for=junior#start"><span class="draw__name">Junior group lessons</span><span class="draw__fact num">Oct 13 to Jan 18</span></a></li>
+        <li><a class="draw__entry" href="../register/index.html?for=adult#start"><span class="draw__name">Adult group lessons</span><span class="draw__fact num">Oct 13 to Jan 18</span></a></li>
+        <li><a class="draw__entry" href="../register/index.html?for=high-performance#start"><span class="draw__name">High Performance</span><span class="draw__fact">By assessment</span></a></li>
+        <li><a class="draw__entry" href="../register/index.html?for=membership#start"><span class="draw__name">Membership</span><span class="draw__fact num">To Apr 25</span></a></li>
+      </ol>
+      <p class="draw__to"><span class="draw__who">Open now</span></p>
+    </div>
+    <div class="draw__sec" style="--k: 2">
+      <ol class="draw__entries" role="list">
+        <li><a class="draw__entry" href="../register/index.html?for=private-lessons#start"><span class="draw__name">Private Lessons</span><span class="draw__fact">One hour</span></a></li>
+        <li><a class="draw__entry" href="../register/index.html?for=leagues#start"><span class="draw__name">Leagues &amp; Events</span><span class="draw__fact">By league</span></a></li>
+      </ol>
+      <p class="draw__to"><span class="draw__who">Any time</span></p>
+    </div>
+    <div class="draw__sec" style="--k: 1">
+      <ol class="draw__entries" role="list">
+        <li><a class="draw__entry" href="../register/index.html?for=camps#start"><span class="draw__name">Camps</span><span class="draw__fact">Dates to come</span></a></li>
+      </ol>
+      <p class="draw__to"><span class="draw__who">Next</span></p>
+    </div>
+  </nav>
   </div></div><span id="vt-ready" hidden></span>
 </section>
 
@@ -97,7 +127,7 @@
         <div class="reg-step__done"><span class="reg-step__k">Level</span><span class="reg-step__a" data-a="level"></span><button class="reg-step__edit" type="button" data-edit="level">Change<span class="sr-only"> level</span></button></div>
         <div class="reg-step__body reg-opts">
           <label class="reg-opt"><input type="radio" name="level" value="beginner"><span class="reg-opt__body"><span class="reg-opt__name">Beginner</span><span class="reg-opt__meta">Little or no playing experience</span></span></label>
-          <label class="reg-opt" data-level-min="7"><input type="radio" name="level" value="intermediate"><span class="reg-opt__body"><span class="reg-opt__name">Intermediate</span><span class="reg-opt__meta">Rallies from the baseline</span><span class="reg-opt__off" data-off-note>Begins at ages 7-9</span></span></label>
+          <label class="reg-opt" data-level-min="7"><input type="radio" name="level" value="intermediate"><span class="reg-opt__body"><span class="reg-opt__name">Intermediate</span><span class="reg-opt__meta" data-rally-line>Rallies consistently</span><span class="reg-opt__off" data-off-note>Begins at ages 7-9</span></span></label>
           <label class="reg-opt" data-level-min="10"><input type="radio" name="level" value="advanced"><span class="reg-opt__body"><span class="reg-opt__name">Advanced</span><span class="reg-opt__meta">Places shots, serves in</span><span class="reg-opt__off" data-off-note>Begins at ages 10-13</span></span></label>
           <label class="reg-opt"><input type="radio" name="level" value="unsure"><span class="reg-opt__body"><span class="reg-opt__name">Not sure</span><span class="reg-opt__meta">A free assessment places you</span></span></label>
         </div>
@@ -125,10 +155,12 @@
       <fieldset class="reg-step" data-q="mtype" data-state="off">
         <legend class="reg-step__q">Which membership?</legend>
         <div class="reg-step__done"><span class="reg-step__k">Membership</span><span class="reg-step__a" data-a="mtype"></span><button class="reg-step__edit" type="button" data-edit="mtype">Change<span class="sr-only"> membership</span></button></div>
-        <div class="reg-step__body reg-opts reg-opts--three">
-          <label class="reg-opt reg-opt--tile"><input type="radio" name="mtype" value="single"><span class="reg-opt__body"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-adult"/></svg><span class="reg-opt__name">Single</span><span class="reg-opt__meta">Adult, Junior or Senior</span></span></label>
-          <label class="reg-opt reg-opt--tile"><input type="radio" name="mtype" value="couple"><span class="reg-opt__body"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-racquet"/></svg><span class="reg-opt__name">Couple</span><span class="reg-opt__meta">Married</span></span></label>
-          <label class="reg-opt reg-opt--tile"><input type="radio" name="mtype" value="family"><span class="reg-opt__body"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-family"/></svg><span class="reg-opt__name">Family</span><span class="reg-opt__meta">2 adults, children under 18</span></span></label>
+        <div class="reg-step__body reg-opts reg-opts--five">
+          <label class="reg-opt reg-opt--tile"><input type="radio" name="mtype" value="adult"><span class="reg-opt__body"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-adult"/></svg><span class="reg-opt__name">Adult</span><span class="reg-opt__meta num">Ages 18-64</span></span></label>
+          <label class="reg-opt reg-opt--tile"><input type="radio" name="mtype" value="couple"><span class="reg-opt__body"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-racquet"/></svg><span class="reg-opt__name">Couple</span></span></label>
+          <label class="reg-opt reg-opt--tile"><input type="radio" name="mtype" value="family"><span class="reg-opt__body"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-family"/></svg><span class="reg-opt__name">Family</span><span class="reg-opt__meta">Same household</span></span></label>
+          <label class="reg-opt reg-opt--tile"><input type="radio" name="mtype" value="junior"><span class="reg-opt__body"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-junior"/></svg><span class="reg-opt__name">Junior</span><span class="reg-opt__meta num">Ages 17 and under</span></span></label>
+          <label class="reg-opt reg-opt--tile"><input type="radio" name="mtype" value="senior"><span class="reg-opt__body"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-adult"/></svg><span class="reg-opt__name">Senior</span><span class="reg-opt__meta num">Ages 65 and over</span></span></label>
         </div>
       </fieldset>
 
@@ -150,15 +182,15 @@
         </div>
       </fieldset>
 
-      <!-- Finish (b8): ONE form, "Your registration", already filled in from every answer (each
-           row ticked, with Change). The only empty required field is the phone number; with it,
-           finish here (demo) or, quieter, on JustBookIt with the same answers in view.
-           Private lessons: the summary, then Call the front desk. Leagues: their own sign-up. -->
-      <form class="reg-step reg-final" data-q="finish" data-state="todo" novalidate aria-labelledby="fin-title">
-        <div class="reg-step__head"><h3 class="reg-step__q" id="fin-title" tabindex="-1">Your registration</h3><span class="chip chip--demo" data-way="here">Demo</span></div>
-        <div class="reg-final__progress" data-progress>
+      <!-- Finish (b13): the questions are a guide; registration and payment happen on JustBookIt
+           only. After the last answer, "Your steps on JustBookIt": every answer ticked (each with
+           Change), the exact clicks for this program there, and one button, Continue on JustBookIt
+           (new tab). Private lessons: Call the front desk. Leagues: their own sign-up. -->
+      <section class="reg-step reg-final" data-q="finish" data-state="todo" aria-labelledby="fin-title">
+        <div class="reg-step__head"><h3 class="reg-step__q" id="fin-title" tabindex="-1">Your steps on JustBookIt</h3></div>
+        <div class="reg-final__progress is-ready" data-progress>
           <span class="reg-final__bar" aria-hidden="true"><span data-progress-bar></span></span>
-          <p class="reg-final__left" data-progress-text>Almost done: one field left</p>
+          <p class="reg-final__left" data-progress-text>Every answer in</p>
         </div>
         <ul class="reg-sum" role="list" data-sum></ul>
         <div class="reg-fin__notes">
@@ -166,30 +198,15 @@
           <div class="reg-need reg-need--gate" data-route="pro-national" hidden><p class="reg-need__title">Pre-approval first</p><p>Pro National is open only after pre-approval by <a class="inline-link" href="../about/coaches/index.html#josh-borenstein">Head Pro Josh Borenstein</a>. <a class="inline-link" href="mailto:info@thornhillparktennisclub.ca?subject=Pro%20National%20pre-approval">Ask about pre-approval</a>.</p></div>
           <p class="reg-fin__status" data-route="camps" hidden><span class="chip chip--muted">2026 camps have ended</span><span class="confirm"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">2027 dates and registration opening</span></span></p>
           <p class="reg-fin__status" data-route="membership" hidden><span class="chip">Opened Aug 1, 2026</span><span class="confirm"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">Whether spaces remain</span></span></p>
-          <p class="reg-fin__status" data-route="junior adult" hidden><span class="confirm"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">Fall &amp; Winter 2026/27 session dates</span></span></p>
+          <p class="reg-fin__status" data-route="junior adult hp pro-national" hidden><span class="chip num">Oct 13, 2026 to Jan 18, 2027</span><span class="confirm"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">Class days and times</span></span></p>
           <p class="reg-fin__status" data-route="private" hidden><span class="confirm"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">How private lessons are booked</span></span></p>
         </div>
 
-        <!-- The one field left -->
-        <div class="reg-final__fields" data-way="here">
-          <div class="field" data-for-what="hp"><label class="field__label" for="f-code">Assessment code <span class="reg-final__opt">if you have it</span></label><input class="input" id="f-code" name="code" autocomplete="off" aria-describedby="h-code"><p class="field__help" id="h-code">From the front desk after the assessment.</p></div>
-          <div class="field reg-phone__field">
-            <label class="field__label" for="reg-phone">Phone number</label>
-            <input class="input num" id="reg-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="416 555 0199" required aria-required="true" aria-describedby="reg-phone-help reg-phone-err">
-            <p class="field__help" id="reg-phone-help">Everything else is filled in from your answers.</p>
-            <p class="field__error" id="reg-phone-err" data-err="phone" role="alert" hidden><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-alert"/></svg><span>Enter a 10-digit phone number, like 416 555 0199.</span></p>
-          </div>
-        </div>
-        <div class="reg-final__acts" data-way="here">
-          <button class="btn btn--primary" type="submit" data-finish aria-describedby="reg-phone-need"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label"><span>Finish registration</span><span aria-hidden="true">Finish registration</span></span></button>
-          <p class="small reg-final__need" id="reg-phone-need" data-need>Add your phone number to finish.</p>
-          <p class="small reg-final__terms">By finishing, you agree to the <a class="inline-link" href="../faq/index.html#policies">club policies</a>.</p>
-        </div>
         <div class="reg-final__jbi" data-way="jbi" data-reg-mode="jbi">
-          <p class="reg-final__or">Or finish on the club&rsquo;s registration system, with the same answers in view here.</p>
-          <a class="link link--quiet" href="https://justbookit.ca/imgr/srv/PreEnroll.do?tla=thp" target="_blank" rel="noopener" data-jbi aria-describedby="reg-phone-need"><span class="link__text">Finish on JustBookIt</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
-          <p class="small reg-final__opened" data-jbi-opened hidden>JustBookIt opened in a new tab. Keep this page open to follow along.</p>
-          <details class="reg-way__path" data-jbi-details><summary>Where to click there</summary><ol class="reg-path" role="list" data-jbi-path></ol></details>
+          <p class="reg-final__or">On JustBookIt, in this order:</p>
+          <ol class="reg-path" role="list" data-jbi-path></ol>
+          <a class="btn btn--primary" href="https://justbookit.ca/imgr/srv/PreEnroll.do?tla=thp" target="_blank" rel="noopener" data-jbi><span class="btn__fill" aria-hidden="true"></span><span class="btn__label"><span>Continue on JustBookIt</span><span aria-hidden="true">Continue on JustBookIt</span></span><svg class="icon icon--16" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
+          <p class="small reg-final__opened" data-jbi-opened hidden>JustBookIt opened in a new tab. Keep this page open to follow the steps.</p>
         </div>
 
         <!-- Private lessons and leagues keep their own routes -->
@@ -205,25 +222,19 @@
           <p class="reg-way__text">A tryout form, a waiting list or an email to the organizer.</p>
           <a class="btn btn--ink" href="../leagues-events/index.html"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label"><span>See Leagues &amp; Events</span><span aria-hidden="true">See Leagues &amp; Events</span></span></a>
         </article>
-        <p class="reg-fin__nojs small">Ready? <a class="inline-link" href="https://justbookit.ca/imgr/srv/PreEnroll.do?tla=thp" target="_blank" rel="noopener">Continue to registration<span class="sr-only"> (opens in a new tab)</span></a>.</p>
-      </form>
-
-      <section class="reg-step reg-done" data-q="done" data-state="todo" aria-labelledby="done-title">
-        <span class="reg-done__mark" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg></span>
-        <div class="reg-step__head"><h3 class="reg-step__q" id="done-title" tabindex="-1">Registration complete</h3><span class="chip chip--demo">Demo</span></div>
-        <p class="reg-done__demo">This is a demo: nothing was sent and nobody was charged.</p>
-        <dl class="reg-done__sum" data-done-sum></dl>
-        <p class="small reg-done__live">On the live site, payment comes next (Interac, Visa or Mastercard), then a receipt by email.</p>
-        <div class="reg-step__acts"><button class="btn btn--ink" type="button" data-restart><span class="btn__fill" aria-hidden="true"></span><span class="btn__label"><span>Start a new registration</span><span aria-hidden="true">Start a new registration</span></span></button><a class="link" href="../index.html"><span class="link__text">Back to Home</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></div>
+        <p class="reg-fin__nojs small">Ready? <a class="inline-link" href="https://justbookit.ca/imgr/srv/PreEnroll.do?tla=thp" target="_blank" rel="noopener">Continue on JustBookIt<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+        <div class="reg-step__acts reg-final__again"><button class="link link--quiet" type="button" data-restart><span class="link__text">Start again</span></button></div>
       </section>
     </div>
     <!-- The progress court: registering is the first serve of your season. Plan view, true to
          78 x 36 ft (10 units a foot). The server stands behind the baseline just right of the centre
          mark (deuce court); the ball's ground shadow travels the diagonal into the receiver's deuce
          service box; the ball sits above its shadow by its height and meets it at the bounce.
-         Who is playing: the toss. What for: over the net. Finish: the bounce, inside the lines. -->
-    <figure class="pc" data-pc data-at="0" aria-hidden="true">
-      <svg class="pc__svg" viewBox="-80 -60 940 480" focusable="false">
+         Who is playing: the toss. What for: over the net. Finish: the bounce, inside the lines.
+         b10: it also carries the JustBookIt link, so the club's system is one tap away at every step
+         (the court rides along under the header on a phone, beside the flow on a desktop). -->
+    <figure class="pc" data-pc data-at="0">
+      <svg class="pc__svg" viewBox="-80 -60 940 480" focusable="false" aria-hidden="true">
         <rect class="pc__surface" x="0" y="0" width="780" height="360"/>
         <rect class="pc__box" x="390" y="45" width="210" height="135"/>
         <g class="pc__lines">
@@ -241,17 +252,17 @@
         <text class="pc__tag" x="390" y="420" text-anchor="middle">2</text>
         <text class="pc__tag" x="560" y="164" text-anchor="middle">3</text>
       </svg>
-      <ol class="pc__key">
+      <ol class="pc__key" aria-hidden="true">
         <li><span class="pc__key-n">1</span><span class="pc__key-q">Who is playing</span><span class="pc__key-t">The toss</span></li>
         <li><span class="pc__key-n">2</span><span class="pc__key-q">What for</span><span class="pc__key-t">Over the net</span></li>
         <li><span class="pc__key-n">3</span><span class="pc__key-q">Finish</span><span class="pc__key-t">In the box</span></li>
       </ol>
-      <figcaption class="pc__cap small"><span data-pc-cap>Your first serve of the season.</span></figcaption>
+      <figcaption class="pc__cap small"><span data-pc-cap aria-hidden="true">Your first serve of the season.</span><span class="reg-jbi reg-jbi--court" data-reg-mode="jbi"><a class="link link--quiet" href="https://justbookit.ca/imgr/srv/PreEnroll.do?tla=thp" target="_blank" rel="noopener"><span class="link__text">Register on JustBookIt</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a></span></figcaption>
     </figure>
   </div>
 </section>
 
-<!-- How it works: our own flow, step by step, with screenshots of this page
+<!-- How it works (b13: five steps; the last is the hand-off to JustBookIt), with screenshots of this page
      (img/register-how-*.webp, made with Playwright from the local page; logs/b7-flows.md). -->
 <section class="section section--chalk" id="steps" aria-labelledby="steps-title">
   <div class="wrap">
@@ -264,8 +275,7 @@
       <li class="how__step" data-settle><figure class="how__shot"><img src="../img/register-how-2.webp" width="960" height="540" loading="lazy" decoding="async" alt="The question What for, listing junior group lessons, High Performance, Pro National, camps, membership, private lessons and leagues."></figure><div class="how__words"><span class="how__n num" aria-hidden="true">2</span><h3>What for</h3><p>Lessons, camps, membership or leagues.</p></div></li>
       <li class="how__step" data-settle><figure class="how__shot"><img src="../img/register-how-3.webp" width="960" height="540" loading="lazy" decoding="async" alt="A detail question, Which level, with Beginner, Intermediate, Advanced and Not sure; earlier answers are folded into one line each."></figure><div class="how__words"><span class="how__n num" aria-hidden="true">3</span><h3>A detail or two</h3><p>Age, level or camp, one tap each.</p></div></li>
       <li class="how__step" data-settle><figure class="how__shot"><img src="../img/register-how-4.webp" width="960" height="540" loading="lazy" decoding="async" alt="The question Registered with the club before, with two choices: First time and Returning."></figure><div class="how__words"><span class="how__n num" aria-hidden="true">4</span><h3>New or returning</h3><p>First time with the club, or back again.</p></div></li>
-      <li class="how__step" data-settle><figure class="how__shot"><img src="../img/register-how-5.webp" width="960" height="540" loading="lazy" decoding="async" alt="Your registration, already filled in: the last answers ticked, each with Change, and the one empty field left, Phone number."></figure><div class="how__words"><span class="how__n num" aria-hidden="true">5</span><h3>Add your phone</h3><p>Everything else is already filled in.</p></div></li>
-      <li class="how__step" data-settle><figure class="how__shot"><img src="../img/register-how-6.webp" width="960" height="540" loading="lazy" decoding="async" alt="Registration complete, marked Demo, with the filled-in summary and the phone number."></figure><div class="how__words"><span class="how__n num" aria-hidden="true">6</span><h3>Finish</h3><p>Here<span data-reg-mode="jbi">, or on JustBookIt with the same answers</span>. Pay online, receipt by email.</p></div></li>
+      <li class="how__step" data-settle><figure class="how__shot"><img src="../img/register-how-5.webp" width="960" height="540" loading="lazy" decoding="async" alt="Your steps on JustBookIt: every answer ticked, each with Change, the clicks to make on JustBookIt in order, and the red button Continue on JustBookIt."></figure><div class="how__words"><span class="how__n num" aria-hidden="true">5</span><h3>Continue on JustBookIt</h3><p>Your exact steps there. Pay online, receipt by email.</p></div></li>
     </ol>
   </div>
 </section>
@@ -282,7 +292,7 @@
       <li class="open" data-settle>
         <div class="open__top"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-dome"/></svg><h3 class="open__name">Indoor membership</h3><span class="open__season num">2026/27</span></div>
         <div class="open__fig"><span class="open__date">Aug 1</span><span class="open__date-k">Registration opened, <span class="num">2026</span></span></div>
-        <p class="open__line">Season: early October <span class="num">2026</span> to Apr 25, <span class="num">2027</span>.</p>
+        <p class="open__line">Season: <span class="num">Oct 12, 2026</span> to <span class="num">Apr 25, 2027</span>.</p>
         <ul class="open__prices" role="list">
           <li><span class="num">$368.50</span>Adult</li>
           <li><span class="num">$637.75</span>Couple</li>
@@ -295,14 +305,14 @@
       </li>
       <li class="open" data-settle>
         <div class="open__top"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-racquet"/></svg><h3 class="open__name">Indoor group lessons</h3><span class="open__season num">2026/27</span></div>
-        <div class="open__fig"><span class="open__date">Sep 8</span><span class="open__date-k">Opened last season, <span class="num">10am</span></span></div>
-        <p class="open__line">Last season: Session 1 Oct 2, <span class="num">2025</span> to Jan 14, <span class="num">2026</span>; Session 2 opened Dec 1, ran Jan 15 to Apr 26.</p>
+        <div class="open__fig"><span class="open__date">Sep 24</span><span class="open__date-k">Registration opened, <span class="num">10am</span></span></div>
+        <p class="open__line">Session: <span class="num">Oct 13, 2026</span> to <span class="num">Jan 18, 2027</span>, under the Dome at Yonge &amp; Centre.</p>
         <ul class="open__prices" role="list">
           <li><span class="num">$100</span>Private, an hour</li>
           <li><span class="num">$110</span>Semi-private, an hour</li>
         </ul>
         <p class="open__tax small">From, + HST. Group lesson fees show in the registration system.</p>
-        <div class="open__foot"><span class="confirm"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">2026/27 session dates and opening</span></span></div>
+        <div class="open__foot"><span class="confirm"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">Class days, times and group lesson fees</span></span></div>
       </li>
       <li class="open" data-settle>
         <div class="open__top"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-calendar"/></svg><h3 class="open__name">Holiday Camps</h3><span class="open__season num">2026/27</span></div>
@@ -371,7 +381,7 @@
 <section class="cta" aria-labelledby="cta-title"><div class="wrap cta__inner"><div><h2 class="h2 cta__line" id="cta-title" data-rise>Stuck halfway? Staff can walk you through it by phone.</h2></div><div class="cta__actions" data-settle><a class="btn btn--ink" href="tel:+19057315551"><span class="btn__fill" aria-hidden="true"></span><span class="btn__label"><span>Call the front desk, 905-731-5551</span><span aria-hidden="true">Call the front desk, 905-731-5551</span></span></a><a class="link" href="mailto:info@thornhillparktennisclub.ca?subject=Free%20assessment"><span class="link__text">Request a free assessment</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a></div></div></section>
 
 </main>
-<footer class="footer footer--dome"><div class="wrap"><div class="footer__top"><div class="fcell fcell--brand"><a class="logo" href="../index.html" aria-label="Thornhill Park Tennis Club, home"><span class="logo__full"><img class="logo__img logo__img--col" src="../../assets/brand/tptc-lockup.svg" alt="" width="249" height="38" decoding="async"><img class="logo__img logo__img--rev" src="../../assets/brand/tptc-lockup-on-dark.svg" alt="" width="249" height="38" decoding="async"></span><span class="logo__mark"><img class="logo__img logo__img--col" src="../../assets/brand/tptc-mark.svg" alt="" width="147" height="38" decoding="async"><img class="logo__img logo__img--rev" src="../../assets/brand/tptc-mark-on-dark.svg" alt="" width="147" height="38" decoding="async"></span></a><p class="footer__line">Year-round tennis, coaching, competition and community. Since <span class="num">1951</span>.</p></div><div class="fcell fcell--visit"><h2>Visit</h2><address>Corner of Yonge St and Centre St<br>Thornhill (Vaughan), ON <span class="num">L4J 8C5</span><br><span class="confirm"><span class="confirm__tag">Club to confirm</span><span class="confirm__what">Street number</span></span></address></div><div class="fcell fcell--act"><h2>Contact</h2><p class="small">Front desk<br><a href="tel:+19057315551" class="num">905-731-5551</a></p><p class="small">General inquiries<br><a href="mailto:info@thornhillparktennisclub.ca">info@thornhillparktennisclub.ca</a></p></div></div><div class="footer__cols"><div class="fcell fcell--programs"><h2>Programs</h2><ul role="list"><li><a href="../programs/junior/index.html">Junior Recreational</a></li><li><a href="../programs/adult/index.html">Adult Programs</a></li><li><a href="../programs/high-performance/index.html">High Performance</a></li><li><a href="../programs/private-lessons/index.html">Private Lessons</a></li><li><a href="../programs/camps/index.html">Camps</a></li></ul></div><div class="fcell fcell--about"><h2>About</h2><ul role="list"><li><a href="../about/index.html">Our Club</a></li><li><a href="../about/coaches/index.html">Our Coaches</a></li><li><a href="../about/facilities/index.html">Facilities</a></li><li><a href="../about/history/index.html">Club History</a></li></ul></div><div class="fcell fcell--club"><h2>The club</h2><ul role="list"><li><a href="../membership/index.html">Membership</a></li><li><a href="../court-bookings/index.html">Court Bookings</a></li><li><a href="../leagues-events/index.html">Leagues &amp; Events</a></li><li><a href="../faq/index.html">FAQ</a></li><li><a href="../contact/index.html">Contact</a></li><li><a href="../register/index.html">Register Now</a></li></ul></div><div class="fcell fcell--follow"><h2>Follow</h2><ul role="list"><li><a href="https://www.instagram.com/thornhillparktc/" target="_blank" rel="noopener">Instagram<svg class="icon ext-mark" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.facebook.com/Thornhill-Park-Tennis-Club-177871465583550" target="_blank" rel="noopener">Facebook<svg class="icon ext-mark" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.tiktok.com/@thornhillparktc" target="_blank" rel="noopener">TikTok<svg class="icon ext-mark" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div></div><div class="footer__base"><span>&copy; <span data-year>2026</span> Thornhill Park Tennis Club</span><a href="../faq/index.html">Club policies</a><a href="../system/index.html">Style Guide</a><span>A design demo, not the live site.</span></div></div></footer>
+<footer class="footer footer--dome"><div class="wrap"><div class="footer__top"><div class="fcell fcell--brand"><a class="logo" href="../index.html" aria-label="Thornhill Park Tennis Club, home"><span class="logo__full"><img class="logo__img logo__img--col" src="../../assets/brand/tptc-lockup.svg" alt="" width="249" height="38" decoding="async"><img class="logo__img logo__img--rev" src="../../assets/brand/tptc-lockup-on-dark.svg" alt="" width="249" height="38" decoding="async"></span><span class="logo__mark"><img class="logo__img logo__img--col" src="../../assets/brand/tptc-mark.svg" alt="" width="147" height="38" decoding="async"><img class="logo__img logo__img--rev" src="../../assets/brand/tptc-mark-on-dark.svg" alt="" width="147" height="38" decoding="async"></span></a><p class="footer__line">Year-round tennis, coaching, competition and community. Since <span class="num">1951</span>.</p></div><div class="fcell fcell--visit"><h2>Visit</h2><address><span class="num">26A</span> Old Yonge St<br>Corner of Yonge St and Centre St<br>Thornhill (Vaughan), ON <span class="num">L4J 8C5</span></address></div><div class="fcell fcell--act"><h2>Contact</h2><p class="small">Front desk<br><a href="tel:+19057315551" class="num">905-731-5551</a></p><p class="small">General inquiries<br><a href="mailto:info@thornhillparktennisclub.ca">info@thornhillparktennisclub.ca</a></p></div></div><div class="footer__cols"><div class="fcell fcell--programs"><h2>Programs</h2><ul role="list"><li><a href="../programs/junior/index.html">Junior Recreational</a></li><li><a href="../programs/adult/index.html">Adult Programs</a></li><li><a href="../programs/high-performance/index.html">High Performance</a></li><li><a href="../programs/private-lessons/index.html">Private Lessons</a></li><li><a href="../programs/camps/index.html">Camps</a></li></ul></div><div class="fcell fcell--about"><h2>About</h2><ul role="list"><li><a href="../about/index.html">Our Club</a></li><li><a href="../about/coaches/index.html">Our Coaches</a></li><li><a href="../about/facilities/index.html">Facilities</a></li><li><a href="../about/history/index.html">Club History</a></li></ul></div><div class="fcell fcell--club"><h2>The club</h2><ul role="list"><li><a href="../membership/index.html">Membership</a></li><li><a href="../court-bookings/index.html">Court Bookings</a></li><li><a href="../leagues-events/index.html">Leagues &amp; Events</a></li><li><a href="../faq/index.html">FAQ</a></li><li><a href="../contact/index.html">Contact</a></li><li><a href="../register/index.html">Register Now</a></li></ul></div><div class="fcell fcell--follow"><h2>Follow</h2><ul role="list"><li><a href="https://www.instagram.com/thornhillparktc/" target="_blank" rel="noopener">Instagram<svg class="icon ext-mark" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.facebook.com/Thornhill-Park-Tennis-Club-177871465583550" target="_blank" rel="noopener">Facebook<svg class="icon ext-mark" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="https://www.tiktok.com/@thornhillparktc" target="_blank" rel="noopener">TikTok<svg class="icon ext-mark" aria-hidden="true" focusable="false"><use href="#i-arrow-external"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li></ul></div></div><div class="footer__base"><span>&copy; <span data-year>2026</span> Thornhill Park Tennis Club</span><a href="../faq/index.html">Club policies</a><a href="../system/index.html">Style Guide</a><span>A design demo, not the live site.</span></div></div></footer>
 <script src="../../assets/vendor/gsap.min.js"></script>
 <script src="../../assets/vendor/ScrollTrigger.min.js"></script>
 <script src="../../assets/vendor/SplitText.min.js"></script>

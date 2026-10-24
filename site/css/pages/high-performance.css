@@ -103,3 +103,11 @@
 .hpf__note, .hpf__how { color: var(--fg-muted); max-width: 56ch; }
 .hpf__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
 .hpf .chooser__q legend { font: 400 1.375rem/1.25 var(--font-serif); color: var(--fg); }
+
+/* b10: the club's two lines in at most three on a phone. This hero has no lede beside the
+   photograph, so its words take a wider share of the row (1.85 to 1) and a hair less size at
+   360px; "Train with purpose." holds one line, "Compete with confidence." balances over two. */
+@media (max-width: 899px) {
+  .page-hp .hero.hero--hp .hero__grid { grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr); }
+  .page-hp .hero.hero--hp .hero__title { padding-right: 8px; font-size: clamp(1.55rem, 0.6rem + 4.4vw, 3rem); }
+}

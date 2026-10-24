@@ -821,9 +821,13 @@
   /* ---------- The public site's booking, read from this tab ---------- */
   function renderPublic() {
     var box = $('[data-bk-public]'), pb = D.publicBooking();
-    var siteHref = '../../court-bookings/book/' + (location.protocol.indexOf('http') === 0 ? '' : 'index.html');
+    /* b13/b14: the public site's own booking demo is parked; court booking is on JustBookIt only.
+       "Back to the public site" opens Court Bookings; "Book on the public site" opens JustBookIt's
+       court booking sign-in in a new tab, as the public Court Bookings page does. */
+    var siteHref = '../../court-bookings/' + (location.protocol.indexOf('http') === 0 ? '' : 'index.html');
+    var jbiHref = 'https://justbookit.ca/imgr/srv/LoginMenu.do?tla=thp';
     var how = '<p class="pn-note">' + icon('alert') + '<span>The public site keeps its booking in this browser tab only, so book there in this tab, then come back here. Nothing is sent to a server.</span></p>';
-    if (!pb) { box.innerHTML = '<div class="pn-empty bk-public__empty"><p class="pn-empty__title">Nothing booked on the site in this tab yet</p><p>Book a court on the public demo, the way a member or a non-member would, and it lands on this calendar.</p><a class="pn-btn pn-btn--quiet" href="' + siteHref + '">' + icon('arrow-external') + 'Book on the public site</a></div>' + how; return; }
+    if (!pb) { box.innerHTML = '<div class="pn-empty bk-public__empty"><p class="pn-empty__title">Nothing booked on the site in this tab yet</p><p>Book a court on the public demo, the way a member or a non-member would, and it lands on this calendar.</p><a class="pn-btn pn-btn--quiet" href="' + jbiHref + '" target="_blank" rel="noopener">' + icon('arrow-external') + 'Book on the public site<span class="sr-only"> (JustBookIt, opens in a new tab)</span></a></div>' + how; return; }
     var w = 'Court ' + pb.court + ', ' + F.day(pb.date) + ', ' + F.range(pb.start, pb.hours || 1);
     var payChip = pb.held ? UI.chip('due', 'Pre-pay by phone') : pb.paid ? UI.chip('succeeded') : UI.chip('due');
     box.innerHTML = '<div class="bk-public__card">' + plan(pb.done ? pb : null, 'bk-plan--sheet') + '<div class="pn-stack">' +
