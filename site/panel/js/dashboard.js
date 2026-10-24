@@ -356,7 +356,7 @@
   function heatSvg(model, width) {
     var labelW = 46, headH = 42, rowH = width < 520 ? 24 : 22, nc = model.cols.length, nr = model.rows.length;
     var colW = Math.max(30, (width - labelW) / nc), W = Math.round(labelW + colW * nc), H = headH + rowH * nr + 2;
-    var title = courtMode === 'indoor' ? 'Courts booked by start time, this week in the dome' : 'Share of bookable court hours booked, outdoor 2026, by weekday and hour';
+    var title = courtMode === 'indoor' ? 'Courts booked by start time, this week under the Dome' : 'Share of bookable court hours booked, outdoor 2026, by weekday and hour';
     var s = '<svg class="db-heat" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="group" aria-label="' + esc(title + '. Arrow keys move between hours and days; Enter opens the hour.') + '">';
     model.cols.forEach(function (c, ci) {
       var cx = labelW + colW * ci + colW / 2;
@@ -403,7 +403,7 @@
   }
 
   function heatNote() {
-    if (courtMode === 'indoor') return 'The dome books weekdays on the half hour (6:30am to 11:30pm) and weekends on the hour (7am to 11pm); each row is the hour a booking starts in. Members book 7 days ahead from 7:30am, so this week is the members’ whole window.';
+    if (courtMode === 'indoor') return 'The Dome books weekdays on the half hour (6:30am to 11:30pm) and weekends on the hour (7am to 11pm); each row is the hour a booking starts in. Members book 7 days ahead from 7:30am, so this week is the members’ whole window.';
     return 'Outdoor bookings ran inside the club’s published windows from May 1 to Sep 30 (approximate dates); outside them organized tennis had the courts. Each cell is the season’s share of bookable court hours that members booked.';
   }
 
@@ -436,7 +436,7 @@
       var until = b ? 'to ' + F.time(b.start + (b.hours || 1) * 60) : (open ? 'this hour' : '');
       return '<li class="db-now__court is-' + state + '">' + courtSvg({ state: state, w: 40 }) + '<span class="db-courtrow__name">Court ' + c + '</span><span class="db-courtrow__val">' + esc(what) + '</span><span class="pn-sub">' + esc(until) + '</span></li>';
     }).join('');
-    var head = open ? (inPlay ? '<span class="live-dot" aria-hidden="true"></span>' + inPlay + ' of 4 in play now' : 'All four free this hour') : 'The dome is closed now';
+    var head = open ? (inPlay ? '<span class="live-dot" aria-hidden="true"></span>' + inPlay + ' of 4 in play now' : 'All four free this hour') : 'The Dome is closed now';
     box.innerHTML = '<h3 class="db-card__h">' + head + '</h3><p class="pn-muted db-small">' + esc(F.day(todayIso())) + ', ' + esc(F.time(nm)) + (D.clock.shifted ? ' (demo clock)' : '') + (open ? ', the ' + esc(F.time(slot)) + ' hour' : '') + '</p><ul class="db-courtrow">' + items + '</ul>' +
       '<a class="pn-btn pn-btn--quiet pn-btn--sm db-card__go" href="' + esc(UI.link('bookings', 'date=' + todayIso())) + '">Open today in Bookings</a>';
   }
@@ -814,8 +814,8 @@
   function renderSources() {
     var box = $('[data-db-sources]'); if (!box) return;
     var facts = [
-      ['The four courts, the dome’s hours and the fee bands', '/court-bookings/ and /club-policies/'],
-      ['Seasons: outdoor about May 1 to Sep 30; indoor from early October (likely Oct 12) to Apr 25', (D.seasons.map(function (s) { return s.src; }).join(' and '))],
+      ['The four courts, the Dome’s hours and the fee bands', '/court-bookings/ and /club-policies/'],
+      ['Seasons: outdoor about May 1 to Sep 30; indoor Oct 12 to Apr 25', (D.seasons.map(function (s) { return s.src; }).join(' and '))],
       ['Indoor 2026/27 membership prices, resident and non-resident, $25 returning discount', '/memberships/'],
       ['Summer Camps 2026: four camps, three locations, weekly sessions and price tiers', '/camps/'],
       ['Programs, classes, ages and levels; leagues and round robins with their fees', '/programs-overview/'],
@@ -830,7 +830,7 @@
   function exportCsv() {
     var c = currentCtx; if (!c) return;
     var rows = [['Thornhill Park Tennis Club staff panel (demo). Sample data. Built ' + F.day(todayIso())], []];
-    rows.push(['Court usage, this week in the dome'], ['Date', 'Start', 'Fee band', 'Courts booked of 4']);
+    rows.push(['Court usage, this week under the Dome'], ['Date', 'Start', 'Fee band', 'Courts booked of 4']);
     c.week.days.forEach(function (d) { d.starts.forEach(function (s) { var x = d.cells[s]; rows.push([d.iso, F.time(s), x.band, x.courts]); }); });
     rows.push([], ['Summer Camps 2026'], ['Camp', 'Location', 'Week', 'Week of', 'Registered', 'Capacity (sample)', 'Full']);
     c.camps.lines.forEach(function (L) { L.weeks.forEach(function (w) { rows.push([L.line.name, L.line.where, w.s.week, w.s.start, w.st.registered, w.st.capacity, w.st.full ? 'yes' : 'no']); }); });
@@ -857,7 +857,7 @@
     return [
       'Thornhill Park Tennis Club, week of ' + F.day(todayIso()) + ' (sample data)',
       '',
-      'Courts: ' + pct(c.week.booked, c.week.slots) + '% of court hours in the dome are booked this week (' + n(c.week.booked) + ' of ' + n(c.week.slots) + '). Prime time ' + pct(b.prime.b, b.prime.s) + '%, weekends ' + pct(b.weekend.b, b.weekend.s) + '%, regular time ' + pct(b.regular.b, b.regular.s) + '%. Busiest day: ' + F.day(busiest.d.iso) + '.',
+      'Courts: ' + pct(c.week.booked, c.week.slots) + '% of court hours under the Dome are booked this week (' + n(c.week.booked) + ' of ' + n(c.week.slots) + '). Prime time ' + pct(b.prime.b, b.prime.s) + '%, weekends ' + pct(b.weekend.b, b.weekend.s) + '%, regular time ' + pct(b.regular.b, b.regular.s) + '%. Busiest day: ' + F.day(busiest.d.iso) + '.',
       'Memberships: ' + n(c.members.active) + ' indoor households; ' + n(c.members.renewed) + ' of ' + n(c.members.outdoorCount) + ' outdoor households renewed (' + pct(c.members.renewed, c.members.outdoorCount) + '%), ' + n(c.members.due) + ' still due, ' + n(c.members.waiting) + ' on the indoor waitlist.',
       'Programs: leagues and round robins are full with ' + n(c.programs.filter(function (x) { return x.p.id === 'Leagues' || x.p.id === 'Round Robins'; }).reduce(function (s, x) { return s + x.wait; }, 0)) + ' waiting. Fall & Winter group lesson dates are still to confirm.',
       'Summer Camps 2026 closed at ' + pct(campReg, campCap) + '% of seats, with ' + full + ' of ' + weeks + ' camp weeks full.',

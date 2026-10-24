@@ -784,7 +784,10 @@ body.sheet-open { overflow: hidden; }
   }
   .prov--centre { grid-column: 1 / -1; grid-row: 1; margin-bottom: clamp(16px, 3svh, 36px); }
   .prov--centre .prov__rule { max-width: 18rem; }
-  .hero--home .h-display, .hero--home .actions { display: contents; }
+  /* b15: the H1 keeps its own box (display: contents could drop the heading for some screen
+     readers): it spans the row and lays its two lines on the wall's columns through subgrid. */
+  .hero--home .actions { display: contents; }
+  .hero--home .h-display { display: grid; grid-column: 1 / -1; grid-row: 2; grid-template-columns: subgrid; align-items: end; margin: 0; }
   .hero--home .h-display .line { font-size: clamp(2.5rem, 3.7vw, 3.75rem); line-height: 1.04; letter-spacing: -0.012em; }
   .hero--home .line--a { grid-column: 1; grid-row: 2; align-self: end; }
   .hero--home .line--b { grid-column: 3; grid-row: 2; align-self: end; }

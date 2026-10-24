@@ -196,7 +196,7 @@
         '</div>' +
         '<div class="mb-ends__net" aria-hidden="true"><span class="mb-ends__post"></span><span class="mb-ends__cord"></span><span class="mb-ends__post"></span></div>' +
         '<div class="mb-ends__side">' +
-          '<p class="mb-ends__name">' + esc(i.name) + '</p><p class="mb-ends__dates">Oct 12, likely, to Apr 25, 2027 ' + UI.confirmSlot('Indoor start date') + '</p>' +
+          '<p class="mb-ends__name">' + esc(i.name) + '</p><p class="mb-ends__dates">Oct 12, 2026 to Apr 25, 2027</p>' +
           '<div class="mb-ends__balls">' + balls(f.ind, notCrossed) + '</div>' +
         '</div>' +
       '</div>' +

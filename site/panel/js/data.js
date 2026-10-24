@@ -700,7 +700,7 @@
   var API = {
     version: 1, storageKey: STORE_KEY, storageOk: function () { return storageOk; },
     clock: { now: NOW, today: TODAY, nowMin: NOW_MIN, shifted: shifted, real: real,
-      note: shifted ? 'Demo clock: ' + fmt.long(TODAY) + ', the likely first indoor day (club to confirm), at the real time of day.' : 'Live clock.' },
+      note: shifted ? 'Demo clock: ' + fmt.long(TODAY) + ', the first indoor day, at the real time of day.' : 'Live clock.' },
     today: function () { return new Date(TODAY); },
     fmt: fmt, HST: HST, hstOn: hstOn, hstIn: hstIn, round2: round2,
     content: C,

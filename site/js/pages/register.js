@@ -192,10 +192,11 @@
   }
 
   var caps = {
+    /* b15: plain words; the drawing carries the serve (toss, net, bounce) */
     0: 'Your first serve of the season.',
-    1: 'The toss: who is playing.',
-    2: 'Over the net: what you are registering for.',
-    3: 'In the box: on to JustBookIt.'
+    1: 'Who is playing: answered.',
+    2: 'What for: answered.',
+    3: 'Every answer in: on to JustBookIt.'
   };
   var timer = null;
   function serve(n) {

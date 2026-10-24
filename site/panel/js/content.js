@@ -59,14 +59,14 @@
     'news-4': ['programs/', 'See the programs'], 'news-5': ['programs/camps/summer/', 'See Summer Camps'], 'news-6': ['leagues-events/', 'See Leagues & Events']
   };
   var CARD_WORDS = {
-    'card-2': { placement: 'lead', order: 1, headline: 'High Performance, Fall Outdoor', text: 'The outdoor session for Little Champs, Transition Tour and Pro National players.',
-      whenMode: 'dates', when: 'Aug 24 to Oct 8, 2026', liveStart: '2026-08-24', liveEnd: '2026-10-08', confirmWhat: '', linkLabel: 'See the pathway', link: 'programs/high-performance/', shown: true },
+    'card-2': { placement: 'lead', order: 1, headline: 'High Performance, Fall & Winter', text: 'The indoor session for Little Champs, Transition Tour and Pro National players. Registration opened Sep 24.',
+      whenMode: 'dates', when: 'Oct 13, 2026 to Jan 18, 2027', liveStart: '2026-10-13', liveEnd: '2027-01-18', confirmWhat: '', linkLabel: 'See the pathway', link: 'programs/high-performance/', shown: true },
     'card-3': { placement: 'row', order: 2, headline: 'Indoor membership', text: 'Fall & Winter Indoor 2026/27. Registration opened August 1, 2026.',
-      whenMode: 'dates', when: 'Early October 2026 to April 25, 2027', liveStart: '', liveEnd: '', confirmWhat: '', linkLabel: 'Become a member', link: 'membership/', shown: true },
-    'card-1': { placement: 'row', order: 3, headline: 'Indoor programs', text: 'Group lessons move under the dome for the fall and winter.',
-      whenMode: 'confirm', when: '', liveStart: '', liveEnd: '', confirmWhat: 'Session dates and registration opening', linkLabel: 'Junior Recreational', link: 'programs/junior/', shown: true },
-    'card-4': { placement: 'row', order: 4, headline: 'Holiday Camp', text: 'Over the winter break. Last season it ran Dec 22, 2025 to Jan 2, 2026.',
-      whenMode: 'confirm', when: '', liveStart: '', liveEnd: '', confirmWhat: 'Holiday Camp dates', linkLabel: 'See Holiday Camps', link: 'programs/camps/holiday/', shown: true }
+      whenMode: 'dates', when: 'October 12, 2026 to April 25, 2027', liveStart: '', liveEnd: '', confirmWhat: '', linkLabel: 'Become a member', link: 'membership/', shown: true },
+    'card-1': { placement: 'row', order: 3, headline: 'Indoor programs', text: 'Group lessons under the Dome at Yonge & Centre. Registration opened Sep 24.',
+      whenMode: 'dates', when: 'Oct 13, 2026 to Jan 18, 2027', liveStart: '2026-10-13', liveEnd: '2027-01-18', confirmWhat: '', linkLabel: 'Junior Recreational', link: 'programs/junior/', shown: true },
+    'card-4': { placement: 'row', order: 4, headline: 'Holiday Camps', text: 'Over the winter break. Last season they ran Dec 22, 2025 to Jan 2, 2026.',
+      whenMode: 'confirm', when: '', liveStart: '', liveEnd: '', confirmWhat: 'Holiday Camps dates', linkLabel: 'See Holiday Camps', link: 'programs/camps/holiday/', shown: true }
   };
   var KEYS = {
     news: ['title', 'body', 'posted', 'status', 'link', 'linkLabel'],
@@ -183,7 +183,7 @@
       sess = '<span class="ledger__session" style="--l:' + pct(HP_FALL.start) + '%;--w:' + Math.round(1000 * (pct(HP_FALL.end, true) - pct(HP_FALL.start))) / 1000 + '%"><span class="ledger__session-label">High Performance, ' + md(HP_FALL.start) + ' to ' + md(HP_FALL.end) + '</span></span>';
       sessLegend = '<p class="ledger__seg ledger__seg--session"><span class="ledger__name">High Performance Fall Outdoor session</span> <span class="ledger__dates num">' + md(HP_FALL.start) + ' to ' + md(HP_FALL.end, true) + '</span></p>';
     }
-    var change = phase(addDay(out.end, 1)) + ', the dome goes up. ' + (ind.startToConfirm
+    var change = phase(addDay(out.end, 1)) + ', the Dome goes up. ' + (ind.startToConfirm
       ? 'Likely <span class="num">' + md(ind.start) + '</span>' + confirmHtml('indoor start date', true)
       : 'Indoor from <span class="num">' + md(ind.start) + '</span>');
     return '<figure class="ledger ledger--full" role="group">' +
@@ -195,7 +195,7 @@
       '<div class="ledger__legend">' +
       '<p class="ledger__seg ledger__seg--out"><span class="ledger__name">Outdoor</span> <span class="ledger__dates num">' + (out.approx ? 'About ' : '') + md(out.start) + ' to ' + md(out.end) + '</span></p>' +
       '<p class="ledger__seg ledger__seg--change"><span class="ledger__name">Changeover</span> <span class="ledger__dates">' + change + '</span></p>' +
-      '<p class="ledger__seg ledger__seg--in"><span class="ledger__name">Under the dome</span> <span class="ledger__dates num">To ' + md(ind.end, true) + ', kept at ' + esc(TEMP) + '&deg;C</span></p>' +
+      '<p class="ledger__seg ledger__seg--in"><span class="ledger__name">Under the Dome</span> <span class="ledger__dates num">To ' + md(ind.end, true) + ', kept at ' + esc(TEMP) + '&deg;C</span></p>' +
       sessLegend + '</div></figure>';
   }
 
@@ -391,7 +391,7 @@
     var seasons = sorted('season').map(function (s) { return s.id === d.id ? d : s; });
     var out = seasons.filter(function (s) { return /outdoor/.test(s.id); })[0] || seasons[0], ind = seasons.filter(function (s) { return /indoor/.test(s.id); })[0] || seasons[1];
     return { where: 'Home, under What&rsquo;s happening: the season ledger', w: 1200, inner: (function (e) { return e.start || e.end; })(validate('season', d)) ? '<p class="notice">' + icon('alert') + '<span>Fix the dates to draw the ledger.</span></p>' : ledgerHtml(out, ind),
-      foot: 'The club year, May 1 to April 30, at true day-proportion: the arc is the dome over the indoor months, the dashed box the changeover.' };
+      foot: 'The club year, May 1 to April 30, at true day-proportion: the arc is the Dome over the indoor months, the dashed box the changeover.' };
   }
   function stageHtml(p, fresh) {
     var w = state.view === 'phone' ? 390 : p.w + 80;
@@ -444,8 +444,8 @@
       if (!e.start && !e.end && d.end <= d.start) e.end = 'The last day comes after the first';
       var other = items('season').filter(function (s) { return s.id !== d.id; })[0];
       if (other && !e.start && !e.end) {
-        if (/outdoor/.test(d.id) && d.end >= other.start) e.end = 'The outdoor season ends before the dome season starts (' + md(other.start) + ')';
-        if (/indoor/.test(d.id) && d.start <= other.end) e.start = 'The dome season starts after the outdoor one ends (' + md(other.end) + ')';
+        if (/outdoor/.test(d.id) && d.end >= other.start) e.end = 'The outdoor season ends before the Dome season starts (' + md(other.start) + ')';
+        if (/indoor/.test(d.id) && d.start <= other.end) e.start = 'The Dome season starts after the outdoor one ends (' + md(other.end) + ')';
       }
     }
     return e;

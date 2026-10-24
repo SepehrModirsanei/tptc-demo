@@ -225,7 +225,7 @@
     });
     var k = seasonKind(d), label = F.day(d);
     var cells = !k ? [
-      ['Courts', 'Between seasons', 'The outdoor season ended Sep 30; the dome goes up likely Oct 12'],
+      ['Courts', 'Between seasons', 'The outdoor season ended Sep 30; the Dome goes up for Oct 12'],
       ['Members book from', F.day(addIso(IND.start, -R.membersDaysAhead)), 'At 7:30am, for the first indoor day']
     ] : [
       ['Court hours booked', used + ' of ' + open, label + ', Courts 1 to 4'],
@@ -313,8 +313,7 @@
       var toIndoor = d < IND.start;
       box.innerHTML = '<div class="pn-empty bk-between">' + plan(null, 'bk-plan--lg') +
         '<p class="pn-empty__title">Between seasons on ' + esc(F.day(d)) + '</p>' +
-        '<p>The outdoor season ran from ' + esc(F.day(OUT.start)) + ' to ' + esc(F.day(OUT.end)) + ' (approximately). The dome goes up for the indoor season likely on ' + esc(F.day(IND.start)) + '. No courts are booked in between.</p>' +
-        '<p>' + UI.confirmSlot('first indoor day') + '</p>' +
+        '<p>The outdoor season ran from ' + esc(F.day(OUT.start)) + ' to ' + esc(F.day(OUT.end)) + ' (approximately). The Dome goes up for the indoor season on ' + esc(F.day(IND.start)) + '. No courts are booked in between.</p>' +
         '<button type="button" class="pn-btn pn-btn--quiet" data-bk-go="' + (toIndoor ? IND.start : OUT.end) + '">' + (toIndoor ? 'Go to the first indoor day, ' + esc(F.day(IND.start)) : 'Go to the last outdoor day') + '</button></div>';
       return;
     }
@@ -389,7 +388,7 @@
     hours.sort(function (a, b) { return a - b; });
     if (!hours.length) {
       box.innerHTML = '<div class="pn-empty bk-between">' + plan(null, 'bk-plan--lg') + '<p class="pn-empty__title">Between seasons all week</p><p>The outdoor season ended ' + esc(F.day(OUT.end)) +
-        ' (approximately) and the dome goes up likely on ' + esc(F.day(IND.start)) + '. ' + UI.confirmSlot('first indoor day') + '</p><button type="button" class="pn-btn pn-btn--quiet" data-bk-go="' + IND.start + '">Go to the first indoor week</button></div>';
+        ' (approximately) and the Dome goes up on ' + esc(F.day(IND.start)) + '.</p><button type="button" class="pn-btn pn-btn--quiet" data-bk-go="' + IND.start + '">Go to the first indoor week</button></div>';
       return;
     }
     var head = '<thead><tr><th scope="col" class="bk-wk__corner">Hour</th>' + info.map(function (x, ci) {
@@ -826,8 +825,10 @@
        court booking sign-in in a new tab, as the public Court Bookings page does. */
     var siteHref = '../../court-bookings/' + (location.protocol.indexOf('http') === 0 ? '' : 'index.html');
     var jbiHref = 'https://justbookit.ca/imgr/srv/LoginMenu.do?tla=thp';
-    var how = '<p class="pn-note">' + icon('alert') + '<span>The public site keeps its booking in this browser tab only, so book there in this tab, then come back here. Nothing is sent to a server.</span></p>';
-    if (!pb) { box.innerHTML = '<div class="pn-empty bk-public__empty"><p class="pn-empty__title">Nothing booked on the site in this tab yet</p><p>Book a court on the public demo, the way a member or a non-member would, and it lands on this calendar.</p><a class="pn-btn pn-btn--quiet" href="' + jbiHref + '" target="_blank" rel="noopener">' + icon('arrow-external') + 'Book on the public site<span class="sr-only"> (JustBookIt, opens in a new tab)</span></a></div>' + how; return; }
+    var how = '';
+    /* b15: JustBookIt only. The public site sends every court booking to JustBookIt; nothing
+       booked there lands on this sample calendar. */
+    if (!pb) { box.innerHTML = '<div class="pn-empty bk-public__empty"><p class="pn-empty__title">Court booking is on JustBookIt</p><p>Members and non-members book on JustBookIt, from the Court Bookings page of the public site.</p><a class="pn-btn pn-btn--quiet" href="' + jbiHref + '" target="_blank" rel="noopener">' + icon('arrow-external') + 'Book on JustBookIt<span class="sr-only"> (opens in a new tab)</span></a></div>'; return; }
     var w = 'Court ' + pb.court + ', ' + F.day(pb.date) + ', ' + F.range(pb.start, pb.hours || 1);
     var payChip = pb.held ? UI.chip('due', 'Pre-pay by phone') : pb.paid ? UI.chip('succeeded') : UI.chip('due');
     box.innerHTML = '<div class="bk-public__card">' + plan(pb.done ? pb : null, 'bk-plan--sheet') + '<div class="pn-stack">' +
@@ -893,7 +894,7 @@
   /* ---------- Legend and keys ---------- */
   function renderLegend() {
     var k = seasonKind(S.date);
-    var items = [['member', 'Member'], ['non-member', 'Non-member or walk-in'], ['lesson', 'Lesson'], ['hold', 'Hold'], ['league', 'League or public hours'], ['site', 'Public site']];
+    var items = [['member', 'Member'], ['non-member', 'Non-member or walk-in'], ['lesson', 'Lesson'], ['hold', 'Hold'], ['league', 'League or public hours']]; /* b15: no 'Public site' key: bookings are on JustBookIt */
     /* Day view keys only the fee bands that day has (a weekday has no weekend band); the week keys all three */
     var dayBands = S.view === 'day' ? rowsOf(S.date).map(function (r) { return r.band; }) : null;
     var bands = k === 'indoor' ? D.feeBands.filter(function (b) { return !dayBands || dayBands.indexOf(b.id) >= 0; }).map(function (b) { return '<li><i class="bk-key bk-key--band bk-band--' + b.id + '" aria-hidden="true"></i>' + esc(b.name) + ' $' + b.fee + '</li>'; }).join('')

@@ -460,6 +460,8 @@ html.js .frame__img:not(.is-loaded) { opacity: 0; }
 .ph__kicker::before { content: ""; width: 7px; height: 7px; border: 1px solid currentColor; flex: none; }
 .ph__id { font: 500 clamp(13px, 2.8cqi, 14px)/1.25 var(--font-sans); letter-spacing: 0.02em; color: var(--ph-muted); }
 .ph__desc { font: italic 300 clamp(16px, 3.6cqi, 23px)/1.34 var(--font-serif); text-wrap: pretty; }
+/* b15: the slot id and its ratio stay in the markup for the build, not on screen */
+.ph__id, .ph__ratio { display: none !important; }
 .ph__ratio { position: absolute; top: clamp(10px, 3.5cqi, 20px); right: clamp(10px, 3.5cqi, 22px); font: 600 11px/1 var(--font-sans); letter-spacing: 0.16em; color: var(--ph-muted); }
 
 /* ---------- Breadcrumbs ---------- */

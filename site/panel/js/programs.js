@@ -474,7 +474,7 @@
         '<td>' + (st.offered.length ? UI.chip('offered') : st.full ? UI.chip('waitlist', 'Full') : UI.chip('open')) + '</td></tr>';
     }).join('');
     var s0 = list[0];
-    return '<dl class="pn-dl pg-facts"><div><dt>Season</dt><dd>Fall & Winter 2026/27, in the Dome</dd></div><div><dt>Dates</dt><dd>' + (s0 ? gapOf(s0, 'league dates') : '') + '</dd></div>' +
+    return '<dl class="pn-dl pg-facts"><div><dt>Season</dt><dd>Fall & Winter 2026/27, under the Dome</dd></div><div><dt>Dates</dt><dd>' + (s0 ? gapOf(s0, 'league dates') : '') + '</dd></div>' +
       '<div><dt>Fees</dt><dd>As the club publishes them, per week or per event played. ' + 'The junior house league is the only one marked + HST. ' + UI.confirmSlot('Whether the other league fees include HST') + '</dd></div></dl>' +
       '<div class="pn-table-wrap" tabindex="0" role="region" aria-label="Leagues and round robins"><table class="pn-table"><thead><tr><th scope="col">League</th><th scope="col">Day and time</th><th scope="col">Level</th><th scope="col">Fee</th><th scope="col">Seats</th><th scope="col" class="is-num">Waiting</th><th scope="col">Status</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
       '<p class="pg-foot">Days, times, levels and fees from /programs-overview/; seats and waitlists are sample data. <span class="pg-gloss"><dfn>Ratings</dfn> such as 3.0 or 4.5 describe playing level: the higher the number, the stronger the player.</span></p>';

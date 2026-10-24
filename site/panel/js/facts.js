@@ -33,9 +33,9 @@ window.TPTC_CONTENT = {
    "short": "Indoor 2026/27",
    "start": "2026-10-12",
    "end": "2027-04-25",
-   "start_to_confirm": true,
-   "source": "Memberships are offered for this Indoor season which runs from early October 2026 to April 25, 2027. The indoor season will likely start on October 12 this year.",
-   "src": "/news/fall-winter-indoor-membership-registration-now-open/",
+   "start_to_confirm": false,
+   "source": "Memberships are offered for this Indoor season which runs from October 12, 2026 to April 25, 2027.",
+   "src": "/memberships/",
    "registration_opened": "2026-08-01"
   }
  ],
@@ -239,6 +239,10 @@ window.TPTC_CONTENT = {
   ],
   "group_sessions": [
    {
+    "text": "Upcoming Indoor Group Session Dates: Starting Oct 13, 2026 until Jan 18, 2027",
+    "season": "Fall/Winter indoor 2026/27"
+   },
+   {
     "text": "Upcoming Recreational Outdoor Summer/Fall Group Session Dates: Starting Aug 21 until Oct 8, 2026 (7 weeks)",
     "season": "Summer/Fall outdoor 2026"
    },
@@ -256,7 +260,7 @@ window.TPTC_CONTENT = {
    }
   ],
   "group_price_gap": "No group lesson price and no class day or time appears anywhere on the crawled site. They are visible only inside the registration system (JBI).",
-  "hp_current": "Current Fall Outdoor Session Dates: Starting Aug 24 until Oct 8, 2026",
+  "hp_current": "Indoor Fall/Winter Session Dates: Starting Oct 13, 2026 until Jan 18, 2027",
   "hp_pathway": [
    {
     "name": "Little Champs",
