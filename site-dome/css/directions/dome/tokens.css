@@ -1,0 +1,332 @@
+/* TPTC Direction B, "Dome": the token layer (D0, 24 Oct 2026).
+
+   Loaded on every Dome page straight after css/tokens.css (python3 build.py --direction dome), so
+   site.css, components.css and every page CSS read Dome values through the site's own token
+   names. Source of every value: specimens/B-ledger/css/ledger.css (the Dome specimen; its files
+   still carry the older name Ledger; line numbers below). Custom properties only, every rule scoped
+   to html[data-direction="dome"]: the file styles no property and does nothing on another
+   direction. Contract: site/DIRECTIONS.md.
+
+   A private club's season ledger: white paper, deep bottle-green "dome at night" grounds, a news
+   serif for the voice and an expanded grotesque for labels and figures. Red is Register now only.
+
+   Mapping (light). "=" means the site's value already equals the specimen's, so it is not repeated.
+   site token            Dome value                                    specimen (ledger.css)
+   --------------------  --------------------------------------------  -------------------------------
+   --white               #FFFFFF                                       33 --paper, 61 --paper-fixed     =
+   --dome                #ECEFEC                                       34 --paper-tint (Dome fabric)
+   --blazer              #133126                                       39 --night (Dome night, the dark ground)
+   --ink                 #0F1A15                                       36 --ink
+   --red                 #DF3124                                       45 --red                         =
+   --night-deep          #0F271E                                       41 --night-deep
+   --ball                #CDEB3F                                       46 --live
+   --stone               #3D4A43                                       37 --ink-2 (body text)
+   --mist                #B9C7BF                                       43 --on-night-2
+   --line-ink            rgba(15, 26, 21, 0.14)                        47 --rule
+   --line-ink-soft       rgba(15, 26, 21, 0.07)                        no specimen value: half of --rule
+   --line-ink-strong     rgba(15, 26, 21, 0.36)                        48 --rule-strong
+   --line-chalk          rgba(255, 255, 255, 0.16)                     49 --rule-night
+   --line-chalk-soft     rgba(255, 255, 255, 0.08)                     no specimen value: half of it
+   --line-chalk-strong   rgba(255, 255, 255, 0.4)                      50 --rule-night-strong
+   --night-raised        #1B3B2F                                       40 --night-2
+   --scrim               rgba(10, 30, 22, 0.8)                         53 --scrim
+   --surface             var(--white)                                  33 --paper                       =
+   --surface-alt         var(--dome)                                   34 --paper-tint                  =
+   --on-photo            #FFFFFF                                       42 --on-night                    =
+   --tag-bg              #0F271E                                       56 --tag-bg (solid, never glass)
+   --tag-fg              #FFFFFF                                       413 .frame__tag color: var(--on-night)
+   --chip-live-bg        var(--blazer)                                 444 .chip--live background: var(--night)
+   --chip-live-fg        var(--on-night)                               D1: the site's rule (the ball is a dot only, never text);
+                                                                       the specimen's 444 sets var(--live) text, not ported
+   --photo-filter        none                                          63                               =
+   --shadow-tint         rgba(6, 21, 16, 0.18)                         58 --toast-shadow
+   --focus               #0F1A15                                       74 --focus: var(--ink) (the site's is red)
+   --focus-w / -off      2px / 3px                                     165 :focus-visible               =
+   --ph-ground           #E3EAE5                                       35 --frame-day (394 .frame--day)
+   --ph-line             rgba(15, 26, 21, 0.15)                        52 --court-day
+   --ph-court-amt        0%                                            the specimen frame draws lines only, no court fill
+   --ph-text             #0F1A15                                       394 --frame-fg-strong: var(--ink) =
+   --ph-muted            #3D4A43                                       394 --frame-fg: var(--ink-2)
+   --font-serif          "Newsreader" stack                            78 --font-serif
+   --font-sans           "Archivo" stack                               79 --font-sans
+   --step-display        clamp(2.75rem, 1.4rem + 4.6vw, 6rem)          81 --t-display (one H1 per page)
+   --step-1              clamp(2rem, 1.45rem + 2.1vw, 3.25rem)         82 --t-h2
+   --step-2              clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)      83 --t-h3
+   --step-3              1.25rem                                       84 --t-lede
+   --step-4              1.0625rem                                     85 --t-body                      =
+   --step-5              0.8125rem                                     86 --t-micro (meta, captions)
+   --step-6              0.75rem                                       87 --t-label                     =
+   --lh-display          1.02                                          619 .hero__title line-height
+   --lh-head             1.04                                          207 .title-h2 line-height
+   --lh-body             1.6                                           151 body                         =
+   --track-label         0.16em                                        198 .label letter-spacing
+   --track-display-sans  -0.005em                                      203 .fig letter-spacing
+   --sp-1 to --sp-10     4 8 16 24 32 48 64 96 128 160px               90-91 --s-1 to --s-10            =
+   --section             clamp(64px, 2.5rem + 6.4vw, 128px)            92 --section
+   --gutter              clamp(16px, 0.5rem + 2vw, 32px)               93 --gutter (all widths)
+   --page                82rem                                         94 --content
+   --measure             62ch                                          210 .body max-width (.lede: 36ch, 209)
+   --header-h            72px; 64px under 1180px                       96 --header-h; 113
+   --radius              0                                             228 .btn border-radius: 0 (radius 0 everywhere)
+   --hair / --target     1px / 44px                                    hairlines; 44px targets          =
+   --z-*                 the site's scale, kept                        layering is structure, not look (B: 111)
+   --ease-*, --dur-*, --stagger-*  as the site                         99-108                           =
+   Court geometry        as the site                                   ITF                              =
+
+   Dome tokens with no site name (read only by this direction's own CSS):
+   --step-mega (80 --t-mega, the one numeral moment), --fg-subtle (38 --ink-3, captions and meta),
+   --on-night (42; type on the night ground), --on-night-3 (44), --frame-day (35), --court-day and
+   --court-night (52, 51: the drawn court on paper and on night), --arc (55, the dome arc over a
+   photograph), --scrim-soft (54), --ball-shadow (57), --stretch-label 125% (198 .label),
+   --stretch-ui 112% (230 .btn), --stretch-fig 76% (202 .fig). The site writes its labels with the
+   font shorthand, which resets font-stretch: the widths need components.css to set them.
+
+   Dark (the dome at night, ledger.css 121-145: one ground, night sections take the paper colour)
+   and the night ground (.theme-night = the specimen's .ground-night, 185-190) are mapped the same
+   way below; each value names its specimen token. As in the site, --dome and --chalk stay light in
+   dark mode (they are also text on the night ground); the dark tinted ground is --surface-alt. */
+
+@font-face {
+  font-family: "Newsreader";
+  src: url("../../../fonts/directions/dome/newsreader-latin-opsz-normal.woff2") format("woff2-variations"),
+       url("../../../fonts/directions/dome/newsreader-latin-opsz-normal.woff2") format("woff2");
+  font-weight: 200 800; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("../../../fonts/directions/dome/newsreader-latin-opsz-italic.woff2") format("woff2-variations"),
+       url("../../../fonts/directions/dome/newsreader-latin-opsz-italic.woff2") format("woff2");
+  font-weight: 200 800; font-style: italic; font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("../../../fonts/directions/dome/archivo-latin-standard-normal.woff2") format("woff2-variations"),
+       url("../../../fonts/directions/dome/archivo-latin-standard-normal.woff2") format("woff2");
+  font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* ---------- Light (paper) ---------- */
+:root[data-direction="dome"] {
+  /* palette */
+  --dome:   #ECEFEC;
+  --blazer: #133126;
+  --ink:    #0F1A15;
+  --night-deep: #0F271E;
+  --ball:   #CDEB3F;
+  --stone:  #3D4A43;
+  --mist:   #B9C7BF;
+  --line-ink:        rgba(15, 26, 21, 0.14);
+  --line-ink-soft:   rgba(15, 26, 21, 0.07);
+  --line-ink-strong: rgba(15, 26, 21, 0.36);
+  --line-chalk:        rgba(255, 255, 255, 0.16);
+  --line-chalk-soft:   rgba(255, 255, 255, 0.08);
+  --line-chalk-strong: rgba(255, 255, 255, 0.4);
+  --night-raised: #1B3B2F;
+  --scrim: rgba(10, 30, 22, 0.8);
+
+  /* semantic */
+  --tag-bg: #0F271E;
+  --tag-fg: #FFFFFF;
+  --chip-live-bg: var(--blazer);
+  --chip-live-fg: var(--on-night);
+  --shadow-tint: rgba(6, 21, 16, 0.18);
+  --focus: #0F1A15;
+  --ph-ground: #E3EAE5;
+  --ph-line: rgba(15, 26, 21, 0.15);
+  --ph-court-amt: 0%;
+  --ph-muted: #3D4A43;
+
+  /* type */
+  --font-serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans:  "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --step-mega:    clamp(6.5rem, 3rem + 13vw, 15rem);
+  --step-display: clamp(2.75rem, 1.4rem + 4.6vw, 6rem);
+  --step-1:       clamp(2rem, 1.45rem + 2.1vw, 3.25rem);
+  --step-2:       clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+  --step-3:       1.25rem;
+  --step-5:       0.8125rem;
+  --lh-display: 1.02;
+  --lh-head: 1.04;
+  --track-label: 0.16em;
+  --track-display-sans: -0.005em;
+  --stretch-label: 125%;
+  --stretch-ui: 112%;
+  --stretch-fig: 76%;
+
+  /* space and frame */
+  --section: clamp(64px, 2.5rem + 6.4vw, 128px);
+  --gutter: clamp(16px, 0.5rem + 2vw, 32px);
+  --page: 82rem;
+  --measure: 62ch;
+  --header-h: 72px;
+  --radius: 0px;
+
+  /* Dome only */
+  --fg-subtle: #58655E;
+  --on-night: #FFFFFF;
+  --on-night-3: #9DB0A7;
+  --frame-day: #E3EAE5;
+  --court-day: rgba(15, 26, 21, 0.15);
+  --court-night: rgba(255, 255, 255, 0.13);
+  --arc: rgba(255, 255, 255, 0.62);
+  --scrim-soft: rgba(10, 30, 22, 0);
+  --ball-shadow: rgba(0, 0, 0, 0.55);
+
+  /* D1: the specimen's own type steps that the site's scale has no name for (ledger.css line in
+     brackets). Read only by this direction's components.css and pages/. */
+  --t-sm: 0.875rem;          /* 14: confirm note, field help (482) */
+  --t-ui: 0.9375rem;         /* 15: field labels, table cells, dd (system.css 197, 156) */
+  --t-read-sm: 1rem;         /* 16: frame desc, board desc (409, 1273) */
+  --t-name-sm: 1.125rem;     /* 18: season names, slide titles (524, 1410) */
+  --t-name: 1.1875rem;       /* 19: nav panel names, entry body (329, 811) */
+  --t-q: 1.3125rem;          /* 21: FAQ question (system.css 177) */
+  --t-name-lg: 1.5rem;       /* 24: happening title, tier name (761, system.css 129) */
+  --t-name-xl: 1.75rem;      /* 28: menu sheet items (364) */
+  --t-name-2xl: clamp(2rem, 1.2rem + 1.5vw, 2.75rem);           /* board row name (1302) */
+  --t-statement: clamp(1.625rem, 1.2rem + 1.5vw, 2.5rem);       /* intro statement (807) */
+  --t-step-name: clamp(2.25rem, 1.5rem + 2.2vw, 3.25rem);       /* pathway step name (841) */
+  --t-split-name: clamp(2.25rem, 1.4rem + 2.6vw, 3.75rem);      /* split name (1387) */
+  --t-split-tag: clamp(1.25rem, 1.05rem + 0.6vw, 1.625rem);     /* split tagline (1390) */
+  --t-verb: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem);             /* join verb (905) */
+  --t-hero-phone: clamp(1.625rem, 7.4vw, 3.25rem);              /* phone hero headline (1045) */
+  --t-hero-home: clamp(2.5rem, 0.6rem + 3.3vw, 4.25rem);        /* Home headline under the arc (1248: min(4.25rem, ...)) */
+  --t-hero-inner: clamp(2.25rem, 0.4rem + 2.9vw, 3.75rem);      /* inner page headline (1373: min(4.25rem, ...)) */
+  --t-hero-dome-phone: clamp(1.625rem, 7.6vw, 3.5rem);          /* the Dome hero headline on phones (1175) */
+  --t-academy: clamp(2.5rem, 1.6rem + 3vw, 4.5rem);             /* academy name (1456) */
+  /* scoreboard figures (Archivo at --stretch-fig or narrower; 1146-1150) */
+  --fig-1: 1.25rem;                                    /* ladder, pathway figures (702) */
+  --fig-2: 1.5rem;                                     /* slide count, tier alt (1425) */
+  --fig-3: 2rem;                                       /* pathway index, question number (834) */
+  --fig-4: clamp(2.25rem, 1.8rem + 1.2vw, 3rem);       /* happening dates (758) */
+  --fig-5: clamp(2.5rem, 1.7rem + 2.4vw, 3.75rem);     /* door stat, board score (633) */
+  --fig-6: clamp(4rem, 2rem + 4vw, 6rem);              /* board score at width, result (1307) */
+  --fig-7: clamp(5rem, 3rem + 5vw, 8rem);              /* step numeral (840) */
+  /* weights the specimen uses on Newsreader and Archivo (both variable) */
+  --w-display: 340; --w-head: 380; --w-name: 420; --w-step: 360;
+  --w-label: 560; --w-ui: 640; --w-chip: 620; --w-nav: 600; --w-fig: 800; --w-num: 700;
+  /* tracking */
+  --track-ui: 0.12em;        /* buttons, links (231) */
+  --track-chip: 0.14em;      /* chips, tags (440) */
+  --track-kicker: 0.22em;    /* frame kicker (405) */
+  --track-crumb: 0.1em;      /* breadcrumbs (489) */
+  --stretch-chip: 118%;      /* chips, confirm tags (439) */
+  --stretch-head: 122%;      /* footer and field headings (946) */
+  --stretch-nav: 110%;       /* masthead links (307) */
+  --stretch-num: 70%;        /* a figure inside a sentence (1149) */
+  --stretch-board: 64%;      /* the scoreboard figure (1148) */
+  /* a mask is alpha only: the solid end of a fade (1224) */
+  --mask-solid: #000000;
+  --mask-clear: rgba(0, 0, 0, 0);
+  /* the court frame's light and shade (site.css 1006-1007 writes them raw in Whites colours) */
+  --frame-light: rgba(255, 255, 255, 0.06);
+  --frame-shade: rgba(6, 21, 16, 0.32);
+  --frame-clear: rgba(6, 21, 16, 0);
+}
+@media (max-width: 1179px) {
+  :root[data-direction="dome"] { --header-h: 64px; }
+}
+
+/* ---------- Night ground (.theme-night: the High Performance hero and header) ----------
+   The specimen's .ground-night: on-night type, white rules, an on-night focus ring; a slot with
+   no photograph sits on night-2 with the court drawn at 13% (390-391 .frame). */
+[data-direction="dome"] .theme-night {
+  --fg: var(--on-night);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus);
+  --ph-ground: var(--night-raised);
+  --ph-line: var(--court-night);
+  --ph-court-mix: var(--on-night);
+  --ph-court-amt: 0%;
+  --ph-text: var(--on-night);
+  --ph-muted: var(--mist);
+}
+
+/* ---------- The court frame (a slot with no photograph) ----------
+   site.css writes this scope's tokens as raw Whites values (a Blazer court, chalk lines, #16294F
+   at night). The Dome specimen's own slot is the night frame: night-2 ground, the court drawn in
+   white at 13%, the label in on-night (ledger.css 390-391). Tokens only. */
+:root[data-direction="dome"] .frame:not(.frame--due, .frame--photo, .has-img) {
+  --ph-ground: var(--night-raised);
+  --ph-court-amt: 0%;
+  --ph-line: var(--court-night);
+  --ph-text: var(--on-night);
+  --ph-muted: var(--mist);
+}
+
+/* ---------- Dark: the dome at night (ledger.css 121-145) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root[data-direction="dome"]:not([data-theme="light"]) {
+    --blazer: #0D1813;                      /* 126 --night: one ground in dark */
+    --night-raised: #14231C;                /* 126 --night-2 */
+    --night-deep: #0D1813;                  /* 126 */
+    --surface:     #0D1813;                 /* 123 --paper */
+    --surface-alt: #14231C;                 /* 123 --paper-tint */
+    --tag-fg: #EDF2EF;                      /* 125 --on-night */
+    --chip-live-bg: #0D1813;                /* 444 background: var(--night) */
+    --photo-filter: brightness(0.9) saturate(0.92);  /* 130 */
+    --logo: #EDF2EF;
+    --logo-ball: var(--red);
+    --logo-col: none; --logo-rev: block;    /* 1139-1144: the on-dark brand files */
+    --shadow-tint: rgba(3, 10, 7, 0.5);     /* 129 --toast-shadow */
+    --bg: var(--surface);
+    --bg-alt: var(--surface-alt);
+    --fg: #EDF2EF;                          /* 124 --ink */
+    --fg-muted: #BAC7C0;                    /* 124 --ink-2 */
+    --rule: rgba(237, 242, 239, 0.14);      /* 127 */
+    --rule-soft: rgba(237, 242, 239, 0.07); /* half of 127 */
+    --rule-strong: rgba(237, 242, 239, 0.34); /* 127 */
+    --focus: #EDF2EF;
+    --ph-ground: #182A21;                   /* 123 --frame-day */
+    --ph-line: rgba(237, 242, 239, 0.12);   /* 128 --court-day */
+    --ph-court-mix: #EDF2EF;
+    --ph-court-amt: 0%;
+    --ph-text: #EDF2EF;
+    --ph-muted: #BAC7C0;
+    --fg-subtle: #93A69C;                   /* 124 --ink-3 */
+    --on-night: #EDF2EF;                    /* 125 */
+    --frame-day: #182A21;
+    --court-day: rgba(237, 242, 239, 0.12);
+    color-scheme: dark;
+  }
+  :root[data-direction="dome"]:not([data-theme="light"]) .frame:not(.frame--due, .frame--photo, .has-img) {
+    --ph-ground: var(--night-raised);
+  }
+}
+:root[data-direction="dome"][data-theme="dark"] {
+  --blazer: #0D1813;
+  --night-raised: #14231C;
+  --night-deep: #0D1813;
+  --surface:     #0D1813;
+  --surface-alt: #14231C;
+  --tag-fg: #EDF2EF;
+  --chip-live-bg: #0D1813;
+  --photo-filter: brightness(0.9) saturate(0.92);
+  --logo: #EDF2EF;
+  --logo-ball: var(--red);
+  --logo-col: none; --logo-rev: block;
+  --shadow-tint: rgba(3, 10, 7, 0.5);
+  --bg: var(--surface);
+  --bg-alt: var(--surface-alt);
+  --fg: #EDF2EF;
+  --fg-muted: #BAC7C0;
+  --rule: rgba(237, 242, 239, 0.14);
+  --rule-soft: rgba(237, 242, 239, 0.07);
+  --rule-strong: rgba(237, 242, 239, 0.34);
+  --focus: #EDF2EF;
+  --ph-ground: #182A21;
+  --ph-line: rgba(237, 242, 239, 0.12);
+  --ph-court-mix: #EDF2EF;
+  --ph-court-amt: 0%;
+  --ph-text: #EDF2EF;
+  --ph-muted: #BAC7C0;
+  --fg-subtle: #93A69C;
+  --on-night: #EDF2EF;
+  --frame-day: #182A21;
+  --court-day: rgba(237, 242, 239, 0.12);
+  color-scheme: dark;
+}
+:root[data-direction="dome"][data-theme="dark"] .frame:not(.frame--due, .frame--photo, .has-img) {
+  --ph-ground: var(--night-raised);
+}

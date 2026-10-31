@@ -1,0 +1,110 @@
+/* TPTC Direction B, "Dome": Register Now (D2, 24 Oct 2026). Loaded after css/pages/register.css.
+   Membership's join flow uses the same reg-* family (it loads Whites register.css as front-matter
+   CSS), so the Dome's pages/membership.css imports this file (request RD5 asks build.py to link the
+   direction's front-matter CSS instead). Visual rules only here, no layout the Whites page files set.
+   The flow in the Dome: one question at a time on a ledger. Every choice is a square card (the
+   Style Guide's radio card, system.css 210-218): an outline square when open, the ink square when
+   chosen, a 2px rule under it. Answered questions fold to score lines; dates, prices and notice
+   periods are scoreboard figures; the progress court draws its net as a plain line. Tokens only. */
+
+/* ---------- Steps and the score line ---------- */
+.reg__context-label, .reg-step__k, .reg-sum__k, .reg-need__title, .reg-done__sum dt, .open__season, .open__date-k, .open__tier-k, .ref__unit, .pc__key-n {
+  font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.35; font-weight: var(--w-chip);
+  font-stretch: var(--stretch-head); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-subtle);
+}
+.reg-step__q { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-2); line-height: 1.18; }
+.reg-step__a { font-family: var(--font-serif); font-size: var(--t-name-sm); }
+.reg-step__a::before { border-radius: 0; width: 8px; height: 8px; }
+.reg-step__edit { font-family: var(--font-sans); font-stretch: var(--stretch-ui); font-size: var(--step-6); font-weight: var(--w-ui); letter-spacing: var(--track-ui); text-transform: uppercase; text-underline-offset: 4px; }
+.reg-step__edit:hover { text-decoration-thickness: 1px; text-decoration-color: currentColor; }
+.reg-step[data-state="done"] .reg-step__done { border-bottom-color: var(--rule); }
+
+/* ---------- Options: square marks ---------- */
+.reg-opts { border-top-color: var(--rule-strong); }
+.reg-opt__body::before { border-radius: 0; width: 14px; height: 14px; box-shadow: inset 0 0 0 1px var(--fg-muted); }
+.reg-opt:hover .reg-opt__body::before { box-shadow: inset 0 0 0 1px var(--fg); }
+.reg-opt input:checked + .reg-opt__body::before { box-shadow: inset 0 0 0 7px var(--fg); }
+.reg-opt.is-off:hover .reg-opt__body::before { box-shadow: inset 0 0 0 1px var(--fg-muted); }
+.reg-opt__name { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name); line-height: 1.3; }
+.reg-opt__meta { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); color: var(--fg-muted); }
+.reg-opt__off { font-family: var(--font-serif); font-size: var(--t-sm); }
+.reg-opt--tile, .reg-opt--fig { border-radius: 0; border-color: var(--rule-strong); }
+.reg-opt--tile:has(input:checked), .reg-opt--fig:has(input:checked) { border-color: var(--fg); }
+.reg-opt--tile .reg-opt__body::after, .reg-opt--fig .reg-opt__body::after { height: 3px; }
+@media (min-width: 640px) { .reg-opt--tile .reg-opt__name { font-size: var(--t-name-lg); font-weight: var(--w-name); } }
+.reg-opt--fig .reg-opt__name { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name-xl); line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.reg-opt__price { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-3); line-height: 0.86; font-variant-numeric: tabular-nums lining-nums; }
+.reg-opt__price small { font-family: var(--font-sans); font-weight: 400; font-stretch: 100%; font-size: var(--step-5); }
+
+/* ---------- Your registration ---------- */
+.reg-final__bar { border-radius: 0; height: 3px; }
+.reg-final__left { font-family: var(--font-serif); font-size: var(--step-3); }
+.reg-sum { border-top: 1px solid var(--fg); }
+.reg-sum__tick { border-radius: 0; }
+.reg-sum__v { font-family: var(--font-serif); font-size: var(--step-4); }
+.reg-final__fields { border-radius: 0; border: 1px solid var(--rule-strong); border-top: 2px solid var(--fg); background: var(--surface); }
+.reg-phone__field .input { font-family: var(--font-sans); font-stretch: var(--stretch-fig); font-weight: var(--w-num); font-size: var(--t-name); letter-spacing: 0.02em; font-variant-numeric: tabular-nums lining-nums; }
+.reg-final__opt { font-family: var(--font-sans); font-stretch: 100%; }
+.reg-final__need, .reg-final__terms, .reg-final__or { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); color: var(--fg-muted); }
+.reg-final__jbi { border-top-color: var(--rule); }
+.reg-way { border-radius: 0; border: 1px solid var(--rule-strong); border-top: 2px solid var(--fg); }
+.reg-way__mark { border-radius: 0; border-color: var(--rule-strong); }
+.reg-way__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-lg); }
+.reg-way__text { font-size: var(--step-4); color: var(--fg-muted); }
+.reg-way__path summary { font-family: var(--font-sans); font-stretch: var(--stretch-ui); font-size: var(--step-6); font-weight: var(--w-ui); letter-spacing: var(--track-ui); text-transform: uppercase; }
+.reg-path { border-left-color: var(--fg); }
+.reg-path li { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.reg-path li::before { border-radius: 0; left: -4px; width: 7px; height: 7px; box-shadow: inset 0 0 0 1px var(--fg); }
+.reg-need p:not(.reg-need__title) { color: var(--fg-muted); }
+.reg-need__title { color: var(--fg); }
+.reg-need--gate { border-top: 2px solid var(--fg); background: var(--surface); }
+.reg-jbi { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+
+/* ---------- The confirmation ---------- */
+.reg-done__sum { border-top: 1px solid var(--fg); }
+.reg-done__sum dd { font-family: var(--font-serif); font-size: var(--step-4); }
+.reg-done__mark { border-radius: 0; }
+.reg-done__demo { font-family: var(--font-serif); font-style: italic; font-size: var(--step-3); }
+
+/* ---------- The progress court: the net a plain line ---------- */
+.pc__surface { fill: var(--frame-day); }
+.pc__net { stroke: var(--fg); stroke-width: 2; }
+.pc__tag { font-family: var(--font-sans); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); }
+@media (min-width: 1000px) {
+  .pc__key { border-top: 1px solid var(--fg); }
+  .pc__key-n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--t-name-lg); line-height: 0.86; letter-spacing: 0; }
+  .pc__key-q { font-family: var(--font-serif); font-size: var(--step-4); }
+  .pc__key-t { font-family: var(--font-serif); font-style: italic; font-size: var(--t-ui); }
+}
+.pc__cap { font-family: var(--font-sans); font-stretch: 100%; }
+
+/* ---------- Hero ---------- */
+.reg-hero__for { font-family: var(--font-serif); font-size: var(--step-3); }
+
+/* ---------- How it works ---------- */
+.how__shot { border-radius: 0; box-shadow: none; border-color: var(--rule-strong); }
+.how__n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-4); line-height: 0.86; letter-spacing: 0; color: var(--fg-subtle); }
+.how__words h3 { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-lg); }
+.how__words p { font-size: var(--step-4); color: var(--fg-muted); }
+
+/* ---------- Dates and prices: the date a scoreboard figure ---------- */
+.open { border-top: 2px solid var(--fg); }
+.open__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-lg); }
+.open__date { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(3rem, 2.4rem + 2vw, 4.25rem); line-height: 0.86; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.open__line { font-size: var(--step-4); color: var(--fg-muted); }
+.open__prices li { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.open__prices .num { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name-xl); line-height: 1.05; }
+.open__tiers li { border-left-color: var(--rule-strong); }
+.open__tiers .num { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(2rem, 1.6rem + 1vw, 2.75rem); line-height: 0.86; }
+.open__tier-n { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+
+/* ---------- Refunds: the notice as figures ---------- */
+.ref { border-top: 1px solid var(--fg); }
+.ref__fig { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(3.25rem, 2.6rem + 2.4vw, 5rem); line-height: 0.86; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.ref__unit { color: var(--fg); }
+.ref__what { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); color: var(--fg-muted); }
+
+/* ---------- Wrappers ---------- */
+.opens { row-gap: var(--sp-6); }
+.refs { row-gap: var(--sp-6); }
+.reg-fin__status .chip { font-stretch: var(--stretch-chip); }

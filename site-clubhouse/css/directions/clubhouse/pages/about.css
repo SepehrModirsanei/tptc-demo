@@ -1,0 +1,47 @@
+/* TPTC Direction A, "Clubhouse": Our Club (W2b, 25 Oct 2026). Loaded after css/pages/about.css.
+   No specimen page: composed in the specimen's language.
+   - The hero is the clubhouse wall with its plated print (components.css W2b).
+   - Who we are: the letter, then the figures in Caslon Display (components.css 23).
+   - Vision and mission: the two ends of one court, each end's words in Caslon Display, divided by an ink
+     hairline (red is the logo, the ball and Register now only: no red net, tptc.css 1636).
+   - The community photograph hangs as a print with its plate.
+   - The Board of Directors is the clubhouse's honours board: the club's people named in Caslon Display
+     on a board pinned like its prints (the dark frame, the white mat).
+   - The three doors hang as prints; the History door holds the year. */
+
+.about-letter .body a { text-underline-offset: 0.2em; }
+
+/* Vision and mission */
+.ends { border-block-color: var(--rule-strong); }
+.ends__label { font-weight: 700; color: var(--fg-subtle); }
+.ends__text p { font: 400 clamp(1.5rem, 1.1rem + 1.4vw, 2.375rem)/1.2 var(--font-display); letter-spacing: -0.004em; }
+.ends__cord { background: var(--rule-strong); }
+.ends__post { display: none; }
+
+/* The community print: the shared plate (the Whites page CSS sets its caption as a block of italic) */
+.about-community .frame__cap { display: flex; gap: 2px 12px; margin-top: 0; }
+.about-community .frame__cap em { font: 400 1rem/1.25 var(--font-display); color: var(--plate-fg); max-width: none; }
+
+/* The honours board */
+.board-grid .board {
+  --fg: var(--plate-fg); --fg-muted: var(--plate-fg-2); --rule: var(--plate-line); --rule-strong: var(--plate-line-strong);
+  padding: 4px clamp(16px, 2.4vw, 32px) 8px; background: var(--mat); color: var(--plate-fg);
+  border: 5px solid var(--wood); box-shadow: var(--print-shadow);
+}
+@media (max-width: 719px) { .board-grid .board { border-width: 4px; padding-inline: 14px; } }
+.board-grid .board li:last-child { border-bottom: 0; }
+.board-grid .board li::before { font: 400 0.9375rem/1.6 var(--font-display); color: var(--plate-fg-2); }
+.board__role { font-weight: 700; color: var(--plate-fg-2); }
+.board__name { font: 400 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.15 var(--font-display); }
+.docs__title { font-weight: 700; color: var(--fg-subtle); }
+.docs__list { border-top-color: var(--rule-strong); }
+.docs .doclink .link__text { font-size: 1.0625rem; text-underline-offset: 0.2em; }
+
+/* The History door: the year in Caslon Display on the print's ground */
+.frame--year .frame__media { background: var(--surface-alt); }
+.numeral--door { font-family: var(--font-display); font-weight: 400; color: var(--fg); }
+
+/* Containers in the Clubhouse rhythm */
+.about-facts { margin-top: clamp(40px, 5vw, 80px); }
+.board-head { gap: var(--sp-4); }
+.board-head .body { color: var(--fg-muted); }

@@ -1,0 +1,54 @@
+/* TPTC Direction B, "Dome": Our Coaches (W2c D3, 25 Oct 2026). Loaded after css/pages/coaches.css.
+   The Dome composition: the hero moved onto Dome night (templates.py ground): the words, the key points
+   and, from 1000px, the Head Pro's card beside them under the chalk rule; the featured entry with his
+   playing record as scoreboard figures on a strong rule (ledger.css 1146-1150); the format every named
+   coach gets as a square entry on Dome fabric; how we coach as three numbered rules, the numerals as
+   scoreboard figures and the court plans drawn with the net as a plain line. Tokens only. */
+
+/* ---------- The hero on night ---------- */
+.page-coaches .hero .crumbs li, .page-coaches .hero .crumbs a { color: var(--mist); }
+.page-coaches .hero .crumbs [aria-current="page"] { color: var(--on-night); }
+.page-coaches .hero .hero__lede { color: var(--mist); }
+.page-coaches .hero .link { color: var(--on-night); }
+@media (min-width: 1000px) {
+  .procard__plate { border-top: 1px solid var(--on-night); }
+  .procard__name { font-family: var(--font-serif); font-weight: var(--w-display); font-size: var(--t-name-2xl); line-height: 1.02; }
+  .procard__line { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); color: var(--mist); }
+}
+@media (min-width: 1000px) and (max-width: 1199px) { .procard__name { font-size: var(--t-name-xl); } .procard__line { font-size: var(--t-sm); } }
+
+/* ---------- The Head Pro ---------- */
+.lead__name { font-weight: var(--w-display); }
+.lead__bio { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-3); line-height: 1.45; color: var(--fg-muted); }
+.lead__fields { border-top: 1px solid var(--fg); }
+.lead__fields dt { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.coach-in { border-color: var(--rule-strong); font-family: var(--font-sans); font-stretch: var(--stretch-ui); font-size: var(--step-6); font-weight: var(--w-ui); letter-spacing: var(--track-ui); text-transform: uppercase; }
+/* R2 defect 9: the heading stands above the source line under it (Whites made it a serif heading at --step-3) */
+.record__title { font-family: var(--font-serif); font-size: var(--step-3); line-height: 1.25; font-weight: var(--w-name); font-stretch: 100%; letter-spacing: 0; text-transform: none; color: var(--fg); }
+.record__src { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+.record__list { border-top: 2px solid var(--fg); }
+.record__n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-5); line-height: 0.86; letter-spacing: 0; }
+.record__what { font-size: var(--step-4); }
+@media (min-width: 1000px) { .record__list { border-top: 0; } .record__list li { border-top: 2px solid var(--fg); } }
+
+/* ---------- The team: the format, square, on fabric ---------- */
+.coach--format, .coach--entry { border-radius: 0; border-color: var(--rule-strong); border-top: 2px solid var(--fg); background: var(--bg); }
+.format__name { font-family: var(--font-serif); font-style: italic; border-bottom-color: var(--rule-strong); }
+.format__fields > div, .roster__fields > div { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.format__fields dt, .roster__fields dt { font-weight: 600; }
+.roster__title { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.roster__pic { border-radius: 0; }
+.roster__name { font-family: var(--font-serif); font-weight: 400; }
+.coach-demo { font-family: var(--font-sans); font-stretch: 100%; }
+
+/* ---------- How we coach ---------- */
+.approach .ways { border-top: 1px solid var(--fg); }
+.approach .way { grid-template-columns: 4rem minmax(0, 1fr); border-radius: 0; border: 0; border-bottom: 1px solid var(--rule); padding: 28px 0; background: none; }
+.approach .way__n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-4); line-height: 0.86; letter-spacing: 0; color: var(--fg-subtle); }
+.approach .way__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); }
+.approach .way__body p { font-size: var(--step-4); }
+.plans figcaption { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+.plan line.net { stroke: var(--fg); stroke-width: 1; }
+.plan rect.cl-p { display: none; }
+@media (max-width: 599px) { .approach .way { grid-template-columns: 3rem minmax(0, 1fr); } }
+.team { row-gap: var(--sp-5); }

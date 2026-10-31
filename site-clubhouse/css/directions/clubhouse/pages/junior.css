@@ -1,0 +1,37 @@
+/* TPTC Direction A, "Clubhouse": Junior Recreational (D2, 24 Oct 2026). Loaded after
+   css/pages/junior.css. No specimen page: in the specimen's language. The court that grows with
+   the child is drawn on the club's lawn, like the four courts on Home (tptc.css 1690-1700): the
+   lawn surround, the playing area in the court green, white lines and net. The level cards sit
+   on the paper inside the chalk section, one hairline each, their names in Caslon Display. */
+
+/* This season: the eyebrow over a Caslon Text sentence, the two sessions as ruled rows */
+.jr-season__title { font: 400 var(--step-2)/1.2 var(--font-serif); color: var(--fg); }
+.jr-season__rows .srow__when { font-size: 1rem; color: var(--fg-muted); }
+.jr-season__rows .srow__when strong { font-weight: 650; color: var(--fg); }
+.jr-season__rows .srow__what { font: 700 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-subtle); }
+
+/* Step 1: the age, and the court on the lawn */
+.jr-age__words .eyebrow { color: var(--fg-muted); }
+.jr-court__plan { padding: clamp(12px, 2vw, 24px); background: var(--lawn); border: 0; border-radius: 0; }
+.jr-court__plan .cplan__lines { stroke: var(--lawn-line); }
+.jr-court__plan .cplan__area { fill: var(--lawn-court); fill-opacity: 1; stroke: var(--lawn-line); }
+.jr-court__plan .cplan__net { stroke: var(--lawn-line); }
+.jr-court__name { font: 400 var(--step-2)/1.1 var(--font-display); }
+.jr-court__cap .small { font-size: 1rem; color: var(--fg-muted); }
+.jr-age__hint { color: var(--fg-subtle); }
+
+/* Step 2: the levels for that age */
+.jr-levels__head .eyebrow { color: var(--fg-muted); }
+.jr-steps .lcard { background: var(--surface); }
+.jr-steps .lcard--off { background: transparent; }
+.jr-levels__note { font-size: 1rem; color: var(--fg-muted); }
+
+/* Placement, locations and the level FAQ */
+.jr-place__mail { text-underline-offset: 0.2em; text-decoration-color: var(--rule-strong); font-weight: 600; }
+.loc { font-size: 1rem; }
+.loc .icon { color: var(--fg-muted); }
+.jr-where__rows .srow__what { font-weight: 650; }
+.jr-faq__levels { border-top-color: var(--rule-strong); }
+.jr-faq__levels dt { font-weight: 650; color: var(--fg); }
+.jr-faq__levels dd { color: var(--fg-muted); }
+.jr-hp .notice { max-width: 44rem; }

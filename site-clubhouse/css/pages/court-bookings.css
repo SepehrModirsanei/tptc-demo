@@ -1,0 +1,237 @@
+/* Court Bookings: How do I book a court?
+   Page CSS, tokens only. Stories (logs/batch2-access.md): the booking window drawn as a dimension
+   line, the way a court plan marks its length; the indoor court day as the club's booking sheet,
+   ticked where a booking may start (the half hour on weekdays, the hour at weekends), prime time the
+   heavier band, the lit evening hours under the dome. */
+
+/* 2. Members and non-members: one question per row, two answers side by side */
+.cb-compare { margin-top: var(--sp-7); border-top: 1px solid var(--rule-strong); }
+.cb-compare__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px var(--sp-5); padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.cb-compare__q { grid-column: 1 / -1; font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.cb-compare__row--head { padding: 14px 0; border-bottom-color: var(--rule-strong); }
+.cb-compare__row--head .cb-compare__q { display: none; }
+.cb-compare__who { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.cb-compare__a { display: grid; gap: 8px; align-content: start; }
+.cb-compare__v { font-size: var(--step-4); line-height: 1.5; }
+.cb-compare__a .confirm { margin-top: 2px; }
+@media (min-width: 800px) {
+  .cb-compare__row { grid-template-columns: 13rem minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-6); align-items: baseline; }
+  .cb-compare__q { grid-column: auto; }
+  .cb-compare__row--head .cb-compare__q { display: block; }
+}
+
+/* The dimension line: end ticks, a hairline between, the figure set in the middle like a plan */
+.cb-dim { --w: calc(var(--span) / 7 * 100%); position: relative; display: block; width: var(--w); height: 26px; }
+.cb-dim--short .cb-dim__n { left: 0; transform: none; padding-left: 0; }
+.cb-dim__line { position: absolute; left: 0; right: 0; top: 18px; height: 1px; background: var(--fg); }
+.cb-dim__line::before, .cb-dim__line::after { content: ""; position: absolute; top: -6px; width: 1px; height: 13px; background: var(--fg); }
+.cb-dim__line::before { left: 0; }
+.cb-dim__line::after { right: 0; }
+.cb-dim__n { position: absolute; left: 50%; top: 0; transform: translateX(-50%); padding: 0 6px; background: var(--bg); font: 600 12px/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; white-space: nowrap; }
+
+/* 3. Season switch and ledger */
+.cb-ledger { margin-top: var(--sp-6); }
+.cb-switch { display: grid; gap: var(--sp-3); margin-top: var(--sp-7); max-width: 40rem; }
+.cb-season { margin-top: var(--sp-6); }
+
+/* The court day: one track per day type, 6am to 12am */
+.cb-day { margin: 0 0 var(--sp-7); display: grid; gap: 14px; }
+.cb-day__row { display: grid; gap: 6px; }
+.cb-day__label { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.cb-day__track { position: relative; height: 44px; border-bottom: 1px solid var(--rule-strong); }
+.cb-day__band { position: absolute; top: 4px; bottom: 10px; left: var(--s); width: calc(var(--e) - var(--s)); display: flex; align-items: center; padding-left: 10px; }
+.cb-day__band--regular { border: 1px solid var(--fg); background: var(--bg); }
+.cb-day__band--prime { background: var(--fg); color: var(--bg); }
+.cb-day__band--regular + .cb-day__band--prime { border-left: 0; }
+.cb-day__fee { font: 400 16px/1 var(--font-serif); font-variant-numeric: lining-nums; }
+.cb-day__ticks { position: absolute; bottom: 0; height: 7px; left: var(--s); width: calc(var(--e) - var(--s)); border-right: 1px solid var(--fg); background-image: linear-gradient(to right, var(--fg) 1px, transparent 1px); background-size: calc(100% / var(--n)) 100%; background-repeat: repeat-x; }
+.cb-day__ticks--half { height: 5px; }
+.cb-day__axis { position: relative; height: 18px; margin-top: -6px; }
+.cb-day__axis span { position: absolute; left: var(--at); transform: translateX(-50%); font: 500 12px/1 var(--font-sans); color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+.cb-day__axis span:first-child { transform: none; }
+.cb-day__axis span:last-child { transform: translateX(-100%); }
+.cb-day__key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; color: var(--fg-muted); margin-top: 6px; }
+.cb-day__swatch { display: inline-block; width: 22px; height: 12px; border: 1px solid var(--fg); }
+.cb-day__swatch--prime { background: var(--fg); margin-left: 8px; }
+.cb-day__tickkey { flex-basis: 100%; }
+@media (min-width: 800px) {
+  .cb-day__row { grid-template-columns: 9rem 1fr; align-items: end; gap: var(--sp-5); }
+  .cb-day__label { padding-bottom: 14px; }
+  .cb-day__axis { margin-left: calc(9rem + var(--sp-5)); }
+  .cb-day__key { margin-left: calc(9rem + var(--sp-5)); }
+  .cb-day__fee { font-size: 18px; }
+}
+@media (max-width: 599px) {
+  .cb-day__axis span:nth-child(even) { display: none; }
+}
+
+/* Fee rows and their notes */
+.cb-fees { display: grid; gap: var(--sp-6); align-items: start; }
+@media (min-width: 1000px) { .cb-fees { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--sp-8); } }
+.cb-sub { display: block; font-weight: 400; font-size: 14px; color: var(--fg-muted); margin-top: 2px; }
+.cb-fees__notes { display: grid; gap: var(--sp-4); align-content: start; }
+
+/* Outdoor: last summer's open court times */
+.cb-out { display: grid; gap: var(--sp-6); align-items: start; margin-bottom: var(--sp-6); }
+@media (min-width: 900px) { .cb-out { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: var(--sp-8); } }
+.cb-out__lead { display: grid; gap: var(--sp-4); }
+.cb-out__head { font: 300 var(--step-2)/var(--lh-head) var(--font-serif); max-width: 20ch; }
+.cb-out__rows .srow { grid-template-columns: 11rem 1fr; }
+@media (max-width: 599px) { .cb-out__rows .srow { grid-template-columns: 1fr; } }
+
+/* 4. Rules: five headed groups, ruled like a programme */
+.cb-rules { display: grid; gap: 0; margin-top: var(--sp-7); border-top: 1px solid var(--rule-strong); }
+.cb-rule { padding: var(--sp-5) 0; border-bottom: 1px solid var(--rule); }
+.cb-rule__h { display: flex; align-items: center; gap: 12px; font: 400 var(--step-3)/1.25 var(--font-serif); margin-bottom: var(--sp-3); }
+.cb-rule__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cb-rule__list li { position: relative; padding-left: 20px; font-size: var(--step-4); line-height: 1.5; max-width: 52ch; }
+/* Marker: a ball mark, the small oval a ball leaves on the court, not a dash. */
+.cb-rule__list li::before { content: ""; position: absolute; left: 0; top: calc(0.75em - 3px); width: 9px; height: 5px; box-sizing: border-box; border: 1.25px solid var(--fg-muted); border-radius: 50%; transform: rotate(-12deg); }
+@media (min-width: 900px) {
+  .cb-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-8); }
+}
+@media (min-width: 1200px) {
+  .cb-rules { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.cb-all { margin-top: var(--sp-7); }
+.cb-all__list { margin: 0 0 var(--sp-5); padding-left: 1.5em; display: grid; gap: 10px; max-width: 70ch; font-size: var(--step-4); line-height: 1.55; }
+.cb-all__list li::marker { font-variant-numeric: tabular-nums; color: var(--fg-muted); }
+
+/* 5. Friday public hours */
+.cb-public { display: grid; gap: var(--sp-6); }
+@media (min-width: 900px) {
+  .cb-public { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--sp-8); align-items: start; }
+  .cb-public__act { grid-column: 2; }
+}
+.cb-public__when { display: grid; gap: 6px; font: 400 var(--step-3)/1.3 var(--font-serif); margin-top: var(--sp-3); }
+@media (max-width: 799px) {
+  .cb-fees .srow__what { grid-column: 1; grid-row: 1; }
+  .cb-fees .srow__when { grid-column: 1; grid-row: 2; }
+  .cb-fees .srow__price { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+
+/* Review: the booking window beside the compact hero. The club's court sheet, one column per day
+   from today; the members' bar covers today and 7 days ahead, the non-members' today and tomorrow.
+   Bars are ink rules with end ticks, the same dimension-line language as the comparison below. */
+.cb-window { max-width: var(--page); margin: 0 auto; padding: 0 var(--gutter) clamp(40px, 6vw, 72px); }
+.cb-window__lead { margin: 10px 0 var(--sp-4); font-size: var(--step-5); color: var(--fg-muted); }
+.cb-window__lead .num { color: var(--fg); }
+.cb-window__days { --cols: 8; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); }
+.cb-window__days li { display: grid; gap: 2px; padding: 10px 0 10px 8px; border-left: 1px solid var(--rule); min-width: 0; }
+.cb-window__days li:first-child { border-left: 0; padding-left: 0; }
+.cb-window__dow { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); white-space: nowrap; overflow: hidden; text-overflow: clip; }
+.cb-window__d { font: 300 clamp(1.05rem, 0.7rem + 1vw, 1.5rem)/1.1 var(--font-serif); color: var(--fg); white-space: nowrap; }
+.cb-window__days .is-today .cb-window__dow { color: var(--fg); }
+.cb-window__bars { margin: var(--sp-4) 0 0; display: grid; gap: 14px; }
+.cb-window__bar { display: grid; gap: 4px; }
+.cb-window__bar dt { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.cb-window__bar dd { margin: 0; font-size: var(--step-5); color: var(--fg-muted); }
+.cb-window__bar::before { content: ""; order: 2; display: block; width: calc(var(--n) / 8 * 100%); height: 9px; box-sizing: border-box;
+  border-left: 1px solid var(--fg); border-right: 1px solid var(--fg);
+  background: linear-gradient(var(--fg), var(--fg)) 0 50% / 100% 1px no-repeat; }
+.cb-window__bar--member::before { background-size: 100% 3px; }
+.cb-window__bar dd { order: 3; }
+@media (min-width: 1000px) {
+  .cb-hero .hero__grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: end; max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; }
+  .page-court-bookings .cb-hero .hero__words { max-width: none; margin: 0; }
+  .cb-window { margin: 0; padding: 0 var(--gutter) clamp(48px, 6vw, 96px) 0; }
+}
+@media (max-width: 420px) {
+  .cb-window__days li { padding-left: 4px; }
+  .cb-window__dow { font-size: 10px; letter-spacing: 0.04em; }
+}
+
+/* Batch 4, phones (client note of 4 Oct 2026): the first screen. The booking window is this page's
+   key point, so below 1000px it sits straight under the action instead of under the whole hero:
+   title, one line, Book a court, then the court sheet with both bars, then the membership link and
+   the season line. The words and the actions give up their boxes (display: contents) so the sheet
+   can stand between them; the sheet itself is set tighter, name and dates on one line per bar. */
+@media (max-width: 999px) {
+  .cb-hero .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); padding: 6px var(--gutter) clamp(24px, 6vw, 48px); max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; }
+  .page-court-bookings .cb-hero .hero__words,
+  .page-court-bookings .cb-hero .hero__actions { display: contents; }
+  .cb-hero .crumbs { order: 1; }
+  .cb-hero .hero__title { order: 2; }
+  .cb-hero .hero__lede { order: 3; }
+  .cb-hero .hero__actions .btn { order: 4; margin-top: 16px; }
+  .cb-hero .cb-window { order: 5; margin: 18px 0 0; padding: 0; max-width: none; }
+  .cb-hero .hero__actions .link { order: 6; justify-self: start; margin-top: 10px; }
+  .cb-hero .status-line { order: 7; }
+  .cb-window__lead { margin: 4px 0 10px; font-size: 14px; line-height: 1.35; }
+  .cb-window__days li { padding-top: 7px; padding-bottom: 7px; }
+  .cb-window__bars { margin-top: 10px; gap: 8px; }
+  .cb-window__bar { grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 5px; align-items: baseline; }
+  .cb-window__bar dt { grid-column: 1; grid-row: 1; }
+  .cb-window__bar dd { grid-column: 2; grid-row: 1; order: 0; text-align: right; font-size: 14px; line-height: 1.2; }
+  .cb-window__bar::before { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* ---------- Batch 5 lead review: short phones (360x640) ----------
+   The season sentence under the chip was sliced by the foot of the first screen. On a short phone
+   the chip names the season and the sentence waits in "Who can book" below, where the same dates
+   and the same "club to confirm" slot are set in full. */
+@media (max-width: 899px) and (max-height: 700px) {
+  .cb-hero .status-line > span:not(.chip) { display: none; }
+  .cb-hero .hero__grid { padding-bottom: 20px; }
+}
+
+/* ---------- B7 (16 Oct 2026) ----------
+   Hero: the owner cut the title and its line, so the two booking actions are the hero, set large.
+   "Book a court" is the demo flow (ink); "Book courts online" is the club's live JustBookIt sign-in. */
+.cb-hero__actions { gap: 14px 16px; margin-top: var(--sp-5); }
+.cb-hero__actions .btn { min-height: 60px; padding-inline: 30px; font-size: 1.0625rem; }
+.cb-hero__how { margin-top: var(--sp-3); color: var(--fg-muted); max-width: 44ch; }
+.cb-hero__how a { color: var(--fg); text-underline-offset: 3px; }
+.cb-pdf, .cb-docs .doclink__meta { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); color: var(--fg-muted); }
+.cb-hero__join { margin-top: var(--sp-2); }
+@media (max-width: 599px) { .cb-hero__actions .btn { flex: 1 1 100%; justify-content: center; } }
+.cb-docs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px; margin-top: var(--sp-3); }
+.cb-docs .doclink .link__text { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--rule-strong); }
+.cb-docs .doclink:hover .link__text { text-decoration-color: currentColor; }
+
+/* Why book as a member: four duels. Each term is one row; the member answer sits in a Blazer
+   column, the non-member answer beside it on paper, so the gap reads before a word is read.
+   A big figure carries each answer; one short line says what it means. The booking window is
+   drawn as seven day squares: all seven filled for members, one for non-members. */
+.cbx { margin-top: var(--sp-6); display: grid; }
+.cbx__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 0; }
+.cbx__q { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; padding: var(--sp-5) 0 12px; font: 600 var(--step-5)/1.3 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg); border-top: 1px solid var(--rule); }
+.cbx__q .icon { width: 22px; height: 22px; flex: none; }
+.cbx__row--head .cbx__q { display: none; }
+.cbx__who { padding: 14px 18px; font: 300 var(--step-2)/1.1 var(--font-serif); }
+.cbx__who--m { background: var(--blazer); color: var(--cb-member-fg); }
+.cbx__a { display: grid; gap: 8px; align-content: start; padding: 18px; min-width: 0; }
+.cbx__a--m { background: var(--blazer); color: var(--cb-member-fg); }
+.cbx__a--m .cbx__why { color: var(--mist); }
+.cbx__big { font: 300 clamp(2.75rem, 2rem + 3vw, 4.5rem)/0.95 var(--font-serif); font-variant-numeric: lining-nums; letter-spacing: -0.01em; }
+.cbx__big small { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; margin-left: 8px; vertical-align: 0.35em; }
+.cbx__big--word { font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.75rem); line-height: 1.05; }
+.cbx__a:not(.cbx__a--m) .cbx__big { color: var(--fg-muted); }
+.cbx__why { font-size: var(--step-5); line-height: 1.45; color: var(--fg-muted); max-width: 26ch; }
+.cbx__days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; max-width: 13rem; }
+.cbx__days i { display: block; aspect-ratio: 1; background: currentColor; }
+.cbx__days--one i { background: none; box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.cbx__days--one i:first-child { background: var(--fg-muted); box-shadow: none; }
+.cbx__a .confirm { margin-top: 2px; }
+.cbx__row:last-child .cbx__a { padding-bottom: 26px; }
+.cbx__both { display: flex; gap: 12px; align-items: flex-start; margin-top: var(--sp-5); font-size: var(--step-4); line-height: 1.5; color: var(--fg-muted); max-width: 60ch; }
+.cbx__both .icon { flex: none; margin-top: 2px; }
+.cbx__act { margin-top: var(--sp-5); }
+@media (min-width: 800px) {
+  .cbx__row { grid-template-columns: 15rem minmax(0, 1fr) minmax(0, 1fr); }
+  .cbx__q { grid-column: auto; padding: 26px 24px 26px 0; align-items: flex-start; }
+  .cbx__row--head .cbx__q { display: block; border-top: 0; }
+  .cbx__a { padding: 26px 28px; border-top: 1px solid var(--rule); }
+  .cbx__a--m { border-top-color: var(--cb-member-rule); }
+  .cbx__who { padding: 18px 28px; }
+}
+/* B7, phones: the new hero lines join the order: crumbs, the two buttons, the JustBookIt line,
+   the booking window, then the membership link and the season line. */
+@media (max-width: 999px) {
+  .cb-hero .cb-hero__actions .btn { order: 4; margin-top: 12px; }
+  .cb-hero .cb-hero__actions .btn:first-child { margin-top: 18px; }
+  .cb-hero .cb-hero__how { order: 4; margin-top: 12px; }
+  .cb-hero .cb-window { order: 5; }
+  .cb-hero .cb-hero__join { order: 6; justify-self: start; margin-top: 10px; }
+}

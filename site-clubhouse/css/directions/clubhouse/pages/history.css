@@ -1,0 +1,34 @@
+/* TPTC Direction A, "Clubhouse": Club History (W2b, 25 Oct 2026). Loaded after css/pages/history.css.
+   No specimen page: composed in the specimen's language.
+   - The hero: the provenance line over the H1 (templates.py with_prov), the words beside the year;
+     1951 in Caslon Display folded across an ink hairline (no red net), the span to 2026 ruled under it.
+   - The timeline as the specimen's rail (tptc.css 1069-1083): a 1px line down the margin, each year a
+     Caslon Display figure, the moments named in Caslon Display; a year not on record dashed; the
+     present year marked by the heavier ink tick (red is the logo, the ball and Register now only).
+   - The archive: two prints hung at different heights on the wall, each with its plate. */
+.hist-hero__span { font-weight: 650; color: var(--fg-subtle); }
+.hist-hero__rule { background: var(--rule-strong); }
+
+.tl__item::before { border-left-width: 1px; border-left-color: var(--rule-strong); }
+.tl__item::after { height: 1px; width: 9px; left: -4px; background: var(--fg); }
+.tl__item--tbc::before, .tl__item--gap::before { border-left-color: var(--rule-strong); }
+.tl__item--now::after { background: var(--fg); height: 2px; width: 13px; left: -6px; }
+.tl__year { font: 400 clamp(2.75rem, 1.8rem + 3.4vw, 5.25rem)/0.9 var(--font-display); }
+.tl__item--gap .tl__year--open { font: italic 400 var(--step-3)/1.2 var(--font-serif); }
+.tl__dots { border-top-width: 1px; border-top-color: var(--rule-strong); }
+.tl__title { font: 400 clamp(1.5rem, 1.25rem + 0.8vw, 2rem)/1.15 var(--font-display); }
+.tl__body p { font-size: 1.0625rem; }
+.tl__body .tl__src { color: var(--fg-subtle); }
+
+.archive .frame__cap { display: flex; gap: 2px 12px; }
+.archive__no { font-weight: 700; color: var(--plate-fg-2); }
+
+/* W2b: the hero is the wall; its centrepiece is the founding year, 19 and 51 either side of an ink
+   hairline, the span to 2026 under it, standing level between the H1's two lines at every width. */
+.hero--wall-inner .hero__frame:has(.hist-hero__year) { width: auto; min-width: 0; }
+.hero--wall-inner .hist-hero__year { justify-items: center; gap: var(--sp-3); padding: 0; border: 0; }
+.hero.hero--wall-inner.hero--1951 .hist-hero__year .numeral { flex-direction: row; align-items: stretch; gap: clamp(12px, 2vw, 26px); margin: 0;
+  font-size: clamp(4.5rem, 2rem + 10vw, 11rem); line-height: 0.82; }
+.hero.hero--wall-inner.hero--1951 .hist-hero__year .numeral__net { width: 1px; height: auto; margin-block: -6px; margin-inline: 0; }
+.hero--wall-inner .hist-hero__span { width: 100%; font-size: var(--step-6); }
+.hero--wall-inner .hist-hero__confirm { grid-column: 1 / -1; margin-top: var(--sp-3); }

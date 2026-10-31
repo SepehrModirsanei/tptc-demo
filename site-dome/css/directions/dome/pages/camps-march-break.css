@@ -1,0 +1,13 @@
+/* TPTC Direction B, "Dome": March Break Camp (W2c D3, 25 Oct 2026). Loaded after css/pages/camps-march-break.css.
+   The Dome composition: the hero on Dome night (page_hero: the ages as a figure on the foot line); the
+   week moved onto Dome night (templates.py ground) as the Order of Play pinned up under the Dome: the five
+   days as scoreboard figures over chalk rules, the sessions as hand-entered times; the camps on Dome
+   fabric with the High Performance camps on the night court; around the camp and the policies on paper.
+   The shared Order of Play and camp family are in components.css. Tokens only. */
+#week .oop__title { font-family: var(--font-serif); font-weight: var(--w-name); }
+#week .oop__board thead th:not(:first-child)::after { background: var(--fg); }
+#week .oop__date { font-size: clamp(2.25rem, 1.6rem + 1.6vw, 3.25rem); }
+#week .oop__board th, #week .oop__board td { border-bottom-color: var(--rule); }
+#week .oop__late th, #week .oop__late td { border-top-color: var(--rule-strong); }
+#week .oop__days li::after { background: var(--fg); }
+#week .oop__key, #week .oop__gap { color: var(--fg-muted); }

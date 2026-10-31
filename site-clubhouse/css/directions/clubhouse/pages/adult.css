@@ -1,0 +1,37 @@
+/* TPTC Direction A, "Clubhouse": Adult Programs (D2, 24 Oct 2026). Loaded after
+   css/pages/adult.css. No specimen page: in the specimen's language. The six ways to play are
+   numbered like How to join on High Performance: the numeral in Caslon Display, the name in
+   Caslon Display, the three facts as ruled rows with their icons. The group lessons share
+   Junior's level cards (components.css 23), on the paper inside the chalk section. */
+
+/* Six ways */
+.ad-ways__head .gloss { font-size: 1rem; color: var(--fg-subtle); }
+.way { gap: 10px; padding: var(--sp-4); border: 1px solid var(--rule); border-top-color: var(--rule-strong); border-radius: var(--radius); background: var(--bg); }
+.way__mark { width: 44px; height: 44px; border-color: var(--rule-strong); }
+.way__mark .icon { width: 20px; height: 20px; }
+.way__n { font: 400 2.75rem/0.85 var(--font-display); color: var(--fg-subtle); }
+.way__name { font: 400 var(--step-2)/1.1 var(--font-display); }
+.way__line { font-size: 1rem; color: var(--fg-muted); }
+.way__facts { border-top-color: var(--rule-strong); }
+.way__facts > div { border-bottom-color: var(--rule); }
+.way__facts dd { font-size: 0.9375rem; }
+@media (max-width: 719px) { .way__n { font-size: 2rem; } .way__name { font-size: 1.5rem; } }
+
+/* Group lessons: the two sessions as tiles on the paper, a hairline over each */
+.ad-group .sect-head .body { color: var(--fg-muted); }
+.sess__tile { padding: var(--sp-4); border-top: 1px solid var(--rule-strong); background: var(--surface); }
+.sess__tile > .icon { width: 24px; height: 24px; stroke-width: 1.25; }
+.sess__k { font-weight: 700; color: var(--fg-subtle); }
+.sess__name { font: 400 1.5rem/1.2 var(--font-display); }
+.sess__fig { font: 400 2.75rem/1 var(--font-display); }
+.sess__meta { font-size: 0.9375rem; color: var(--fg-muted); }
+.ad-group .lcard { background: var(--surface); }
+.ad-group .lcard--off { background: transparent; }
+.ad-facts { border-top-color: var(--rule-strong); }
+.ad-facts li { font-size: 1rem; border-bottom-color: var(--rule); }
+.ad-facts .icon { color: var(--fg-subtle); }
+
+/* The six ways sit on the paper with the gutter between them; the member note under a hairline */
+.ways { gap: var(--gutter); }
+.ad-member .callout { max-width: 44rem; }
+.ad-member .callout__title { color: var(--fg); }

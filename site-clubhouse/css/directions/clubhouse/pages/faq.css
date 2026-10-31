@@ -1,0 +1,56 @@
+/* TPTC Direction A, "Clubhouse": FAQ (D2, 24 Oct 2026). Loaded after css/pages/faq.css. No
+   specimen page: in the specimen's language (its FAQ index, tptc.css 1298-1332, and the Style
+   Guide's sticky index, 1393-1397). The hero's scorecard lists the six topics in Caslon Display
+   with a stroke for each answer; the topic index beside the answers is a hairline with a short ink
+   mark at the topic you are reading; each topic heads its questions in Caslon Display. */
+
+/* The hero scorecard (desktop) and the topic grid (phones) */
+.faq-topics ol { border-top-color: var(--rule-strong); }
+.faq-topics__name { font: 400 1.125rem/1.2 var(--font-display); }
+.faq-topics__n { color: var(--fg-subtle); }
+.faq-topics a:hover .faq-topics__name { text-underline-offset: 0.2em; }
+@media (min-width: 1000px) {
+  .faq-topics__name { font-size: 1.3125rem; }
+  .faq-topics a::before { font-weight: 700; color: var(--fg-subtle); }
+  .faq-topics__total { font-weight: 700; color: var(--fg-subtle); }
+  .faq-topics__total .num { font: 400 2rem/1 var(--font-display); }
+}
+
+/* The topic index: the specimen's sticky index (1394-1396), the current topic marked in ink */
+.faqidx a { font: 500 0.9375rem/1 var(--font-sans); color: var(--fg-muted); }
+.faqidx__n { color: var(--fg-subtle); }
+@media (min-width: 1000px) {
+  .faqidx__label { font-weight: 700; color: var(--fg-subtle); }
+  .faqidx ol { border-left-color: var(--rule-strong); }
+  .faqidx a::after { height: 1px; width: 12px; }
+}
+.faqidx a::after { width: 1px; }
+
+/* Search: the field in the specimen's form, the ball icon in its second ink */
+.faqsearch__box > .icon { color: var(--fg-subtle); }
+.faqsearch__status { color: var(--fg-subtle); }
+
+/* The answers: one column; the topic in Caslon Display with its count; a linked answer lands
+   with a hairline drawn along its top */
+.faqx .faq__topic .icon { color: var(--fg-subtle); }
+.faq__count { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-subtle); }
+.faqx .acc__item { border-bottom-color: var(--rule); }
+.faqx .acc__item::before { height: 1px; }
+.faqx .acc__panel p { color: var(--fg-muted); }
+.faq-copy { font: 650 var(--step-5)/1 var(--font-sans); color: var(--fg-muted); }
+.faq-copy:hover { text-underline-offset: 0.25em; }
+.minirows { border-top-color: var(--rule-strong); }
+.minirows dt, .minirows dd { font-size: 1rem; }
+
+/* The rally ladder: each level a rally you can hold, the net drawn in ink (as the specimen's
+   court plans draw it, 1090) */
+.rally { border-top-color: var(--rule-strong); }
+.rally__name { font: 400 1.1875rem/1.3 var(--font-serif); }
+.rally__test { font-size: 0.9375rem; }
+.rally__net, .rally__net::before { background: var(--fg); }
+.rally__net { width: 1px; }
+
+/* The hero: words only, the search in the place of the actions */
+.faq-hero .hero__lede { color: var(--fg-muted); }
+.rules li { color: var(--fg-muted); }
+.rules li::before { background: var(--fg-subtle); }

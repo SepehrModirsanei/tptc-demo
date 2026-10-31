@@ -1,0 +1,1157 @@
+/* TPTC Direction A, "Clubhouse": components (D0 seed, D1 24 Oct 2026).
+
+   Loaded on every Clubhouse page after css/components.css and before the page CSS
+   (build.py --direction clubhouse). The direction builder owns this file: restyle the site's
+   components here with the site's own selectors. The cascade order does the work, so a selector
+   needs no html[data-direction] prefix (this file loads only on Clubhouse pages); match the
+   specificity of the site rule you restyle, and raise it only to beat a site rule written under
+   :root:not([data-theme="light"]) or :root[data-theme="dark"]. Colours and fonts come from tokens
+   (tokens.css beside this file). Page-only blocks go in pages/<page-id>.css. Contract:
+   site/DIRECTIONS.md. Progress: python3 qa/direction_coverage.py clubhouse
+
+   Source of the look: specimens/A-clubhouse/css/tptc.css (line numbers below), index.html,
+   high-performance.html, system.html. The story: an ivory clubhouse wall. Caslon carries the
+   club's voice (Display for headlines, names, numerals and dates; Text for the lede, italics and
+   captions), Hanken Grotesk the interface. Photographs hang as framed prints with a mat and a
+   caption plate. Section heads are centred under a short rule. The four courts are lawn green
+   with white lines. Red is the logo, the ball and Register now, nothing else. */
+
+/* =====================================================================================
+   1. Base and type roles (tptc.css 212-317)
+   ===================================================================================== */
+body { font-variant-numeric: tabular-nums lining-nums; }
+::selection { background: var(--fg); color: var(--bg); }
+.theme-night ::selection { background: var(--white); color: var(--ink); }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+.tnum { font-family: var(--font-serif); }
+
+/* Headlines: Caslon Display (281-292). The face has one weight and no italic, so an emphasis
+   inside a headline speaks in Caslon Text italic, the club's second voice. */
+.display, .h1, .h2 { font-family: var(--font-display); font-weight: 400; }
+.h1, .h2 { line-height: var(--lh-head); letter-spacing: -0.004em; text-wrap: balance; }
+.display em, .h1 em, .h2 em, .h3 em { font-family: var(--font-serif); font-style: italic; letter-spacing: -0.01em; }
+.h3 { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-2); line-height: 1.2; letter-spacing: 0; }
+.lede { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-3); line-height: 1.5; letter-spacing: 0.01em; color: var(--fg-muted); max-width: 36rem; }
+.body { color: var(--fg-muted); max-width: var(--measure); }
+.small { color: var(--fg-subtle); }
+.label { font-weight: 700; font-size: var(--step-6); letter-spacing: var(--track-label); }
+/* Eyebrow (277): tracked capitals, no drawn mark; the eyebrow labels the heading like a drawing */
+.eyebrow { font: 650 var(--step-5)/1.25 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); gap: 0; }
+.eyebrow::before { content: none; }
+.sans-display { font-weight: 800; letter-spacing: var(--track-display-sans); line-height: 0.9; }
+
+/* Court-line ornaments: the Clubhouse draws only hairlines (no centre mark, no posts) */
+.baseline { height: 1px; background: var(--rule-strong); }
+.baseline::after { content: none; }
+.tramline { height: 1px; border-bottom: 0; }
+.net-h::before, .net-h::after { content: none; }
+/* The red net seam is Whites' ornament; on the clubhouse wall space and hairlines divide */
+.netline, span.netline { display: none; }
+
+/* =====================================================================================
+   2. Buttons: the Press primitive (328-376)
+   The Clubhouse button reads its own five values, so the site's dark-mode button rules never
+   reach it: ground, label, edge, the fill that rises on hover, and the label on that fill.
+   ===================================================================================== */
+.btn {
+  --cb-bg: var(--fg); --cb-fg: var(--surface); --cb-bd: var(--fg); --cb-fill: var(--btn-ink-fill); --cb-fg2: var(--bg);
+  min-height: 48px; padding: 0 22px; gap: 10px;
+  background-color: var(--cb-bg); color: var(--cb-fg); border-color: var(--cb-bd); border-radius: var(--radius);
+  font: 700 0.8125rem/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn__fill { background: var(--cb-fill); }
+.btn__label > span + span { color: var(--cb-fg2); }
+.btn .icon { width: 18px; height: 18px; }
+.btn.is-hover { background: var(--cb-fill); }
+/* Ink: the page's own action. Ink on paper, rising in the blazer; light at night */
+.btn--ink { --cb-bg: var(--fg); --cb-fg: var(--surface); --cb-bd: var(--fg); --cb-fill: var(--btn-ink-fill); --cb-fg2: var(--surface); }
+/* Outline (371): the second action */
+.btn--secondary { --cb-bg: transparent; --cb-fg: var(--fg); --cb-bd: var(--fg); --cb-fill: var(--fg); --cb-fg2: var(--bg); }
+/* Register now (370): white on red in both schemes (4.56:1), pressing into the darker red */
+.btn--primary { --cb-bg: var(--red); --cb-fg: var(--white); --cb-bd: var(--red); --cb-fill: var(--red-press); --cb-fg2: var(--white); }
+/* On a night ground (372-373): the ink button turns white like the specimen's light button, the
+   outline fills white */
+.theme-night .btn--ink { --cb-bg: var(--white); --cb-fg: var(--ink); --cb-bd: var(--white); --cb-fill: var(--dome); --cb-fg2: var(--ink); }
+.theme-night .btn--secondary { --cb-fill: var(--white); --cb-fg2: var(--ink); }
+.btn--sm { min-height: 44px; padding: 0 16px; font-size: var(--step-6); letter-spacing: 0.13em; }
+.btn[aria-disabled="true"], .btn:disabled { --cb-bg: transparent; --cb-fg: var(--fg-subtle); --cb-bd: var(--rule-strong); }
+/* Phones (1741): Register now in the header sits one size down beside the logo, still a 44px
+   target: the red is painted as a 40px plate inside the 44px link */
+@media (max-width: 719px) {
+  .site-header .header-cta {
+    min-height: 44px; padding-inline: 12px; font-size: 0.6875rem; letter-spacing: 0.1em;
+    border-color: transparent; background: linear-gradient(var(--red), var(--red)) center / 100% 40px no-repeat;
+  }
+  .site-header .header-cta .btn__fill { inset: 2px 0; }
+}
+
+/* =====================================================================================
+   3. Links (378-397, 312)
+   Sentence case, 14px, a 28% hairline at rest; on hover the full line draws left to right.
+   ===================================================================================== */
+.link { gap: 0.55em; font: 650 var(--step-5)/1.2 var(--font-sans); letter-spacing: 0.02em; text-transform: none; }
+.link__text { padding-block: 3px; }
+.link__text::before { opacity: 0.28; }
+.link__text::after { height: 1px; }
+.link--quiet { font: 500 var(--step-5)/1.4 var(--font-sans); letter-spacing: 0; }
+.inline-link { text-underline-offset: 0.2em; text-decoration-color: var(--rule-strong); }
+
+/* =====================================================================================
+   4. Status chips and the live accent (673-695)
+   ===================================================================================== */
+.chip {
+  gap: 8px; min-height: 26px; padding: 5px 10px 5px 9px; border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  font: 700 var(--step-6)/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg);
+}
+/* Live: the scoreboard form by day, ink ground and the optic dot; a hairline chip at night */
+.chip--live { background: var(--chip-live-bg); color: var(--chip-live-fg); border-color: var(--chip-live-bd); }
+.theme-night .chip--live { background: transparent; color: var(--on-dark); border-color: var(--chip-night-bd); }
+.live-dot { width: 8px; height: 8px; box-shadow: inset 0 0 0 1px var(--live); }
+.chip--muted { color: var(--fg-subtle); border-color: var(--rule); }
+.chip--confirm { border-style: dashed; color: var(--fg-muted); }
+.chip--confirm::before { border-style: dashed; }
+.chip--wrap { line-height: 1.35; }
+
+/* =====================================================================================
+   5. Club to confirm (654-671)
+   A dashed tag in tracked capitals, then what is missing in Caslon Text italic.
+   ===================================================================================== */
+.confirm { gap: 4px 8px; }
+.confirm__tag {
+  gap: 7px; padding: 4px 8px 4px 7px; border: 1px dashed var(--rule-strong); border-radius: var(--radius); transform: none;
+  font: 700 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); color: var(--fg-muted); max-width: 100%;
+}
+.confirm__what { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--fg-muted); text-decoration: none; }
+.confirm--block { gap: 8px; padding: var(--sp-3); border: 1px dashed var(--rule-strong); border-radius: var(--radius); }
+.confirm--block::after { content: none; }
+.confirm--block .confirm__tag { border: 0; padding: 0; justify-self: start; }
+.confirm--block .confirm__what { font: italic 400 1.0625rem/1.4 var(--font-serif); color: var(--fg); }
+.confirm__why { font-size: var(--step-5); line-height: 1.5; color: var(--fg-subtle); max-width: 68ch; }
+.confirm--tight .confirm__what { font-size: var(--step-5); }
+
+/* =====================================================================================
+   6. Breadcrumbs (545-551): tracked capitals; the separator is a short drawn stroke
+   ===================================================================================== */
+.crumbs ol { gap: 6px 10px; }
+.crumbs li { gap: 10px; font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+.crumbs li + li::before { content: ""; width: 14px; height: 1px; background: var(--rule-strong); transform: rotate(-60deg); }
+.crumbs a { color: var(--fg-muted); }
+.crumbs a:hover { color: var(--fg); text-decoration: none; }
+.crumbs [aria-current="page"] { color: var(--fg); }
+@media (max-width: 399px) { .crumbs li { gap: 7px; letter-spacing: 0.1em; } .crumbs li + li::before { width: 10px; } }
+
+/* =====================================================================================
+   7. Sections and section heads (258-262, 553-565, 1707-1712)
+   Two paper sections in a row share most of one gap. A section head that stands alone on the
+   page is classic and centred: the heading under its eyebrow, the explainer beneath, closed by a
+   56px rule. Heads set inside a grid beside other content stay on the left.
+   ===================================================================================== */
+.section:not(.section--chalk) + .section:not(.section--chalk) { padding-top: calc(var(--section) * 0.35); }
+.wrap > .sect-head { text-align: center; justify-items: center; margin-inline: auto; }
+.wrap > .sect-head .h2 { max-width: 22ch; margin-inline: auto; }
+.wrap > .sect-head .body, .wrap > .sect-head .lede, .wrap > .sect-head .small { max-width: 40rem; margin-inline: auto; }
+.wrap > .sect-head .eyebrow { color: var(--fg-muted); justify-content: center; }
+/* phones (564): the heading itself reads from the left under its centred rule, as in the specimen */
+@media (max-width: 899px) { .wrap > .sect-head .h2 { justify-self: stretch; text-align: left; } }
+.wrap > .sect-head::after { content: ""; display: block; width: 56px; height: 1px; margin: clamp(20px, 2.4vw, 32px) auto 0; background: var(--rule-strong); }
+.wrap > .sect-head .baseline { display: none; }
+/* a head that opens a column of a two-column grid (the *__grid wraps, from 1000px) reads from the left */
+@media (min-width: 1000px) {
+  .wrap[class*="__grid"] > .sect-head { text-align: left; justify-items: start; margin-inline: 0; }
+  .wrap[class*="__grid"] > .sect-head .h2, .wrap[class*="__grid"] > .sect-head .body { margin-inline: 0; }
+  .wrap[class*="__grid"] > .sect-head::after { margin-left: 0; }
+}
+.sect-head--stack { max-width: 44rem; }
+
+/* =====================================================================================
+   8. Header and navigation (399-504)
+   The header is the page's own ground from the first pixel; a hairline appears once the page
+   scrolls under it. Programs and About open a dropdown card under their trigger, not a mega
+   panel: a head line (eyebrow and an italic note), then one row per page with its icon.
+   ===================================================================================== */
+.site-header__bg { opacity: 1; border-bottom-color: transparent; transition: border-color var(--dur-ui) var(--ease-ui); }
+.site-header.is-scrolled .site-header__bg, .site-header.is-open .site-header__bg { border-bottom-color: var(--rule); }
+.site-header__row { gap: var(--sp-5); }
+@media (max-width: 1319px) { .site-header__row { gap: var(--sp-3); } }
+@media (max-width: 719px) { .site-header__row { gap: 10px; } }
+/* the narrowest phones: mark, Register now and the menu square share one row (measured at 320) */
+@media (max-width: 374px) {
+  .site-header__row { gap: 6px; }
+  .site-header .header-cta { padding-inline: 8px; letter-spacing: 0.06em; }
+  .site-header .logo__img { height: 30px; }
+}
+@media (max-width: 719px) { .logo__full { display: none; } .logo__mark { display: block; } }
+.footer .logo__img { height: 36px; }
+
+.nav__link { font: 650 var(--step-6)/1 var(--font-sans); letter-spacing: 0.13em; }
+.nav__link::after { bottom: 8px; }
+.nav__chev { width: 12px; height: 12px; }
+@media (min-width: 1024px) and (max-width: 1319px) {
+  .nav__link { padding: 0 9px; letter-spacing: 0.11em; }
+  .nav__link::after { left: 9px; right: 9px; }
+}
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .nav__link { padding: 0 7px; letter-spacing: 0.08em; }
+  .nav__link::after { left: 7px; right: 7px; }
+}
+.nav__list > li.has-panel { position: relative; }
+.nav__panel {
+  left: 0; right: auto; top: calc(100% + 14px); width: 400px;
+  border: 1px solid var(--rule); border-radius: var(--radius); padding: 12px;
+}
+.nav__panel::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+.has-panel ~ .has-panel .nav__panel { left: auto; right: 0; }
+.nav__panel .nav__panel-grid { display: block; max-width: none; margin: 0; padding: 0; }
+.nav__panel-intro { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px 12px 12px; margin-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.nav__panel-note { font: italic 400 var(--step-5)/1.35 var(--font-serif); color: var(--fg-muted); max-width: 24ch; text-align: right; }
+.nav__panel-list { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: minmax(0, 1fr); border-left: 0; }
+.nav__panel-list li { border-right: 0; }
+.nav__panel-list a {
+  position: relative; isolation: isolate; grid-template-columns: 24px minmax(0, 1fr); column-gap: 14px; row-gap: 0; align-items: center; align-content: center;
+  min-height: 52px; height: auto; padding: 12px; border-radius: var(--radius); color: var(--fg);
+}
+.nav__panel-list a::before { content: ""; position: absolute; inset: 0; z-index: var(--z-under); border-radius: var(--radius); background: var(--ph-ground); opacity: 0; transition: opacity var(--dur-ui) var(--ease-ui); }
+.nav__panel-list .icon { grid-row: 1 / span 2; margin-bottom: 0; color: var(--fg-muted); }
+.nav__panel-name { font: 600 0.9375rem/1.25 var(--font-sans); }
+.nav__panel-meta { grid-column: 2; font-size: 0.8125rem; line-height: 1.35; color: var(--fg-subtle); }
+.nav__panel-list a[aria-current="page"] .nav__panel-name { text-decoration: underline; text-underline-offset: 0.25em; text-decoration-thickness: 1px; }
+.nav__panel-list a:focus-visible { outline-offset: -2px; }
+@media (hover: hover) and (pointer: fine) {
+  .nav__panel-list a:hover::before { opacity: 1; }
+  .nav__panel-list a:hover .nav__panel-name { text-decoration: none; }
+}
+
+/* Menu button (473-484): a square of hairline with two bars; the word stays as its name */
+.menu-btn { width: 44px; min-width: 44px; height: 44px; padding: 0; gap: 0; border: 1px solid var(--rule-strong); border-radius: var(--radius); }
+.menu-btn__label { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+.menu-btn__lines { width: 20px; height: 9.5px; }
+.menu-btn[aria-expanded="true"] .menu-btn__lines::before { transform: translateY(4px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] .menu-btn__lines::after { transform: translateY(-4px) rotate(-45deg); }
+
+/* Mobile sheet (506-543): the pages in Caslon Display, their sub pages in the grotesque */
+.mnav__court { display: none; }
+.mnav__close { gap: 8px; padding: 0 14px; border: 1px solid var(--rule-strong); border-radius: var(--radius); font: 650 var(--step-6)/1 var(--font-sans); letter-spacing: 0.13em; }
+.mnav__link { min-height: 60px; font: 400 1.875rem/1.1 var(--font-display); letter-spacing: -0.005em; }
+.mnav__sub a { gap: 2px; min-height: 52px; padding: 7px 0 7px 2px; font: 600 1.0625rem/1.25 var(--font-sans); align-content: center; }
+.mnav__sub a::before { content: none; }
+.mnav__sub a span:last-child { font-size: 0.8125rem; font-weight: 400; line-height: 1.3; color: var(--fg-subtle); }
+.mnav__utility a { font: 650 0.8125rem/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* =====================================================================================
+   9. Footer (946-975): the page ends on its own ground, a letterhead of Caslon and capitals
+   ===================================================================================== */
+.footer { padding-block: clamp(64px, 7vw, 112px) var(--sp-5); }
+.footer--dome { --bg: var(--surface); --ph-ground: var(--surface-alt); background: var(--surface); }
+.fcell h2 { margin-bottom: var(--sp-3); font: 700 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+.fcell a:not(.btn) { gap: 6px; font-size: 0.9375rem; color: var(--fg-muted); }
+.fcell a:not(.btn):hover { color: var(--fg); text-underline-offset: 0.25em; }
+.fcell .small { font-size: 0.9375rem; color: var(--fg-muted); }
+.fcell .small a { font-weight: 600; color: var(--fg); }
+.footer__line { font: italic 400 var(--step-3)/1.4 var(--font-serif); color: var(--fg-muted); max-width: 30ch; }
+.fcell address { font: 400 1.0625rem/1.55 var(--font-serif); color: var(--fg); }
+.footer__top { padding-bottom: var(--sp-6); }
+.footer__cols { padding-block: var(--sp-6); }
+.footer__base { padding-top: var(--sp-4); font-size: var(--step-5); color: var(--fg-subtle); }
+.footer__base a { color: var(--fg-muted); }
+.footer__base a:hover { color: var(--fg); text-underline-offset: 0.25em; }
+
+/* =====================================================================================
+   10. The closing band (936-944, 1725-1728): chalk, centred, one line in Caslon and the action
+   ===================================================================================== */
+.cta { --bg: var(--surface-alt); background: var(--surface-alt); color: var(--fg); padding-block: clamp(80px, 9vw, 152px); }
+.cta__court { display: none; }
+.cta__inner { grid-template-columns: minmax(0, 1fr); justify-items: center; row-gap: var(--sp-5); text-align: center; }
+.cta__line, .h2.cta__line:has(em) { max-width: 22ch; margin-inline: auto; font: 400 clamp(2.25rem, 1.4rem + 3.2vw, 4.25rem)/1.04 var(--font-display); letter-spacing: -0.012em; text-wrap: balance; }
+.cta__line em { display: inline-block; }
+.cta__actions { flex-direction: column; justify-content: center; align-items: center; gap: var(--sp-3); }
+@media (min-width: 900px) {
+  .cta__inner { grid-template-columns: minmax(0, 1fr); align-items: center; }
+  .cta__actions { justify-content: center; }
+}
+
+/* =====================================================================================
+   11. Frames: every photograph that stands on the page hangs as a print (1652-1688, 1807-1822)
+   A 5px dark frame, a white mat, a hairline round the picture and the caption plate under it.
+   The site's frame__cap is the plate (its em is the title in Caslon Display, its span the note in
+   Caslon Text italic); the interim tag is the plate's last line, "Placeholder image", no mark.
+   Doors (the courts) and the heroes' own compositions undo or recompose this below.
+   ===================================================================================== */
+.frame {
+  --mat-w: clamp(8px, 1.1vw, 16px);
+  display: flex; flex-flow: row wrap; justify-content: center; align-items: baseline; align-content: flex-start; column-gap: 12px;
+  container-type: inline-size;
+  padding: var(--mat-w) var(--mat-w) 0; background: var(--mat); border: 5px solid var(--wood); box-shadow: var(--print-shadow);
+}
+@media (min-width: 1000px) { .frame { --mat-w: clamp(18px, 1.7vw, 26px); } }
+@media (max-width: 719px) { .frame { border-width: 4px; column-gap: 8px; } }
+.frame__box { flex: 0 0 100%; outline: 1px solid var(--print-edge); outline-offset: 0; }
+/* a print with nothing under its picture keeps an even mat all round */
+.frame--photo:not(:has(.frame__cap)), .frame--own-label:not(:has(.frame__cap)) { padding-bottom: var(--mat-w); }
+/* The hero prints (frame--print, 1687-1688) show their photograph whole, never cropped */
+.frame--print .frame__img { object-fit: contain; }
+/* The caption plate (1667-1676): one centred row under the picture, the title in Caslon Display, the
+   note in Caslon Text italic, then "Placeholder image" in tracked capitals after a hairline divider. */
+.frame__cap {
+  order: 1; flex: 0 1 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 2px 12px;
+  max-width: 100%; margin: 0; padding: 9px 4px 10px; text-align: center;
+  font: italic 400 0.8125rem/1.3 var(--font-serif); color: var(--plate-fg-2);
+}
+.frame__cap em { font: 400 1rem/1.25 var(--font-display); letter-spacing: 0.01em; color: var(--plate-fg); text-wrap: balance; }
+.frame__cap b { font: 600 0.8125rem/1.3 var(--font-sans); color: var(--plate-fg); }
+.frame__tag {
+  position: static; order: 2; flex: 0 1 auto; width: auto; justify-content: center; gap: 8px; padding: 9px 4px 10px;
+  background: none; color: var(--plate-fg-2); border-radius: 0;
+  font: 650 0.6875rem/1.3 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; white-space: normal;
+}
+.frame:has(> .frame__cap) > .frame__tag { padding-left: 12px; border-left: 1px solid var(--plate-rule); }
+.frame__tag-mark, .door .frame .frame__tag-mark { display: none; }
+@media (min-width: 1000px) { .frame__cap, .frame__tag { padding-block: 11px 12px; } }
+@media (max-width: 719px) {
+  .frame__cap { gap: 0 8px; padding: 6px 2px 7px; }
+  .frame__cap em { font-size: 0.875rem; }
+  .frame__cap span { font-size: 0.75rem; }
+  .frame__tag { padding: 6px 2px 7px; letter-spacing: 0.1em; }
+  .frame:has(> .frame__cap) > .frame__tag { padding-left: 8px; }
+}
+/* A plate with a note on a print under 460px puts its Placeholder line on a row of its own (1817-1819);
+   under 280px the plate stacks (1789-1794). Never a divider leading a line. */
+@container (max-width: 460px) {
+  .frame:has(> .frame__cap span) > .frame__tag { flex-basis: 100%; padding-top: 0; padding-left: 2px; border-left: 0; }
+}
+@container (max-width: 280px) {
+  .frame > .frame__cap { flex-direction: column; align-items: center; gap: 2px; }
+  .frame > .frame__tag { flex-basis: 100%; padding-top: 0; padding-left: 2px; border-left: 0; }
+}
+
+/* The placeholder court (a slot with no photograph): the lawn of the four courts, white lines,
+   flat as a drawing (D0's tokens). No light or grain over it, a white net, the caption in the
+   frame's own voice: tracked capitals and Caslon Text italic. */
+.frame:not(.frame--due, .frame--photo, .has-img) .frame__drift::after { background: none; }
+.ph__court .net { stroke: var(--ph-line); stroke-width: 1; }
+.ph__court rect.cl-p { fill: var(--ph-line); }
+.ph__kicker { font: 700 var(--step-6)/1 var(--font-sans); letter-spacing: 0.2em; }
+.ph__desc { font: italic 400 clamp(0.875rem, 0.75rem + 1.6cqi, 1.1875rem)/1.4 var(--font-serif); max-width: 34ch; }
+
+/* =====================================================================================
+   12. Heroes (718-802, 977-1045): inner pages
+   Words on our side, the page's photograph hung as a print on the other, inside the page width;
+   no net between them. Home and High Performance compose the full wall in their page CSS.
+   ===================================================================================== */
+.hero--inner .hero__title { font-size: clamp(2.4rem, 0.8rem + 3.4vw, 4.25rem); line-height: 1.04; letter-spacing: -0.012em; }
+.hero--inner .hero__lede { color: var(--fg-muted); }
+.hero .frame--fill { display: flex; flex-direction: column; }
+@media (min-width: 900px) {
+  .hero:is(.hero--section, .hero--performance) .hero__grid {
+    height: auto; min-height: clamp(520px, calc(82svh - var(--header-h)), 780px); align-items: center;
+    column-gap: clamp(32px, 4vw, 72px); padding-right: max(var(--gutter), calc((100% - var(--page)) / 2));
+  }
+  .hero:is(.hero--section, .hero--performance) .hero__media { display: grid; align-items: center; padding-block: clamp(24px, 4vh, 48px); }
+  .hero:is(.hero--section, .hero--performance) .hero__media .frame--fill { height: auto; }
+  .hero:is(.hero--section, .hero--performance) .hero__media .frame--fill .frame__box { height: auto; aspect-ratio: var(--ar, 3 / 2) !important; }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__grid { min-height: clamp(520px, calc(82svh - var(--header-h)), 780px); }
+}
+/* Phones and tablets: the side-by-side first screen stays; the photograph is a narrow print */
+@media (max-width: 899px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media { padding-right: var(--gutter); }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame--fill { --mat-w: 6px; border-width: 3px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame--fill .frame__box { flex: 1 1 auto; min-height: 0; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { position: static; padding: 4px 2px 5px; font-size: 0.5625rem; letter-spacing: 0.06em; }
+}
+/* Key points: labels in tracked capitals, values in Caslon Display (hero__index, 750-757) */
+.hero__point-label { font-weight: 650; letter-spacing: 0.14em; color: var(--fg-subtle); }
+.hero__point-value { font-family: var(--font-display); }
+@media (min-width: 900px) {
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-label { font-weight: 650; letter-spacing: 0.14em; color: var(--fg-subtle); }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-value,
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a { font-family: var(--font-display); font-size: 1.0625rem; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points { border-top-color: var(--rule-strong); }
+}
+@media (max-width: 899px) {
+  .hero__points { border-top-color: var(--rule-strong); }
+  .hero__point-value { font-size: 1rem; }
+}
+.status-line { color: var(--fg-muted); }
+
+/* The founding year (the folded 19 | 51) becomes the provenance line (319-331, 728-732): the
+   words in tracked capitals, 1951 in Caslon Display, a hairline either side */
+.year {
+  position: static; width: auto; height: auto; margin: 0; display: flex; align-items: center; justify-content: center; gap: 0;
+  font: 400 1.3125rem/1 var(--font-display); letter-spacing: 0.02em; color: var(--fg); white-space: nowrap;
+}
+.year::before, .year::after { content: ""; flex: 1 1 0; min-width: 16px; max-width: 12rem; height: 1px; background: var(--rule-strong); }
+.year::before { margin-right: var(--sp-3); }
+.year::after { margin-left: var(--sp-3); }
+.year span { position: static; }
+.year .year__since { margin-right: 0.55em; padding: 0; font: 600 var(--step-5)/1.25 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.year__a, .year__b { color: var(--fg); text-shadow: none; }
+
+/* The year as a figure (Club History): Caslon Display, a hairline for the net */
+.numeral { font-family: var(--font-display); font-weight: 400; }
+.numeral__net { width: 1px; background: var(--fg); }
+.numeral__net::before, .numeral__net::after { content: none; }
+
+/* =====================================================================================
+   13. Doors: the four courts (804-852, 1690-1705, 1743-1749)
+   No photograph on a door: the court is the picture. Lawn surround, the court surface, white
+   lines at the true 78 by 36 ft and a white net, the red ball serving (js/serve.js). The words
+   under each court are centred on it like a plate under a print. On a phone the court is a
+   small plan beside the words; the serve rests.
+   ===================================================================================== */
+.doors--courts { --court-rest: 1; --court-full: 1; }
+.doors--courts .door .frame { --ar: 2 / 1 !important; display: block; padding: 0; background: none; border: 0; box-shadow: none; }
+.doors--courts .court .frame__box { background: var(--lawn); outline: 0; }
+.doors--courts .court .frame__media, .doors--courts .court .ph, .doors--courts .door .frame__tag { display: none; }
+.doors--courts .court:has(.frame) .court__surface { fill: var(--lawn-court); }
+.doors--courts .court:has(.frame) .court__paint { stroke: var(--lawn-line); stroke-opacity: 1; }
+.doors--courts .court:has(.frame) .court__net { stroke: var(--lawn-line); stroke-width: 1; opacity: 1; }
+.doors--courts .court:has(.frame) .court__post { fill: var(--lawn-line); opacity: 1; }
+/* Every drawn court's net (the Style Guide's sample too, R2 defect 7): a white line like the court's own lines.
+   The Clubhouse's red is the logo, the ball and Register now only. */
+.court__net { stroke: var(--lawn-line); stroke-width: 1; }
+.court__post { fill: var(--lawn-line); }
+.court__shadow { background: radial-gradient(closest-side, var(--ball-shade), transparent); opacity: 1; filter: none; }
+.door__title { font: 400 clamp(1.75rem, 1.3rem + 1.3vw, 2.5rem)/1.05 var(--font-display); letter-spacing: -0.005em; }
+.door__facts { font: 700 var(--step-6)/1.2 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+.door__text { font-size: 1.0625rem; line-height: 1.55; color: var(--fg-muted); }
+.door__cta { display: inline-flex; }
+@media (min-width: 720px) {
+  .doors--courts .door__body { display: flex; flex-direction: column; align-items: center; gap: 8px; padding-top: var(--sp-4); text-align: center; }
+  .doors--courts .door__facts { order: -1; justify-content: center; font-size: var(--step-6); color: var(--fg-muted); }
+  .doors--courts .door__text { max-width: 40ch; }
+}
+@media (max-width: 719px) {
+  .doors--courts { gap: var(--sp-5); border-top: 0; }
+  .doors--courts .door { grid-template-columns: minmax(0, 44%) minmax(0, 1fr); column-gap: var(--sp-3); align-items: start; padding: 0; border-bottom: 0; }
+  .doors--courts .court__lines { display: block; }
+  .doors--courts .court .ph__court { display: none; }
+  .doors--courts .door__body { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .doors--courts .door__title { font-size: 1.5rem; }
+  .doors--courts .door__text { font-size: 0.9375rem; line-height: 1.45; }
+  .doors--courts .door__facts { flex-direction: row; flex-wrap: wrap; gap: 2px 10px; }
+}
+@media (max-width: 479px) {
+  .doors--courts .door__facts { flex-direction: column; gap: 2px; }
+  .door__facts span { white-space: normal; }
+}
+@media (max-width: 899px) { .doors:not(.doors--courts) .door__title { font-size: clamp(1.25rem, 1rem + 1.2vw, 1.625rem); } }
+/* doors that are not courts (the Programs hub and the Camps hub) hang their photographs as prints */
+.doors:not(.doors--courts) .door { border-bottom-color: var(--rule); }
+.doors:not(.doors--courts) .door .frame__tag {
+  position: static; top: auto; right: auto; bottom: auto; left: auto; justify-content: center; gap: 8px; padding: 9px 4px 10px;
+  font: 650 0.6875rem/1.3 var(--font-sans); letter-spacing: 0.14em; white-space: normal;
+}
+.doors:not(.doors--courts) .door .frame { --mat-w: clamp(8px, 0.9vw, 14px); }
+.doors:not(.doors--courts) .door:nth-child(even) { margin-top: 0; }
+@media (min-width: 900px) {
+  .doors:not(.doors--courts) .door__body { justify-items: center; text-align: center; }
+  .doors:not(.doors--courts) .door__facts { justify-content: center; }
+}
+@media (max-width: 899px) {
+  .doors:not(.doors--courts) .door .frame { --mat-w: 5px; border-width: 3px; }
+  .doors:not(.doors--courts) .door .frame__tag { padding: 4px 2px 5px; font-size: 0.5625rem; letter-spacing: 0.04em; }
+}
+
+/* =====================================================================================
+   14. Recreational and High Performance (854-884, 1713-1722, 1834-1846)
+   Each half is centred, its name in Caslon Display, its three words in Caslon Text (italic on the
+   High Performance side) closed by a 56px rule, one print, its links. Recreation on chalk, High
+   Performance on the blazer. The Home layout itself is in pages/home.css.
+   ===================================================================================== */
+.split__half--rec { --bg: var(--surface-alt); background: var(--surface-alt); }
+.split__half { padding-block: clamp(64px, 7vw, 120px); }
+.split__title { font-family: var(--font-display); font-weight: 400; }
+.split__line { font: 400 var(--step-3)/1.5 var(--font-serif); color: var(--fg-muted); max-width: 26rem; }
+.split__links .link { border-top-color: var(--rule); }
+.split__links .link:last-child { border-bottom-color: var(--rule); }
+.pathmini li { border-top-color: var(--rule); font-size: var(--step-5); }
+.pathmini strong { font: 400 1.25rem/1.2 var(--font-display); }
+.pathmini em { font-size: var(--step-5); color: var(--fg-subtle); }
+.pathmini .num { font-weight: 650; color: var(--fg-subtle); }
+
+/* =====================================================================================
+   15. Strengths (Why TPTC, member benefits, amenities): the ledger's rows (886-911)
+   The name in grotesque capitals, the line under it in the second ink; the icon is the figure.
+   ===================================================================================== */
+.strengths { border-top-color: var(--rule-strong); }
+.strengths li { grid-template-columns: 40px minmax(0, 1fr); gap: 6px var(--sp-4); padding: var(--sp-4) 0; }
+.strengths .icon { width: 32px; height: 32px; stroke-width: 1.25; margin-top: 0; }
+/* A strength's name is a heading over its 17px line, so it is the larger (R2 defect 4): Caslon Display, 20 to 22px */
+.strengths h3 { font: 400 clamp(1.25rem, 1.15rem + 0.3vw, 1.375rem)/1.2 var(--font-display); letter-spacing: 0; text-transform: none; color: var(--fg); }
+.strengths p { font-size: 1.0625rem; line-height: 1.55; color: var(--fg-muted); max-width: 52ch; }
+
+/* =====================================================================================
+   16. What's happening: one lead and a list of fixtures (913-934)
+   ===================================================================================== */
+.hlead { gap: var(--sp-4); }
+.hlead__body { gap: 10px; }
+.hlead__title { margin-top: 6px; font: 400 clamp(1.875rem, 1.4rem + 1.4vw, 2.75rem)/1.05 var(--font-display); }
+.hlead__body .hcard__date { order: 1; }
+.hlead__body .hcard__text { order: 2; }
+.hlead__body > .link { order: 3; }
+.hcard__date { font: 700 1.1875rem/1.3 var(--font-sans); color: var(--fg); }
+.hcard__text { font-size: 1.0625rem; line-height: 1.55; color: var(--fg-muted); max-width: 44ch; }
+.hnext { display: grid; gap: clamp(32px, 3.4vw, 48px); border-top: 0; }
+.hrow { gap: 8px; padding: 0; border-bottom: 0; }
+.hrow__title { order: -1; margin-top: 6px; font: 400 1.75rem/1.1 var(--font-display); }
+.hrow__when { font: 600 1.0625rem/1.4 var(--font-sans); color: var(--fg); }
+.hrow__when .confirm__what { font-size: 1.125rem; font-weight: 400; }
+.hrow .hcard__text { font-size: 1rem; line-height: 1.5; }
+
+/* The season ledger (the site's year line) in the Clubhouse voice */
+.ledger__name { font: italic 400 1.1875rem/1.2 var(--font-serif); }
+.ledger__months li { font-weight: 650; letter-spacing: 0.14em; }
+.ledger__today-label { border: 1px solid var(--chip-live-bd); border-radius: var(--radius); font-weight: 700; letter-spacing: 0.14em; }
+.ledger__seg { border-top-color: var(--rule); }
+
+/* =====================================================================================
+   17. The chooser and its options (the scorecard, 1908-1975)
+   One question at a time: the question in Caslon Display, the answers as ruled boxes on the
+   page's paper, the chosen one in ink. The answer hangs as a print.
+   ===================================================================================== */
+.chooser { gap: var(--sp-4); padding-top: var(--sp-4); border-top-color: var(--rule-strong); }
+.chooser__title .label { color: var(--fg-muted); }
+.chooser__q legend { margin-bottom: var(--sp-3); font: 400 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.2 var(--font-display); color: var(--fg); text-wrap: balance; }
+.opts { gap: 8px; }
+.opt span {
+  justify-content: center; min-height: 52px; padding: 10px 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  background: var(--surface); color: var(--fg); font: 400 1.0625rem/1.3 var(--font-serif); text-align: center;
+}
+.opts.num .opt span { font: 600 1.0625rem/1.2 var(--font-sans); font-variant-numeric: tabular-nums lining-nums; }
+.opt input:checked + span { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.opt input:focus-visible + span { outline: var(--focus-ring); outline-offset: 3px; }
+.chooser__result {
+  --fg: var(--plate-fg); --fg-muted: var(--plate-fg-2); --fg-subtle: var(--plate-fg-2); --bg: var(--mat);
+  --rule: var(--plate-line); --rule-strong: var(--plate-line-strong); --focus: var(--plate-fg); --focus-ring: var(--focus-w) solid var(--focus);
+  gap: var(--sp-3); padding: clamp(18px, 2.6vw, 32px); background: var(--mat); color: var(--plate-fg);
+  border: 5px solid var(--wood); box-shadow: var(--print-shadow);
+}
+.chooser__result .h3 { font: 400 clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem)/1.05 var(--font-display); }
+/* on the mat the ink button keeps fixed day values in both schemes (1963-1965) */
+.chooser__result .btn--ink { --cb-bg: var(--plate-fg); --cb-bd: var(--plate-fg); --cb-fg: var(--mat); --cb-fill: var(--night-raised); --cb-fg2: var(--mat); }
+
+/* =====================================================================================
+   18. Opening statement (1060-1065): the eyebrow in the margin, the statement in Caslon Display
+   ===================================================================================== */
+.intro__statement { max-width: 22ch; font: 400 var(--step-1)/var(--lh-head) var(--font-display); letter-spacing: -0.004em; text-wrap: balance; }
+.intro__aside .eyebrow { padding-top: 0.6em; }
+
+/* =====================================================================================
+   19. The pathway (the Hold, 1067-1138)
+   The rail runs down the margin in ink, not red; the step names in Caslon Display; each step's
+   facts are ruled rows, the label in tracked capitals. Court plans draw the net in ink.
+   ===================================================================================== */
+.rail { background: var(--rule); }
+.rail__fill { background: var(--fg); }
+.pathway__steps-nav li::before { left: -28px; top: 26px; width: 9px; height: 1px; background: var(--fg); }
+.pathway__steps-nav span.num { font: 650 var(--step-6)/1.2 var(--font-sans); letter-spacing: 0.14em; color: var(--fg-subtle); }
+.pathway__steps-nav strong { font: 400 1.5rem/1.15 var(--font-display); }
+.pathway__steps-nav em, .pathway__steps-nav em.num { font: 400 var(--step-5)/1.6 var(--font-sans); letter-spacing: 0; color: var(--fg-subtle); }
+html.hold-on .pathway__steps-nav a:not(.is-active) strong { opacity: 0.7; }
+.step { border-top: 0; padding-block: 0; row-gap: var(--sp-5); }
+.pathway__steps { display: grid; gap: clamp(72px, 9vw, 144px); }
+.step__title { font: 400 clamp(2.5rem, 1.6rem + 3vw, 4.25rem)/1 var(--font-display); letter-spacing: -0.012em; }
+@media (min-width: 1000px) { .step { grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); column-gap: var(--gutter); } }
+.fields { border-top: 1px solid var(--rule-strong); }
+.fields > div { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.fields > div:first-child { padding-top: 14px; }
+.fields dt { font: 700 var(--step-6)/1.6 var(--font-sans); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.fields dd { font-size: 1rem; line-height: 1.55; color: var(--fg); }
+.fields dd .small { font-size: var(--step-5); color: var(--fg-subtle); }
+.fields--compact > div { padding: 10px 0; }
+.fields--compact > div:last-child { border-bottom: 0; }
+@media (min-width: 640px) { .fields > div { grid-template-columns: minmax(0, 10rem) minmax(0, 1fr); gap: 4px var(--sp-3); } .fields--compact > div { grid-template-columns: 5.5rem minmax(0, 1fr); } }
+.gloss { font-size: var(--step-5); color: var(--fg-subtle); }
+.gloss dfn { font-weight: 650; }
+.cplan__lines { stroke: var(--fg-subtle); }
+.cplan__net, .tally__net { stroke: var(--fg); background: var(--fg); }
+.tally__net { width: 1px; }
+
+/* =====================================================================================
+   20. How to join (1189-1207): three numbered steps side by side, the contact card beside them
+   ===================================================================================== */
+.steps li { grid-template-columns: minmax(0, 1fr); gap: 14px; align-content: start; padding: var(--sp-4) 0 0; border-top: 1px solid var(--rule-strong); }
+.steps li:last-child { border-bottom: 0; }
+.steps .step-n { font: 400 4rem/0.85 var(--font-display); }
+.steps h3 { font: 700 1.0625rem/1.35 var(--font-sans); }
+.steps p { margin-top: 6px; font-size: 1rem; line-height: 1.55; color: var(--fg-muted); }
+@media (min-width: 1000px) { .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); } }
+@media (max-width: 999px) { .steps { row-gap: var(--sp-5); } }
+.contact-card { gap: var(--sp-3); padding-top: var(--sp-4); border-top-color: var(--rule-strong); }
+.contact-card > div { gap: 2px; padding: 0; border-bottom: 0; }
+.contact-card .label { color: var(--fg-subtle); }
+.contact-card a { font: 600 1.0625rem/1.4 var(--font-sans); color: var(--fg); }
+.contact-card a:hover { text-underline-offset: 0.2em; }
+
+/* Next doors: a compact door and its pair (1209-1223) */
+.next-doors { gap: var(--sp-5) var(--gutter); border-top: 0; }
+.next-door { grid-template-columns: 40px minmax(0, 1fr) auto; column-gap: var(--sp-3); align-items: start; padding: var(--sp-4) 0; border-top: 1px solid var(--rule-strong); border-bottom: 0; }
+.next-door > .icon:first-child { width: 32px; height: 32px; stroke-width: 1.25; }
+.next-door h3 { font: 400 1.25rem/1.2 var(--font-display); letter-spacing: 0; text-transform: none; }   /* 20px over its 16px line (R2 defect 4) */
+.next-door p { margin-top: 8px; font-size: 1rem; line-height: 1.55; color: var(--fg-muted); max-width: 34rem; }
+.next-door > .icon:last-child { margin-top: 2px; }
+@media (min-width: 900px) { .next-door:nth-child(2) { padding-left: 0; border-left: 0; } .next-door:nth-child(1) { padding-right: 0; } }
+
+/* =====================================================================================
+   21. Small parts: skip link, external mark, notice, callout, document link, empty state
+   ===================================================================================== */
+.skip { padding: 0 20px; font: 600 var(--step-5)/1 var(--font-sans); letter-spacing: 0.12em; }
+.ext-mark { stroke-width: 1.75; }
+/* Notice (sys-sec__detail, 1410): a note set off by one hairline down its left, never red */
+.notice { grid-template-columns: 20px minmax(0, 1fr); gap: 12px; padding: 2px 0 2px var(--sp-3); border-left: 1px solid var(--rule-strong); font-size: 1rem; color: var(--fg-muted); }
+.notice .icon { width: 20px; height: 20px; color: var(--fg); }
+.notice--caution { border-left-style: dashed; }
+/* Callout: a requirement (assessment, pre-approval), the ink sideline and its rule in capitals */
+.callout { gap: 8px; padding: 2px 0 2px 20px; border-left: 1px solid var(--fg); }
+.callout__title { font: 700 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); }
+.callout p { font-size: 1rem; color: var(--fg-muted); }
+.callout--quiet { border-left-color: var(--rule-strong); }
+.doclink__meta { font-weight: 700; letter-spacing: var(--track-label); color: var(--fg-subtle); }
+/* Empty state (1462-1467): it sits where the content would be, on chalk, and says what to do */
+.empty { gap: 10px; padding: clamp(20px, 3vw, 36px); border: 0; border-radius: var(--radius); background: var(--surface-alt); }
+.empty__title { font: 400 var(--step-2)/1.2 var(--font-display); }
+.empty p { color: var(--fg-muted); max-width: 40ch; }
+
+/* =====================================================================================
+   22. Selectors: the option switcher and the age and level selectors (1243-1246: the rate)
+   A hairline-bordered group on the paper; the chosen option filled in ink.
+   ===================================================================================== */
+.seg {
+  display: inline-flex; column-gap: 3px; max-width: 100%; padding: 3px; border: 1px solid var(--fg); border-radius: var(--radius);
+  background: var(--surface); box-shadow: none;
+}
+.seg button {
+  min-height: 44px; padding: 0 16px; border-radius: 1px; color: var(--fg-muted);
+  font: 700 var(--step-6)/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase;
+  transition: background-color var(--dur-ui) var(--ease-ui), color var(--dur-ui) var(--ease-ui);
+}
+.seg button[aria-checked="true"] { background: var(--fg); color: var(--bg); }
+.seg button:focus-visible { outline: var(--focus-ring); outline-offset: 3px; }
+.seg__ind { display: none; }
+.seg--select { column-gap: 3px; }
+.seg--select button { min-height: 52px; padding: 0 14px; letter-spacing: 0; text-transform: none; }
+.seg--select button .num { font: 400 clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem)/1 var(--font-serif); }
+.seg--select button[aria-checked="true"] { color: var(--bg); }
+.seg--select button[aria-disabled="true"] { opacity: 0.55; }
+.seg--level button .num { font: 600 0.9375rem/1 var(--font-sans); letter-spacing: 0.02em; }
+.seg__why { color: var(--fg-subtle); }
+.select-label { font-weight: 700; letter-spacing: var(--track-label); color: var(--fg-subtle); }
+@media (hover: hover) and (pointer: fine) { .seg button:not([aria-checked="true"]):hover { color: var(--fg); } }
+
+/* Filter chips (leagues, news): the same boxes, the pressed one in ink */
+.filters button { min-height: var(--target); padding: 0 16px; border-color: var(--rule-strong); background: var(--surface); font: 650 var(--step-5)/1 var(--font-sans); }
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters .num { font-size: var(--step-6); opacity: 0.8; }
+
+/* In-page nav: the header's capitals, a hairline under the current name */
+.inpage a { min-height: 52px; font: 650 var(--step-6)/1 var(--font-sans); letter-spacing: 0.13em; text-transform: uppercase; color: var(--fg-muted); }
+.inpage a:hover, .inpage a[aria-current="true"] { color: var(--fg); box-shadow: inset 0 -1px 0 var(--fg); }
+
+/* =====================================================================================
+   23. Cards: program card, level card, price and tier card, coach (1225-1274)
+   One hairline, the club's own ground, the name in Caslon Display, the fields as ruled rows,
+   prices in Caslon Text tabular figures.
+   ===================================================================================== */
+.pcard { gap: var(--sp-3); padding: var(--sp-4); border: 1px solid var(--rule); border-radius: var(--radius); background: var(--bg); }
+.pcard__title { font: 400 1.75rem/1.1 var(--font-display); }
+.pcard__price { font: 400 clamp(1.75rem, 1.45rem + 0.8vw, 2.25rem)/1 var(--font-serif); letter-spacing: -0.01em; font-variant-numeric: tabular-nums lining-nums; }
+.pcard__tax { font-size: var(--step-6); color: var(--fg-subtle); }
+.lcard { gap: var(--sp-3); padding: clamp(20px, 2.4vw, 32px); background: var(--bg); border: 1px solid var(--rule); border-top: 1px solid var(--rule-strong); border-radius: var(--radius); }
+.lcard__title { font: 400 var(--step-2)/1.1 var(--font-display); }
+.lcard__test { font-size: 1rem; color: var(--fg-muted); }
+.lcard--off { border: 1px dashed var(--rule-strong); background: transparent; }
+.lcards { gap: var(--sp-3); }
+.coaches { gap: var(--sp-6) var(--gutter); }
+.tier { gap: var(--sp-4); padding: clamp(24px, 3.6vw, 48px); border: 0; border-radius: var(--radius); background: var(--surface-alt); }
+.tier::before { content: none; }
+.tier__season { font: 600 var(--step-5)/1.4 var(--font-sans); color: var(--fg-muted); padding-top: 0; }
+.tier__name { font: 400 clamp(1.875rem, 1.4rem + 1.4vw, 2.75rem)/1.05 var(--font-display); }
+.tier__who { font: italic 400 0.9375rem/1.35 var(--font-serif); color: var(--fg-muted); }
+.tier__prices { border-top-color: var(--rule-strong); border-bottom-color: var(--rule); }
+.tier__price { font: 400 clamp(1.75rem, 1.45rem + 0.8vw, 2.25rem)/1 var(--font-serif); letter-spacing: -0.01em; font-variant-numeric: tabular-nums lining-nums; }
+.tier__tax { font-size: var(--step-6); color: var(--fg-subtle); }
+.coach__role { font-weight: 700; color: var(--fg-subtle); }
+.coach__name { font: 400 var(--step-2)/1.1 var(--font-display); }
+.coach__bio { font-size: 1rem; color: var(--fg-muted); }
+
+/* Key facts: the true figure in Caslon Display (the ledger's figures, 892), what it counts beneath */
+.facts { border-top-color: var(--rule-strong); }
+.facts__n { font: 400 clamp(2.75rem, 1.6rem + 3.6vw, 4.75rem)/0.9 var(--font-display); letter-spacing: -0.02em; }
+.facts__what { font-size: 0.9375rem; color: var(--fg-muted); }
+
+/* =====================================================================================
+   24. Rows and tables: league rows, schedule rows, the rate table (1276-1296, 1496-1498)
+   ===================================================================================== */
+.lrows, .srows { border-top-color: var(--rule-strong); }
+.lrow { padding: var(--sp-4) 0; }
+.lrow__name { font: 400 1.375rem/1.2 var(--font-serif); }
+.lrow__meta dt { font-weight: 700; letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.lrow__meta dd { font-size: 0.9375rem; }
+.srow { padding: 18px 0; }
+.srow__what { font: 650 1rem/1.4 var(--font-sans); }
+.srow__when { font-size: 0.9375rem; color: var(--fg-muted); }
+.srow__price { font: 500 1.25rem/1.3 var(--font-sans); font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.01em; }
+.srow__price small { font-size: var(--step-6); color: var(--fg-subtle); }
+.rates { font-size: 0.9375rem; }
+.rates-wrap { border-top: 0; }
+.rates-wrap:focus-visible { outline: var(--focus-ring); outline-offset: 4px; }
+.rates caption { color: var(--fg-subtle); }
+.rates thead th, .rates th.tnum { font-weight: 700; letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.rates td.tnum { font: 400 1.1875rem/1.2 var(--font-serif); font-variant-numeric: tabular-nums lining-nums; }
+.rates tbody th { font-weight: 600; }
+.rates tbody th span { color: var(--fg-subtle); }
+
+/* =====================================================================================
+   25. FAQ (1298-1332): filed by topic. The topic is the group's heading in Caslon Display (it
+   outranks the questions), each question in Caslon Text, the mark a ring that holds the court
+   line's plus; the open answer sits on chalk.
+   ===================================================================================== */
+.acc { border-top-color: var(--rule-strong); }
+.faq__group { border-bottom-color: var(--rule); }
+.faq__topic { font: 400 var(--step-2)/1.12 var(--font-display); }
+.acc__item { transition: background-color var(--dur-ui) var(--ease-ui); }
+.acc__item:has(.acc__btn[aria-expanded="true"]) { background: var(--surface-alt); }
+.acc__btn { min-height: 72px; padding: 18px var(--sp-3); }
+.acc__q { font: 400 clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem)/1.3 var(--font-serif); letter-spacing: 0; }
+.acc__btn:hover .acc__q { text-decoration: none; }
+.acc__mark { width: 36px; height: 36px; padding: 9px; border: 1px solid var(--rule-strong); border-radius: 50%; transition: border-color var(--dur-ui) var(--ease-ui); }
+.acc__btn:hover .acc__mark, .acc__btn[aria-expanded="true"] .acc__mark { border-color: var(--fg); }
+.acc__btn:focus-visible { outline-offset: -2px; }
+.acc__panel { padding: 0 calc(36px + var(--sp-3) * 2) var(--sp-4) var(--sp-3); font-size: 1.0625rem; color: var(--fg-muted); }
+@media (min-width: 720px) { .faq__topic { border-right-color: var(--rule); } }
+@media (prefers-reduced-motion: reduce) { .acc__item, .acc__mark { transition: none; } }
+
+/* =====================================================================================
+   26. Form fields (1334-1361)
+   ===================================================================================== */
+.form { gap: var(--sp-4); }
+.field__label { font: 650 0.875rem/1.3 var(--font-sans); }
+.field__help { font-size: var(--step-5); color: var(--fg-subtle); }
+.input, .select { min-height: 52px; background: var(--surface); font: 400 1.0625rem/1.2 var(--font-sans); }
+.input::placeholder { color: var(--fg-subtle); }
+.input[aria-invalid="true"] { border-color: var(--fg); }
+.field__error { font: 600 0.875rem/1.4 var(--font-sans); }
+.select-wrap .icon { width: 18px; height: 18px; }
+.check { font-size: 1rem; }
+.check input { background: var(--surface); }
+
+/* =====================================================================================
+   27. The draw sheet (Programs, Register): entries in Caslon Display on ruled lines
+   ===================================================================================== */
+@media (min-width: 1000px) {
+  .draw__lead { color: var(--fg-muted); }
+  .draw__name { font: 400 1.5rem/1.1 var(--font-display); }
+  .draw__who { font-weight: 700; }
+}
+@media (min-width: 1000px) and (max-width: 1279px) { .draw__name { font-size: 1.25rem; } }
+@media (min-width: 1280px) and (max-width: 1399px) { .draw__name { font-size: 1.375rem; } }
+
+/* =====================================================================================
+   28. The camp family: status, the four camps either side of the divide, extras, policies and
+   the Order of Play. The High Performance camps sit on the blazer under one ink-free hairline.
+   ===================================================================================== */
+.campcard__sub { color: var(--fg-subtle); }
+.campcards .pcard__title { font-size: clamp(1.75rem, 1.45rem + 0.8vw, 2.25rem); }
+.campcards__hp::before { height: 1px; background: var(--rule-strong); }
+.campcards__hp-head { font: 800 clamp(2rem, 1.5rem + 2vw, 3.25rem)/0.95 var(--font-sans); letter-spacing: var(--track-display-sans); }
+.campcards__hp .pcard { background: var(--bg); border-color: var(--rule); }
+@media (max-width: 699px) {
+  .campcards__hp { background-image: linear-gradient(var(--rule-strong), var(--rule-strong)); background-size: 100% 1px; }
+  .campcards__hp-hint { color: var(--fg-subtle); }
+}
+.extras li { border-top-color: var(--rule-strong); }
+.policies { column-gap: clamp(32px, 5vw, 96px); }
+.oop__title { font: 400 var(--step-3)/1.3 var(--font-display); }
+.oop__dow { font-weight: 700; letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.oop__date { font: 400 clamp(1.75rem, 1.4rem + 1vw, 2.5rem)/1 var(--font-display); }
+.oop__time { font: 400 1.1875rem/1.2 var(--font-serif); }
+.oop__board thead th:not(:first-child)::after { height: 1px; }
+.oop__days li::after { height: 1px; }
+.oop__every { font-weight: 700; color: var(--fg-subtle); }
+.camp-status .chip { white-space: normal; }
+
+/* Court plans and the rally count: ink lines, ink balls, the coach a ring */
+.rally__path { stroke: var(--fg-muted); }
+.who { fill: var(--fg); }
+.who--coach { fill: var(--surface); stroke: var(--fg); }
+.tally__ball { background: var(--fg); }
+
+/* =====================================================================================
+   29. News (W2b-news, 25 Oct 2026, on W2a's markup): the club's bulletin on the clubhouse wall
+   - The date is a figure of the ledger (tptc.css 886-896): the month in tracked capitals over the day
+     in Caslon Display, the year small under it, a hairline closing the cell.
+   - Topics are quiet capitals; New is the live chip (the ink plate and the optic dot by day, a
+     hairline at night: the ball colour only as the dot); Pinned an ink outline; Closed an empty ring,
+     its day stepping back to the second ink.
+   - The lead story hangs as a print. The net W2a strings between its photograph and its words is, in
+     the Clubhouse, one ink hairline (red is the logo, the ball and Register now only): on Home it
+     divides the lead from its fixtures, as the specimen's What's happening does (913-934).
+   - Titles in Caslon Display, summaries in Caslon Text.
+   ===================================================================================== */
+.ncount { border-radius: var(--radius); background: var(--fg); color: var(--bg); font: 700 0.6875rem/1 var(--font-sans); }
+.ndate { row-gap: 4px; }
+.ndate__m { font: 650 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); }
+.ndate__d { font: 400 var(--nd)/0.9 var(--font-display); letter-spacing: -0.01em; font-variant-numeric: tabular-nums lining-nums; }
+.ndate__y { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: 0.06em; color: var(--fg-subtle); }
+.ncard__date { border-right-color: var(--rule-strong); }
+.ncard__topic { font-weight: 700; color: var(--fg-subtle); }
+.ncard__title { font: 400 clamp(1.25rem, 1.12rem + 0.45vw, 1.5rem)/1.2 var(--font-display); letter-spacing: -0.003em; text-wrap: balance; }
+.ncard__sum { color: var(--fg-muted); }
+.ncard__flag { min-height: 22px; border-color: var(--rule-strong); border-radius: var(--radius); font: 700 0.6875rem/1 var(--font-sans); letter-spacing: 0.14em; color: var(--fg-muted); }
+.ncard__flag--new { background: var(--chip-live-bg); border-color: var(--chip-live-bd); color: var(--chip-live-fg); }
+.theme-night .ncard__flag--new { background: transparent; border-color: var(--chip-night-bd); color: var(--on-dark); }
+.ncard__flag--pin { border-color: var(--fg); color: var(--fg); }
+.ncard__flag--closed { color: var(--fg-subtle); border-style: dashed; }
+.ncard:has(.ncard__flag--closed:not([hidden])) .ncard__date .ndate__d,
+.nstrip__item:has(.ncard__flag--closed:not([hidden])) .ndate__d { color: var(--fg-subtle); }
+@media (hover: hover) and (pointer: fine) {
+  .ncard:hover .ncard__link { text-underline-offset: 0.18em; }
+}
+
+/* The lead story: its photograph hung as a print, the score cell and its words beneath (or beside) */
+.ncard--lead .ncard__title { font: 400 clamp(1.75rem, 1.3rem + 1.4vw, 2.75rem)/1.05 var(--font-display); letter-spacing: -0.01em; }
+.ncard--lead .ncard__sum { font: 400 var(--step-3)/1.5 var(--font-serif); letter-spacing: 0.01em; color: var(--fg-muted); }
+.ncard--lead > .frame::after { content: none; }
+.ncard--lead > .frame .frame__tag { left: auto; }
+
+/* Results rows: the words, then the photograph as a small print with a thin mat */
+.ncards--band .ncard:not(.ncard--lead), .ncards--list .ncard:not(.ncard--lead), .ncards--related .ncard { border-top-color: var(--rule); }
+.ncard:not(.ncard--lead) > .frame { --mat-w: 6px; border-width: 3px; box-shadow: none; }
+.ncard:not(.ncard--lead) > .frame .frame__tag { position: static; padding: 4px 2px 5px; font-size: 0.5625rem; letter-spacing: 0.06em; white-space: normal; }
+/* Under 600 the row print is 88px, not 64, so its plate keeps the Placeholder line inside the mat
+   on two lines (decision 7: every AI placeholder carries its tag; at 64px the word ran past the print). */
+@media (max-width: 599px) {
+  .ncards--band .ncard:not(.ncard--lead), .ncards--list .ncard:not(.ncard--lead), .ncards--related .ncard { grid-template-columns: minmax(0, 1fr) 88px; }
+  .ncard:not(.ncard--lead) > .frame { --mat-w: 3px; border-width: 2px; }
+  .ncard:not(.ncard--lead) > .frame .frame__tag { flex-basis: 100%; padding: 4px 0 2px; line-height: 1.25; letter-spacing: 0.05em; }
+  .ncard:not(.ncard--lead) .ncard__title { font-size: 1.1875rem; }
+}
+
+/* A band's head (the Home band, an article's Related news): centred, the H2 then its All news link,
+   over a 56px rule (the section heads' own mark) */
+.nband__head { flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; }
+.nband__head .h2 { text-align: center; }
+.nband__head::after { content: ""; display: block; width: 56px; height: 1px; margin-top: clamp(14px, 1.8vw, 24px); background: var(--rule-strong); }
+
+/* The Home strip under the wall: the bulletin's line, its label in tracked capitals, each story a
+   ledger figure and its title in Caslon Text, columns ruled */
+.nstrip { border-top-color: var(--rule); border-bottom-color: var(--rule); }
+.nstrip__label { font-weight: 700; letter-spacing: var(--track-label); }
+.nstrip__date { border-right-color: var(--rule-strong); }
+.nstrip__text { font: 400 1rem/1.38 var(--font-serif); }
+@media (min-width: 600px) { .nstrip__text { font-size: 1.0625rem; } }
+.nstrip__text .ncard__flag { font-size: 0.625rem; }
+@media (min-width: 1440px) { .nstrip__head { border-right-color: var(--rule-strong); } }
+
+/* The News page: the topics as quiet capitals on a hairline (the header's own nav voice), the
+   chosen one in ink over a 1px line; the pager's numbers in Caslon Display */
+.nlist__bar { box-shadow: inset 0 -1px 0 var(--rule); }
+.nlist__filters button { font: 650 var(--step-6)/1 var(--font-sans); letter-spacing: 0.13em; text-transform: uppercase; color: var(--fg-muted); }
+.nlist__filters button::after { height: 1px; }
+.nlist__filters .num { font: 600 0.6875rem/1 var(--font-sans); letter-spacing: 0.04em; color: var(--fg-subtle); }
+.nlist__status { color: var(--fg-subtle); font-size: var(--step-5); }
+.npager__btn { border-color: var(--rule-strong); background: var(--surface); font: 700 var(--step-6)/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; }
+.npager__num { font: 400 1.25rem/1 var(--font-display); }
+.npager__btn[aria-current="page"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+@media (min-width: 1000px) {
+  .ncards--list .ncard--lead { column-gap: clamp(36px, 4vw, 72px); }
+  .ncards--list .ncard:not(.ncard--lead) .ncard__title { font-size: clamp(1.375rem, 1.15rem + 0.55vw, 1.75rem); }
+}
+
+/* Related posts after an article */
+@media (min-width: 1000px) { .ncards--related .ncard__title { font-size: 1.375rem; } }
+
+/* The article: a club journal with a classic centred masthead (the provenance line over it, from
+   templates.py article_body), the scorecard (Posted, Updated, Written by) as one ruled strip under
+   the lede, the closed state a quiet ruled line beneath; the body in the club's voice */
+.nart__headin { justify-items: center; text-align: center; }
+.nart__headin > .crumbs ol { justify-content: center; }
+.nart__kicker a { font-weight: 700; box-shadow: inset 0 -1px 0 var(--rule-strong); }
+.nart__title { font: 400 clamp(2.125rem, 1.4rem + 2.8vw, 4.25rem)/1.05 var(--font-display); letter-spacing: -0.012em; max-width: 22ch; }
+.nart__lede { max-width: 40rem; margin-inline: auto; color: var(--fg-muted); }
+.nart__facts { max-width: 48rem; margin-inline: auto; }
+dl.nart__meta { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border-top-color: var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+.nart__cell { grid-template-columns: minmax(0, 1fr); justify-items: center; row-gap: 6px; padding: 12px 8px; border-bottom: 0; }
+.nart__cell + .nart__cell { border-left: 1px solid var(--rule); }
+.nart__cell dt { font-weight: 700; color: var(--fg-subtle); }
+.nart__cell dd { font: 400 1.0625rem/1.35 var(--font-serif); }
+.nclosed { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: 6px; border-bottom-color: var(--rule); }
+.nclosed__text { justify-items: center; }
+.nclosed__mark { font-weight: 700; color: var(--fg-muted); }
+.nclosed__when { font: italic 400 1.0625rem/1.45 var(--font-serif); color: var(--fg-muted); }
+.nclosed__next { justify-self: center; }
+@media (min-width: 600px) { .nclosed { grid-template-columns: minmax(0, 1fr); } .nclosed__next { justify-self: center; } }
+@media (min-width: 1000px) {
+  .nart__headin { grid-template-columns: minmax(0, 1fr); }
+  .nart__headin > .nart__facts { grid-column: 1; grid-row: auto; align-self: auto; margin-top: 12px; max-width: 48rem; }
+  .nart__cell { grid-template-columns: minmax(0, 1fr); }
+  .nclosed { grid-template-columns: minmax(0, 1fr); }
+  .nclosed__next { justify-self: center; }
+}
+@media (max-width: 599px) { .nart__cell { padding-inline: 4px; } .nart__cell dd { font-size: 0.9375rem; } }
+.nart__main { color: var(--fg); }
+.nart__main > p:first-child { font-family: var(--font-serif); }
+.nart__h2 { font: 400 var(--step-2)/1.15 var(--font-display); }
+.nart__list li::marker { color: var(--fg-subtle); }
+.nart__list--steps { border-top-color: var(--rule-strong); }
+.nart__list--steps li::before { font: 400 2rem/1 var(--font-display); }
+.nart__list--pairs { border-top-color: var(--rule-strong); }
+.nart__k { font-weight: 650; }
+.nart__v { font-family: var(--font-serif); font-variant-numeric: tabular-nums lining-nums; }
+.nart__doc .doclink { border-color: var(--rule-strong); background: var(--surface); }
+.nart__doc .doclink .link__text { font: 400 1.1875rem/1.3 var(--font-display); }
+.ngallery__cap { color: var(--fg-subtle); }
+.ngallery .frame { --mat-w: 6px; border-width: 3px; }
+.ngallery .frame__tag { position: static; padding: 4px 2px 5px; font-size: 0.5625rem; letter-spacing: 0.06em; }
+/* the video's caption sits on the page under its print, not on the mat: the page's own inks
+   (the plate inks read 2.67:1 there at night) */
+.nvideo > .frame__cap { justify-content: center; padding: 10px 4px 0; color: var(--fg-muted); }
+.nvideo > .frame__cap em { font: 400 1rem/1.25 var(--font-display); color: var(--fg); }
+.nvideo__play { border-radius: var(--radius); background: var(--white); color: var(--ink); font: 700 0.8125rem/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; }
+.nvideo__video, .vslot__video { background: var(--frame-dark-bg); }
+.nvideo__note { color: var(--fg-subtle); }
+.nquote { border-left: 1px solid var(--rule-strong); }
+.nquote p { font: italic 400 clamp(1.5rem, 1.25rem + 0.9vw, 2.125rem)/1.3 var(--font-serif); color: var(--fg); }
+.nquote figcaption { font-weight: 700; color: var(--fg-subtle); }
+.nart__label { font-weight: 700; color: var(--fg-subtle); }
+.nabout { border-top-color: var(--rule-strong); }
+.nabout__name { font: 400 1.5rem/1.15 var(--font-display); }
+.ntags li { border-color: var(--rule-strong); font: 700 var(--step-6)/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* Meet the Coaches: each coach hangs as a portrait print, the nameplate under it as its plate (the
+   role in capitals, the name in Caslon Display, the arrow) */
+.cband__link .frame { margin-bottom: 0; }
+.cband__plate { grid-template-columns: minmax(0, 1fr); justify-items: center; row-gap: 4px; padding-top: 12px; margin-top: 0; border-top: 0; text-align: center; }
+.cband__role { font-weight: 700; color: var(--fg-subtle); }
+.cband__name { font: 400 1.625rem/1.1 var(--font-display); }
+.cband__arrow { grid-column: 1; grid-row: auto; justify-self: center; margin: 2px 0 0; }
+
+/* =====================================================================================
+   30. Home blocks that live in the shared CSS: the program head, What's happening, the video
+   slot, How to join (laid out in pages/home.css and pages/high-performance.css)
+   ===================================================================================== */
+.fyp__head { gap: var(--sp-4); }
+.happen { gap: var(--sp-6); }
+.join__grid { column-gap: var(--sp-7); }
+.vslot__box { color: var(--on-dark); }
+
+/* =====================================================================================
+   31. The join flow (Register and Membership share it): one question at a time
+   The question in Caslon Display; plain answers are ruled rows with a ring that fills; tiles and
+   figures are the scorecard's boxes (1926-1939), filled in ink once chosen; an answered question
+   folds to one ruled line; the summary ticks each answer; the progress court is a lawn court with
+   the red ball serving across it, like the four courts on Home.
+   Specificity: Register's and Membership's own Whites CSS (css/pages/register.css) loads after this
+   file and sets the same properties, so these selectors carry :root to win (DIRECTIONS.md: raise a
+   selector only where a later site rule would otherwise win).
+   ===================================================================================== */
+:root .reg__context-label, :root .reg-step__k, :root .reg-sum__k, :root .reg-need__title, :root .reg-done__sum dt, :root .open__season, :root .open__date-k, :root .open__tier-k, :root .ref__unit, :root .pc__key-n {
+  font-weight: 700; letter-spacing: var(--track-label); color: var(--fg-subtle);
+}
+:root .reg-step__q { font: 400 var(--step-2)/1.15 var(--font-display); }
+:root .reg-step[data-state="done"] .reg-step__done { border-bottom-color: var(--rule); }
+:root .reg-step__a { font: 400 1.125rem/1.35 var(--font-serif); }
+:root .reg-step__edit { font: 650 var(--step-5)/1 var(--font-sans); text-underline-offset: 0.25em; text-decoration-color: var(--rule-strong); }
+:root .reg-opts { border-top-color: var(--rule-strong); }
+:root .reg-opt { border-bottom-color: var(--rule); }
+:root .reg-opt__name { font: 400 1.1875rem/1.3 var(--font-serif); }
+:root .reg-opt__meta { font-size: 0.9375rem; color: var(--fg-muted); }
+:root .reg-opt__off { font-family: var(--font-serif); }
+:root .reg-opt__body::after { height: 1px; }
+:root .reg-opt--tile, :root .reg-opt--fig { border-color: var(--rule-strong); background: var(--surface); transition: background-color var(--dur-ui) var(--ease-ui), border-color var(--dur-ui) var(--ease-ui), color var(--dur-ui) var(--ease-ui); }
+:root .reg-opt--tile .reg-opt__body::after, :root .reg-opt--fig .reg-opt__body::after { content: none; }
+:root .reg-opt--tile:has(input:checked), :root .reg-opt--fig:has(input:checked) { background: var(--fg); border-color: var(--fg); }
+:root .reg-opt--tile:has(input:checked) :is(.reg-opt__name, :root .reg-opt__meta, :root .reg-opt__price, :root .reg-opt__price small, :root .icon), :root .reg-opt--fig:has(input:checked) :is(.reg-opt__name, :root .reg-opt__meta, :root .reg-opt__price, :root .reg-opt__price small) { color: var(--bg); }
+:root .reg-opt--tile:has(input:checked) .reg-opt__body::before, :root .reg-opt--fig:has(input:checked) .reg-opt__body::before { box-shadow: inset 0 0 0 7px var(--bg); }
+:root .reg-opt--tile .reg-opt__body > .icon { stroke-width: 1.25; }
+@media (min-width: 640px) { :root .reg-opt--tile .reg-opt__name { font: 400 1.5rem/1.15 var(--font-display); } }
+:root .reg-opt--fig .reg-opt__name { font: 400 1.75rem/1.1 var(--font-display); font-variant-numeric: tabular-nums lining-nums; }
+:root .reg-opt__price { font: 400 2rem/1 var(--font-serif); font-variant-numeric: tabular-nums lining-nums; }
+:root .reg-final__bar { height: 2px; border-radius: 0; }
+:root .reg-final__left { font: italic 400 var(--step-3)/1.3 var(--font-serif); }
+:root .reg-sum { border-top-color: var(--rule-strong); }
+:root .reg-sum__v { font: 400 1.0625rem/1.35 var(--font-serif); }
+:root .reg-final__fields { border: 1px solid var(--rule-strong); border-top-color: var(--fg); }
+:root .reg-final__or { font-size: 1rem; }
+:root .reg-way { border-color: var(--rule); border-top-color: var(--rule-strong); background: var(--surface); }
+:root .reg-way__mark { border-color: var(--rule-strong); }
+:root .reg-way__title { font: 400 1.5rem/1.2 var(--font-display); }
+:root .reg-way__text { font-size: 1rem; }
+:root .reg-way__path summary { font-weight: 650; text-decoration-color: var(--rule-strong); }
+:root .reg-path { border-left-color: var(--rule-strong); }
+:root .reg-need--gate { border: 1px solid var(--rule); border-top: 1px solid var(--fg); }
+:root .reg-need p:not(.reg-need__title) { font-size: 1rem; }
+:root .reg-done__sum { border-top-color: var(--rule-strong); }
+:root .reg-done__sum dd { font: 400 1.0625rem/1.4 var(--font-serif); }
+:root .reg-done__demo { font: italic 400 var(--step-3)/1.4 var(--font-serif); }
+/* The progress court on the lawn (1690-1700): white lines and net, the red ball serving */
+:root .pc__surface { fill: var(--lawn-court); }
+:root .pc__svg { background: var(--lawn); }
+:root .pc__lines { stroke: var(--lawn-line); }
+:root .pc__net { stroke: var(--lawn-line); stroke-width: 2; }
+:root .pc__post { fill: var(--lawn-line); }
+:root .pc__box { fill: var(--lawn-line); }
+:root .pc[data-at="3"] .pc__box { opacity: 0.16; }
+:root .pc__track { stroke: var(--lawn-line); opacity: 0.7; }
+:root .pc__after { stroke: var(--lawn-line); }
+:root .pc[data-at="3"] .pc__after { opacity: 0.7; }
+:root .pc__shadow ellipse { fill: var(--ball-shade); opacity: 1; }
+:root .pc__ball circle { fill: var(--red); }
+:root .pc__tag { fill: var(--lawn-line); font-weight: 650; }
+:root .pc__cap { color: var(--fg-muted); }
+@media (min-width: 1000px) {
+  :root .pc__key { border-top-color: var(--rule-strong); }
+  :root .pc__key-q { font: 400 1.0625rem/1.25 var(--font-display); }
+  :root .pc__key-t { font-family: var(--font-serif); color: var(--fg-muted); }
+}
+
+/* =====================================================================================
+   DI (25 Oct 2026, the orchestrator): blocks the Clubhouse templates write
+   (site/directions/clubhouse/templates.py), laid out as the specimen does (tptc.css line numbers).
+   Builders refine type and colour; the structure is the template's.
+   ===================================================================================== */
+/* The provenance line (319-327, 727-732): the date on the club's letterhead, a hairline either side */
+.prov { display: flex; align-items: center; gap: var(--sp-4); margin: 0; }
+.prov__rule { flex: 1 1 auto; height: 1px; min-width: 48px; background: var(--rule-strong); transform-origin: 0 50%; }
+.prov__date { font: 650 var(--step-5)/1.25 var(--font-sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg); white-space: nowrap; }
+.prov--centre { justify-content: center; width: 100%; }
+.prov--centre .prov__rule { flex: 1 1 0; max-width: 12rem; }
+.prov--centre .prov__rule--r { transform-origin: 100% 50%; }
+.prov--centre .prov__date { font-weight: 600; color: var(--fg-muted); }
+.prov__yr { font: 400 1.3125rem/1 var(--font-display); letter-spacing: 0.02em; color: var(--fg); vertical-align: -0.06em; margin-inline: 0.12em; }
+@media (max-width: 719px) {
+  .prov--centre { gap: 10px; }
+  .prov--centre .prov__rule { min-width: 16px; }
+  /* a long line (the High Performance page's) wraps inside its rules on a phone instead of widening the page */
+  .prov--centre .prov__date { font-size: 0.6875rem; letter-spacing: 0.14em; white-space: normal; text-align: center; text-wrap: balance; }
+  .prov--centre .prov__yr { font-size: 1rem; }
+}
+
+/* The wall (718-802, 1752-1787): Home and High Performance heroes, centred and symmetrical. The
+   provenance line; the club's two sentences either side of one framed print, each over its own way
+   in; the lede centred under the print. The print shows its photograph whole at the photograph's
+   own ratio, sized by the screen so it ends above the bottom edge. */
+.br-d { display: none; }
+.hero.hero--wall { padding-block: clamp(12px, 2.4svh, 32px) clamp(20px, 3.4svh, 44px); }
+.hero__wall { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+.hero--wall .hero__title { margin: 0; padding: 0; max-width: none; font-size: clamp(1.5rem, 6.9vw, 3.25rem); line-height: 1.08; letter-spacing: -0.008em; }
+.hero--wall .hero__title .line { display: block; }
+.hero--wall .hero__frame { width: 100%; }
+.hero--wall .hero__frame .frame { margin: 0; }
+.hero--wall .hero__lede { margin: 0; max-width: 48rem; font-size: var(--step-3); line-height: 1.5; color: var(--fg-muted); text-wrap: balance; }
+.hero--wall .actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); width: 100%; margin: 0; }
+.hero--wall .actions .btn { width: 100%; }
+.hero__index, .hero--wall .hero__steps { display: none; }
+.hero--wall .hero__court { display: none; }
+/* phones: the provenance line, the two sentences, the whole print, both ways in, the programs */
+@media (max-width: 719px) {
+  .hero.hero--wall { padding-top: 10px; }
+  .hero__wall { row-gap: 12px; }
+  .hero--wall .hero__lede { display: none; font-size: 1.0625rem; line-height: 1.4; }
+  .hero--wall .actions .btn { padding-inline: 10px; letter-spacing: 0.1em; }
+  .hero__index { display: block; width: 100%; text-align: left; }
+  .hero__index ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+  .hero__index li { border-bottom: 1px solid var(--rule); }
+  .hero__index li:nth-child(even) { border-left: 1px solid var(--rule); }
+  .hero__index a { display: grid; gap: 2px; align-content: center; min-height: 50px; padding: 6px 0; color: inherit; text-decoration: none; }
+  .hero__index li:nth-child(even) a { padding-left: 12px; }
+  .hero__index-n { font: 400 1.125rem/1.15 var(--font-display); color: var(--fg); white-space: nowrap; }
+  .hero__index-m { font: 400 0.75rem/1.3 var(--font-sans); color: var(--fg-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hero--wall .hero__court { display: block; justify-self: start; margin: 0; }
+}
+@media (max-width: 719px) and (min-height: 760px) {
+  .hero__wall { row-gap: 16px; }
+  .hero--wall .hero__lede { display: block; }
+}
+/* tablets: still centred, the sentences above the print */
+@media (min-width: 720px) and (max-width: 999px) {
+  .hero.hero--wall { min-height: calc(100svh - var(--header-h)); display: grid; align-content: center; }
+  .hero__wall { row-gap: clamp(14px, 2.2svh, 24px); }
+  .hero--wall .hero__title { font-size: clamp(2.25rem, 5.4vw, 3.25rem); }
+  .hero--wall .actions { width: auto; grid-template-columns: auto auto; }
+  .hero--wall .actions .btn { width: auto; }
+}
+/* desktops: the wall. Sentence, print, sentence; the H1 keeps its own box and lays its two lines on the
+   wall's columns through subgrid (b15) */
+@media (min-width: 1000px) {
+  .br-d { display: inline; }
+  .hero.hero--wall { min-height: calc(100svh - var(--header-h)); display: grid; align-content: center; }
+  .hero__wall { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); grid-template-rows: auto auto auto auto; column-gap: clamp(24px, 3.2vw, 56px); row-gap: 0; }
+  .hero--wall .prov--centre { grid-column: 1 / -1; grid-row: 1; margin-bottom: clamp(16px, 3svh, 36px); }
+  .hero--wall .prov--centre .prov__rule { max-width: 18rem; }
+  .hero--wall .actions { display: contents; }
+  .hero--wall .hero__title { display: grid; grid-column: 1 / -1; grid-row: 2; grid-template-columns: subgrid; align-items: end; margin: 0; }
+  .hero--wall .hero__title .line { font-size: clamp(2.5rem, 3.7vw, 3.75rem); line-height: 1.04; letter-spacing: -0.012em; }
+  .hero--wall .line--a { grid-column: 1; grid-row: 2; align-self: end; }
+  .hero--wall .line--b { grid-column: 3; grid-row: 2; align-self: end; }
+  .hero--wall .actions .btn { width: auto; align-self: start; justify-self: center; margin-top: clamp(18px, 2.6svh, 28px); }
+  .hero--wall .hero__act--a { grid-column: 1; grid-row: 3; }
+  .hero--wall .hero__act--b { grid-column: 3; grid-row: 3; }
+  .hero--wall .hero__frame { grid-column: 2; grid-row: 2 / span 2; width: min(47vw, calc((100svh - var(--header-h) - 290px) * 1.5 + 38px), 800px); min-width: 380px; }
+  .hero--wall .hero__lede { grid-column: 1 / -1; grid-row: 4; margin-top: clamp(14px, 2.6svh, 28px); }
+}
+
+/* =====================================================================================
+   W2b (25 Oct 2026): the inner wall (templates.py inner_wall). Every photo hero is the clubhouse
+   wall, as Home and High Performance are: the crumbs and the provenance line centred over the H1's
+   two lines, which stand either side of one print shown whole with its plate, each action under its
+   line; the lede, the status and the key points centred beneath (1752-1787 laid out for one page).
+   ===================================================================================== */
+.hero.hero--wall-inner .hero__frame .frame { --ar: 16 / 9 !important; }
+.hero--wall-inner .hero__frame .frame__box { aspect-ratio: var(--ar) !important; }
+.hero--wall-inner .crumbs { grid-column: 1 / -1; margin: 0; padding: 6px 0 0; }
+.hero--wall-inner .crumbs ol { justify-content: center; }
+.hero--wall-inner .hero__frame { width: min(100%, 34rem); }
+.hero--wall-inner .status-line { grid-column: 1 / -1; justify-content: center; margin: 0; padding: 0; font-size: var(--step-5); }
+.hero--wall-inner .hero__points {
+  display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); grid-column: 1 / -1;
+  width: 100%; max-width: 48rem; margin: 0; padding: 0; list-style: none; text-align: left; border-top: 1px solid var(--rule-strong);
+}
+.hero--wall-inner .hero__points li { display: flex; min-width: 0; border-bottom: 1px solid var(--rule); }
+.hero--wall-inner .hero__points li + li { padding-left: 12px; border-left: 1px solid var(--rule); }
+.hero--wall-inner .hero__points li > a, .hero--wall-inner .hero__points li > .hero__point-text { flex: 1 1 auto; min-width: 0; min-height: 52px; padding: 8px 8px 8px 0; }
+.hero--wall-inner .hero__points li > a { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; color: var(--fg); text-decoration: none; }
+.hero--wall-inner .hero__point-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.hero--wall-inner .hero__point-label { font: 650 0.6875rem/1.2 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-subtle); }
+.hero--wall-inner .hero__point-value { font: 400 1.0625rem/1.2 var(--font-display); color: var(--fg); text-wrap: balance; }
+.hero--wall-inner .hero__points .icon { width: 14px; height: 14px; flex: none; margin-top: 3px; }
+@media (max-width: 719px) {
+  .hero.hero--wall-inner { padding-top: 0; }
+  .hero--wall-inner .hero__wall { row-gap: 10px; }
+  .hero--wall-inner .hero__points li > a, .hero--wall-inner .hero__points li > .hero__point-text { min-height: 48px; padding-block: 6px; }
+  .hero--wall-inner .hero__point-value { font-size: 0.9375rem; }
+}
+@media (min-width: 720px) and (max-width: 999px) {
+  .hero--wall-inner .hero__frame { width: min(80%, calc((100svh - var(--header-h) - 520px) * 1.78 + 30px), 40rem); min-width: 300px; }
+}
+@media (min-width: 1000px) {
+  .hero--wall-inner .hero__wall { grid-template-rows: repeat(4, auto); row-gap: 0; }
+  .hero--wall-inner .crumbs { grid-row: 1; margin-bottom: clamp(10px, 2svh, 24px); padding-top: 0; }
+  .hero--wall-inner .prov--centre { grid-row: 2; margin-bottom: clamp(12px, 2.4svh, 28px); }
+  .hero--wall-inner .hero__title { grid-row: 3; font-size: clamp(2.75rem, 4.1vw, 4.25rem); }
+  .hero--wall-inner .hero__title .line { font-size: clamp(2.5rem, 3.4vw, 3.75rem); }
+  .hero--wall-inner .hero__act--a, .hero--wall-inner .hero__act--b { grid-row: 4; padding-inline: 22px; }
+  .hero--wall-inner .hero__frame { grid-row: 3 / span 2; width: min(40vw, calc((100svh - var(--header-h) - 380px) * 1.78 + 38px), 46rem); min-width: 340px; }
+  .hero--wall-inner .hero__lede { grid-row: auto; margin-top: clamp(14px, 2.4svh, 26px); }
+  .hero--wall-inner .status-line { margin-top: clamp(10px, 1.6svh, 18px); }
+  .hero--wall-inner .hero__points { justify-self: center; margin-top: clamp(14px, 2.4svh, 26px); }
+}
+/* 1000 to 1199 (R2 defect 2): a line's column is narrower than a long action (the camps' "Ask to hear when
+   dates open" ran from -18 to 1009 at 1000), so the two ways in stand together under the print, centred,
+   as on a tablet; from 1200 each stands under its line again */
+@media (min-width: 1000px) and (max-width: 1199px) {
+  .hero--wall-inner .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-3); grid-column: 1 / -1; grid-row: 5; width: 100%; margin-top: clamp(18px, 2.6svh, 28px); }
+  .hero--wall-inner .actions .btn { margin-top: 0; }
+}
+
+/* The pinned notice (W2b): the club's sheets (Summer's court sheet, the camps' Order of Play, Holiday's
+   scoreboard of sets) hang on the clubhouse wall as its prints do (1652-1660): the dark frame, the white
+   mat, the plate's fixed day inks inside (the mat stays light at night). */
+.sheet-wrap, .sheet-list, figure.oop, .next .rates-wrap {
+  --fg: var(--plate-fg); --fg-muted: var(--plate-fg-2); --fg-subtle: var(--plate-fg-2); --bg: var(--mat);
+  --rule: var(--plate-line); --rule-strong: var(--plate-line-strong); --focus: var(--plate-fg); --focus-ring: var(--focus-w) solid var(--focus);
+  padding: clamp(14px, 2vw, 26px); background: var(--mat); color: var(--plate-fg); border: 5px solid var(--wood); box-shadow: var(--print-shadow);
+}
+@media (max-width: 719px) { .sheet-wrap, .sheet-list, figure.oop, .next .rates-wrap { border-width: 4px; padding: 12px; } }
+figure.oop .oop__cap .small, figure.oop .oop__key { color: var(--plate-fg-2); }
+figure.oop .chip { color: var(--plate-fg); border-color: var(--plate-line-strong); }

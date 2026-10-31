@@ -312,6 +312,8 @@ label.field__label { min-height: 24px; }
   /* the page's own crop; a page may set a phone crop on the hero: posphone="38% 30%" */
   .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__img { object-position: var(--pos-phone, var(--pos, 50% 50%)); }
   .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { font-size: 9px; padding: 6px 8px; gap: 6px; letter-spacing: 0.1em; }
+  /* RD4 (DI, 25 Oct 2026): the tag never runs wider than its photograph column (see the narrowest phones below) */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { max-width: 100%; }
   .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__desc { display: none; }
   /* an empty slot in the narrow column: the plate keeps its court, its tag and its slot id, all inside the frame */
   .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__label { left: 8px; right: 6px; bottom: 10px; padding: 0; gap: 4px; }
@@ -362,6 +364,12 @@ label.field__label { min-height: 24px; }
   .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { letter-spacing: 0.04em; padding: 6px 5px; gap: 4px; white-space: nowrap; }
   /* batch 5: the mark stays, one size down, so the tag is the same tag on every screen */
   .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag-mark { width: 8px; height: 8px; }
+}
+/* RD4 (DI, 25 Oct 2026): under 375px the photograph column (107px at 320, 121px at 360) is narrower than the
+   one-line tag (126px), whose words ran past the screen's edge (High Performance 339 and 365 wide, ten section
+   pages 324 at 320). There the tag takes a second line inside its column; from 375px it stays on one line. */
+@media (max-width: 374px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { white-space: normal; }
 }
 
 /* =====================================================================================
@@ -829,4 +837,396 @@ html.motion .oop__compact:not(.is-drawn) .oop__days li::after { transform: scale
 @media (min-width: 1280px) and (max-width: 1399px) {
   .draw__sec { grid-template-columns: minmax(0, 1fr) 8.75rem; }
   .draw__name { font-size: 1.375rem; }
+}
+
+/* =====================================================================================
+   N1a (24 Oct 2026): club news, the New count, the Home coaches band, staff-changed media.
+   Whites only; the Clubhouse and Dome layers restyle these blocks (DIRECTIONS.md). Story: a
+   news card is a line in the club's order of play: the date and the topic first, as a draw
+   sheet lists the day and the event, then the match itself.
+   ===================================================================================== */
+
+/* ---------- The header row makes room for News (measured: qa/n1a/header_room.py) ---------- */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .nav__link { padding: 0 6px; letter-spacing: 0.05em; }
+  .nav__link::after { left: 6px; right: 6px; }
+}
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .nav__link { padding: 0 9px; letter-spacing: 0.1em; }
+  .nav__link::after { left: 9px; right: 9px; }
+}
+/* The count beside News: a scoreboard numeral in a small plate. It takes no width in the row:
+   it is set above the word's last letter, clear of the capitals of News and of the next link, so
+   the header never shifts when it appears. */
+.ncount { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--fg); color: var(--bg); font: 700 11px/1 var(--font-sans); letter-spacing: 0; font-variant-numeric: lining-nums tabular-nums; }
+.ncount[hidden] { display: none; }
+.nav__link .ncount { position: absolute; top: -2px; right: -6px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; font-size: 10px; }
+.mnav__link .ncount { margin-left: 10px; vertical-align: 2px; }
+
+/* =====================================================================================
+   W2a (25 Oct 2026): the news, set as the club's notice board by an editorial studio.
+   Whites only; the Clubhouse and Dome layers restyle these blocks (DIRECTIONS.md). Stories, one
+   per entity:
+   - The date is set like a score (.ndate): the month stands over the day the way a set label
+     stands over its games, the year small under it, and a hairline closes the cell, as a
+     scoreboard rules its columns. Every story on every news surface reads the same way: the
+     score cell, then the words.
+   - New is the ball (.ncard__flag--new): the 8px ball dot on an ink plate, the site's live chip.
+     It never bounces here: several can be in view, and only one ball may bounce in a view.
+   - Closed is the ball out of play: the same dot drawn as an empty ring, on a muted outline mark;
+     a closed story's day steps back to muted, as a finished match greys on the board.
+   - The net is the rule (.ncard--lead): the red net with its two posts stands between the lead
+     story's photograph and its words, the seam of the heroes and of the Home split; strung post to
+     post as the photograph is unveiled. One net per news surface.
+   Tokens only. Raw sizes are type and layout measures, as in the rest of this file.
+   ===================================================================================== */
+
+/* ---------- The date, set like a score ---------- */
+.ndate { --nd: 2.25rem; display: grid; justify-items: start; align-content: start; row-gap: 3px; color: var(--fg); font-variant-numeric: lining-nums tabular-nums; }
+.ndate__m { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.ndate__d { font: 300 var(--nd)/0.92 var(--font-serif); letter-spacing: -0.01em; font-variant-numeric: lining-nums tabular-nums; }
+.ndate__y { font: 500 var(--step-6)/1.2 var(--font-sans); letter-spacing: 0.06em; color: var(--fg-muted); }
+
+/* ---------- A story: photograph, score cell, words ---------- */
+.ncards { display: grid; gap: var(--sp-5) var(--sp-4); }
+.ncard { --ndw: 3.25rem; position: relative; display: grid; gap: 18px; align-content: start; }
+.ncard[hidden] { display: none; }
+.ncard__body { display: grid; grid-template-columns: minmax(var(--ndw), max-content) minmax(0, 1fr); column-gap: 18px; align-items: stretch; }
+.ncard__date { padding-right: 14px; border-right: 1px solid var(--rule); }
+.ncard__text { display: grid; gap: 10px; align-content: start; justify-items: start; min-width: 0; }
+.ncard__kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; min-height: 22px; }
+.ncard__topic { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.ncard__title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.25rem, 1.12rem + 0.45vw, 1.5rem); line-height: 1.2; letter-spacing: -0.003em; text-wrap: pretty; }
+.ncard__link { color: inherit; text-decoration: none; }
+.ncard__link::after { content: ""; position: absolute; inset: 0; z-index: var(--z-base); }
+.ncard__link:focus-visible { outline: none; }
+.ncard:has(.ncard__link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-off); }
+.ncard__sum { display: none; }
+.ncard .frame__cap { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .ncard:hover .ncard__link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; text-decoration-color: var(--rule-strong); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .ncard .frame__img { transition: opacity 400ms var(--ease-out), transform 900ms var(--ease-out); }
+  .ncard:hover .frame__img { transform: scale(1.03); }
+}
+
+/* The marks, on the topic's line: New (the ball on an ink plate), Pinned (ink), Closed (an empty ring) */
+.ncard__flag { display: inline-flex; align-items: center; gap: 7px; min-height: 22px; padding: 0 8px; border: 1px solid var(--rule); border-radius: var(--radius); font: 600 11px/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); white-space: nowrap; }
+.ncard__flag[hidden] { display: none; }
+.ncard__flag--new { background: var(--chip-live-bg); border-color: var(--chip-live-bg); color: var(--chip-live-fg); padding-left: 7px; }
+.ncard__flag--new::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--live); }
+.theme-night .ncard__flag--new { background: var(--night-raised); border-color: var(--line-chalk-strong); color: var(--chalk); }
+.ncard__flag--pin { border-color: var(--fg); color: var(--fg); }
+.ncard__flag--closed::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; border: 1px solid currentColor; }
+.ncard:has(.ncard__flag--closed:not([hidden])) .ncard__date .ndate__d,
+.nstrip__item:has(.ncard__flag--closed:not([hidden])) .ndate__d { color: var(--fg-muted); }
+
+/* ---------- The lead story: photograph | the net | its words ---------- */
+.ncard--lead { --ndw: 4rem; grid-column: 1 / -1; gap: 26px; }
+.ncard--lead .ndate { --nd: 3rem; }
+.ncard--lead .ncard__title { font-size: clamp(1.5rem, 1.12rem + 1.5vw, 2.5rem); line-height: 1.1; letter-spacing: -0.008em; text-wrap: balance; }
+.ncard--lead .ncard__text { gap: 14px; }
+.ncard--lead .ncard__sum { display: block; max-width: 34rem; font: 400 var(--step-3)/1.5 var(--font-serif); color: var(--fg-muted); text-wrap: pretty; }
+.ncard--lead > .frame .frame__tag { right: auto; left: 0; }
+/* The net, along the photograph's foot on phones and tablets */
+.ncard--lead > .frame::after {
+  content: ""; position: absolute; z-index: var(--z-mark); left: -6px; right: -6px; bottom: -4px; height: 6px; pointer-events: none;
+  background:
+    linear-gradient(var(--red), var(--red)) 0 50% / 6px 6px no-repeat,
+    linear-gradient(var(--red), var(--red)) 100% 50% / 6px 6px no-repeat,
+    linear-gradient(var(--red), var(--red)) 50% 50% / 100% 2px no-repeat;
+  transform-origin: 0 50%;
+}
+html.motion .ncard--lead > .frame::after { transition: transform 1100ms var(--ease-out) 120ms; }
+html.motion .ncard--lead > .frame[data-unveil]:not(.is-drawn)::after { transform: scaleX(0); }
+@media (min-width: 600px) and (max-width: 999px) {
+  .ncard--lead > .frame { --ar: 16 / 9 !important; }
+}
+@media (min-width: 1000px) {
+  .ncard--lead { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(44px, 5vw, 88px); align-items: start; }
+  .ncard--lead .ncard__body { padding-top: 2px; }
+  .ncard--lead { --ndw: 4.5rem; }
+  .ncard--lead .ndate { --nd: 3.5rem; }
+  /* From 1000px the net stands upright at the photograph's edge, a post beyond each end */
+  .ncard--lead > .frame::after {
+    left: auto; right: -4px; top: -6px; bottom: -6px; width: 6px; height: auto;
+    background:
+      linear-gradient(var(--red), var(--red)) 50% 0 / 6px 6px no-repeat,
+      linear-gradient(var(--red), var(--red)) 50% 100% / 6px 6px no-repeat,
+      linear-gradient(var(--red), var(--red)) 50% 50% / 2px 100% no-repeat;
+    transform-origin: 50% 0;
+  }
+  html.motion .ncard--lead > .frame[data-unveil]:not(.is-drawn)::after { transform: scaleY(0); }
+}
+
+/* ---------- Results rows: the words, then a small photograph ---------- */
+.ncards--band .ncard:not(.ncard--lead), .ncards--list .ncard:not(.ncard--lead) {
+  grid-template-columns: minmax(0, 1fr) 64px; grid-template-areas: "body photo"; column-gap: 14px; align-items: start;
+  padding-block: 20px; border-top: 1px solid var(--rule);
+}
+.ncards--band .ncard:not(.ncard--lead) > .frame, .ncards--list .ncard:not(.ncard--lead) > .frame { grid-area: photo; }
+.ncards--band .ncard:not(.ncard--lead) > .ncard__body, .ncards--list .ncard:not(.ncard--lead) > .ncard__body { grid-area: body; }
+@media (max-width: 599px) {
+  .ncard { --ndw: 2.75rem; }
+  .ncard .ndate { --nd: 1.875rem; }
+  .ncard .ncard__body { column-gap: 12px; }
+  .ncard .ncard__date { padding-right: 10px; }
+  .ncard--lead .ncard__sum { display: none; }
+  /* R2 (25 Oct): 88px, as in Clubhouse, so the Placeholder tag (which stays visible) fits inside the photo */
+  .ncards--band .ncard:not(.ncard--lead), .ncards--list .ncard:not(.ncard--lead), .ncards--related .ncard { grid-template-columns: minmax(0, 1fr) 88px; column-gap: 14px; }
+  .ncards--band .ncard:not(.ncard--lead) > .frame, .ncards--list .ncard:not(.ncard--lead) > .frame { --ar: 1 / 1 !important; }
+  .ncard:not(.ncard--lead) .frame__tag { top: auto; bottom: 0; left: 0; right: 0; justify-content: center; flex-wrap: wrap; text-align: center; line-height: 1.2; padding: 4px 2px; font-size: 9px; letter-spacing: 0.04em; gap: 2px 4px; white-space: normal; }
+  .ncard:not(.ncard--lead) .ph { display: none; }
+  .ncard:not(.ncard--lead) .frame__tag .frame__tag-mark { display: none; }  /* R2: the words stay; the 10px court mark does not fit 88px */
+  .ncard:not(.ncard--lead) .ncard__title { font-size: 1.1875rem; }
+}
+@media (min-width: 600px) {
+  .ncards--band .ncard:not(.ncard--lead), .ncards--list .ncard:not(.ncard--lead) { grid-template-columns: minmax(0, 1fr) 12rem; column-gap: var(--sp-4); padding-block: 24px; }
+  .ncard:not(.ncard--lead) .frame__tag { font-size: 9px; padding: 5px 7px; gap: 5px; letter-spacing: 0.08em; }
+}
+
+/* ---------- Home: the band ---------- */
+.nband__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--sp-3) var(--sp-5); margin-bottom: clamp(28px, 3.4vw, 52px); }
+.ncards--band { gap: 0; }
+.ncards--band .ncard--lead { padding-bottom: clamp(32px, 3.4vw, 52px); }
+@media (min-width: 1000px) {
+  .ncards--band { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(44px, 5vw, 88px); }
+  .ncards--band .ncard:not(.ncard--lead) { border-top-color: var(--rule-strong); padding-block: 28px 0; }
+}
+
+/* ---------- The News page ---------- */
+.nlist__bar { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px var(--sp-5); margin-bottom: clamp(32px, 3.4vw, 52px); box-shadow: inset 0 -1px 0 var(--rule); }
+/* The topics: a quiet row of names on a hairline, the chosen one underlined like a baseline (the
+   site's option switcher), each with its count in small lining figures. */
+.nlist__filters { display: flex; flex-wrap: wrap; column-gap: clamp(18px, 2.4vw, 32px); row-gap: 0; }
+.nlist__filters[hidden] { display: none; }
+.nlist__filters button { position: relative; display: inline-flex; align-items: baseline; gap: 6px; min-height: var(--target); padding: 12px 0 0; border: 0; background: none; color: var(--fg-muted); font: 500 15px/1 var(--font-sans); cursor: pointer; transition: color var(--dur-ui) var(--ease-ui); }
+.nlist__filters button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--fg); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-ui) var(--ease-ui); }
+.nlist__filters button[aria-pressed="true"] { color: var(--fg); }
+.nlist__filters button[aria-pressed="true"]::after { transform: scaleX(1); }
+.nlist__filters button:focus-visible { outline-offset: 2px; }
+.nlist__filters .num { font: 500 var(--step-6)/1 var(--font-sans); letter-spacing: 0.04em; font-variant-numeric: lining-nums tabular-nums; }
+@media (hover: hover) and (pointer: fine) { .nlist__filters button:hover { color: var(--fg); } }
+.nlist__status { min-height: 1.5em; padding-bottom: 12px; font-variant-numeric: lining-nums; }
+.ncards--list { gap: 0; }
+.ncards--list .ncard--lead { padding-bottom: clamp(32px, 3.4vw, 52px); }
+.ncards--list .ncard:not(.ncard--lead):nth-child(1 of :not([hidden])) { border-top: 0; padding-top: 0; }
+.ncards--list > .ncard:nth-last-child(1 of :not([hidden])) { border-bottom: 1px solid var(--rule); }
+@media (min-width: 1000px) {
+  .ncards--list .ncard:not(.ncard--lead) { --ndw: 4.5rem; grid-template-columns: minmax(0, 1fr) 15rem; column-gap: var(--sp-6); padding-block: 32px; }
+  .ncards--list .ncard:not(.ncard--lead) .ndate { --nd: 2.75rem; }
+  .ncards--list .ncard:not(.ncard--lead) .ncard__body { column-gap: 24px; }
+  .ncards--list .ncard:not(.ncard--lead) .ncard__date { padding-right: 20px; }
+  .ncards--list .ncard:not(.ncard--lead) .ncard__title { font-size: clamp(1.5rem, 1.2rem + 0.6vw, 1.875rem); line-height: 1.16; max-width: 30ch; }
+}
+.ncards--list[tabindex]:focus { outline: none; }
+/* The pager: the pages as cells on a scoreboard, the one in play filled */
+.npager { margin-top: clamp(36px, 4vw, 56px); }
+.npager[hidden] { display: none; }
+.npager__list { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0; }
+.npager__list li + li .npager__btn { margin-left: -1px; }
+.npager__btn { display: inline-flex; align-items: center; justify-content: center; min-width: var(--target); min-height: var(--target); padding: 0 14px; border: 1px solid var(--rule-strong); border-radius: 0; background: var(--bg); color: var(--fg); font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; cursor: pointer; }
+.npager__num { font: 300 1.25rem/1 var(--font-serif); letter-spacing: 0; text-transform: none; font-variant-numeric: lining-nums tabular-nums; }
+.npager__btn[aria-current="page"] { position: relative; z-index: var(--z-base); background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.npager__btn:disabled { color: var(--fg-muted); border-color: var(--rule); cursor: default; }
+.npager__list li:first-child .npager__btn { border-radius: var(--radius) 0 0 var(--radius); }
+.npager__list li:last-child .npager__btn { border-radius: 0 var(--radius) var(--radius) 0; }
+.nlist .empty { margin-top: 0; }
+
+/* ---------- Related posts (after an article): three across from 1000px ---------- */
+.ncards--related { gap: 0; }
+.ncards--related .ncard { grid-template-columns: minmax(0, 1fr) 64px; grid-template-areas: "body photo"; column-gap: 14px; align-items: start; padding-block: 20px; border-top: 1px solid var(--rule); }
+.ncards--related .ncard > .frame { grid-area: photo; --ar: 1 / 1 !important; }
+.ncards--related .ncard > .ncard__body { grid-area: body; }
+.ncards--related .ncard__title { font-size: 1.1875rem; }
+@media (max-width: 599px) { .ncards--related .ncard { grid-template-columns: minmax(0, 1fr) 88px; } }  /* R2: as the rows above */
+@media (min-width: 600px) and (max-width: 999px) {
+  .ncards--related .ncard { grid-template-columns: minmax(0, 1fr) 12rem; column-gap: var(--sp-4); }
+  .ncards--related .ncard > .frame { --ar: 3 / 2 !important; }
+}
+@media (min-width: 1000px) {
+  .ncards--related { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(32px, 3.4vw, 56px); }
+  .ncards--related .ncard { grid-template-columns: minmax(0, 1fr); grid-template-areas: "photo" "body"; row-gap: 22px; padding-block: 0; border-top: 0; }
+  .ncards--related .ncard > .frame { --ar: 3 / 2 !important; }
+  .ncards--related .ncard__title { font-size: 1.375rem; }
+}
+
+/* ---------- The article: a club journal ---------- */
+.nart__head { padding-block: clamp(20px, 2vw, 32px) clamp(32px, 4vw, 60px); }
+.nart__headin { display: grid; gap: 18px; justify-items: start; align-items: start; }
+.nart__headin > .crumbs { margin-bottom: 4px; }
+.nart__kicker a { display: inline-flex; align-items: center; gap: 12px; min-height: 24px; font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); text-decoration: none; box-shadow: inset 0 -1px 0 var(--rule-strong); }
+.nart__title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.875rem, 1.3rem + 2.7vw, 4rem); line-height: 1.06; letter-spacing: -0.012em; max-width: 21ch; text-wrap: balance; }
+.nart__lede { max-width: 38rem; color: var(--fg-muted); }
+.nart__facts { display: grid; gap: 0; width: 100%; max-width: 40rem; margin-top: 10px; }
+/* The scorecard line: Posted, Updated, Written by, as an umpire's card heads its sheet */
+dl.nart__meta { display: grid; width: 100%; margin: 0; border-top: 1px solid var(--rule-strong); }
+.nart__cell { display: grid; grid-template-columns: 7rem minmax(0, 1fr); align-items: baseline; column-gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.nart__cell dt { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.nart__cell dd { margin: 0; font: 400 1.0625rem/1.4 var(--font-serif); color: var(--fg); font-variant-numeric: lining-nums; }
+p.nart__meta { font-size: var(--step-5); color: var(--fg-muted); }
+/* Closed: the ball out of play, an empty ring; one sentence; where to go next */
+.nclosed { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px 24px; align-items: center; width: 100%; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.nclosed[hidden] { display: none; }
+.nclosed__text { display: grid; gap: 4px; }
+.nclosed__mark { display: inline-flex; align-items: center; gap: 10px; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+.nclosed__mark::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; border: 1px solid currentColor; }
+.nclosed__when { font: 400 1.0625rem/1.45 var(--font-serif); color: var(--fg-muted); font-variant-numeric: lining-nums; }
+.nclosed__next { justify-self: start; }
+@media (min-width: 600px) { .nclosed { grid-template-columns: minmax(0, 1fr) auto; } .nclosed__next { justify-self: end; } }
+.nart__demo { margin-top: 4px; }
+@media (min-width: 1000px) {
+  .nart__headin { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); column-gap: clamp(48px, 6vw, 112px); }
+  .nart__headin > * { grid-column: 1; }
+  .nart__headin > .crumbs, .nart__headin > .nart__demo { grid-column: 1 / -1; }
+  .nart__headin > .nart__facts { grid-column: 2; grid-row: 2 / span 3; align-self: end; margin-top: 0; max-width: none; }
+  .nart__cell { grid-template-columns: 6.5rem minmax(0, 1fr); }
+  .nclosed { grid-template-columns: minmax(0, 1fr); }
+  .nclosed__next { justify-self: start; }
+}
+.nart__cover { margin-bottom: clamp(40px, 5vw, 88px); }
+.nart__grid { display: grid; gap: clamp(40px, 5vw, 72px); padding-bottom: var(--section); }
+.nart__main { display: grid; gap: 24px; align-content: start; max-width: var(--measure); min-width: 0; font-size: 1.125rem; line-height: 1.68; }
+.nart__main > p, .nart__list { max-width: var(--measure); text-wrap: pretty; }
+.nart__main > p:first-child { font-size: 1.25rem; line-height: 1.6; color: var(--fg); }
+.nart__h2 { margin-top: 22px; font-family: var(--font-serif); font-weight: 300; font-size: var(--step-2); line-height: 1.15; letter-spacing: -0.005em; text-wrap: balance; scroll-margin-top: calc(var(--header-h) + 16px); }
+.nart__list { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; }
+.nart__list li::marker { font-variant-numeric: lining-nums; color: var(--fg-muted); }
+/* Numbered steps: a step flow, each number in its own column, ruled like the rows of a draw */
+.nart__list--steps { list-style: none; padding: 0; gap: 0; counter-reset: nstep; border-top: 1px solid var(--rule-strong); }
+.nart__list--steps li { position: relative; counter-increment: nstep; min-height: 52px; padding: 16px 0 16px 3.5rem; border-bottom: 1px solid var(--rule); }
+.nart__list--steps li::before { content: counter(nstep); position: absolute; left: 0; top: 14px; font: 300 2rem/1 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; color: var(--fg); }
+/* Name and value lists (rates, times): ruled pairs, the figures set in the serif */
+.nart__list--pairs { list-style: none; padding: 0; gap: 0; border-top: 1px solid var(--rule-strong); }
+.nart__list--pairs li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 24px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.nart__k { font-weight: 500; }
+.nart__v { margin-left: auto; text-align: right; font-family: var(--font-serif); font-size: 1.1875rem; font-variant-numeric: lining-nums; }
+.nart__photo, .ngallery, .nvideo { margin-block: 14px; }
+.ngallery__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ngallery__grid li:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 700px) { .ngallery__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ngallery__grid li:first-child:nth-last-child(odd) { grid-column: auto; } }
+.ngallery__cap { margin-top: 12px; font-size: 13px; line-height: 1.5; color: var(--fg-muted); }
+.ngallery .frame__tag { font-size: 9px; padding: 5px 7px; gap: 5px; letter-spacing: 0.08em; }
+.nart__photo .frame__cap, .nvideo .frame__cap { display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.nvideo .frame__cap em { font-style: normal; font-weight: 600; color: var(--fg); }
+.nvideo__stage { position: relative; }
+.nvideo__play { position: absolute; z-index: var(--z-tag); left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 24px 0 16px; border: 0; border-radius: 28px; background: var(--fg); color: var(--bg); font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; cursor: pointer; transition: transform var(--dur-press) var(--ease-ui); }
+.nvideo__play:active { transform: translate(-50%, -50%) scale(0.98); }
+.nvideo__icon { width: 24px; height: 24px; fill: currentColor; stroke: none; }
+.nvideo__note { margin-top: 10px; font-size: var(--step-5); color: var(--fg-muted); }
+html.js .nvideo__note:not(.is-shown) { display: none; }
+.nvideo__video, .vslot__video { display: block; width: 100%; aspect-ratio: 16 / 9; background: var(--night-deep); }
+.vslot__video { aspect-ratio: 4 / 3; }
+/* A document: one ruled row, the name in the serif, its type and size, the new-tab mark */
+.nart__doc { display: grid; gap: 8px; justify-items: stretch; max-width: 34rem; }
+.nart__doc .doclink { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 14px 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius); color: var(--fg); }
+.nart__doc .doclink .link__text { font: 400 1.1875rem/1.3 var(--font-serif); }
+.nart__doc .doclink .ext-mark { margin-left: auto; }
+.nart__docnote { max-width: 46ch; }
+.nart__btn { margin-top: 8px; }
+/* A quote is a line called from the umpire's chair: set off by a sideline */
+.nquote { margin-block: 14px; padding: 4px 0 4px clamp(20px, 2.6vw, 32px); border-left: 2px solid var(--fg); }
+.nquote blockquote { margin: 0; }
+.nquote p { font-family: var(--font-serif); font-style: italic; font-weight: 300; font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2.125rem); line-height: 1.3; color: var(--fg); text-wrap: pretty; }
+.nquote figcaption { display: flex; align-items: center; gap: 12px; margin-top: 16px; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.nquote figcaption::before { content: ""; flex: none; width: 24px; height: 1px; background: currentColor; }
+/* The margin: what the post is about, its tags */
+.nart__aside { display: grid; gap: 32px; align-content: start; }
+.nart__label { margin-bottom: 12px; font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.nabout { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: var(--target); padding: 16px 0; border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); color: var(--fg); text-decoration: none; }
+.nabout__name { font-family: var(--font-serif); font-weight: 300; font-size: 1.5rem; line-height: 1.15; }
+.nabout .icon { transition: transform var(--dur-ui) var(--ease-ui); }
+@media (hover: hover) and (pointer: fine) { .nabout:hover .icon { transform: translateX(4px); } .nabout:hover .nabout__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; } }
+.ntags { display: flex; flex-wrap: wrap; gap: 8px; }
+.ntags li { display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border: 1px solid var(--rule); border-radius: var(--radius); font: 500 var(--step-5)/1 var(--font-sans); }
+.nauthor { font-size: 16px; line-height: 1.5; }
+@media (min-width: 1000px) {
+  .nart__grid { grid-template-columns: minmax(0, 1fr) 17rem; column-gap: clamp(48px, 6vw, 112px); }
+  .nart__aside { position: sticky; top: calc(var(--header-h) + 24px); padding-top: 6px; }
+  .nart__main { max-width: 44rem; }
+}
+
+/* ---------- Home: Meet the Coaches ---------- */
+/* After the news band (both on paper) one hairline joins them, instead of two full section gaps */
+.nband:has(+ .cband) { padding-bottom: clamp(56px, 2rem + 5vw, 112px); }
+.nband + .cband { padding-top: 0; }
+.nband + .cband > .cband__grid { padding-top: clamp(48px, 1.5rem + 5vw, 104px); background: linear-gradient(var(--rule), var(--rule)) 50% 0 / calc(100% - 2 * var(--gutter)) 1px no-repeat; }
+.cband__grid { display: grid; gap: clamp(28px, 3vw, 48px); align-items: start; }
+.cband__head { display: grid; gap: 18px; justify-items: start; align-content: start; }
+.cband__list { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 46%); gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; padding-bottom: 6px; }
+.cband__list[style*="--n:1"], .cband__list[style*="--n: 1"] { grid-auto-columns: minmax(0, 18rem); overflow: visible; }
+.cband__link { display: grid; gap: 0; color: var(--fg); text-decoration: none; }
+.cband__link .frame { margin-bottom: 0; }
+/* The nameplate under the portrait: role over name, ruled like an entry on a draw sheet */
+.cband__plate { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 12px; row-gap: 6px; padding-top: 14px; margin-top: 14px; border-top: 1px solid var(--rule-strong); }
+.cband__role { grid-column: 1; font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.cband__name { grid-column: 1; font-family: var(--font-serif); font-weight: 300; font-size: 1.625rem; line-height: 1.1; }
+.cband__arrow { grid-column: 2; grid-row: 1 / span 2; align-self: end; width: 20px; height: 20px; margin-bottom: 4px; transition: transform var(--dur-ui) var(--ease-ui); }
+.cband__link:focus-visible { outline-offset: 6px; }
+@media (hover: hover) and (pointer: fine) {
+  .cband__link:hover .cband__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+  .cband__link:hover .cband__arrow { transform: translateX(4px); }
+}
+@media (min-width: 900px) {
+  .cband__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(48px, 6vw, 112px); }
+  .cband__list { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; padding-bottom: 0; }
+  .cband__list[style*="--n:1"], .cband__list[style*="--n: 1"] { grid-template-columns: minmax(0, 18rem); justify-content: end; }
+  .cband__list[style*="--n:2"], .cband__list[style*="--n: 2"] { grid-template-columns: repeat(2, minmax(0, 15rem)); justify-content: end; }
+  .cband__list[style*="--n:3"], .cband__list[style*="--n: 3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* One or two coaches: the heading sits on the nameplate's line, so words and portrait read as one */
+  .cband__grid:has(.cband__list[style*="--n:1"], .cband__list[style*="--n: 1"], .cband__list[style*="--n:2"], .cband__list[style*="--n: 2"]) { align-items: end; }
+}
+
+/* Phone reading floor for the news blocks */
+@media (max-width: 599px) {
+  .nart__main { font-size: 1.0625rem; }
+  .nart__main > p:first-child { font-size: 1.1875rem; }
+  .nclosed__when, .nart__cell dd { font-size: 1rem; }
+}
+
+/* ---------- The Home news strip, straight under the hero (25 Oct; W2a) ----------
+   Story: the results board at the gate. Each story is a date set like a score and its title, the
+   columns ruled like a scoreboard's. The label and All news make the line above the stories, and from
+   1440px the board's first column. One story under 768px, two to 1099px, three from 1100px. The whole
+   story is its link. */
+.nstrip { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--bg); }
+.nstrip[hidden] { display: none; }
+.nstrip__row { display: grid; grid-template-columns: minmax(0, 1fr); padding-block: 4px 14px; }
+.nstrip__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.nstrip__label { margin: 0; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+.nstrip__all { min-height: 40px; white-space: nowrap; }
+.nstrip__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.nstrip__item { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: start; min-width: 0; }
+.nstrip__item + .nstrip__item { display: none; }
+.nstrip__date { --nd: 1.625rem; min-width: 2.75rem; padding-right: 12px; border-right: 1px solid var(--rule); align-self: stretch; white-space: nowrap; }
+.nstrip__date .ndate__y { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.nstrip__text { min-width: 0; padding-top: 1px; font: 300 1rem/1.38 var(--font-serif); color: var(--fg); text-wrap: pretty;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+.nstrip__text .ncard__flag { min-height: 19px; padding: 0 6px; margin-right: 8px; font-size: 10px; vertical-align: 2px; gap: 6px; }
+.nstrip__text .ncard__flag--new { padding-left: 5px; }
+.nstrip__text .ncard__flag--new::before { width: 7px; height: 7px; }
+.nstrip__link { color: inherit; text-decoration: none; }
+.nstrip__link::after { content: ""; position: absolute; inset: -4px -6px; z-index: var(--z-base); }
+.nstrip__link:focus-visible { outline: none; }
+.nstrip__item:has(.nstrip__link:focus-visible) { outline: var(--focus-ring); outline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) {
+  .nstrip__item:hover .nstrip__link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; text-decoration-color: var(--rule-strong); }
+}
+@media (min-width: 600px) { .nstrip__text { font-size: 1.0625rem; } }
+@media (min-width: 768px) {
+  .nstrip__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-5); }
+  .nstrip__item + .nstrip__item { display: grid; }
+  .nstrip__item:nth-child(n + 3) { display: none; }
+}
+@media (min-width: 1100px) {
+  .nstrip__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .nstrip__item:nth-child(n + 3) { display: grid; }
+}
+/* From 1440px the label and All news stand in the board's first column, ruled off like the names column */
+@media (min-width: 1440px) {
+  .nstrip__row { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-5); align-items: center; padding-block: 16px; }
+  .nstrip__head { flex-direction: column; align-items: flex-start; justify-content: center; gap: 0; padding-right: var(--sp-5); border-right: 1px solid var(--rule-strong); align-self: stretch; }
+  .nstrip__all { min-height: 36px; }
+  .nstrip__text { -webkit-line-clamp: 2; line-clamp: 2; }
 }

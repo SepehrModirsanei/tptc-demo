@@ -1,0 +1,48 @@
+/* TPTC Direction B, "Dome": Private Lessons (W2c D3, 25 Oct 2026). Loaded after css/pages/private-lessons.css.
+   The Dome composition: the hero on Dome night (templates.py page_hero: the photograph whole, the key
+   points as the ruled foot line with the hour and the rate as figures); How it works as one ruled line
+   with a tick per step, read down like the specimen's join line on a phone (ledger.css 898-921); the
+   rates as the club's scoreboard on Dome night, each format a board entry whose price is the scoreboard
+   figure (1146-1150, 1257-1311); who it is for, the questions and the request on paper. Tokens only. */
+
+/* ---------- How it works: one ruled line, a tick per step ---------- */
+.pl-how .steps { gap: 32px; border-top: 0; border-left: 1px solid var(--fg); padding-left: 24px; }
+.pl-how .steps li { position: relative; grid-template-columns: 56px minmax(0, 1fr); gap: 0 16px; padding: 0; border: 0; }
+.pl-how .steps li:last-child { border-bottom: 0; }
+.pl-how .steps li::before { content: ""; position: absolute; left: -31px; top: 0.7em; width: 13px; height: 1px; background: var(--fg); }
+.pl-how .steps h3 { font-family: var(--font-serif); font-weight: var(--w-head); font-size: var(--t-verb); line-height: 1.05; letter-spacing: -0.01em; }
+.pl-how .steps p { margin-top: 10px; font-size: var(--step-4); color: var(--fg-muted); }
+
+/* ---------- The rates: the scoreboard on Dome night ---------- */
+/* the section is on Dome night through templates.py ground("night") (components.css .ground-night) */
+.pl-cards { border-top: 2px solid var(--fg); padding-top: 0; }
+.pl-card { gap: 16px; padding: 24px 0 8px; background: transparent; border: 0; border-bottom: 1px solid var(--rule-strong); }
+@media (min-width: 800px) { .pl-cards { column-gap: clamp(24px, 3vw, 48px); } .pl-card + .pl-card { padding-left: clamp(24px, 3vw, 48px); border-left: 1px solid var(--rule); } }
+.pl-card__title { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name-2xl); line-height: 1.04; letter-spacing: -0.01em; }
+.pl-card__plan .small { font-size: var(--t-sm); color: var(--fg-muted); }
+.pl-card__price { gap: 8px 14px; padding-top: 16px; border-top: 1px solid var(--rule); align-items: end; }
+.pl-card__from { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-muted); }
+.pl-card__amt { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-6); line-height: 0.86; letter-spacing: 0; color: var(--fg); font-variant-numeric: tabular-nums lining-nums; }
+.pl-card__tax { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); text-transform: uppercase; color: var(--fg-muted); padding-bottom: 6px; }
+.pl-rates__note { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); color: var(--fg-muted); }
+@media (min-width: 1100px) { .pl-rates .pl-card__title { font-size: clamp(2rem, 1rem + 1.6vw, 2.75rem); } }
+@media (max-width: 799px) {
+  .pl-card { padding: 18px 0 8px; }
+  .pl-card + .pl-card { padding-left: 14px; border-left: 1px solid var(--rule); }
+  .pl-card__title { font-size: clamp(1.375rem, 0.6rem + 3.6vw, 2rem); }
+  .pl-card__amt { font-size: clamp(2.75rem, 1.6rem + 4vw, 3.75rem); }
+}
+/* the narrowest phones: the two formats still share a row; their names may take two lines (320 was 324 wide) */
+@media (max-width: 374px) {
+  .pl-cards { gap: 0; }
+  .pl-card__title, .pl-rates .pl-card__title { white-space: normal; font-size: var(--t-name-lg); }
+  .pl-card + .pl-card { padding-left: 10px; }
+  .pl-card__plan .small { min-height: 0; }
+  .pl-card__amt { font-size: 2.5rem; }
+}
+
+/* ---------- Who it is for, the questions, the request (paper) ---------- */
+.pl-who .h2 { max-width: 16ch; }
+.pl-who__words .body { color: var(--fg-muted); }
+.pl-request .contact-card a { overflow-wrap: anywhere; }
+.pl-faq .acc { max-width: none; }

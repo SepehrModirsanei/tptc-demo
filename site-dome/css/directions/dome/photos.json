@@ -1,0 +1,9 @@
+{
+  "note": "DI item 1 (25 Oct 2026): the photograph Dome shows in a slot where its specimen (specimens/B-ledger) puts another one in the same role. Read by build.py --direction dome; every other slot keeps the site's photograph (build.py SITE_PHOTO). file: demo/assets/img/<file>.jpg; alt: what that photograph shows (the page's alt describes the Whites one); pos: its crop. Never the two removed photographs or the camp flyer (build.py PHOTO_BANNED).",
+  "slots": {
+    "home-hero-01": {"file": "hp-hero-01", "alt": "A player at the top of his serve, eyes on the toss, under the steel roof of an indoor court.", "pos": "25% 0%",
+                     "role": "Home hero (specimen index.html: the serve under the steel roof, whole, at the left of Dome night)"},
+    "hp-hero-01": {"file": "site-leagues-hero-01", "pos": "62% 40%",
+                   "role": "High Performance hero (specimen high-performance.html: evening courts, 3:2); also the HP door on the Programs hub, so the Turn morphs one photograph"}
+  }
+}

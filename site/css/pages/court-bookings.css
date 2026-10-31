@@ -200,9 +200,9 @@
 .cbx__q .icon { width: 22px; height: 22px; flex: none; }
 .cbx__row--head .cbx__q { display: none; }
 .cbx__who { padding: 14px 18px; font: 300 var(--step-2)/1.1 var(--font-serif); }
-.cbx__who--m { background: var(--blazer); color: #EDF1F6; }
+.cbx__who--m { background: var(--blazer); color: var(--cb-member-fg); }
 .cbx__a { display: grid; gap: 8px; align-content: start; padding: 18px; min-width: 0; }
-.cbx__a--m { background: var(--blazer); color: #EDF1F6; }
+.cbx__a--m { background: var(--blazer); color: var(--cb-member-fg); }
 .cbx__a--m .cbx__why { color: var(--mist); }
 .cbx__big { font: 300 clamp(2.75rem, 2rem + 3vw, 4.5rem)/0.95 var(--font-serif); font-variant-numeric: lining-nums; letter-spacing: -0.01em; }
 .cbx__big small { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; margin-left: 8px; vertical-align: 0.35em; }
@@ -223,7 +223,7 @@
   .cbx__q { grid-column: auto; padding: 26px 24px 26px 0; align-items: flex-start; }
   .cbx__row--head .cbx__q { display: block; border-top: 0; }
   .cbx__a { padding: 26px 28px; border-top: 1px solid var(--rule); }
-  .cbx__a--m { border-top-color: rgba(237, 241, 246, 0.16); }
+  .cbx__a--m { border-top-color: var(--cb-member-rule); }
   .cbx__who { padding: 18px 28px; }
 }
 /* B7, phones: the new hero lines join the order: crumbs, the two buttons, the JustBookIt line,

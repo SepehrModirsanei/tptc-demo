@@ -1,0 +1,72 @@
+/* Programs hub: five doors, grouped by who they are for.
+   Story: a draw sheet. Each audience label sits on a bracket that spans its own doors, the way a
+   draw groups its sections; the doors still step down alternately, a rally across the row. */
+
+.prog { padding-top: 0; }
+
+/* Phone and tablet: the group label opens its run of door rows */
+.prog-doors { border-top: 0; }
+.prog-group { display: grid; gap: 10px; padding: var(--sp-5) 0 var(--sp-2); border-bottom: 1px solid var(--rule); }
+.prog-group:first-child { padding-top: 0; }
+.prog-group .label { color: var(--fg-muted); }
+.prog-group__bracket { display: none; }
+
+@media (min-width: 900px) {
+  .prog-doors { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--sp-6); }
+  .prog-doors .prog-group { grid-column: 1 / -1; padding: var(--sp-3) 0 0; border-bottom: 0; }
+  .prog-doors .door:nth-child(even) { margin-top: 0; }
+  .prog-doors .door:nth-of-type(even) { margin-top: clamp(32px, 4vw, 64px); }
+}
+
+/* Desktop: five columns; the labels take the first row, each spanning its own doors */
+@media (min-width: 1100px) {
+  .prog-doors { grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: var(--sp-4); }
+  .prog-doors .door { grid-row: 2; }
+  .prog-doors .prog-group { grid-row: 1; padding: 0; }
+  .prog-doors .prog-group--kids { grid-column: 1 / 4; }
+  .prog-doors .prog-group--adults { grid-column: 4 / 5; }
+  .prog-doors .prog-group--any { grid-column: 5 / 6; }
+  /* The bracket: a hairline with its two end ticks dropping toward the doors it groups */
+  .prog-group__bracket { display: block; position: relative; height: 10px; border-top: 1px solid var(--rule-strong); }
+  .prog-group__bracket::before, .prog-group__bracket::after { content: ""; position: absolute; top: -1px; width: 1px; height: 10px; background: var(--rule-strong); }
+  .prog-group__bracket::before { left: 0; }
+  .prog-group__bracket::after { right: 0; }
+  .prog-doors .door__title { font-size: clamp(1.5rem, 1.1rem + 0.6vw, 2rem); }
+}
+
+/* Paper section into the paper closing band: the band's own top padding is the gap (the doors run straight into the closing band). */
+.prog { padding-bottom: 0; }
+
+
+/* The draw sheet itself is shared (components.css, b11): Programs and Register both use it.
+   Only the first-screen sizing below is Programs' own. */
+
+/* ---------- Batch 5 lead review: the hero ends at the foot of the first screen (desktop) ----------
+   The doors' photographs began inside the first screen and were cut in half by its foot at
+   1440x900 and 1280x720. The hero now takes the whole first screen, its words and the draw sheet
+   centred in it, and on a tall screen the sheet's lines open up; the doors start at the fold,
+   whole. */
+@media (min-width: 1000px) and (min-height: 640px) {
+  .hero:has(.draw) { display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; min-height: calc(100svh - var(--header-h)); }
+  .hero:has(.draw) .hero__grid { width: 100%; box-sizing: border-box; }
+}
+@media (min-width: 1280px) and (min-height: 800px) {
+  .draw { --row: clamp(54px, 7.4svh, 68px); }
+}
+
+/* ---------- B7 (16 Oct 2026): the three audience labels read as headings, not captions ----------
+   Owner: FOR CHILDREN / FOR ADULTS / FOR ANY AGE clearly bigger. 12px capitals become 18 to 22px
+   capitals in full ink, in the doors and on the draw sheet alike. */
+.prog-group .label { font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem); letter-spacing: 0.1em; color: var(--fg); }
+@media (min-width: 1000px) {
+  .draw__who { font-size: clamp(1rem, 0.9rem + 0.3vw, 1.125rem); letter-spacing: 0.1em; }
+}
+@media (min-width: 1000px) and (max-width: 1279px) {
+  .draw__who { font-size: 0.9375rem; letter-spacing: 0.06em; }
+}
+/* the larger names stay on one line: the bracket column widens to hold them */
+@media (min-width: 1000px) {
+  .draw__who { white-space: nowrap; }
+  .draw__sec { grid-template-columns: minmax(0, 1fr) 9.75rem; }
+}
+@media (min-width: 1280px) { .draw__sec { grid-template-columns: minmax(0, 1fr) 11.75rem; } }

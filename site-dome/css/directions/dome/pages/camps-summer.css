@@ -1,0 +1,49 @@
+/* TPTC Direction B, "Dome": Summer Camps (W2c D3, 25 Oct 2026). Loaded after css/pages/camps-summer.css.
+   The Dome composition: the hero on Dome night (page_hero: the ages and the three locations as figures on
+   the foot line); the camps on paper with the High Performance camps on the night court; "Where and when"
+   moved onto Dome night (templates.py ground) as the club's court sheet pinned up under the Dome, the
+   twelve weeks a scoreboard of games in chalk; the prices as the season ledger: the three windows on one
+   ink baseline with square ticks, every price a hand-entered figure. Tokens only. */
+
+/* ---------- Where and when: the court sheet on night ---------- */
+.sheet { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.sheet caption { font-family: var(--font-sans); font-size: var(--step-5); color: var(--fg-muted); }
+.sheet th, .sheet td { border-color: var(--rule); }
+.sheet thead th { border-bottom: 2px solid var(--fg); }
+.sheet__place { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name-lg); }
+.sheet__sub, .sheet thead th:first-child { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-muted); }
+.sheet tbody th { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-4); }
+.sheet tbody th span { font-family: var(--font-sans); font-stretch: 100%; font-weight: 400; font-size: var(--t-sm); }
+.sheet__on .num { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name); }
+.sheet__on small { font-family: var(--font-sans); font-stretch: 100%; }
+.sheet__mark { border-radius: 0; width: 8px; height: 8px; }
+.sheet__off::before, .sheet__off::after { background: var(--rule-strong); }
+.sheet-list__name { font-family: var(--font-serif); font-weight: 400; border-bottom-color: var(--fg); }
+.sheet-list__name span { font-family: var(--font-sans); font-weight: var(--w-chip); font-stretch: var(--stretch-head); }
+.sheet-list li .num { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); }
+.weeks__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-3); }
+.weeks__head { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--step-6); letter-spacing: 0.02em; color: var(--fg-muted); }
+.weeks__place strong { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-4); }
+.weeks__place span { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+.weeks__box { border-color: var(--rule-strong); }
+.weeks__key { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.where-notes .body, .where-notes p { color: var(--fg-muted); }
+@media (max-width: 799px) { .weeks__head { font-size: var(--step-6); } }
+
+/* ---------- Prices: the three windows on the ledger's baseline ---------- */
+.windows::before { background: var(--fg); }
+.windows__tick { border-radius: 0; width: 9px; height: 9px; top: 6px; left: -26px; }
+@media (min-width: 800px) { .windows__tick { left: 0; top: -26px; } }
+.windows__name { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.windows__when { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-4); line-height: 0.92; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.windows__note { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.camp-rates__group th { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name-lg); border-bottom-color: var(--fg); }
+.camp-rates__group th span { font-family: var(--font-sans); font-stretch: 100%; }
+.camp-rates tbody tr:not(.camp-rates__group) th { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.camp-rates td.tnum { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name); }
+@media (max-width: 699px) {
+  .camp-rates td.tnum::before { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: 0.06em; }
+  .camp-rates__group th { font-size: var(--t-name); }
+}
+.agenote { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+.sheet-wrap { border-top: 0; }

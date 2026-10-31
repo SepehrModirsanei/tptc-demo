@@ -1,0 +1,9 @@
+{
+  "note": "DI item 1 (25 Oct 2026): the photograph Clubhouse shows in a slot where its specimen (specimens/A-clubhouse) puts another one in the same role. Read by build.py --direction clubhouse; every other slot keeps the site's photograph (build.py SITE_PHOTO). file: demo/assets/img/<file>.jpg; alt: what that photograph shows (the page's alt describes the Whites one); pos: its crop, when the Whites crop does not fit it. Never the two removed photographs or the camp flyer (build.py PHOTO_BANNED).",
+  "slots": {
+    "home-hero-01": {"file": "leagues-junior-events-01", "alt": "A junior player moves to the ball on a green hard court, a tiled clubhouse roof beyond the far fence.", "pos": "50% 50%",
+                     "role": "Home hero print (specimen index.html, the wall: 3:2, shown whole)"},
+    "hp-hero-01": {"file": "hp-pro-national-02", "alt": "Seen from above, a player in white takes the racquet back for a two-handed backhand on a hard court, her shadow long beside her.", "pos": "50% 50%",
+                   "role": "High Performance hero print (specimen high-performance.html, the wall at night: 4:5, shown whole); also the HP door on the Programs hub, so the Turn morphs one photograph"}
+  }
+}

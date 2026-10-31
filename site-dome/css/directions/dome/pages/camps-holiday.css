@@ -1,0 +1,31 @@
+/* TPTC Direction B, "Dome": Holiday Camps (W2c D3, 25 Oct 2026). Loaded after css/pages/camps-holiday.css.
+   The Dome composition: the hero on Dome night (page_hero); "Not yet announced" moved onto Dome night
+   (templates.py ground): the page's own story is a scoreboard between sets, so it is drawn as the club's
+   scoreboard: last winter written in chalk, this winter's column ruled and dashed, waiting for the club;
+   last winter's two weeks on Dome fabric, a chalk rule per camp day, the closed days dashed; the camps
+   and policies as on Summer and March Break. Tokens only. */
+
+/* ---------- Not yet announced: the scoreboard on night ---------- */
+.next .board { font-family: var(--font-sans); font-stretch: 100%; }
+.next .board th, .next .board td { border-bottom-color: var(--rule); }
+.next .board thead th { border-bottom: 2px solid var(--fg); }
+.next .board tbody th { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-muted); }
+.board__set { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name-2xl); line-height: 1.05; }
+.board__state { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); color: var(--fg-muted); }
+td.board__past { font-family: var(--font-serif); font-size: var(--step-4); color: var(--fg-muted); }
+td.board__past .num { color: var(--fg); }
+.board__next { border-left: 1px dashed var(--rule-strong); background: var(--night-raised); }
+.next__ask > span { font-family: var(--font-serif); font-style: italic; font-size: var(--step-3); }
+@media (max-width: 599px) {
+  .next .board td::before { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: 0.06em; }
+  .next .board tbody tr:first-child { border-top: 2px solid var(--fg); }
+  .next .board td.board__next { border-left: 1px dashed var(--rule-strong); }
+}
+
+/* ---------- Last winter's two weeks ---------- */
+.hcal__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-3); }
+.hcal__week li::after { background: var(--fg); height: 1px; }
+.hcal__week li.is-closed::after { border-top: 1px dashed var(--rule-strong); }
+.hcal__closed { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-6); }
+.hcal__wk { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+@media (min-width: 900px) { .hcal__closed { font-size: var(--step-5); } }

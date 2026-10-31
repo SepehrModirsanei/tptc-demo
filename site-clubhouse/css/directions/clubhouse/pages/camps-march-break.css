@@ -1,0 +1,9 @@
+/* TPTC Direction A, "Clubhouse": March Break Camp (W2b, 25 Oct 2026). Loaded after
+   css/pages/camps-march-break.css. No specimen page: composed in the specimen's language.
+   - The hero is the clubhouse wall with its plated print (components.css W2b).
+   - The week is the Order of Play pinned on the clubhouse wall: the shared notice (components.css
+     W2b), its dates in Caslon Display under hairline day rules (components.css 28).
+   - The camp cards, the day around them and the policies are the shared camp family.
+   - Grounds: the policies sit on the paper so the chalk closing band keeps its own ground. */
+#policies.section--chalk { --bg: var(--surface); --ph-ground: var(--surface-alt); background: var(--surface); }
+#week .oop__gap { margin-top: var(--sp-5); }

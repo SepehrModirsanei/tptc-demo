@@ -202,8 +202,12 @@
   /* ---------- State ---------- */
   var VIEW_KEY = 'tptc-panel-content-view';
   function pref(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { /* private window: no memory */ } return null; }
-  var TABS = { news: 'ct-tab-news', card: 'ct-tab-cards', season: 'ct-tab-seasons' };
-  var TAB_OF = { news: 'news', cards: 'card', card: 'card', seasons: 'season', season: 'season' };
+  /* N1a: News and Photos and media are their own modules (content-news.js, content-media.js); this
+     script keeps the tabs, the What's happening cards and the season dates. */
+  var TABS = { news: 'ct-tab-news', media: 'ct-tab-media', card: 'ct-tab-cards', season: 'ct-tab-seasons' };
+  var TAB_OF = { news: 'news', media: 'media', photos: 'media', cards: 'card', card: 'card', seasons: 'season', season: 'season' };
+  var EXT = { news: window.CTNews, media: window.CTMedia };
+  function extDirty() { var x = EXT[state.tab]; return !!(x && x.isDirty && x.isDirty()); }
   var narrow = window.matchMedia ? window.matchMedia('(max-width: 759.98px)') : { matches: false };
   var state = { tab: 'news', sel: {}, draft: null, dirty: false, errors: {}, busy: false,
     view: pref(VIEW_KEY) || (narrow.matches ? 'phone' : 'desk') };
@@ -211,7 +215,7 @@
     var q = {}; location.search.replace(/^\?/, '').split('&').forEach(function (p) { var kv = p.split('='); if (kv[0]) q[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || ''); });
     if (TAB_OF[q.tab]) state.tab = TAB_OF[q.tab];
     var rec = q.item && D.contentItems.get(q.item);
-    if (rec && TABS[rec.type]) { state.tab = rec.type; state.sel[rec.type] = rec.id; }
+    if (rec && TABS[rec.type] && !EXT[rec.type]) { state.tab = rec.type; state.sel[rec.type] = rec.id; }
   })();
 
   function byOrder(a, b) { return (a.placement === 'lead' ? 0 : 1) - (b.placement === 'lead' ? 0 : 1) || (a.order || 99) - (b.order || 99); }
@@ -231,6 +235,7 @@
     return id;
   }
   function loadDraft() {
+    if (EXT[state.tab]) { state.draft = null; state.dirty = false; state.errors = {}; return; }
     var id = selected(state.tab);
     state.draft = id === '__new' ? newPost() : id ? eff(D.contentItems.get(id)) : null;
     state.dirty = false; state.errors = {};
@@ -566,12 +571,13 @@
   Object.keys(TABS).forEach(function (t) { panels[t] = $('[data-ct-panel="' + t + '"]'); });
   function kpis() {
     var box = $('[data-ct-kpis]'); if (!box) return;
-    var news = items('news'), pub = news.filter(function (n) { return n.status !== 'draft'; }).length;
+    var ns = EXT.news ? EXT.news.stats() : { total: 0, live: 0, drafts: 0, scheduled: 0 }, ms = EXT.media ? EXT.media.stats() : { slots: 0, changed: 0, pages: 0 };
     var shown = items('card').filter(function (c) { return c.shown !== false; });
     var confirmN = shown.filter(function (c) { return c.whenMode === 'confirm'; }).length;
     var ind = eff(D.contentItems.get('season-indoor-2026')), n = editedCount();
     var k = [
-      ['News posts', pub, news.length - pub ? (news.length - pub) + ' in draft' : 'All published'],
+      ['News posts on the site', ns.live, (ns.drafts ? ns.drafts + ' draft' + (ns.drafts === 1 ? '' : 's') : 'No drafts') + (ns.scheduled ? ', ' + ns.scheduled + ' scheduled' : '')],
+      ['Photo and video slots', ms.slots, ms.changed ? ms.changed + ' changed in this browser' : 'On ' + ms.pages + ' pages, as published'],
       ['What\'s happening', shown.length, confirmN ? confirmN + ' with dates to confirm' : 'Every date published'],
       ['Indoor season starts', ind ? md(ind.start) : 'Removed', ind && ind.startToConfirm ? 'Likely; club to confirm' : 'Confirmed'],
       ['Edited in this browser', n, n ? 'Restore puts the club\'s text back' : 'The club\'s text, as published']
@@ -598,6 +604,7 @@
   }
   function renderPanel() {
     var t = state.tab, el = panels[t];
+    if (EXT[t]) { if (EXT[t]) EXT[t].render(el); return; }
     el.innerHTML = (t === 'card' ? staleHtml() : '') + '<div class="ct-bench' + (t === 'season' ? ' ct-bench--wide' : '') + '">' + listHtml(t) + editorHtml(t) + previewHtml(t) + '</div>';
     wireImgs(el); fitStages(el);
   }
@@ -620,7 +627,10 @@
       b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; panels[t].hidden = !on;
       if (!on) panels[t].innerHTML = '';
     });
-    $$('[data-ct-count]').forEach(function (el) { el.textContent = D.contentItems.count({ type: el.getAttribute('data-ct-count') }); });
+    $$('[data-ct-count]').forEach(function (el) {
+      var k = el.getAttribute('data-ct-count');
+      el.textContent = k === 'news' ? (EXT.news ? EXT.news.stats().total : '') : k === 'media' ? (EXT.media ? EXT.media.stats().slots : '') : D.contentItems.count({ type: k });
+    });
   }
   function renderHead() {
     var note = $('[data-ct-rolenote]');
@@ -645,6 +655,10 @@
 
   /* ---------- Moving around ---------- */
   function guard(fn) {
+    if (extDirty()) {
+      return UI.confirm({ title: 'Discard your changes?', body: '<p>The changes to this post are not saved.</p>', confirm: 'Discard changes', cancel: 'Keep editing' })
+        .then(function (yes) { if (yes) { EXT[state.tab].discard(); fn(); } });
+    }
     if (!state.dirty) return fn();
     UI.confirm({ title: 'Discard your changes?', body: '<p>The changes to ' + esc(quoteTitle(itemName(state.draft))) + ' are not saved.</p>', confirm: 'Discard changes', cancel: 'Keep editing' })
       .then(function (yes) { if (yes) { state.dirty = false; fn(); } });
@@ -660,9 +674,10 @@
   function startNew() {
     if (!CAN) return deny();
     guard(function () {
-      state.tab = 'news'; state.sel.news = '__new'; loadDraft(); render();
-      focusAfter('#ct-f-title');
-      UI.toast('A new post, as a draft. Nothing is saved until you press Save post.');
+      state.tab = 'news'; loadDraft(); render();
+      if (EXT.news) EXT.news.startNew();
+      focusAfter('#nw-title');
+      UI.toast('A new post, as a draft. Nothing is saved until you save it.');
     });
   }
   function makeLead(id) {
@@ -678,7 +693,7 @@
   /* ---------- Events ---------- */
   var work = $('.ct-work');
   var tablist = $('.ct-work [role="tablist"]');
-  var tabOrder = ['news', 'card', 'season'];
+  var tabOrder = ['news', 'media', 'card', 'season'];
   function tabFromBtn(b) { for (var t in TABS) if (TABS[t] === b.id) return t; return null; }
   tablist.addEventListener('click', function (e) {
     var b = e.target.closest('[role="tab"]'); if (!b) return;
@@ -687,8 +702,8 @@
   });
   tablist.addEventListener('keydown', function (e) {
     var i = tabOrder.indexOf(state.tab), n = null;
-    if (e.key === 'ArrowRight') n = (i + 1) % 3; else if (e.key === 'ArrowLeft') n = (i + 2) % 3;
-    else if (e.key === 'Home') n = 0; else if (e.key === 'End') n = 2;
+    if (e.key === 'ArrowRight') n = (i + 1) % 4; else if (e.key === 'ArrowLeft') n = (i + 3) % 4;
+    else if (e.key === 'Home') n = 0; else if (e.key === 'End') n = 3;
     if (n === null) return;
     e.preventDefault();
     guard(function () { setTab(tabOrder[n], true); });
@@ -745,13 +760,15 @@
   window.addEventListener('panel:change', function (e) {
     var c = e.detail && e.detail.collection;
     if (state.busy) return;
-    if (c === '*') { if (state.sel.news === '__new') state.sel.news = null; loadDraft(); render(); return; }
+    if (c === '*') { if (state.sel.news === '__new') state.sel.news = null; if (EXT.news) EXT.news.reset(); loadDraft(); render(); return; }
     if (c === 'content') { if (!state.dirty) loadDraft(); render(); }
   });
   window.addEventListener('beforeunload', function (e) { if (state.dirty && CAN) { e.preventDefault(); e.returnValue = ''; } });
   var rz = 0;
   window.addEventListener('resize', function () { cancelAnimationFrame(rz); rz = requestAnimationFrame(function () { fitStages(panels[state.tab]); }); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fitStages(panels[state.tab]); });
+
+  window.CTContent = { tab: function (t, cb) { guard(function () { setTab(t, true); if (cb) cb(); }); } };
 
   /* ---------- Start ---------- */
   renderHead();

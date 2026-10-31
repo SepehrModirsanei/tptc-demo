@@ -1,0 +1,120 @@
+/* TPTC Direction B, "Dome": Home (D1, 24 Oct 2026). Loaded on Home after css/pages/home.css.
+   Source: specimens/B-ledger/index.html and css/ledger.css (line numbers below). The specimen's run of
+   grounds, top to bottom: the hero on Dome night, the programs as a scoreboard on night, the split
+   (paper beside night), Why TPTC on Dome fabric, What's happening on paper, the closing band on fabric,
+   the footer on paper. The two N1a bands (Latest news, Meet the Coaches) take fabric and paper in turn,
+   so no two grounds of the same tint meet. Tokens only. */
+
+/* ---------- Find your program: the scoreboard on Dome night (1257-1311) ---------- */
+#find-your-program .btn--ink { --btn-fg: var(--ink); }
+#find-your-program {
+  --bg: var(--blazer); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--night-raised);
+  --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-soft: var(--line-chalk-soft); --rule-strong: var(--line-chalk-strong);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus); --ph-ground: var(--night-raised);
+  background: var(--bg); color: var(--fg); color-scheme: dark; border-top: 1px solid var(--line-chalk);
+}
+/* DI: the rows themselves (the board the Dome template writes) are in the DI section at the end of this file */
+
+/* The chooser on the night: one question at a time, square answers (system.css radio cards) */
+.chooser { border-top: 1px solid var(--rule-strong); }
+.chooser__q legend { margin-bottom: 12px; font-family: var(--font-serif); font-size: var(--t-name); line-height: 1.3; color: var(--fg); }
+
+/* ---------- The split (1386-1394): names over three-word lines, paper beside night ---------- */
+.split--b7 .split__name { font-family: var(--font-serif); font-weight: var(--w-head); font-size: var(--t-split-name); line-height: 1.02; letter-spacing: -0.014em; text-transform: none; padding-top: 16px; border-top: 1px solid var(--rule-strong); }
+.split--b7 .split__half--hp .split__name { font-weight: var(--w-head); letter-spacing: -0.014em; }
+.split--b7 .split__tag { font-family: var(--font-serif); font-weight: var(--w-display); font-style: italic; font-size: var(--t-split-tag); line-height: 1.2; color: var(--fg-muted); }
+.split--b7 .split__half--hp .split__tag em { font-style: italic; }
+.split__half { padding-block: var(--section); }
+.split--b7 .split__links { align-self: end; }
+.split--b7 .split__half--hp .pathmini { margin-top: 18px; }
+@media (max-width: 599px) {
+  .split__half { padding-block: 48px; }
+  .split--b7 .split__half--hp .frame__tag { font-size: var(--step-6); font-stretch: 62%; padding: 5px; gap: 4px; letter-spacing: 0.03em; }
+  .split__half--rec .frame__tag { font-size: var(--step-6); font-stretch: 62%; padding: 5px; gap: 4px; letter-spacing: 0.03em; }
+}
+
+/* ---------- Why TPTC on Dome fabric (725-749, 1396-1443) ---------- */
+.why { --bg: var(--surface-alt); --ph-ground: var(--surface); background: var(--surface-alt); }
+.why__cap { gap: 6px; }
+.why__quote { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: var(--t-name-sm); line-height: 1.4; }
+/* the slideshow: ruled like the season ledger; square controls; a tick per slide (1404-1436) */
+.show { gap: 16px; }
+.show__slide .frame__cap { gap: 2px; }
+.show__slide .frame__cap em { font-family: var(--font-serif); font-style: normal; font-weight: var(--w-name); font-size: var(--t-name-sm); line-height: 1.3; color: var(--fg); }
+.show__slide .frame__cap span { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); line-height: 1.5; color: var(--fg-subtle); }
+.show__bar { gap: 8px; padding-top: 12px; border-top: 1px solid var(--fg); }
+.show__btn { border-radius: 0; border: 1px solid var(--rule-strong); color: var(--fg); transition: border-color var(--dur-ui) var(--ease-ui); }
+@media (hover: hover) and (pointer: fine) { .show__btn:hover { border-color: var(--fg); } }
+.show__dots { flex: 1; justify-content: center; }
+.show__dots button::after { width: 1px; height: 12px; margin: -6px 0 0 -0.5px; border-radius: 0; box-shadow: none; background: var(--fg-subtle); transition: height var(--dur-ui) var(--ease-ui), width var(--dur-ui) var(--ease-ui), margin var(--dur-ui) var(--ease-ui); }
+.show__dots button[aria-current="true"]::after { width: 3px; height: 24px; margin: -12px 0 0 -1.5px; border-radius: 0; background: var(--fg); }
+.show__toggle { margin-left: 0; }
+@media (prefers-reduced-motion: reduce) { .show__dots button::after { transition: none; } }
+
+/* ---------- What's happening on paper (752-770) ---------- */
+.section--chalk:has(.happen) { --bg: var(--surface); --ph-ground: var(--surface-alt); background: var(--surface); }
+
+/* ---------- Latest news on Dome fabric, Meet the Coaches on paper (N1a) ----------
+   A news card is a ledger entry: the date as a hand-entered figure, the topic as a label, the title in
+   the serif; the flags are dashed or square tags like the specimen's chips. */
+
+/* the phone quiet link under the doors */
+.hero__court .link { color: var(--fg); }
+
+/* =====================================================================================
+   DI (25 Oct 2026, the orchestrator): the specimen's own composition. The Dome template
+   (site/directions/dome/templates.py) writes this markup from the page's content; these rules lay
+   it out as specimens/B-ledger/index.html does (ledger.css line numbers below). Builders refine
+   type and colour here; the structure is the template's.
+   ===================================================================================== */
+
+/* ---------- DI 1. The hero: the shared Dome hero (Home and High Performance) is in components.css, "DI hero" ---------- */
+.hero--dome + .nstrip { border-top: 0; }
+
+/* ---------- DI 2. Programs: the scoreboard. Moved to components.css (W2c): the shared courts renderer
+   writes the board wherever doors--courts appear (the Style Guide's sample too). ---------- */
+
+/* ---------- DI 3. The split's High Performance half: the pathway as the ladder (693-703) ---------- */
+.ladder { display: grid; gap: 0; margin-top: 4px; }
+.ladder__rail { position: relative; height: 1px; margin: 0 0 12px; background: var(--line-chalk); }
+.ladder__fill { position: absolute; inset: 0; background: var(--on-night); transform-origin: 0 50%; }
+.ladder__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+.ladder__steps li { position: relative; display: grid; gap: 4px; align-content: start; }
+.ladder__steps li::before { content: ""; position: absolute; top: -16.5px; left: 0; width: 8px; height: 8px; background: var(--on-night); border: 1px solid var(--on-night); }
+.ladder__steps .fig { font-size: var(--fig-1); color: var(--on-night-3); }
+.ladder__steps b { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-4); line-height: 1.2; color: var(--on-night); }
+.ladder__steps small { font-family: var(--font-sans); font-size: var(--step-6); letter-spacing: 0.1em; font-stretch: 100%; text-transform: uppercase; color: var(--mist); }
+.split--b7 .split__half--hp .ladder { grid-column: 2; margin-top: 18px; }
+@media (max-width: 599px) { .split--b7 .split__half--hp .ladder { grid-column: 1 / -1; } }
+
+/* ---------- DI 4. Why TPTC (725-749, 1396-1400): the heading over 1951 as the scoreboard numeral, four
+   strengths as ledger lines, then the slideshow beside the Majors result ---------- */
+.why .why__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: clamp(56px, 7vw, 112px); align-items: start; }
+.why__since { grid-column: 1 / span 5; grid-row: 1; display: grid; gap: 20px; align-content: start; }
+.why__numeral-wrap { display: grid; gap: 10px; }
+.why__numeral { margin-top: 12px; font-size: var(--step-mega); line-height: 0.8; color: var(--fg); }
+.why__years { font-family: var(--font-serif); font-style: italic; font-size: var(--t-q); color: var(--fg-muted); }
+.why__years .num { font-style: normal; }
+.why .strengths.why__list { grid-column: 7 / span 6; grid-row: 1; display: grid; align-content: start; }
+.why__community { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; padding-top: clamp(40px, 5vw, 72px); border-top: 1px solid var(--rule); }
+.why__community .show { grid-column: 1 / span 7; }
+.why__side { grid-column: 9 / span 4; align-self: start; display: grid; gap: 40px; }
+.why__result { display: grid; gap: 12px; margin: 0; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+.why__result .fig { font-size: clamp(4rem, 2.6rem + 3.4vw, 6.5rem); color: var(--fg); }
+.why__result .label { max-width: 44ch; }
+@media (max-width: 1023px) {
+  .why__since, .why .strengths.why__list, .why__community .show, .why__side { grid-column: 1 / -1; grid-row: auto; }
+  .why__community { row-gap: 32px; }
+}
+
+/* ---------- DI 5. What's happening (752-770, 1442-1445): the lead's season as a figure, each next item
+   its last day as a figure, as hand-entered entries ---------- */
+.happen__span { display: grid; gap: 8px; margin: 0; }
+.happen__span .fig { font-size: var(--fig-4); color: var(--fg); }
+.happen__span .label { font-size: var(--step-6); }
+.hrow .happen__when { display: grid; gap: 8px; align-content: start; }
+.hrow .happen__when .fig { font-size: var(--fig-4); color: var(--fg); }
+.hrow .happen__when .label { font-size: var(--step-6); }
+.hrow__range { font-family: var(--font-sans); font-stretch: var(--stretch-num); font-weight: var(--w-num); font-size: var(--step-5); color: var(--fg-muted); }
+@media (max-width: 639px) { .hrow .happen__when { grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 12px; } }

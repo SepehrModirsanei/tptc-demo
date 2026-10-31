@@ -1,0 +1,41 @@
+/* TPTC Direction B, "Dome": Club History (W2c D3, 25 Oct 2026). Loaded after css/pages/history.css.
+   The Dome composition: the hero moved onto Dome night (templates.py ground): 1951 as the direction's
+   numeral moment, the scoreboard figure at the mega size (ledger.css 80 --t-mega, 1148), the net between
+   19 and 51 a chalk hairline, and under it the span from 1951 to 2026 drawn as one ruled line (the year
+   as one line); the timeline as the club's long sideline, each year a scoreboard figure, a year not on
+   record dashed; the present year the one heavier tick. Tokens only. */
+
+/* ---------- The hero: 1951 at the mega size on night ---------- */
+.page-history .hero .crumbs li, .page-history .hero .crumbs a { color: var(--mist); }
+.page-history .hero .crumbs [aria-current="page"] { color: var(--on-night); }
+.page-history .hero .hero__lede { color: var(--mist); }
+.page-history .hero .link { color: var(--on-night); }
+.hero--1951 .hist-hero__year .numeral { font-size: var(--step-mega); line-height: 0.8; color: var(--on-night); }
+.hero--1951 .hist-hero__year .numeral__net { background: var(--line-chalk-strong); }
+.hist-hero__span { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name); letter-spacing: 0.02em; color: var(--mist); }
+.hist-hero__rule { height: 1px; background: var(--on-night); position: relative; }
+.hist-hero__rule::before, .hist-hero__rule::after { content: ""; position: absolute; top: -4px; width: 1px; height: 9px; background: var(--on-night); }
+.hist-hero__rule::before { left: 0; }
+.hist-hero__rule::after { right: 0; }
+.page-history .hero .hero__points { border-top-color: var(--line-chalk-strong); }
+@media (max-width: 999px) {
+  .hero--1951 .hist-hero__year .numeral { font-size: clamp(4rem, 1.2rem + 13vw, 9rem); }
+  .hero--1951 .hist-hero__year .numeral__net { height: 1px; }
+  .hist-hero__year { border-left-color: var(--line-chalk); }
+  .hist-hero__span { font-size: var(--step-5); }
+}
+
+/* ---------- The timeline: the long sideline ---------- */
+.tl__item::before { border-left-width: 1px; }
+.tl__item::after { height: 1px; }
+.tl__item--now::after { background: var(--fg); height: 3px; width: 16px; left: -7px; top: 9px; }
+.tl__year { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(3rem, 2rem + 3.6vw, 5.5rem); line-height: 0.86; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.tl__item--gap .tl__year--open { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name-lg); }
+.tl__year--open .confirm { font-family: var(--font-serif); font-weight: 400; font-stretch: 100%; font-size: var(--step-4); }
+.tl__dots { border-top-width: 1px; }
+.tl__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); }
+.tl__body p { font-size: var(--step-4); }
+.tl__body .tl__src { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+
+/* ---------- The archive ---------- */
+.archive__no { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--step-5); letter-spacing: var(--track-crumb); }

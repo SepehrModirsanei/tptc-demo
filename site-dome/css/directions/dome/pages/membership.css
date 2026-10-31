@@ -1,0 +1,93 @@
+/* TPTC Direction B, "Dome": Membership (D2, 24 Oct 2026). Loaded after css/pages/membership.css.
+   The join flow is the reg-* family: build.py links the Dome's own pages/register.css right after the Whites one (RD5, DI 25 Oct; it was an @import here) (Whites
+   register.css is this page's front-matter CSS; request RD5).
+   The page in the Dome: the hero is the scoreboard on Dome night and its 15 is the numeral moment, the
+   one Archivo figure at the mega size (ledger.css 80 --t-mega, 1148); the member card is square, a
+   chalk rule round it, the court ruled in; the rate cards are ledger columns ruled in ink; every price
+   is a scoreboard figure. membership.css writes four raw Whites colours (16, 51, 56, 135: the
+   floodlight, the card's chalk inset and navy shadow, the sheen, the rate card's white inset): the
+   Dome replaces each with its own tokens or removes it (request RD1). Tokens only. */
+
+/* ================= 1. Hero: the scoreboard on Dome night ================= */
+.mh { background: var(--blazer); color: var(--on-night); }
+.mh::before { content: none; }
+.mh::after { background: var(--line-chalk); }
+.mh__name { color: var(--on-night); }
+.mh__sep { background: var(--line-chalk-strong); }
+.mh__season { color: var(--mist); }
+.mh__score { color: var(--mist); }
+.mh__score-rule { background: var(--line-chalk-strong); }
+.mh__pct {
+  font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--step-mega); line-height: 0.8;
+  letter-spacing: -0.02em; font-variant-numeric: tabular-nums lining-nums; color: var(--on-night);
+  border-top: 1px solid var(--line-chalk-strong); border-bottom: 1px solid var(--line-chalk);
+}
+.mh__sign { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: 0.24em; color: var(--mist); }
+.mh__fact { font-family: var(--font-serif); font-weight: var(--w-display); font-size: var(--t-statement); line-height: 1.1; letter-spacing: -0.012em; color: var(--on-night); }
+.mh__status { color: var(--mist); }
+.mh__status .confirm { color: var(--on-night); }
+
+/* The member card: square, a chalk rule round it */
+.mh__cardwrap { border-radius: 0; border-color: var(--line-chalk); padding: 6px; }
+.mcard { border-radius: 0; border-color: var(--line-chalk-strong); color: var(--on-night);
+  background: linear-gradient(160deg, var(--night-raised) 0%, var(--blazer) 60%, var(--night-deep) 100%);
+  box-shadow: 0 40px 80px -36px var(--shadow-tint); }
+.mcard__court { stroke: var(--court-night); }
+.mcard__sheen { background: linear-gradient(100deg, var(--frame-clear), var(--frame-light), var(--frame-clear)); }
+.mcard__since, .mcard__opt, .mcard__who { color: var(--mist); }
+.mcard__price { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(3rem, 2rem + 3vw, 5rem); line-height: 0.86; letter-spacing: 0; color: var(--on-night); }
+.mcard__foot { border-top-color: var(--line-chalk); }
+.mcard__foot .label { font-size: var(--step-6); color: var(--mist); }
+.mcard__foot .num { font-size: var(--t-ui); color: var(--on-night); }
+
+/* ================= 2. Why: the photograph beside two figure cards, five tiles under ================= */
+.mb__card { background: var(--surface-alt); border: 0; border-top: 2px solid var(--fg); box-shadow: none; }
+.mb__fig { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(4rem, 2.6rem + 4.4vw, 7.5rem); line-height: 0.86; letter-spacing: 0; color: var(--fg); }
+.mb__fig small { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); }
+.mb__h { font-family: var(--font-serif); font-weight: var(--w-name); line-height: 1.15; }
+.mb__why { font-size: var(--t-ui); color: var(--fg-muted); }
+.mb__tile { border-bottom-color: var(--rule); }
+@media (min-width: 900px) { .mb__tile { border-top-color: var(--fg); } }
+
+/* ================= 3. Options: the rates as ledger columns ================= */
+.mo__key { font-size: var(--step-4); }
+.mo__key-pct { border-radius: 0; box-shadow: none; border: 1px solid var(--fg);
+  font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-3); line-height: 1; letter-spacing: 0; }
+.rc { padding: 0; border: 0; border-top: 2px solid var(--fg); border-radius: 0; background: transparent; }
+.rc__core { border-radius: 0; background: var(--bg); box-shadow: none; padding: 20px 0 0; }
+.rc__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-lg); line-height: 1.1; }
+.rc__who { font-size: var(--t-ui); }
+.rc__prices { border-top-color: var(--rule); }
+.rc__res dd { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(2.25rem, 1.6rem + 1.4vw, 3rem); line-height: 0.86; letter-spacing: 0; }
+.rc__non dd { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name-lg); color: var(--fg-muted); }
+.rc__bar { height: 3px; }
+.rc__gap { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); }
+.rc__pick { font-family: var(--font-sans); font-size: var(--step-5); font-weight: var(--w-ui); font-stretch: var(--stretch-ui); letter-spacing: var(--track-ui); }
+@media (hover: hover) and (min-width: 900px) { .rc:hover { transform: none; box-shadow: none; } }
+@media (min-width: 1100px) { .rcs { column-gap: var(--gutter); } }
+@media (max-width: 599px) { .rc__core { padding: 16px 0 12px; } .rc__res dd { font-size: var(--fig-3); } }
+.mem-rates__head { font-family: var(--font-serif); font-weight: var(--w-name); }
+.mo__year { border-top-color: var(--rule); }
+.mo__year-h { font-family: var(--font-serif); font-weight: var(--w-name); }
+
+/* ================= 4. Join: the flow beside the live card ================= */
+.mf__flow .reg-step__q { font-weight: 400; }
+.mf__types .reg-opt { border-radius: 0; }
+.mf__jbi { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.mf__note { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+@media (max-width: 999px) { .mf__side .mcard { border-radius: 0; } .mf__side .mcard__price { font-size: var(--fig-3); } }
+
+/* ================= 5. The fine print ================= */
+.mem-terms { border-top: 1px solid var(--fg); }
+.mem-terms dt { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.mem-terms dd { color: var(--fg-muted); }
+.mem-fine .h2 { max-width: 18ch; }
+
+/* ---------- Wrappers ---------- */
+.mw__title { font-weight: var(--w-head); }
+.mt { gap: 0; }
+@media (min-width: 900px) { .mt { column-gap: var(--gutter); } }
+.mem-switch .select-label { color: var(--fg-subtle); }
+.mem-season .srows { border-top-color: var(--fg); }
+.mem-ledger .ledger__months { border-top-color: var(--fg); }
+.mem-return { font-size: var(--step-4); }

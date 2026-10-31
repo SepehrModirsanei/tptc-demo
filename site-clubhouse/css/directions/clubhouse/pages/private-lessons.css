@@ -1,0 +1,46 @@
+/* TPTC Direction A, "Clubhouse": Private Lessons (W2b, 25 Oct 2026). Loaded after
+   css/pages/private-lessons.css. No specimen page: composed in the specimen's language.
+   - The hero is the clubhouse wall (components.css W2b).
+   - How it works: the head centred over the three steps laid across the page, numbered in Caslon
+     Display (as How to join on High Performance, tptc.css 1189-1207).
+   - Rates: two hairline cards on the paper in the chalk section; each card's court plan is drawn on
+     the club's lawn (the four courts' surround, court green and white lines, 1690-1700), the coach
+     a ring with the ball basket, the player in white; the price in Caslon Text tabular figures.
+   - Who it is for, the questions and the request in the shared components. */
+
+/* How it works */
+@media (min-width: 1000px) {
+  .pl-how__grid { grid-template-columns: minmax(0, 1fr); row-gap: clamp(36px, 4.4vw, 64px); }
+  .wrap.pl-how__grid > .sect-head { text-align: center; justify-items: center; margin-inline: auto; }
+  .wrap.pl-how__grid > .sect-head .h2 { margin-inline: auto; }
+  .wrap.pl-how__grid > .sect-head::after { margin-left: auto; }
+}
+.pl-how .steps p { font-size: 1rem; color: var(--fg-muted); }
+
+/* Rates */
+.pl-card { gap: var(--sp-3); padding: clamp(20px, 2.6vw, 36px); background: var(--surface); border: 1px solid var(--rule); border-top: 1px solid var(--rule-strong); border-radius: var(--radius); }
+.pl-card__title { font: 400 var(--step-1)/1 var(--font-display); }
+@media (min-width: 1100px) { .pl-rates .pl-card__title { font-size: clamp(2.25rem, 1rem + 2vw, 3rem); } }
+@media (max-width: 799px) { .pl-card__title { font-size: clamp(1.375rem, 0.6rem + 3.6vw, 2rem); } }
+.pl-card__plan .cplan { background: var(--lawn); }
+.pl-card__plan .cplan__lines { stroke: var(--lawn-line); }
+.pl-card__plan .cplan__lines > rect { fill: var(--lawn-court); }
+.pl-card__plan .cplan__net { stroke: var(--lawn-line); stroke-width: 1px; }
+.pl-card__plan .who { fill: var(--lawn-line); }
+.pl-card__plan .who--coach { fill: var(--lawn-court); stroke: var(--lawn-line); }
+.pl-card__plan .who__basket { stroke: var(--lawn-line); }
+.pl-card__plan .small { color: var(--fg-muted); }
+.pl-card__price { border-top-color: var(--rule); }
+.pl-card__from { font-weight: 700; color: var(--fg-subtle); }
+.pl-card__amt { font: 400 clamp(2.75rem, 2rem + 2.4vw, 4.25rem)/0.95 var(--font-serif); font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.01em; }
+@media (max-width: 799px) { .pl-card__amt { font-size: clamp(2.25rem, 1.5rem + 4vw, 3.25rem); } }
+.pl-card__tax { font-size: 0.9375rem; color: var(--fg-muted); }
+.pl-rates__note { font-size: 1rem; color: var(--fg-muted); }
+
+/* Who it is for */
+.pl-who__words .body { color: var(--fg-muted); }
+
+/* Containers in the Clubhouse rhythm */
+.pl-cards { gap: var(--gutter); }
+.pl-faq .sect-head .body { color: var(--fg-muted); }
+.pl-request .sect-head .body { color: var(--fg-muted); }

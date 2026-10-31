@@ -1,0 +1,215 @@
+/* TPTC Direction A, "Clubhouse": Home (D1, 24 Oct 2026; DI 25 Oct: the hero section and the DI section at the end). Loaded after css/pages/home.css.
+   Target: specimens/A-clubhouse/index.html with tptc.css (line numbers below). The shared
+   components are in ../components.css; this file recomposes Home's own blocks. */
+
+/* =====================================================================================
+   1. The hero, hung like a clubhouse wall (718-802). DI (25 Oct): the Clubhouse template writes the
+   specimen's own wall (the provenance line, the two sentences, the print, each action under its
+   sentence, the phone index); its shared rules are components.css "DI", the wall. Home's print is
+   the 3:2 photograph shown whole.
+   ===================================================================================== */
+.hero.hero--wall:not(.hero--hpw) .hero__frame .frame { --ar: 3 / 2 !important; }
+.hero--wall:not(.hero--hpw) .hero__frame .frame__box { aspect-ratio: var(--ar) !important; }
+@media (min-width: 720px) and (max-width: 999px) {
+  .hero--wall:not(.hero--hpw) .hero__frame { width: min(100%, calc((100svh - var(--header-h) - 400px) * 1.5 + 30px), 760px); min-width: 300px; }
+}
+.hero--wall + .section { padding-top: clamp(40px, 9vw, 64px); }
+/* Book a court (b10) closes the wall on phones, after the four programs: the Whites page CSS pins it to row 5 */
+.hero--wall .hero__court { grid-row: auto; grid-column: 1 / -1; }
+
+/* =====================================================================================
+   2. Find your program: the head centred, the four courts, then the chooser where the
+   specimen asks "Not sure where to start?" (804-852, 1724)
+   ===================================================================================== */
+#find-your-program .wrap { display: grid; }
+#find-your-program .fyp__head { display: contents; }
+#find-your-program .sect-head { order: 1; margin-bottom: clamp(36px, 4.4vw, 64px); text-align: center; justify-items: center; }
+#find-your-program .sect-head::after { content: ""; display: block; width: 56px; height: 1px; margin: clamp(20px, 2.4vw, 32px) auto 0; background: var(--rule-strong); }
+#find-your-program .doors { order: 2; }
+#find-your-program .chooser { order: 3; width: 100%; max-width: 44rem; margin: clamp(48px, 5vw, 72px) auto 0; justify-items: center; text-align: center; border-top: 0; padding-top: 0; }
+#find-your-program .chooser__title { flex-direction: column; align-items: center; gap: 4px; }
+#find-your-program .chooser__title .label { font: italic 400 var(--step-3)/1.45 var(--font-serif); letter-spacing: 0.005em; text-transform: none; color: var(--fg); }
+#find-your-program .chooser__q { justify-items: center; }
+#find-your-program .opts { justify-content: center; }
+#find-your-program .chooser__result { justify-items: center; text-align: center; width: 100%; }
+#find-your-program .chooser__result-actions { justify-content: center; }
+
+/* =====================================================================================
+   3. Recreational and High Performance (1713-1722, 1834-1846)
+   Each half centred: the name, the three words closed by a rule, one print, the links.
+   ===================================================================================== */
+.split--b7 .split__half { text-align: center; }
+.split--b7 .split__inner {
+  grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: var(--sp-5);
+  padding-inline: clamp(20px, 4.4vw, 72px);
+}
+@media (min-width: 900px) {
+  .split--b7 .split__half--rec .split__inner, .split--b7 .split__half--hp .split__inner { grid-template-columns: minmax(0, 1fr); padding-inline: clamp(20px, 4.4vw, 72px); }
+  .split--b7 .split__half { align-items: start; }
+}
+.split--b7 .split__name, .split--b7 .split__half--hp .split__name {
+  grid-column: 1; font: 400 clamp(2rem, 1.2rem + 2.6vw, 3.5rem)/1.05 var(--font-display); letter-spacing: -0.01em; text-transform: none; text-wrap: balance;
+}
+.split--b7 .split__half .split__tag { grid-column: 1; grid-row: auto; margin-top: calc(-1 * var(--sp-3)); font: 400 clamp(1.25rem, 1.05rem + 0.6vw, 1.75rem)/1.3 var(--font-serif); color: var(--fg-muted); }
+.split--b7 .split__tag .w { display: inline; }
+.split--b7 .split__tag em { font-style: italic; }
+.split--b7 .split__tag::after { content: ""; display: block; width: 56px; height: 1px; margin: var(--sp-4) auto 0; background: var(--rule-strong); }
+.split--b7 .split__half--rec .frame, .split--b7 .split__half--hp .frame {
+  order: 3; grid-column: 1; grid-row: auto; justify-self: center; width: min(100%, 23rem);
+}
+.split--b7 .split__half .pathmini { order: 4; grid-column: 1; width: 100%; max-width: 24rem; margin: 0; text-align: left; }
+.split--b7 .split__half .split__links { order: 5; grid-column: 1; align-self: auto; margin: 0; }
+.split--b7 .split__half--rec .split__links { grid-auto-flow: column; justify-content: center; column-gap: var(--sp-5); }
+.split--b7 .split__half--hp .split__links { justify-content: center; }
+.split--b7 .split__links .link { justify-content: center; min-height: 44px; border: 0; }
+.split--b7 .split__links .link:last-child { border-bottom: 0; }
+.split--b7 .split__links .link__text::before { display: block; }
+.split--b7 .split__half .frame__tag { font-size: 0.6875rem; padding: 6px 2px 7px; gap: 8px; letter-spacing: 0.1em; white-space: normal; }
+@media (min-width: 720px) { .split--b7 .split__half .frame__tag { padding-block: 9px 10px; letter-spacing: 0.14em; } }
+/* the pathway as a ruled list: the name in Caslon Display, the ages to the right (874-877) */
+.split--b7 .pathmini li { grid-template-columns: minmax(0, 1fr); padding: 12px 0; border-top: 1px solid var(--rule); }
+.split--b7 .pathmini li:last-child { border-bottom: 1px solid var(--rule); }
+.split--b7 .pathmini li > span.num { display: none; }   /* the 01 to 03 step numbers only; the ages are em.num */
+.split--b7 .pathmini li > span:last-child { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.split--b7 .pathmini strong { white-space: nowrap; }
+.split--b7 .pathmini em { text-align: right; }
+@media (max-width: 719px) {
+  .split--b7 .split__half--rec .split__links { grid-auto-flow: row; }
+  .split--b7 .split__half--rec .frame, .split--b7 .split__half--hp .frame { width: min(100%, 20rem); }
+}
+@media (max-width: 599px) {
+  .split--b7 .split__half--hp .frame, .split--b7 .split__half--hp .pathmini, .split--b7 .split__half--hp .split__links { grid-column: 1; grid-row: auto; }
+}
+
+/* =====================================================================================
+   4. Why TPTC? The head centred; the five strengths beside a slideshow of prints (886-911,
+   1848-1900)
+   ===================================================================================== */
+.why__head { text-align: center; justify-items: center; }
+/* phones (tptc.css 564): the heading reads from the left under its centred rule, as in the specimen */
+@media (max-width: 899px) {
+  #find-your-program .sect-head .h2, .why__head .h2 { justify-self: stretch; text-align: left; }
+}
+.why__head::after { content: ""; display: block; width: 56px; height: 1px; margin: clamp(20px, 2.4vw, 32px) auto 0; background: var(--rule-strong); }
+@media (min-width: 900px) {
+  .why__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: clamp(36px, 4.4vw, 64px); }
+  .why__head { grid-column: 1 / -1; grid-row: 1; }
+  .strengths { grid-column: 1 / span 7; grid-row: 2; }
+  .why__photo { grid-column: 8 / -1; grid-row: 2; position: sticky; top: calc(var(--header-h) + 24px); }
+}
+@media (min-width: 1100px) { .why__photo { grid-column: 9 / -1; } }
+.strengths { border-top: 0; }
+.strengths li { border-bottom: 0; padding-block: 0 clamp(28px, 3vw, 44px); }
+
+/* the slideshow: one print at a time, the controls hung under it like a plate */
+.show__track { padding-bottom: 30px; margin-bottom: -18px; }
+.show__slide .frame__cap { display: flex; gap: 2px 12px; margin-top: 0; max-width: none; }
+.show__slide .frame__cap em { font: 400 1rem/1.25 var(--font-display); color: var(--plate-fg); }
+.show__slide .frame__cap span { font: italic 400 0.8125rem/1.3 var(--font-serif); color: var(--plate-fg-2); }
+@media (max-width: 719px) { .show__slide .frame__cap em { font-size: 0.875rem; } .show__slide .frame__cap span { font-size: 0.75rem; } }
+.show__bar { justify-content: center; gap: 4px; }
+.show__btn { border-radius: var(--radius); }
+.show__toggle { margin-left: var(--sp-2); }
+.show__dots button { width: 32px; }
+.show__dots button::after { width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--fg); }
+.show__dots button[aria-current="true"]::after { width: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--fg); transform: scale(1.15); }
+
+/* The video slot: a print that waits for a film (1888-1899). The Whites raw colours of
+   pages/home.css 76 and 80 (the raw dome white and its dashed edge) are replaced with tokens here. */
+.vslot {
+  --mat-w: clamp(8px, 1.1vw, 16px);
+  display: flex; flex-direction: column; padding: var(--mat-w) var(--mat-w) 0;
+  background: var(--mat); border: 5px solid var(--wood); box-shadow: var(--print-shadow);
+}
+@media (min-width: 1000px) { .vslot { --mat-w: clamp(18px, 1.7vw, 26px); } }
+@media (max-width: 719px) { .vslot { border-width: 4px; } }
+.vslot__box {
+  container-type: inline-size; gap: 8px; padding: var(--sp-3);
+  background: var(--frame-dark-bg); color: var(--on-dark); border: 0; outline: 1px solid var(--print-edge);
+}
+.vslot__play { width: clamp(52px, 14cqi, 72px); height: auto; aspect-ratio: 1; padding: calc(clamp(52px, 14cqi, 72px) * 0.3); margin-bottom: 6px; border: 1px solid var(--vslot-ring); }
+.vslot__label { font: 400 clamp(1.375rem, 1rem + 2.4cqi, 2rem)/1.1 var(--font-display); letter-spacing: 0; text-transform: none; }
+.vslot__what { font: italic 400 clamp(0.9375rem, 0.85rem + 0.6cqi, 1.0625rem)/1.4 var(--font-serif); color: var(--mist); max-width: 26ch; }
+.vslot__tag {
+  position: static; margin-top: 6px; padding: 4px 8px 4px 7px; background: none; color: var(--mist);
+  border: 1px dashed var(--line-chalk-strong); border-radius: var(--radius);
+  font: 700 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase;
+}
+
+/* =====================================================================================
+   5. What's happening: on the paper, one lead and the fixtures (913-934)
+   ===================================================================================== */
+section[aria-labelledby="happen-title"] { --bg: var(--surface); --ph-ground: var(--surface-alt); background: var(--surface); padding-top: calc(var(--section) * 0.35); }
+section[aria-labelledby="happen-title"] .sect-head .body { font-size: var(--step-5); color: var(--fg-muted); }
+@media (min-width: 1000px) {
+  .happen { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+  .happen .hlead { grid-column: 1 / span 7; }
+  .happen .hnext { grid-column: 9 / -1; }
+}
+@media (min-width: 720px) and (max-width: 999px) {
+  .happen .hnext { grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); column-gap: var(--gutter); }
+}
+
+/* =====================================================================================
+   6. Latest news and Meet the Coaches (W2b-news, on W2a's markup)
+   The band on chalk, its head centred under the 56px rule; the pinned story leads in 7 of 12 columns
+   (its print, then its ledger date, topic, title and summary) and the next two stand as fixtures in
+   4 of 12 behind one ink hairline (the specimen's What's happening, 913-934: the hairline is the
+   Clubhouse's net). The coaches band follows on the paper with its own gap.
+   ===================================================================================== */
+section[aria-labelledby="happen-title"] + .section { padding-top: calc(var(--section) * 0.35); }
+.nband { --bg: var(--surface-alt); --ph-ground: var(--surface); background: var(--surface-alt); }
+.nband:has(+ .cband) { padding-bottom: var(--section); }
+.nband + .cband { padding-top: var(--section); }
+.nband + .cband > .cband__grid { padding-top: 0; background: none; }
+/* (the band's head, centred over its 56px rule, is shared: components.css, news) */
+.ncards--band .ncard--lead { padding-bottom: clamp(28px, 3vw, 44px); border-bottom: 1px solid var(--rule-strong); }
+@media (min-width: 1000px) {
+  .ncards--band { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+  .ncards--band .ncard--lead { grid-column: 1 / span 7; grid-row: 1 / span 4; grid-template-columns: minmax(0, 1fr); row-gap: 26px; padding-bottom: 0; border-bottom: 0; }
+  .ncards--band .ncard--lead .ncard__body { padding-top: 0; }
+  .ncards--band .ncard:not(.ncard--lead) {
+    grid-column: 9 / -1; grid-template-columns: minmax(0, 1fr); grid-template-areas: "photo" "body"; row-gap: 18px;
+    padding: 0 0 clamp(28px, 3vw, 44px) var(--gutter); border-top: 0; border-left: 1px solid var(--rule-strong);
+  }
+  .ncards--band .ncard:not(.ncard--lead) + .ncard:not(.ncard--lead) { padding-top: clamp(28px, 3vw, 44px); border-top: 1px solid var(--rule); }
+  .ncards--band .ncard:not(.ncard--lead) > .frame { --ar: 3 / 2 !important; --mat-w: 10px; border-width: 4px; }
+  .ncards--band .ncard:not(.ncard--lead) > .frame .frame__tag { padding: 6px 2px 7px; font-size: 0.625rem; }
+}
+@media (min-width: 1000px) {
+  .cband__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--gutter); align-items: center; }
+  .cband__head .h2 { max-width: 14ch; }
+}
+
+/* =====================================================================================
+   DI (25 Oct 2026, the orchestrator): the specimen's own composition, written by the Clubhouse
+   template (site/directions/clubhouse/templates.py).
+   ===================================================================================== */
+/* The four courts drawn with no photograph (1690-1705): the court is the picture and carries the Turn */
+.doors--drawn .court { aspect-ratio: 2 / 1; background: var(--lawn); overflow: hidden; }
+.doors--drawn .court__surface { fill: var(--lawn-court); }
+.doors--drawn .court__paint { stroke: var(--lawn-line); stroke-opacity: 1; }
+.doors--drawn .court__net { stroke: var(--lawn-line); stroke-width: 1; opacity: 1; }
+.doors--drawn .court__post { fill: var(--lawn-line); opacity: 1; }
+
+/* Why TPTC as the ledger (886-911): each strength led by its true figure in Caslon Display */
+.strengths--ledger { display: grid; gap: clamp(28px, 3vw, 44px); }
+.strengths--ledger .strengths__row { display: grid; grid-template-columns: clamp(6.5rem, 4rem + 7vw, 11rem) minmax(0, 1fr); column-gap: var(--sp-5); align-items: baseline; padding: 0; border: 0; }
+.strengths--ledger .strengths__fig { margin: 0; font: 400 clamp(2.75rem, 1.6rem + 3.6vw, 4.75rem)/0.9 var(--font-display); letter-spacing: -0.02em; color: var(--fg); max-width: none; }
+.strengths__unit { font-size: 0.42em; letter-spacing: 0.02em; vertical-align: 0.95em; margin-left: 0.08em; }
+.strengths__txt { display: grid; gap: 6px; }
+.strengths--ledger h3 { font: 400 clamp(1.25rem, 1.15rem + 0.3vw, 1.375rem)/1.2 var(--font-display); letter-spacing: 0; text-transform: none; color: var(--fg); }   /* the name over its 17px line is the larger (R2 defect 4; the specimen's 15px capitals were smaller) */
+.strengths--ledger .strengths__txt p { font-size: 1.0625rem; line-height: 1.55; color: var(--fg-muted); max-width: 52ch; text-wrap: pretty; }
+@media (max-width: 719px) {
+  .strengths--ledger .strengths__row { grid-template-columns: 5.25rem minmax(0, 1fr); column-gap: var(--sp-4); }
+  .strengths--ledger .strengths__fig { font-size: 2.5rem; }
+}
+
+/* W2b: the drawn courts at the specimen's ball size (1700); a pressed door settles its court (1701) */
+.doors--drawn .court__ball, .doors--drawn .court__shadow { width: clamp(11px, 2.3cqi, 17px); }
+.doors--drawn .court__ball { height: clamp(11px, 2.3cqi, 17px); }
+.doors--drawn .door:active .court { transform: scale(0.99); transition: transform var(--dur-press) var(--ease-ui); }
+/* the split's pathway ends on its summit, marked as the specimen marks it: a stronger rule and an
+   italic note, never a change of face (1117-1118) */
+.split--b8 .pathmini li.is-summit { border-bottom-color: var(--rule-strong); }
+.split--b8 .pathmini li.is-summit em { font-family: var(--font-serif); font-style: italic; color: var(--fg-muted); }

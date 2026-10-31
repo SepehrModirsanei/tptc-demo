@@ -1,0 +1,48 @@
+/* TPTC Direction B, "Dome": Camps hub (D2, 24 Oct 2026). Loaded after css/pages/camps.css.
+   The camp year drawn as the season ledger is (ledger.css 505-538): an ink baseline, each window a
+   bar on it, its name in the italic serif, the months as ledger labels on ticks; the two tracks as
+   paper beside Dome night with no net between them; the questions as ledger rows. Tokens only. */
+.camps-status { gap: 10px; }
+
+/* ---------- The camp year ---------- */
+.campyear__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-3); }
+.campyear__base { height: 1px; background: var(--fg); }
+.campyear__bar { height: 6px; background: var(--fg); }
+.campyear__win::before { background: var(--rule-strong); }
+.campyear__label { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.campyear__label strong { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-stretch: 100%; font-size: var(--t-name-sm); line-height: 1.2; }
+.campyear__label span { font-variant-numeric: tabular-nums; }
+.campyear__now { border-left-color: var(--rule-strong); }
+.campyear__now-label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); color: var(--fg-muted); }
+.campyear__months { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-nav); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); text-transform: uppercase; color: var(--fg-subtle); }
+.campyear__months li { border-left-color: var(--rule-strong); padding: 10px 0 0 6px; }
+@media (max-width: 699px) {
+  .campyear__months { font-size: var(--step-6); letter-spacing: 0; font-stretch: 76%; }
+  .campyear__label strong { font-size: var(--step-4); }
+}
+
+/* ---------- Season doors ---------- */
+.door__status { gap: 8px; }
+
+/* ---------- Two tracks: paper beside night, no net ---------- */
+.tracks__net { display: none; }
+.tracks__title { font-family: var(--font-serif); font-weight: var(--w-head); font-size: var(--t-split-name); line-height: 1.02; letter-spacing: -0.014em; padding-top: 16px; border-top: 1px solid var(--rule-strong); }
+.tracks__half--hp .tracks__title { font-family: var(--font-serif); font-weight: var(--w-head); font-size: var(--t-split-name); line-height: 1.02; letter-spacing: -0.014em; text-transform: none; }
+.tracks__who { font-family: var(--font-sans); font-size: var(--step-5); font-weight: var(--w-label); font-stretch: var(--stretch-label); letter-spacing: var(--track-label); text-transform: uppercase; line-height: 1.25; color: var(--fg-muted); }
+.tracks__line { color: var(--fg-muted); }
+.tracks__inner { padding-block: var(--section); }
+
+/* ---------- Camp questions ---------- */
+.qrows { border-top: 1px solid var(--fg); }
+.qrow { padding: 24px 0; }
+.qrow dt { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.15; }
+.qrow dd { color: var(--fg-muted); }
+.qrow dd .agenote { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+
+/* ---------- Phones: the choice itself ---------- */
+@media (max-width: 899px) {
+  .page-camps .camps-choose { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+  .page-camps .hero__points .hero__point-value { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-lg); }
+}
+@media (max-width: 699px) { .tracks__inner { padding-block: var(--sp-6); } }
+.camps-q .sect-head { max-width: 30rem; }

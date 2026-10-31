@@ -1,0 +1,215 @@
+/* TPTC Direction A, "Clubhouse": High Performance (D1, 24 Oct 2026; DI 25 Oct: the hero section and the DI section at the end). Loaded after
+   css/pages/high-performance.css. Target: specimens/A-clubhouse/high-performance.html with
+   tptc.css (line numbers below). Shared components are in ../components.css. */
+
+/* =====================================================================================
+   1. The hero: the same wall at night (1752-1787, 1008-1042). DI (25 Oct): the Clubhouse template writes
+   the specimen's wall (crumbs, the page's provenance line, the two sentences either side of one portrait
+   print, each over its own way in, the season's status, the three steps on phones); the wall's shared
+   rules are components.css "DI". The header and the hero stand on the night (--night-deep).
+   ===================================================================================== */
+.site-header.theme-night { --bg: var(--night-deep); }
+.hero.hero--hpw { --bg: var(--night-deep); --ph-ground: var(--frame-night-bg); }
+.hero--hpw .crumbs { grid-column: 1 / -1; margin: 0; padding: 6px 0 0; }
+.hero--hpw .crumbs ol { justify-content: center; }
+.hero--hpw .hero__title em { font-family: var(--font-display); font-style: normal; letter-spacing: inherit; }
+.hero.hero--hpw .hero__frame .frame { --ar: 4 / 5 !important; }
+.hero--hpw .hero__frame .frame__box { aspect-ratio: var(--ar) !important; }
+.hero--hpw .hero__frame { width: min(100%, calc((100svh - var(--header-h) - 400px) * 0.8 + 26px), 22rem); min-width: 150px; }
+.hero--hpw .actions .btn { padding-inline: 10px; }
+.hero--hpw .status-line { grid-column: 1 / -1; justify-content: center; margin: 4px 0 0; padding: 0; font-size: var(--step-5); }
+@media (max-width: 719px) {
+  .hero.hero--hpw { padding-top: 0; }
+  .hero--hpw .hero__wall { row-gap: 10px; }
+  .hero--hpw .crumbs ol { gap: 6px 7px; flex-wrap: nowrap; }
+  .hero--hpw .crumbs li { gap: 7px; font-size: 0.6875rem; letter-spacing: 0.1em; white-space: nowrap; }
+  .hero--hpw .crumbs li + li::before { width: 10px; }
+  .hero--hpw .crumbs a { min-height: 36px; }
+  .hero--hpw .actions .btn { padding-inline: 6px; letter-spacing: 0.04em; font-size: 0.6875rem; }
+  .hero--hpw .actions .btn .icon { display: none; }
+  .hero--wall .hero__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; margin: 0; padding: 0; list-style: none; text-align: left; border-top: 1px solid var(--rule-strong); }
+  .hero__steps li + li { border-left: 1px solid var(--rule); }
+  .hero__steps a { display: grid; gap: 3px; align-content: start; min-height: 64px; padding: 10px 8px 0 10px; color: inherit; text-decoration: none; }
+  .hero__steps li:first-child a { padding-left: 0; }
+  .hero__steps-k { font: 650 0.625rem/1.2 var(--font-sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-subtle); }
+  .hero__steps-n { font: 400 1.0625rem/1.12 var(--font-display); color: var(--fg); }
+  .hero__steps-m { font: 400 0.75rem/1.3 var(--font-sans); color: var(--fg-subtle); white-space: nowrap; }
+}
+@media (max-width: 374px) {
+  .hero__steps a { padding-right: 4px; }
+  .hero__steps-n { font-size: 0.9375rem; letter-spacing: -0.005em; }
+  .hero--hpw .actions .btn { font-size: 0.625rem; letter-spacing: 0.03em; }
+}
+@media (max-width: 719px) and (min-height: 800px) {
+  .hero--hpw .hero__frame { width: min(100%, calc((100svh - var(--header-h) - 500px) * 0.8 + 26px), 22rem); }
+}
+@media (min-width: 720px) and (max-width: 999px) {
+  .hero--hpw .hero__frame { width: min(60%, calc((100svh - var(--header-h) - 520px) * 0.8 + 30px), 30rem); }
+}
+@media (min-width: 1000px) {
+  .hero--hpw .hero__wall { grid-template-rows: auto auto auto auto auto; }
+  .hero--hpw .crumbs { grid-row: 1; padding-top: 0; }
+  .hero--hpw .prov--centre { grid-row: 2; margin-bottom: clamp(12px, 2.4svh, 28px); }
+  .hero--hpw .line--a, .hero--hpw .line--b { grid-row: 3; }
+  .hero--hpw .hero__act--a, .hero--hpw .hero__act--b { grid-row: 4; }
+  .hero--hpw .hero__title .line { font-size: clamp(2.75rem, 4.1vw, 4.25rem); }
+  .hero--hpw .hero__frame { grid-row: 3 / span 2; width: min(34vw, calc((100svh - var(--header-h) - 330px) * 0.8 + 38px), 30rem); min-width: 250px; }
+  .hero--hpw .status-line { grid-row: 5; margin-top: clamp(16px, 2.6svh, 28px); }
+  .hero--hpw .actions .btn { padding-inline: 22px; }
+}
+
+/* =====================================================================================
+   2. Who it is for (1060-1065): the eyebrow in the margin, the statement as the section's H2
+   ===================================================================================== */
+@media (min-width: 1000px) { .intro__grid { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: var(--gutter); } }
+
+/* =====================================================================================
+   3. Which step: the scorecard on chalk, one question at a time (1908-1975, 2000-2003)
+   ===================================================================================== */
+@media (min-width: 1000px) {
+  .hpf__grid { grid-template-columns: minmax(0, 1fr); }
+  .wrap.hpf__grid > .sect-head { text-align: center; justify-items: center; margin-inline: auto; }
+  .wrap.hpf__grid > .sect-head .h2, .wrap.hpf__grid > .sect-head .body { margin-inline: auto; }
+  .wrap.hpf__grid > .sect-head::after { margin-left: auto; }
+}
+.hpf-sec .sect-head { margin-bottom: clamp(20px, 2.4vw, 36px); }
+form.hpf {
+  width: 100%; max-width: 54rem; margin-inline: auto; gap: var(--sp-4);
+  padding: clamp(20px, 3vw, 40px); background: var(--surface-alt); border-top: 1px solid var(--rule-strong);
+}
+.hpf .chooser__title { min-height: 44px; align-items: center; }
+.hpf .chooser__title .label { color: var(--fg-muted); }
+.hpf .chooser__q { padding-top: var(--sp-4); border-top: 1px solid var(--rule); }
+.hpf .chooser__q legend { float: left; width: 100%; margin-bottom: var(--sp-3); font: 400 clamp(1.5rem, 1.2rem + 1vw, 2.125rem)/1.15 var(--font-display); color: var(--fg); text-wrap: balance; }
+.hpf .opts { clear: both; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr)); gap: 8px; }
+.hpf .opts.hpf__opts { grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+@media (min-width: 720px) { .hpf .opts.hpf__opts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.hpf .opts .opt { display: block; }
+.hpf .opts .opt span { display: flex; width: 100%; min-height: 56px; padding: 10px 16px; font: 400 1.125rem/1.3 var(--font-serif); text-wrap: balance; }
+.hpf .opts.num .opt span { min-width: 0; font: 600 1.125rem/1.2 var(--font-sans); }
+@media (hover: hover) and (pointer: fine) { .hpf .opt:hover span { border-color: var(--fg); } }
+/* the answer, hung as a print: dark frame, white mat, the step's numeral in Caslon (1942-1975) */
+.hpf__result {
+  --fg: var(--plate-fg); --fg-muted: var(--plate-fg-2); --fg-subtle: var(--plate-fg-2); --bg: var(--mat);
+  --rule: var(--plate-line); --rule-strong: var(--plate-line-strong); --focus: var(--plate-fg); --focus-ring: var(--focus-w) solid var(--focus);
+  gap: var(--sp-3); margin-top: 12px; padding: clamp(18px, 2.6vw, 32px);
+  background: var(--mat); color: var(--plate-fg); border: 5px solid var(--wood); box-shadow: var(--print-shadow);
+}
+.hpf__result .chip { color: var(--plate-fg); border-color: var(--plate-line-strong); }
+.hpf__result .btn--ink { --cb-bg: var(--plate-fg); --cb-bd: var(--plate-fg); --cb-fg: var(--mat); --cb-fill: var(--night-raised); --cb-fg2: var(--mat); }
+.hpf__top { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--sp-3); }
+.hpf__top > .chip { grid-column: auto; justify-self: end; }
+.hpf__top:not(:has(.hpf__n)) { grid-template-columns: minmax(0, 1fr) auto; }
+.hpf__n { font: 400 clamp(3.5rem, 2.4rem + 3vw, 5rem)/0.8 var(--font-display); color: var(--plate-fg); }
+.hpf__name { margin-top: 6px; font: 400 clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem)/1.05 var(--font-display); color: var(--plate-fg); }
+.hpf__facts { gap: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--plate-line); }
+.hpf__facts li { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; padding: 0; border-bottom: 0; font-size: 1rem; line-height: 1.45; color: var(--plate-fg); }
+@media (min-width: 640px) { .hpf__facts li { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; } }
+.hpf__facts .icon { width: 24px; height: 24px; color: var(--plate-fg); }
+.hpf__note { font: italic 400 1.0625rem/1.45 var(--font-serif); color: var(--plate-fg); }
+.hpf__how { font-size: 1rem; line-height: 1.5; color: var(--plate-fg-2); }
+.hpf__acts { gap: var(--sp-2) var(--sp-4); }
+@media (max-width: 719px) {
+  form.hpf { padding-inline: 16px; }
+  .hpf__top { grid-template-columns: auto minmax(0, 1fr); }
+  .hpf__top > .chip { grid-column: 1 / -1; justify-self: start; }
+}
+
+/* =====================================================================================
+   4. The pathway (1067-1138): the index in three columns of twelve, the steps in nine
+   ===================================================================================== */
+@media (min-width: 1000px) { .pathway { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: var(--gutter); } }
+
+.cp-net { stroke: var(--fg); stroke-width: 1px; }
+.cp-full { color: var(--fg-subtle); }
+.courtplan__key { color: var(--fg-muted); }
+.pathway__index > .small { color: var(--fg-muted); }
+
+/* =====================================================================================
+   5. Pro National Academy (1140-1187): the grotesque capitals mark the summit, on the paper
+   ===================================================================================== */
+.academy.section--chalk { --bg: var(--surface); --ph-ground: var(--surface-alt); background: var(--surface); }
+.academy__title { max-width: none; font: 800 clamp(3.25rem, 1.1rem + 7.2vw, 8.75rem)/0.86 var(--font-sans); letter-spacing: -0.05em; text-transform: uppercase; text-wrap: balance; }
+.academy .lede { color: var(--fg-muted); }
+.academy__facts { border-top: 1px solid var(--rule-strong); }
+.academy__facts li { grid-template-columns: 32px minmax(0, 1fr); gap: 12px; padding: var(--sp-4) 0; font: 400 1.125rem/1.4 var(--font-serif); }
+.academy__facts .icon { color: var(--fg-subtle); }
+@media (min-width: 1000px) {
+  .academy__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--sp-6); }
+  .academy__head { grid-column: 1 / -1; }
+  .academy__side { grid-column: 1 / -1; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--sp-6); align-items: end; }
+  .academy__side > .academy__facts { grid-column: 1 / -1; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .academy__facts li { grid-template-columns: minmax(0, 1fr); align-content: start; padding: var(--sp-4) var(--gutter) 0; border-bottom: 0; border-left: 1px solid var(--rule); }
+  .academy__facts li:first-child { padding-left: 0; border-left: 0; }
+  .academy__side > div:nth-child(2) { grid-column: 1 / span 6; }
+  .academy__side > div:nth-child(3) { grid-column: 8 / span 5; justify-self: end; }
+}
+
+/* =====================================================================================
+   6. The camps door and the coaches line: on the paper, before the chalk closing band
+   ===================================================================================== */
+.section--chalk.section--tight:has(.next-doors) { --bg: var(--surface); --ph-ground: var(--surface-alt); background: var(--surface); padding-top: 0; }
+@media (min-width: 900px) { .next-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* The court plan's key: the three-quarter court drawn heavier in ink, the full court in the second ink */
+.cp-three { color: var(--fg); }
+.cp-key i { border-top-color: var(--fg-subtle); }
+.cp-key--three i { border-top-color: var(--fg); }
+
+/* =====================================================================================
+   DI (25 Oct 2026, the orchestrator): the pathway and the academy as the specimen composes them,
+   written by the Clubhouse template (site/directions/clubhouse/templates.py).
+   ===================================================================================== */
+/* The pathway's head over the grid (RA5a, 1067): centred like every other head, its note beneath */
+.pathway-sec .pathway__head { text-align: center; justify-items: center; margin: 0 auto clamp(36px, 4.4vw, 64px); max-width: 48rem; }
+.pathway-sec .pathway__head .h2, .pathway-sec .pathway__note { margin-inline: auto; }
+.pathway__note { color: var(--fg-muted); max-width: 68ch; }
+/* each step opens on its Caslon numeral (1116-1121); the summit carries an italic kicker and its rule,
+   never a change of face, and hangs no print (its photograph is the hero's) */
+.step__head .step__num { margin: 0; font: 400 clamp(3.5rem, 2rem + 4vw, 5.5rem)/0.8 var(--font-display); color: var(--fg); }
+.step__kicker { margin: 0; font: italic 400 1.0625rem/1.3 var(--font-serif); color: var(--fg-muted); }
+.step.step--summit { grid-template-columns: minmax(0, 1fr); }
+.step--summit .step__body { grid-column: 1 / -1; padding-top: var(--sp-6); border-top: 1px solid var(--rule-strong); }
+
+/* The Pro National Academy (RA5b, 1140-1187): the photograph across the page as a stage, the mark in two
+   voices over it (Pro National in grotesque capitals, Academy in Caslon Display), the facts on the paper */
+.academy.academy--stage { padding: 0; }
+.academy--stage .academy__stage { position: relative; }
+.academy--stage .academy__stage > .frame { --ar: 21 / 9; margin: 0; padding: 0; border: 0; box-shadow: none; background: var(--frame-dark-bg); }
+.academy--stage .academy__stage > .frame .frame__box { outline: 0; }
+.academy--stage .academy__stage > .frame .frame__tag { position: absolute; top: 0; right: 0; width: auto; padding: 7px 10px; background: var(--tag-bg); color: var(--tag-fg); }
+.academy--stage .academy__stage > .frame .frame__media::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, var(--scrim), transparent 70%); }
+.academy__copy { position: relative; z-index: 3; display: grid; gap: var(--sp-5); }
+.academy__mark { display: grid; max-width: none; color: var(--fg); }
+.academy__mark .academy__a1 { display: block; font: 800 clamp(3.25rem, 1.1rem + 7.2vw, 8.75rem)/0.86 var(--font-sans); letter-spacing: -0.05em; text-transform: uppercase; }
+.academy__mark .academy__a2 { display: block; font: 400 clamp(2.75rem, 1rem + 5.6vw, 7rem)/1 var(--font-display); letter-spacing: -0.012em; text-transform: none; padding: 0 0 0.3em 0.04em; margin-bottom: -0.3em; }
+.academy--stage .academy__body { padding-block: clamp(48px, 5vw, 80px) clamp(72px, 8vw, 120px); }
+@media (min-width: 900px) {
+  .academy--stage .academy__stage { display: grid; }
+  .academy--stage .academy__stage > .frame { grid-area: 1 / 1; }
+  .academy--stage .academy__over { grid-area: 1 / 1; align-self: end; position: relative; z-index: 2; padding-bottom: clamp(40px, 5vw, 80px);
+    --fg: var(--on-dark); --fg-muted: var(--mist); --focus: var(--on-dark); --focus-ring: var(--focus-w) solid var(--focus); color: var(--fg); }
+  .academy--stage .academy__copy { max-width: 44rem; }
+}
+@media (max-width: 899px) {
+  .academy.academy--stage .academy__stage > .frame { --ar: 4 / 3 !important; --pos: 80% 50% !important; }
+  .academy--stage .academy__over { padding-top: var(--sp-6); }
+}
+
+/* W2b: the summit keeps its field list (the page's content) and still reads as the specimen's summit
+   (1181-1186): one full-width rule, the head and the way down to the Academy on one line, then the five
+   facts as a two-column summary under it, lighter than the steps below it in the climb. */
+.step--summit .step__body { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--sp-4) var(--gutter); padding-block: var(--sp-5) 0; }
+.step--summit .step__head { grid-column: 1; grid-row: 1; }
+.step--summit .step__body > .link { grid-column: 2; grid-row: 1; justify-self: end; }
+.step--summit .fields { grid-column: 1 / -1; grid-row: 2; }
+.step--summit .fields dd { color: var(--fg-muted); }
+@media (min-width: 900px) {
+  .step--summit .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+  .step--summit .fields > div { grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr); }
+}
+@media (max-width: 719px) {
+  .step--summit .step__body { grid-template-columns: minmax(0, 1fr); }
+  .step--summit .step__body > .link { grid-column: 1; grid-row: auto; justify-self: start; }
+  .step--summit .fields { grid-row: auto; }
+}

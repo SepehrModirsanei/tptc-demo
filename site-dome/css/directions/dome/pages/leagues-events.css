@@ -1,0 +1,38 @@
+/* TPTC Direction B, "Dome": Leagues & Events (W2c D3, 25 Oct 2026). Loaded after css/pages/leagues-events.css.
+   The Dome composition: the hero on Dome night (page_hero: the four kinds of play on the foot line); "What
+   can I join" moved onto Dome night (templates.py ground) as the season's scoreboard: the two seasons as
+   figures on a chalk hairline, the five kinds of play as square filters with their entries counted in
+   figures; each kind of play then opens on its order-of-play numeral, a scoreboard figure on a strong
+   rule (ledger.css 1269, 1301), its rows as ledger entries; the singles ladder as the rungs of a
+   scoreboard, the place you would take filled in ink. Tokens only. */
+
+/* ---------- What can I join: the season's scoreboard on night ---------- */
+.le-bar { gap: var(--sp-5) var(--sp-8); }
+@media (min-width: 1000px) { .le-bar { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; } }
+.le-bar .seg--select button .num { font-size: var(--fig-3); }
+.le-filters button { min-height: var(--target); border-color: var(--rule-strong); background: transparent; }
+.le-filters button .num { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--step-4); letter-spacing: 0; text-transform: none; }
+.le-filters button[aria-pressed="true"] { background: var(--fg); color: var(--ink); border-color: var(--fg); }
+.le-notes { color: var(--fg-muted); }
+
+/* ---------- Each kind of play: its order-of-play numeral ---------- */
+.le-type__n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-5); line-height: 0.86; letter-spacing: 0; color: var(--fg); padding: 0 0 12px; border-bottom: 2px solid var(--fg); min-width: 4.5rem; }
+.le-type__lede { color: var(--fg-muted); }
+.le-desc { font-family: var(--font-serif); font-size: var(--t-read-sm); color: var(--fg-muted); }
+.le-side-note { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+.le-rows .lrow__side .confirm { font-size: var(--t-sm); }
+.le-more { border-top-color: var(--rule); }
+.le-more .acc__q { font-size: var(--t-name); }
+.le-format { border-top: 1px solid var(--fg); }
+.le-format dt { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.le-format dd { color: var(--fg-muted); }
+
+/* ---------- The singles ladder: the rungs of a scoreboard ---------- */
+.le-rungs__list::before, .le-rungs__list::after { background: var(--fg); }
+.le-rungs__list li { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+.le-rungs__list .num { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--t-name-lg); line-height: 1; letter-spacing: 0; }
+.le-rungs__tag { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); }
+.le-ladder__rules li::before { background: var(--fg); }
+.le-ask__list li { font-family: var(--font-serif); font-style: italic; font-size: var(--step-4); }
+.le-ask__list li::before { background: var(--fg); }
+.le-levels .acc__panel p { color: var(--fg-muted); }

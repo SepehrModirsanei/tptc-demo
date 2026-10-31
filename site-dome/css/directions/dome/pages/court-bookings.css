@@ -1,0 +1,66 @@
+/* TPTC Direction B, "Dome": Court Bookings (D2, 24 Oct 2026). Loaded after css/pages/court-bookings.css.
+   The page in the Dome: the booking window as the club's court sheet (day figures, ink bars with end
+   ticks), the court day as a ruled track with the fee as a hand-entered figure, the member column on
+   Dome night with scoreboard figures, the rules as ledger groups. court-bookings.css writes three raw
+   Whites colours (203, 205 the chalk text on the member column; 226 its chalk rule): the Dome sets
+   them with its own tokens (request RD1). Tokens only. */
+
+/* ---------- The hero: the two booking actions, set large ---------- */
+.cb-hero__actions .btn { min-height: 60px; padding-inline: 28px; font-size: var(--t-ui); letter-spacing: var(--track-ui); }
+.cb-hero__how { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); color: var(--fg-muted); }
+.cb-pdf, .cb-docs .doclink__meta { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); color: var(--fg-subtle); }
+
+/* ---------- The booking window ---------- */
+.cb-window__lead { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.cb-window__days { border-top: 1px solid var(--fg); }
+.cb-window__dow, .cb-window__bar dt, .cb-day__label, .cb-compare__q, .cb-dim__n {
+  font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.25; font-weight: var(--w-chip);
+  font-stretch: var(--stretch-head); letter-spacing: var(--track-label); text-transform: uppercase;
+}
+.cb-window__dow { color: var(--fg-subtle); }
+.cb-window__days .is-today .cb-window__dow { color: var(--fg); }
+.cb-window__d { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(1.375rem, 1rem + 1.2vw, 2rem); line-height: 1; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.cb-window__bar dd { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+@media (max-width: 420px) { .cb-window__dow { font-size: var(--step-6); letter-spacing: 0.02em; font-stretch: 76%; } }
+
+/* ---------- Members and non-members ---------- */
+.cb-compare { border-top: 1px solid var(--fg); }
+.cb-compare__q { color: var(--fg-subtle); }
+.cb-compare__who { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); }
+.cb-dim__line, .cb-dim__line::before, .cb-dim__line::after { background: var(--fg); }
+
+/* ---------- The court day ---------- */
+.cb-day__label { color: var(--fg-subtle); }
+.cb-day__track { border-bottom-color: var(--fg); }
+.cb-day__band--regular { border-color: var(--fg); }
+.cb-day__fee { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--step-4); font-variant-numeric: tabular-nums lining-nums; }
+.cb-day__axis span { font-family: var(--font-sans); font-weight: 500; font-stretch: 100%; font-size: var(--step-6); }
+.cb-day__key { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+@media (min-width: 800px) { .cb-day__fee { font-size: var(--t-name-sm); } }
+.cb-sub { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+
+/* ---------- Outdoor, rules, public hours ---------- */
+.cb-out__head { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); }
+.cb-rules { border-top: 1px solid var(--fg); }
+.cb-rule__h { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-3); }
+.cb-rule__list li::before { border-color: var(--fg-muted); }
+.cb-all__list li::marker { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); }
+.cb-public__when { font-family: var(--font-serif); font-size: var(--step-3); }
+
+/* ---------- Why book as a member: the member column on Dome night ---------- */
+.cbx__q { font-family: var(--font-sans); font-size: var(--step-5); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-crumb); border-top-color: var(--rule); }
+.cbx__who { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); }
+.cbx__who--m, .cbx__a--m { background: var(--blazer); color: var(--on-night); --fg: var(--on-night); --fg-muted: var(--mist); --rule: var(--line-chalk); --rule-strong: var(--line-chalk-strong); --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus); }
+.cbx__a--m .cbx__why { color: var(--mist); }
+.cbx__big { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(3rem, 2.2rem + 3vw, 5rem); line-height: 0.86; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.cbx__big small { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); }
+.cbx__big--word { font-family: var(--font-serif); font-weight: var(--w-head); font-stretch: 100%; font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.75rem); line-height: 1.05; letter-spacing: -0.01em; }
+.cbx__why { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.cbx__both { font-size: var(--step-4); }
+@media (min-width: 800px) { .cbx__a--m { border-top-color: var(--line-chalk); } }
+
+/* ---------- Season switch, ledger and fee rows ---------- */
+.cb-switch .select-label { color: var(--fg-subtle); }
+.cb-season .srows { border-top-color: var(--fg); }
+.cb-ledger .ledger__months { border-top-color: var(--fg); }
+.cb-fees .srow__price { font-size: var(--t-name-lg); }

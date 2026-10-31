@@ -1,0 +1,93 @@
+/* TPTC Direction A, "Clubhouse": Our Coaches (W2b, 25 Oct 2026). Loaded after css/pages/coaches.css.
+   No specimen page: composed in the specimen's language.
+   - The hero: words with the provenance line; beside them (desktop) the Head Pro hangs as a portrait
+     print and his nameplate stands under it as its plate: role, name in Caslon Display, one line, the
+     way to his entry, centred like a plate under a print (tptc.css 1667-1672).
+   - His entry: the name in Caslon Display, the bio in Caslon Text, ruled fields; "coaches in" as ruled
+     tabs that fill in ink; his record as the specimen's ledger of figures (Caslon Display, 886-896).
+   - The team's entry format as a hairline card on the paper.
+   - How we coach: three numbered ways; the three Progressive Training courts drawn on the club's lawn
+     (the four courts' surround, court green and white lines, 1690-1700), the court in play heavier,
+     the net white like every Clubhouse court. */
+
+/* The hero card: a portrait print with its nameplate as the plate */
+@media (min-width: 1000px) {
+  .procard { grid-template-columns: minmax(0, 1fr); justify-items: center; row-gap: 0; max-width: 22rem; margin-inline: auto; }
+  .procard .frame { width: 100%; max-height: none; aspect-ratio: auto; justify-self: stretch; }
+  .procard__plate { justify-items: center; gap: 6px; width: 100%; padding: 14px 4px 0; border-top: 0; text-align: center; }
+  .procard__plate .coach__role { margin: 0; }
+  .procard__name { font: 400 clamp(1.75rem, 1.2rem + 1.1vw, 2.375rem)/1.05 var(--font-display); }
+  .procard__line { font-size: 0.9375rem; color: var(--fg-muted); max-width: 26ch; }
+  .procard__plate .link { margin-top: 2px; }
+}
+
+/* The Head Pro's entry */
+.lead__bio { font: 400 clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem)/1.5 var(--font-serif); color: var(--fg-muted); }
+.lead__fields { border-top-color: var(--rule-strong); }
+.lead__fields dt { font-weight: 700; color: var(--fg-subtle); }
+.coach-in { border-color: var(--rule-strong); border-radius: var(--radius); font: 650 var(--step-5)/1.2 var(--font-sans); }
+.record__title { font: 400 var(--step-3)/1.2 var(--font-display); letter-spacing: 0; color: var(--fg); }   /* a heading over the 15px source line (R2 defect 9) */
+.record__src { font-size: 0.9375rem; }
+.record__list { border-top-color: var(--rule-strong); }
+.record__n { font: 400 clamp(2.25rem, 1.6rem + 2vw, 3.5rem)/0.9 var(--font-display); letter-spacing: -0.02em; }
+.record__what { font-size: 1rem; color: var(--fg-muted); }
+
+/* The team's entry format, and entries added in the staff panel demo */
+.coach--format, .coach--entry { border-color: var(--rule); border-top-color: var(--rule-strong); background: var(--surface); }
+.format__name { font-family: var(--font-serif); color: var(--fg-muted); border-bottom-color: var(--rule-strong); }
+.format__fields dt, .roster__fields dt { font-weight: 650; }
+.roster__title { font-weight: 700; color: var(--fg-subtle); }
+.roster__name { font: 400 clamp(1.75rem, 1.4rem + 1vw, 2.25rem)/1.1 var(--font-display); }
+
+/* How we coach */
+.ways { border-top-color: var(--rule-strong); }
+.way__n { font: 400 2rem/1 var(--font-display); color: var(--fg-subtle); }
+.way__title { font: 400 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.15 var(--font-display); }
+.way__body p { font-size: 1rem; }
+.plan__surround { fill: var(--lawn); }
+.plan__area { fill: var(--lawn-court); }
+.plan line { stroke: var(--lawn-line); }
+.plan line.plan__ghost { stroke: var(--lawn-line); stroke-opacity: 0.4; }
+.plan line.plan__on { stroke-width: 1.5; }
+.plan line.net { stroke: var(--lawn-line); stroke-width: 1; }
+.plan rect.cl-p { fill: var(--lawn-line); }
+.plans figcaption { font: 650 0.875rem/1.3 var(--font-sans); }
+.plans figcaption span + span { color: var(--fg-muted); }
+
+/* W2b: the hero is the wall; its centrepiece is the Head Pro's portrait print, plated with his name and
+   role, his line and the way to his entry under it. His entry below gives up its own copy of the frame
+   at every width (the page never shows the portrait twice). */
+.hero.hero--wall-inner .hero__frame .procard .frame { --ar: 4 / 5 !important; }
+.hero--wall-inner .hero__frame:has(.procard) { width: min(100%, calc((100svh - var(--header-h) - 600px) * 0.8 + 26px), 16rem); min-width: 140px; }
+.hero--wall-inner .procard { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; max-width: none; margin: 0; }
+.hero--wall-inner .procard .frame { width: 100%; max-height: none; aspect-ratio: auto; justify-self: stretch; margin: 0; }
+.hero--wall-inner .procard__plate { justify-items: center; gap: 4px; width: 100%; padding: 12px 4px 0; border-top: 0; text-align: center; }
+.hero--wall-inner .procard__line { font-size: 0.9375rem; color: var(--fg-muted); max-width: 26ch; }
+.coach--lead > .frame { display: none; }
+@media (max-width: 999px) {
+  .coach--lead { grid-template-columns: minmax(0, 1fr); }
+  .coach--lead .coach__role, .coach--lead .lead__name { grid-column: 1; }
+}
+@media (min-width: 1000px) {
+  .hero--wall-inner .hero__frame:has(.procard) { width: min(26vw, calc((100svh - var(--header-h) - 560px) * 0.8 + 38px), 22rem); min-width: 200px; }
+}
+/* phones: the plate names him; his line and the way to his entry wait in the entry just below */
+@media (max-width: 719px) { .hero--wall-inner .procard__plate { display: none; } }
+
+/* Containers in the Clubhouse rhythm */
+.approach .sect-head .body { color: var(--fg-muted); }
+@media (min-width: 1000px) { .approach { column-gap: var(--sp-7); } }
+.team { gap: var(--sp-5) var(--gutter); }
+/* the narrow portrait print on a phone: its placeholder caption keeps the kicker only (as the Whites
+   entry does under 640px), so nothing is cut by the frame */
+@media (max-width: 999px) {
+  .hero--wall-inner .procard .ph__desc, .hero--wall-inner .procard .ph__id, .hero--wall-inner .procard .ph__ratio { display: none; }
+  .hero--wall-inner .procard .ph__label { left: 8px; right: 8px; bottom: 8px; min-width: 0; }
+  .hero--wall-inner .procard .ph__kicker { font-size: 0.625rem; letter-spacing: 0.08em; white-space: normal; line-height: 1.25; }
+}
+/* the entry format's small portrait on a phone: a thin mat, so its caption fits the picture */
+@media (max-width: 639px) {
+  .coach--format .frame { --mat-w: 4px; border-width: 3px; }
+  .coach--format .ph__kicker { letter-spacing: 0.02em; gap: 4px; }
+  .coach--format .ph__kicker::before { display: none; }
+}

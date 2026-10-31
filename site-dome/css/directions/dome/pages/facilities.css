@@ -1,0 +1,71 @@
+/* TPTC Direction B, "Dome": Facilities (W2c D3, 25 Oct 2026). Loaded after css/pages/facilities.css.
+   The Dome composition: the hero on Dome night (page_hero: 4 courts and 19.5 C as figures on the foot
+   line); the spec sheet as scoreboard figures over a ruled scorecard; the two seasons moved onto Dome
+   night (templates.py ground): the Dome is drawn rising over the four nets in chalk, under it the
+   temperature as the scoreboard figure, the nets' cord a plain line (red is Register now only); off court
+   as ledger lines; the hand-over hour as one ink line with three square posts; the three locations
+   numbered like courts with scoreboard figures, the club's own ruled in ink. Tokens only. */
+
+/* ---------- The spec sheet ---------- */
+.spec { border-top: 1px solid var(--fg); }
+.spec dt { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.spec dd { color: var(--fg-muted); }
+
+/* ---------- Two seasons on Dome night ---------- */
+.seasons__now { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); color: var(--fg-muted); }
+.elev__ground { stroke: var(--fg); }
+.elev__post { stroke: var(--fg); }
+.elev__mesh { fill: var(--fg); fill-opacity: 0.1; }
+.elev__cord { stroke: var(--fg); stroke-width: 1; }
+.elev__skin { fill: var(--night-raised); }
+.elev__arc { stroke: var(--arc); stroke-width: 1.5; }
+.seasons__temp { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-6); line-height: 0.86; letter-spacing: 0; color: var(--fg); font-variant-numeric: tabular-nums lining-nums; }
+.seasons__sky { font-family: var(--font-serif); font-weight: var(--w-display); font-size: var(--t-statement); color: var(--fg-muted); }
+.seasons__cap { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); color: var(--fg-muted); }
+#dome .seg { box-shadow: inset 0 -1px 0 var(--rule); }
+
+/* ---------- The hand-over: one ink line, three square posts ---------- */
+.handover__line { height: 1px; }
+.handover__tick { width: 1px; }
+.handover__tick--buzz { background: var(--fg); width: 3px; }
+.handover__mark { font-size: var(--step-4); }
+.handover__t { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name-lg); line-height: 1.1; }
+@media (min-width: 800px) {
+  .handover__mark--buzz, .handover__mark--out { border-right-width: 1px; }
+  .handover__mark--buzz { border-right: 3px solid var(--fg); }
+}
+@media (max-width: 799px) { .handover .handover__marks { border-left-width: 1px; } .handover__mark--buzz::before { background: var(--fg); height: 3px; } }
+.rules { border-top: 1px solid var(--fg); }
+.rules__k { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.rules li { color: var(--fg-muted); }
+
+/* ---------- Three locations, numbered like courts ---------- */
+.loc { border-top-color: var(--rule-strong); }
+.loc--home { border-top: 2px solid var(--fg); }
+.loc__n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-4); line-height: 0.86; letter-spacing: 0; color: var(--fg-subtle); }
+.loc--home .loc__n { color: var(--fg); }
+.loc__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); }
+.loc__what { color: var(--fg-muted); }
+/* ---------- Section wrappers ---------- */
+.spec-facts .facts__n { font-size: var(--fig-6); }
+.courts-photo .frame__cap { max-width: 60ch; }
+.season-panel { border-top: 1px solid var(--rule); padding-top: var(--sp-5); }
+.season-fields dt { color: var(--fg-muted); }
+.season-more { color: var(--fg-muted); }
+.amen .strengths { border-top: 0; }
+.locs { column-gap: var(--gutter); }
+
+/* ---------- RD6 (the orchestrator's Dome block): the season ledger under the two seasons ----------
+   The club year drawn as one line across the section's foot, the Dome arc over the indoor months in
+   the specimen's arc colour, today the night chip with the ball as its dot (ledger.css 499-538). */
+.seasons__ledger { grid-column: 1 / -1; padding-top: var(--sp-5); min-width: 0; }
+.seasons__ledger .ledger { --sky: clamp(72px, 10vw, 150px); }
+.seasons__ledger .ledger__dome { color: var(--arc); }
+.seasons__ledger .ledger__dome svg path { stroke-width: 1.25; }
+.seasons__ledger .ledger__change { border-color: var(--line-chalk-strong); }
+.seasons__ledger .ledger__session { background: var(--fg); }
+.seasons__ledger .ledger__months { border-top-color: var(--fg); }
+.seasons__ledger .ledger__months li { color: var(--fg-muted); }
+.seasons__ledger .ledger__months li::before { background: var(--line-chalk-strong); }
+.seasons__ledger .ledger__today { background: var(--fg); }
+.seasons__ledger .ledger__today-label { background: var(--night-raised); color: var(--on-night); box-shadow: inset 0 0 0 1px var(--line-chalk-strong); }

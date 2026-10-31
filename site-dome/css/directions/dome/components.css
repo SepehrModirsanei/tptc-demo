@@ -1,0 +1,1241 @@
+/* TPTC Direction B, "Dome": components (24 Oct 2026).
+
+   Loaded on every Dome page after css/components.css and before the page CSS
+   (build.py --direction dome). The direction builder owns this file: restyle the site's
+   components here with the site's own selectors. The cascade order does the work, so a selector
+   needs no html[data-direction] prefix (this file loads only on Dome pages); match the
+   specificity of the site rule you restyle, and raise it only to beat a site rule written under
+   :root:not([data-theme="light"]) or :root[data-theme="dark"]. Colours and sizes come from tokens
+   (tokens.css beside this file); no raw value outside a token. Page-only blocks go in
+   pages/<page-id>.css. Contract: site/DIRECTIONS.md. Progress:
+   python3 qa/direction_coverage.py dome
+
+   Source of the look: specimens/B-ledger/css/ledger.css, index.html, high-performance.html,
+   system.html (the Dome specimen; its files keep the older name Ledger). Line numbers in the
+   comments below are ledger.css unless they say system.css.
+
+   The Dome in one paragraph: the club under the Dome at night. Square corners everywhere, hairline
+   rules, a news serif (Newsreader) for the club's voice and body, an expanded grotesque (Archivo)
+   for labels, buttons and figures, and every number a scoreboard figure (Archivo at its narrowest
+   and heaviest). Grounds: paper, Dome fabric (the one tint) and Dome night (bottle green). Red is
+   Register now and nothing else: the Whites net, posts and ticks are ink or chalk hairlines here. */
+
+/* =====================================================================================
+   1. Base and type roles
+   ===================================================================================== */
+/* The Dome's voice, body text included, is Newsreader; Archivo carries labels, buttons and
+   figures only (149-151, 196-208). */
+body { font-family: var(--font-serif); font-optical-sizing: auto; font-kerning: normal; }
+::selection { background: var(--fg); color: var(--bg); }
+.display { font-weight: var(--w-display); letter-spacing: -0.018em; line-height: var(--lh-display); }
+.h1, .h2 { font-weight: var(--w-head); letter-spacing: -0.012em; line-height: var(--lh-head); }
+.h3 { font-weight: var(--w-name); letter-spacing: -0.004em; line-height: 1.18; }
+.display em { font-weight: 320; }
+/* The italic headline keeps its descenders without opening the leading (978-981) */
+.display:has(em), .h1:has(em), .h2:has(em) { line-height: 1.08; }
+.lede { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-3); line-height: 1.45; letter-spacing: 0; color: var(--fg-muted); }
+.body { color: var(--fg-muted); }
+/* small print and meta: Archivo at its normal width (211 .meta) */
+.small { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); line-height: 1.45; color: var(--fg-muted); }
+p.small { font-size: var(--t-sm); line-height: 1.5; }
+.label { font-family: var(--font-sans); font-size: var(--step-5); line-height: 1.25; font-weight: var(--w-label); font-stretch: var(--stretch-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+/* the eyebrow is a ledger label: no service-line mark, the width and weight of the specimen's .label (196) */
+.eyebrow { font-family: var(--font-sans); font-size: var(--step-5); line-height: 1.25; font-weight: var(--w-label); font-stretch: var(--stretch-label); letter-spacing: var(--track-label); color: var(--fg-muted); gap: 0; }
+.eyebrow::before { content: none; }
+.sans-display { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); letter-spacing: 0; line-height: 0.86; }
+/* A figure inside a sentence is a scoreboard entry a step lighter: Archivo condensed (1149) */
+/* the specimen's .num is global (1149): every element the site marks as a figure line */
+.num { font-family: var(--font-sans); font-stretch: var(--stretch-num); font-weight: var(--w-num); font-style: normal; font-size: 0.96em; letter-spacing: 0.01em; font-variant-numeric: tabular-nums lining-nums; }
+/* Columns of prices: scoreboard figures, tabular (1148) */
+.tnum { font-family: var(--font-sans); font-stretch: var(--stretch-fig); font-weight: var(--w-num); font-variant-numeric: tabular-nums lining-nums; letter-spacing: 0; }
+.icon { stroke-linecap: square; }
+.skip { font-family: var(--font-sans); font-size: var(--step-5); font-weight: var(--w-chip); font-stretch: var(--stretch-ui); letter-spacing: var(--track-ui); background: var(--bg); color: var(--fg); border: 1px solid var(--fg); }
+
+/* =====================================================================================
+   2. Grounds. Dome night (the masthead, the menu sheet, the Home and High Performance heroes,
+   the scoreboard, a night half) and the deep night (the academy). A ground sets the site's own
+   semantic tokens, so every component on it follows (184-193).
+   ===================================================================================== */
+.site-header, .mnav, .nav__panel {
+  --bg: var(--blazer); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--night-raised);
+  --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-soft: var(--line-chalk-soft); --rule-strong: var(--line-chalk-strong);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus); --logo-col: none; --logo-rev: block;
+  --ph-ground: var(--night-raised); --ph-line: var(--court-night); --ph-text: var(--on-night); --ph-muted: var(--mist);
+  color-scheme: dark;
+}
+.theme-night { --fg-subtle: var(--on-night-3); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--night-raised); }
+.nav__panel { --bg: var(--night-raised); }
+
+/* =====================================================================================
+   3. Masthead (288-348): Dome night on every page, a chalk hairline under it, the reversed logo
+   ===================================================================================== */
+.site-header { color: var(--fg); }
+.site-header__bg { background: var(--blazer); border-bottom: 1px solid var(--line-chalk); opacity: 1; }
+@media (min-width: 1440px) { .site-header__row { gap: var(--sp-4); } }
+.logo { min-height: var(--target); }
+.logo__img { height: 32px; }
+@media (min-width: 1024px) and (max-width: 1279px) { .site-header .logo__mark .logo__img { height: 28px; } }
+
+.nav__list { gap: 0; }
+.nav__link {
+  font-family: var(--font-sans); font-size: var(--step-5); line-height: 1; font-weight: var(--w-nav);
+  font-stretch: var(--stretch-nav); letter-spacing: 0.11em; color: var(--fg);
+}
+.nav__link::after { bottom: 10px; }
+.nav__chev { width: 12px; height: 12px; }
+/* Seven names (News since N1a) and Register now share the row: below 1440 the names step to the
+   12px floor and a narrower width, so the row never runs past the page edge (measured: 1024 to 1439) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .nav__link { font-size: var(--step-6); font-stretch: 88%; letter-spacing: 0.04em; padding: 0 6px; }
+  .nav__link::after { left: 6px; right: 6px; }
+}
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .nav__link { font-size: var(--step-6); font-stretch: 100%; letter-spacing: 0.08em; padding: 0 8px; }
+  .nav__link::after { left: 8px; right: 8px; }
+}
+
+/* The mega panel: a night-2 plate under the masthead, the specimen's dropdown (319-332) at full width */
+.nav__panel { background: var(--night-raised); color: var(--fg); border-top: 1px solid var(--line-chalk); border-bottom: 1px solid var(--line-chalk); }
+.nav__panel::before { content: ""; position: absolute; left: max(var(--gutter), calc((100% - var(--page)) / 2)); top: -1px; width: 32px; height: 1px; background: var(--fg); }
+.nav__panel-note { font-family: var(--font-serif); font-weight: 400; font-style: italic; font-size: var(--step-3); line-height: 1.35; color: var(--fg); }
+.nav__panel-list { border-left: 1px solid var(--line-chalk); }
+.nav__panel-list li { border-right: 1px solid var(--line-chalk); }
+.nav__panel-list .icon { color: var(--fg-subtle); }
+.nav__panel-name { font-family: var(--font-serif); font-size: var(--t-name); font-weight: 400; line-height: 1.25; color: var(--fg); }
+.nav__panel-meta { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); line-height: 1.4; color: var(--fg-subtle); font-variant-numeric: tabular-nums; }
+.nav__panel-list a[aria-current="page"] .nav__panel-name::before { content: ""; display: inline-block; width: 16px; height: 1px; background: currentColor; vertical-align: middle; margin-right: 10px; }
+
+.menu-btn { color: var(--fg); }
+.menu-btn__label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-nav); font-stretch: var(--stretch-nav); letter-spacing: 0.11em; }
+.menu-btn__lines::before, .menu-btn__lines::after { height: 1.5px; }
+
+/* Register now in the masthead, phones: the full 44px red, label on the 12px floor (1133-1136) */
+@media (max-width: 719px) {
+  .site-header .header-cta { background: var(--red); border-color: var(--red); padding-inline: 12px; font-size: var(--step-6); letter-spacing: var(--track-crumb); font-stretch: var(--stretch-ui); }
+  .site-header .header-cta .btn__fill { inset: 0; }
+}
+@media (max-width: 374px) { .site-header .header-cta { padding-inline: 9px; letter-spacing: 0.04em; font-stretch: 96%; } }
+
+/* =====================================================================================
+   4. The menu sheet (351-387): Dome night, entries in the serif, sub-entries on a hairline
+   ===================================================================================== */
+.mnav { background: var(--blazer); color: var(--fg); }
+.mnav__top { border-bottom: 1px solid var(--line-chalk); }
+.mnav__close { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-nav); font-stretch: var(--stretch-nav); letter-spacing: 0.11em; color: var(--fg); }
+.mnav__list > li { border-bottom: 1px solid var(--line-chalk); }
+.mnav__link { min-height: 60px; font-family: var(--font-serif); font-weight: var(--w-head); font-size: var(--t-name-xl); line-height: 1.1; letter-spacing: -0.01em; color: var(--fg); }
+.mnav__link[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.mnav__link .num { font-size: var(--step-5); color: var(--fg-subtle); }
+.mnav__plus { width: 22px; height: 22px; }
+.mnav__plus::before { left: 3px; right: 3px; top: 10.25px; height: 1.5px; }
+.mnav__plus::after { top: 3px; bottom: 3px; left: 10.25px; width: 1.5px; }
+.mnav__sub a { padding: 10px 0 10px 16px; border-left: 1px solid var(--line-chalk); font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-4); font-weight: 400; color: var(--fg-muted); }
+.mnav__sub a::before { content: none; }
+.mnav__sub a span:last-child { font-size: var(--step-5); color: var(--fg-subtle); font-variant-numeric: tabular-nums; }
+.mnav__sub a[aria-current="page"] { color: var(--fg); border-left-color: var(--fg); }
+.mnav__utility a { font-family: var(--font-sans); font-stretch: var(--stretch-ui); font-size: var(--step-5); font-weight: var(--w-ui); letter-spacing: var(--track-ui); text-transform: uppercase; color: var(--fg); }
+.mnav__foot { background: var(--blazer); border-top: 1px solid var(--line-chalk); }
+.mnav__court line { stroke: var(--line-chalk-soft); }
+
+/* =====================================================================================
+   5. Buttons, the Press (224-265): square, 48px, Archivo at 112%; the fill crossfades in
+   (opacity, no direction claimed). Primary is the page's action in ink (paper) or chalk (night);
+   red is Register now only and its hover fills with court-side ink inside the red rule.
+   ===================================================================================== */
+.btn {
+  min-height: 48px; padding: 0 22px; border-radius: 0; gap: 12px;
+  font-family: var(--font-sans); font-size: var(--step-5); line-height: 1; font-weight: var(--w-ui);
+  font-stretch: var(--stretch-ui); letter-spacing: var(--track-ui);
+}
+.btn__fill { transform: none; opacity: 0; transition: opacity var(--dur-ui) var(--ease-ui); }
+.btn.is-hover .btn__fill { transform: none; opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .btn:not(:disabled):not([aria-disabled="true"]):hover .btn__fill { transform: none; opacity: 1; }
+}
+.btn .icon { width: 18px; height: 18px; }
+.btn--sm { min-height: var(--target); padding: 0 16px; }
+/* Register now: one hover on every ground and in both themes (257-260) */
+.btn--primary { --btn-bg: var(--red); --btn-fg: var(--white); --btn-bd: var(--red); }
+.btn--primary .btn__fill { inset: 0; background: var(--ink); }
+.btn.btn--primary .btn__label > span + span { color: var(--white); }
+.btn.btn--primary.is-hover { background: var(--ink); }
+/* Ink, the page's own action (253-255): ink on paper, chalk on night, light in dark; the hover
+   fill is the ground's own colour inside the same rule, so it reads as the outline of the button */
+.btn--ink { --btn-bg: var(--fg); --btn-fg: var(--bg); --btn-bd: var(--fg); }
+.btn--ink .btn__fill { inset: 0; background: var(--bg); }
+.btn.btn--ink .btn__label > span + span { color: var(--fg); }
+.btn.btn--ink.is-hover { background: var(--bg); }
+.btn--secondary { --btn-bd: var(--fg); }
+/* on a night ground the chalk button carries court-side ink, in both themes (254) */
+.theme-night .btn--ink, .site-header .btn--ink, .mnav .btn--ink, .hero--home .btn--ink, .hero--hp .btn--ink, .hero--performance .btn--ink { --btn-fg: var(--ink); }
+.btn--secondary .btn__fill { background: var(--fg); }
+.btn.btn--secondary .btn__label > span + span { color: var(--bg); }
+.btn[aria-disabled="true"], .btn:disabled { --btn-bg: transparent; --btn-fg: var(--fg-subtle); --btn-bd: var(--rule-strong); }
+@media (max-width: 599px) { .btn { line-height: 1.25; } }
+
+/* =====================================================================================
+   6. Links (268-285): Archivo capitals at 112%, a 28% hairline at rest, a 1px line draws on hover
+   ===================================================================================== */
+.link { gap: 10px; font-family: var(--font-sans); font-size: var(--step-5); line-height: 1.2; font-weight: var(--w-ui); font-stretch: var(--stretch-ui); letter-spacing: var(--track-ui); }
+.link__text { padding-block: 4px; }
+.link__text::before { opacity: 0.28; }
+.link__text::after { height: 1px; }
+/* the quiet link: a sentence-case Archivo line, no capitals */
+.link--quiet { font-family: var(--font-sans); font-size: var(--t-ui); line-height: 1.4; font-weight: 500; font-stretch: 100%; letter-spacing: 0; text-transform: none; }
+.inline-link { text-underline-offset: 3px; text-decoration-color: var(--rule-strong); }
+.ext-mark { stroke-width: 1.5; }
+
+/* =====================================================================================
+   7. Chips and the live mark (436-472): square, Archivo at 118%. Live is a night chip whose only
+   optic is the ball, a dot (the site's rule: never ball-coloured text).
+   ===================================================================================== */
+.chip {
+  gap: 10px; min-height: 28px; padding: 5px 10px; border: 1px solid var(--rule-strong); border-radius: 0;
+  font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.1; font-weight: var(--w-chip);
+  font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); color: var(--fg-muted);
+}
+.chip--live { background: var(--chip-live-bg); border-color: var(--chip-live-bg); color: var(--chip-live-fg); }
+.theme-night .chip--live { background: var(--night-raised); border-color: var(--line-chalk-strong); color: var(--on-night); }
+.chip--muted { color: var(--fg-subtle); border-color: var(--rule); }
+.chip--confirm { border-style: dashed; color: var(--fg-subtle); }
+.chip--confirm::before { border-radius: 0; width: 7px; height: 7px; }
+.chip--wrap { line-height: 1.35; }
+
+/* =====================================================================================
+   8. Club to confirm (478-485): a blank entry on the ledger. Inline, a dashed tag and the italic
+   fact; as a block, dashed rules above and below, no box and no corner mark.
+   ===================================================================================== */
+.confirm { gap: 4px 8px; }
+.confirm__tag {
+  padding: 2px 6px 1px; border: 1px dashed var(--rule-strong); transform: none;
+  font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.3; font-weight: var(--w-chip);
+  font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); color: var(--fg-subtle);
+}
+.confirm__tag::before { content: none; }
+.confirm__what { font-family: var(--font-serif); font-style: italic; color: var(--fg-muted); text-decoration: none; }
+.confirm--block { gap: 6px; padding: 12px 0 14px; border: 0; border-block: 1px dashed var(--rule-strong); border-radius: 0; }
+.confirm--block::after { content: none; }
+.confirm--block .confirm__tag { justify-self: start; }
+.confirm--block .confirm__what { font-size: var(--step-4); line-height: 1.4; }
+.confirm__why { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); line-height: 1.45; color: var(--fg-subtle); }
+@media (max-width: 599px) { .confirm__why { font-size: var(--t-read-sm); } }
+
+/* =====================================================================================
+   9. Frames and the placeholder court (390-433). A slot with no photograph is the Dome's night
+   frame: night-2 ground, the court plan drawn whole in chalk at 13% above the label, no red net,
+   no light or grain (the Whites court frame writes those raw, site.css 1006-1007: replaced here).
+   Every interim image wears the same solid tag, bottom left.
+   ===================================================================================== */
+.frame__box { border-radius: 0; }
+.ph__court .net { stroke: var(--ph-line); stroke-width: 1; }
+.ph__court rect.cl-p { display: none; }
+.frame:not(.frame--due, .frame--photo, .has-img) .ph__court { scale: 1; left: 10%; top: 7%; width: 80%; height: 54%; inset: 7% auto auto 10%; transform-origin: 50% 50%; }
+.frame:not(.frame--due, .frame--photo, .has-img) .frame__drift::after { background: none; }
+.frame:not(.frame--due, .frame--photo, .has-img) .ph__label::before { content: none; }
+.frame:not(.frame--due, .frame--photo, .has-img) .ph__label > span { text-shadow: none; }
+.ph__label { left: clamp(14px, 4%, 28px); right: clamp(14px, 4%, 28px); bottom: clamp(14px, 4%, 28px); gap: 6px; max-width: 34ch; }
+.ph__label > span { background: none; padding-right: 0; }
+.ph__kicker {
+  display: flex; width: 100%; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--ph-line);
+  font-family: var(--font-sans); font-size: var(--step-6); line-height: 1; font-weight: var(--w-chip);
+  font-stretch: var(--stretch-label); letter-spacing: var(--track-kicker); color: var(--ph-text);
+}
+.ph__desc { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: var(--t-read-sm); line-height: 1.4; color: var(--ph-muted); }
+.frame__tag {
+  top: auto; right: auto; left: 12px; bottom: 12px; gap: 8px; padding: 7px 10px 6px 9px;
+  background: var(--tag-bg); color: var(--tag-fg);
+  font-family: var(--font-sans); font-size: var(--step-6); line-height: 1; font-weight: var(--w-nav);
+  font-stretch: 108%; letter-spacing: var(--track-ui); white-space: nowrap;
+}
+.frame__tag-mark { width: 7px; height: 7px; stroke: currentColor; }
+.frame__cap { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); line-height: 1.5; color: var(--fg-subtle); max-width: 52ch; }
+.frame__cap b { font-weight: 600; color: var(--fg-muted); }
+/* the small door thumbnails: one line, one word, on the 12px floor (417-421) */
+@media (max-width: 899px) {
+  .door .frame__tag { left: 6px; right: auto; bottom: 6px; top: auto; gap: 4px; padding: 5px; justify-content: flex-start;
+    font-size: var(--step-6); font-stretch: 62%; letter-spacing: 0.03em; }
+  .door .frame__tag-mark { width: 6px; height: 6px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag, .hero.hero--home .frame__tag {
+    left: 6px; bottom: 6px; gap: 4px; padding: 5px; font-size: var(--step-6); font-stretch: 62%; letter-spacing: 0.03em; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag-mark, .hero.hero--home .frame__tag-mark { width: 6px; height: 6px; }
+}
+/* the narrowest phones: the tag keeps one line inside the narrow photograph column */
+@media (max-width: 389px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag, .hero.hero--home .frame__tag { left: 4px; bottom: 4px; padding: 4px; letter-spacing: 0; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag-mark, .hero.hero--home .frame__tag-mark { display: none; }
+}
+@media (min-width: 900px) {
+  .door .frame__tag, .doors--courts .door .frame__tag { top: auto; right: auto; left: 12px; bottom: 12px; padding: 7px 10px 6px 9px; font-size: var(--step-6); letter-spacing: var(--track-ui); gap: 8px; }
+  /* a hero photograph carries its tag top right, clear of the subject (423) */
+  .hero .hero__media .frame__tag { left: auto; bottom: auto; right: 16px; top: 16px; }
+}
+
+/* =====================================================================================
+   10. Breadcrumbs (488-497): Archivo capitals at 112%, a slanted hairline between steps
+   ===================================================================================== */
+.crumbs ol { gap: 4px 0; font-family: var(--font-sans); font-size: var(--step-5); line-height: 1.6; }
+.crumbs li { gap: 0; font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); text-transform: uppercase; color: var(--fg-subtle); }
+.crumbs li + li::before { content: ""; width: 1px; height: 13px; margin: 0 14px; background: var(--rule-strong); transform: rotate(22deg); font-weight: 400; }
+.crumbs a { color: var(--fg-muted); }
+.crumbs [aria-current="page"] { color: var(--fg); }
+@media (max-width: 479px) {
+  .crumbs li { letter-spacing: 0.06em; font-size: var(--step-6); }
+  .crumbs li + li::before { margin: 0 9px; }
+}
+
+/* =====================================================================================
+   11. Sections and the ledger tick (216-221): every section head opens on a hairline with a 32px
+   ink tick, once. The Whites court-line ornaments become plain rules.
+   ===================================================================================== */
+.sect-head { gap: var(--sp-4); }
+.sect-head::before { content: ""; display: block; height: 1px; background: linear-gradient(var(--fg), var(--fg)) 0 0 / 32px 1px no-repeat, var(--rule); }
+.sect-head:has(> .baseline)::before { content: none; }
+.sect-head .baseline { margin-bottom: 0; }
+.baseline { height: 1px; background: linear-gradient(var(--fg), var(--fg)) 0 0 / 32px 1px no-repeat, var(--rule); }
+.baseline::after { content: none; }
+.tramline { border-top-color: var(--rule-strong); border-bottom-color: var(--rule); }
+.net-h::before, .net-h::after { content: none; }
+.section--chalk { --fg-subtle: var(--fg-subtle); }
+/* the net: in the Dome a ruled column line, chalk on night, ink on paper (1036) */
+.netline { background: var(--rule-strong); }
+.netline__post { display: none; }
+.hero__media .netline { width: 1px; }
+.split__net { display: none; }
+/* the folded year and the numeral: scoreboard figures (1148) */
+.numeral { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); line-height: 0.86; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; gap: clamp(10px, 1.4vw, 18px); }
+.numeral__net { width: 1px; background: var(--rule-strong); }
+.numeral__net::before, .numeral__net::after { content: none; }
+
+/* =====================================================================================
+   12. Heroes. Home and High Performance stand on Dome night (543-625, 1153-1255): the words on the
+   night, the photograph a plate beside them with the night's scrim at its seam, the year a
+   scoreboard figure. Inner pages keep paper under the night masthead, as the specimen's Style
+   Guide does, in the Dome's type.
+   ===================================================================================== */
+.hero--home, .hero--hp, .hero--performance {
+  --bg: var(--blazer); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--night-raised);
+  --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-soft: var(--line-chalk-soft); --rule-strong: var(--line-chalk-strong);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus); --logo-col: none; --logo-rev: block;
+  --ph-ground: var(--night-raised); --ph-line: var(--court-night); --ph-text: var(--on-night); --ph-muted: var(--mist);
+  background: var(--bg); color: var(--fg); color-scheme: dark;
+}
+.hero__title { font-weight: var(--w-display); letter-spacing: -0.018em; line-height: 1.03; color: var(--fg); }
+.hero__title em { font-weight: 320; }
+.hero__lede { color: var(--fg-muted); }
+.hero__actions { gap: 12px; }
+.hero--home .hero__title { font-size: var(--t-hero-home); }
+@media (min-width: 900px) { .hero--home .hero__lede, .hero--hp .hero__lede { font-size: var(--t-name-sm); line-height: 1.45; max-width: 36ch; } }
+.hero__media .frame { --ph-ground: var(--night-raised); }
+/* the plate's seam: the night runs into the photograph (577-580) */
+.hero--home .hero__media::after, .hero--hp .hero__media::after {
+  content: ""; position: absolute; inset: 0; z-index: var(--z-base); pointer-events: none; opacity: 0;
+  background: linear-gradient(to right, var(--scrim) 0, var(--scrim-soft) 22%), linear-gradient(to top, var(--scrim) 0%, var(--scrim-soft) 30%), linear-gradient(to bottom, var(--scrim) 0, var(--scrim-soft) 120px);
+  transition: opacity 400ms var(--ease-out);
+}
+.hero--home .hero__media:has(.frame.has-img)::after, .hero--hp .hero__media:has(.frame.has-img)::after { opacity: 1; }
+.hero .hero__media .netline { z-index: var(--z-tag); }
+/* the year of founding as the scoreboard figure under a chalk rule, its label beneath (1179-1182) */
+.year {
+  --ys: var(--fig-6); width: auto; height: auto; display: grid; grid-template-columns: auto auto; justify-content: start; align-items: end;
+  padding-top: 14px; border-top: 1px solid var(--rule-strong); z-index: var(--z-tag);
+  font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--ys); line-height: 0.86; letter-spacing: 0;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.year span { position: static; }
+.year__a, .year__b { grid-row: 1; color: var(--fg); text-shadow: none; }
+.year .year__since {
+  grid-column: 1 / -1; grid-row: 2; margin-top: 10px; padding: 0; white-space: normal;
+  font-family: var(--font-sans); font-style: normal; font-weight: var(--w-label); font-stretch: var(--stretch-label);
+  font-size: var(--step-6); line-height: 1.25; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted);
+}
+.hero:not(:has(.frame.has-img)) .year--hero .year__b { color: var(--fg); }
+@media (min-width: 900px) {
+  .hero--home .hero__words { padding-top: clamp(48px, 9vh, 104px); }
+  /* desktop: the figure stands at the foot of the night column under the words, ruled across it, as
+     the specimen's figures stand under its headline (1179, 1252). The year lives in the photograph's
+     box (markup), so it is placed back across the seam: the words column is the media width / 1.08
+     (site.css 541), less its right padding (545). */
+  .year--hero { left: auto; right: calc(100% + clamp(32px, 4vw, 72px)); bottom: clamp(28px, 6vh, 64px); width: calc(100% / 1.08 - clamp(32px, 4vw, 72px)); }
+}
+/* Inner heroes on paper */
+.hero--inner .hero__title { font-size: var(--t-hero-inner); }
+.hero--nomedia .hero__title { max-width: 16ch; }
+.hero--inner .hero__lede { font-size: var(--step-3); line-height: 1.45; }
+.hero--1951 .numeral { font-size: clamp(5rem, 2rem + 10vw, 11rem); }
+.status-line { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); line-height: 1.4; color: var(--fg-muted); }
+.status-line .num { color: var(--fg); }
+.hero__point-label { font-family: var(--font-sans); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); text-transform: uppercase; color: var(--fg-muted); }
+.hero__points .hero__point-value { font-family: var(--font-serif); font-stretch: 100%; font-weight: 400; font-size: var(--step-4); letter-spacing: 0; color: var(--fg); }
+@media (min-width: 900px) {
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-value { font-family: var(--font-serif); font-size: var(--step-4); font-weight: 400; font-stretch: 100%; letter-spacing: 0; }
+}
+@media (max-width: 899px) {
+  .hero__point-label { font-size: var(--step-6); letter-spacing: 0.1em; font-stretch: 108%; }
+  .hero__points .hero__point-value { font-size: var(--t-ui); }
+  /* phone heroes: the specimen's two-column ledger page (1024-1094) */
+  .hero.hero--home .hero__title { font-size: var(--t-hero-dome-phone); line-height: 1.04; letter-spacing: -0.014em; }
+  .hero:is(.hero--section, .hero--performance) .hero__title { line-height: 1.04; letter-spacing: -0.014em; }
+  .hero.hero--home .hero__lede { padding-bottom: 18px; }
+  .hero--home .year--hero { --ys: var(--fig-4); left: 10px; right: 10px; bottom: 12px; }
+  .hero--home .year--hero .year__since { letter-spacing: 0.06em; font-stretch: 100%; }
+}
+/* phones: two actions share a line at the 12px floor, a touch narrower (1050, 1096) */
+@media (max-width: 767px) {
+  .hero .btn { min-height: 46px; padding: 0 8px; font-size: var(--step-6); letter-spacing: 0.06em; font-stretch: 98%; }
+  .hero .btn .icon { width: 15px; height: 15px; }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .hero .btn { font-size: var(--step-5); letter-spacing: var(--track-ui); font-stretch: var(--stretch-ui); padding: 0 16px; min-height: 48px; }
+}
+/* the four doors in the first phone view: ledger lines on the night */
+.hero__doors a { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); color: var(--fg); }
+
+/* =====================================================================================
+   13. Doors (628-675): broadsheet columns. A figure line on a strong hairline, the name in the
+   serif, one line, the way on. (Home sets its four as the scoreboard in pages/home.css.)
+   ===================================================================================== */
+.door__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.12; }
+.door__text { font-size: var(--step-4); line-height: 1.5; color: var(--fg-muted); }
+.door__facts {
+  padding-top: 12px; border-top: 1px solid var(--rule-strong);
+  font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.3; font-weight: var(--w-chip);
+  font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); text-transform: uppercase; color: var(--fg);
+}
+.door__facts span:not(:last-child)::after { background: var(--rule-strong); }
+@media (max-width: 479px) { .door__facts { font-stretch: 100%; letter-spacing: 0.06em; } .door__facts span { white-space: normal; } }
+.door:has(.door__link:focus-visible) { outline-offset: 8px; }
+.doors { border-top-color: var(--rule); }
+@media (min-width: 1024px) { .door:nth-child(even) { margin-top: 96px; } .doors--courts .door:nth-child(even) { margin-top: 0; } }
+/* the serving courts' net and posts: chalk, not red (Dome: red is Register now only) */
+.court__net { stroke: var(--white); }
+.court__post { fill: var(--white); }
+
+/* =====================================================================================
+   14. Split (678-722, 1387-1394): the program names are the headings, a strong hairline over each;
+   the three-word line in the italic serif; paper beside night, no net between them.
+   ===================================================================================== */
+.split__name { font-family: var(--font-serif); font-weight: var(--w-head); font-size: var(--t-split-name); line-height: 1.02; letter-spacing: -0.014em; text-transform: none; color: var(--fg); padding-top: 16px; border-top: 1px solid var(--rule-strong); }
+.split__tag { font-family: var(--font-serif); font-weight: var(--w-display); font-style: italic; font-size: var(--t-split-tag); line-height: 1.2; color: var(--fg-muted); }
+.split__line { color: var(--fg-muted); }
+.split__links { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
+.split__links .link { justify-content: flex-start; border-top: 0; min-height: var(--target); }
+.split__links .link:last-child { border-bottom: 0; }
+.split__links .link__text::before { display: block; }
+/* the High Performance steps as the ladder: a rail, a square station per step (695-704) */
+.pathmini { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--rule); }
+.pathmini li { position: relative; display: grid; grid-template-columns: none; align-content: start; gap: 4px; padding: 0; border: 0; font-size: var(--step-4); }
+.pathmini li:last-child { border-bottom: 0; }
+.pathmini li::before { content: ""; position: absolute; top: -16.5px; left: 0; width: 8px; height: 8px; background: var(--fg); border: 1px solid var(--fg); }
+.pathmini li > .num { font-family: var(--font-sans); font-size: var(--fig-1); font-weight: var(--w-fig); font-stretch: var(--stretch-board); letter-spacing: 0; line-height: 0.86; color: var(--fg-subtle); }
+.pathmini li > span:last-child { display: grid; gap: 4px; }
+.pathmini strong { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-4); line-height: 1.2; color: var(--fg); }
+.pathmini li em { font-family: var(--font-sans); font-style: normal; font-weight: 400; font-stretch: 100%; font-size: var(--step-6); letter-spacing: var(--track-crumb); text-transform: uppercase; line-height: 1.3; color: var(--fg-muted); }
+
+/* =====================================================================================
+   15. Strengths (730-734): ledger lines, an icon, the title in the serif
+   ===================================================================================== */
+.strengths { border-top: 0; }
+.strengths li { gap: 6px 20px; padding: 26px 0; border-bottom: 0; border-top: 1px solid var(--rule); }
+.strengths li:first-child { border-top: 0; padding-top: 6px; }
+.strengths .icon { width: 28px; height: 28px; margin-top: 2px; color: var(--fg); }
+.strengths h3 { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.15; }
+.strengths p { font-size: var(--step-4); line-height: 1.6; color: var(--fg-muted); max-width: 44ch; }
+
+/* =====================================================================================
+   16. What's happening (752-770): a lead entry and dated rows, each date a hand-entered figure
+   ===================================================================================== */
+.hlead__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.2; }
+.hcard__text { font-size: var(--step-4); line-height: 1.5; color: var(--fg-muted); }
+.hcard__date, .hrow__when { font-family: var(--font-sans); font-stretch: var(--stretch-fig); font-weight: var(--w-num); font-size: var(--t-name-sm); line-height: 1.2; letter-spacing: 0.01em; color: var(--fg); font-variant-numeric: tabular-nums lining-nums; }
+.hnext { border-top: 1px solid var(--rule-strong); }
+.hrow { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+.hrow__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-lg); line-height: 1.2; }
+.hrow__when .confirm { font-family: var(--font-serif); font-stretch: 100%; font-weight: 400; font-size: var(--t-ui); }
+@media (min-width: 640px) {
+  .hrow { grid-template-columns: 168px minmax(0, 1fr); column-gap: 28px; row-gap: 10px; }
+  .hrow > * { grid-column: 2; }
+  .hrow > .hrow__when { grid-column: 1; grid-row: 1 / span 3; font-size: var(--fig-2); line-height: 1.05; }
+}
+
+/* =====================================================================================
+   17. The season ledger (505-538): months on an ink baseline, the Dome arc in a hairline,
+   today a night chip with the ball as its dot
+   ===================================================================================== */
+.ledger__dome { color: var(--rule-strong); }
+.ledger__change { border-color: var(--rule-strong); }
+.ledger__session { height: 6px; background: var(--fg); }
+.ledger__months { border-top: 1px solid var(--fg); }
+.ledger__months li { padding: 10px 0 0 8px; font-family: var(--font-sans); font-size: var(--step-6); line-height: 1; font-weight: var(--w-nav); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); color: var(--fg-subtle); }
+.ledger__months li::before { background: var(--rule-strong); }
+.ledger__today { background: var(--fg); }
+.ledger__today-label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); min-height: 28px; }
+.ledger__seg { border-top: 1px solid var(--rule); }
+.ledger__name { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: var(--t-name-sm); line-height: 1.2; }
+.ledger__dates, .ledger__dates.num { font-family: var(--font-sans); font-weight: 400; font-stretch: 100%; font-size: var(--step-5); line-height: 1.3; letter-spacing: 0; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+@media (max-width: 639px) { .ledger__months li { padding-left: 4px; letter-spacing: 0.04em; } .ledger__dates { font-size: var(--t-read-sm); } }
+@media (max-width: 479px) { .ledger__today-label { font-stretch: 100%; letter-spacing: 0.06em; padding: 0 8px; } }
+
+/* =====================================================================================
+   18. The closing band (773-778): Dome fabric, one line in the serif, the actions at its right
+   ===================================================================================== */
+.cta { padding-block: clamp(72px, 3rem + 7vw, 144px); background: var(--surface-alt); --bg: var(--surface-alt); --ph-ground: var(--surface); }
+.cta__court { display: none; }
+.cta__line { font-weight: var(--w-display); line-height: 1.05; letter-spacing: -0.012em; max-width: 20ch; }
+.cta__actions { gap: 8px 24px; }
+@media (min-width: 900px) { .cta__inner { grid-template-columns: 8fr 4fr; column-gap: var(--gutter); } }
+/* the band is the page's one fabric close: a tinted section that runs into it turns paper, parted
+   from what precedes it by a hairline (specimen: grounds never meet a ground of the same tint) */
+.section--chalk:has(+ .cta) { background: var(--surface); --bg: var(--surface); --ph-ground: var(--surface-alt); border-top: 1px solid var(--rule); }
+
+/* =====================================================================================
+   19. Footer (938-962): paper, headings as ledger labels, links in the serif
+   ===================================================================================== */
+.footer { padding-block: clamp(64px, 7vw, 112px) 32px; }
+.footer--dome { --bg: var(--surface); --ph-ground: var(--surface-alt); background: var(--surface); }
+.fcell h2 { margin-bottom: 12px; font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.6; font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-subtle); }
+.fcell a:not(.btn) { font-size: var(--step-4); color: var(--fg); }
+.fcell .small, .fcell .small a { font-size: var(--t-sm); }
+.footer__line { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: var(--step-3); line-height: 1.35; }
+.footer__line .num { font-style: normal; }
+.fcell address { font-size: var(--step-4); line-height: 1.6; color: var(--fg-muted); }
+.footer__top { border-bottom: 0; }
+.footer__cols { border-top: 1px solid var(--rule); }
+.footer__base { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); color: var(--fg-subtle); }
+.footer__base a { color: var(--fg-muted); font-family: var(--font-sans); font-size: var(--step-5); }
+.ext-mark { color: var(--fg-subtle); }
+
+/* 20. Club news: replaced by the W2c-news section at the end of this file (25 Oct). */
+
+/* =====================================================================================
+   21. Fields, steps, contact card, next doors, the opening statement (848-933)
+   ===================================================================================== */
+.fields { border-top: 1px solid var(--rule); }
+.fields dt { font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.6; font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.fields dd { font-size: var(--step-4); line-height: 1.5; color: var(--fg-muted); }
+.fields dd strong { color: var(--fg); font-weight: 500; }
+.fields dd .small { font-size: var(--t-sm); }
+.fields dd.num { font-size: var(--step-4); color: var(--fg-muted); }
+.gloss { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); color: var(--fg-muted); }
+.gloss dfn { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--fg); }
+/* steps: a ruled line with a tick per step, read like the season ledger (901-904, 916-919) */
+.steps { border-top: 1px solid var(--fg); }
+.steps li { gap: 16px; padding: 24px 0; border-top: 0; border-bottom: 1px solid var(--rule); }
+.steps li:last-child { border-bottom: 1px solid var(--rule); }
+.steps .step-n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-4); line-height: 0.86; letter-spacing: 0; color: var(--fg-subtle); }
+.steps h3 { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.15; }
+.steps p { font-size: var(--step-4); color: var(--fg-muted); }
+/* the contact card: a ledger entry, not a grey box (907-914) */
+.contact-card { border-top: 1px solid var(--fg); }
+.contact-card > div { gap: 6px; padding: 14px 0; }
+.contact-card .label { font-size: var(--step-6); font-stretch: var(--stretch-head); font-weight: var(--w-chip); color: var(--fg-subtle); }
+.contact-card a { font-family: var(--font-sans); font-stretch: 100%; font-weight: 400; font-size: var(--step-4); line-height: 1.15; letter-spacing: 0; color: var(--fg); font-variant-numeric: tabular-nums; }
+.contact-card a .icon { width: 20px; height: 20px; color: var(--fg-muted); }
+.contact-card__slot .confirm { font-size: var(--t-ui); }
+/* next doors: two index lines (926-933) */
+.next-doors { border-top: 1px solid var(--rule-strong); }
+.next-door { color: var(--fg); }
+.next-door h3 { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-2); line-height: 1.15; }
+.next-door p { font-size: var(--step-4); color: var(--fg-muted); }
+.next-door .icon { color: var(--fg); }
+.intro__statement { font-weight: var(--w-display); font-size: var(--t-statement); line-height: 1.2; letter-spacing: -0.01em; }
+/* the entry rule: a ledger entry on a hairline, not a boxed alert (810-811) */
+.callout { padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--fg); gap: 10px; }
+.callout--quiet { border-top-color: var(--rule-strong); }
+.callout__title { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.callout p { font-family: var(--font-serif); font-size: var(--step-4); line-height: 1.5; color: var(--fg); }
+.notice { border-left: 0; border-top: 1px solid var(--fg); padding: 14px 0 0; font-size: var(--step-4); }
+.notice--caution { border-top-style: dashed; }
+
+/* =====================================================================================
+   22. The chooser and its answers: square cards, a 2px rule and an ink index square when chosen
+   (system.css radio cards; 1478-1484)
+   ===================================================================================== */
+.chooser { border-top: 1px solid var(--rule-strong); }
+.chooser__q legend { font-family: var(--font-serif); font-size: var(--t-name); line-height: 1.3; color: var(--fg); }
+.opt span { gap: 8px; min-height: var(--target); padding: 0 14px; border: 1px solid var(--rule-strong); border-radius: 0; background: var(--bg);
+  font-family: var(--font-serif); font-size: var(--step-4); font-weight: 400; line-height: 1.25; color: var(--fg); transition: border-color var(--dur-ui) var(--ease-ui); }
+.opts.num .opt span { font-family: var(--font-sans); font-stretch: var(--stretch-fig); font-weight: var(--w-num); font-size: var(--fig-1); font-variant-numeric: tabular-nums lining-nums; justify-content: center; min-width: 64px; }
+.opt input:checked + span { background: var(--bg); color: var(--fg); border: 2px solid var(--fg); padding: 0 13px; }
+.opt input:checked + span::before { content: ""; width: 8px; height: 8px; flex: none; background: var(--fg); }
+.chooser__result { padding: 24px; background: var(--surface); border-left: 0; border-top: 3px solid var(--fg); }
+.chooser__result .h3 { font-size: var(--step-2); }
+.chooser__title .label { color: var(--fg-muted); }
+
+/* =====================================================================================
+   23. Moved here from the page files: blocks the site styles as shared (site.css), so every page
+   that uses them gets the Dome version: the video slot, the band heads, the programs head, What's
+   happening, the pathway index and its steps
+   ===================================================================================== */
+/* the video slot: a marked frame on Dome night (1438-1443). home.css writes its chalk and Blazer raw
+   (76, 80); the Dome's own tokens replace them here (request R1 asks to tokenise them). home.css loads
+   after this file, so each rule is raised one class (.vslot) to win. */
+.vslot .vslot__box { background: var(--night-raised); color: var(--on-night); border: 1px dashed var(--line-chalk-strong); outline: 0; justify-items: start; place-content: center start; text-align: left; padding: clamp(20px, 6%, 40px); }
+.vslot .vslot__play { width: 48px; height: 48px; padding: 12px; border-radius: 0; border-width: 1px; color: var(--on-night); }
+.vslot .vslot__label { font-family: var(--font-sans); font-size: var(--step-6); line-height: 1; font-weight: var(--w-chip); font-stretch: var(--stretch-label); letter-spacing: var(--track-kicker); color: var(--on-night); }
+.vslot .vslot__what { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: var(--t-name-sm); line-height: 1.4; color: var(--mist); }
+.vslot .vslot__tag { top: auto; right: auto; left: 12px; bottom: 12px; background: var(--tag-bg); color: var(--tag-fg); font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-nav); font-stretch: 108%; letter-spacing: var(--track-ui); padding: 7px 10px 6px 9px; }
+.fyp__head { margin-bottom: clamp(40px, 1rem + 4vw, 80px); }
+.fyp__head .sect-head { max-width: 48rem; }
+.happen { column-gap: var(--sp-6); }
+@media (min-width: 1000px) { .happen { grid-template-columns: 5fr 6fr; column-gap: var(--sp-8); } }
+.pathway { gap: var(--sp-6); }
+.rail { background: var(--line-chalk); }
+.rail__fill { background: var(--fg); }
+.pathway__steps-nav li::before { width: 8px; height: 8px; left: -28px; top: 24px; background: var(--fg); }
+.pathway__steps-nav a { grid-template-columns: 44px minmax(0, 1fr); column-gap: 4px; row-gap: 4px; align-items: baseline; padding: 14px 0; color: var(--fg); }
+
+.pathway__steps-nav a > span.num { grid-row: 1 / span 2; font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-3); line-height: 0.86; letter-spacing: 0; color: var(--fg-subtle); }
+.pathway__steps-nav strong { grid-column: 2; font-family: var(--font-serif); font-weight: 400; font-size: 1.375rem; line-height: 1.15; }
+.pathway__steps-nav a > em, .pathway__steps-nav a > em.num { grid-column: 2; line-height: 1.4; font-family: var(--font-sans); font-style: normal; font-weight: 400; font-stretch: 100%; font-size: var(--step-5); letter-spacing: 0; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+/* the stages not in play dim by colour, not opacity, so the captions stay AA (859-861) */
+html.hold-on .pathway__steps-nav a:not(.is-active) strong { opacity: 1; color: var(--fg-subtle); }
+html.hold-on .pathway__steps-nav a.is-active > span.num { color: var(--fg); }
+/* each step: a scoreboard numeral beside the name over a strong hairline (838-856) */
+.pathway__steps { counter-reset: hpstep; }
+.step { counter-increment: hpstep; border-top-color: var(--rule-strong); }
+.step__head { grid-template-columns: auto minmax(0, 1fr); align-items: end; column-gap: 24px; row-gap: 10px; padding-bottom: 20px; border-bottom: 1px solid var(--rule-strong); }
+.step__head::before { content: counter(hpstep); grid-row: 1 / span 2; font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-7); line-height: 0.78; letter-spacing: 0; color: var(--fg); font-variant-numeric: tabular-nums lining-nums; }
+.step__title { font-family: var(--font-serif); font-weight: var(--w-step); font-size: var(--t-step-name); line-height: 1; letter-spacing: -0.014em; }
+.step__head > * { grid-column: 2; }
+.step__gate { margin-top: 0; }
+.step .link { color: var(--fg); }
+.join__grid { column-gap: var(--sp-8); }
+
+/* =====================================================================================
+   24. FAQ (system.css 169-191): questions filed under ledger labels; the question in the serif,
+   the answer at reading size
+   ===================================================================================== */
+.acc { border-top: 1px solid var(--fg); }
+.faq__group { border-bottom: 1px solid var(--rule); }
+.faq__topic { font-family: var(--font-sans); font-size: var(--step-5); line-height: 1.35; font-weight: 600; font-stretch: var(--stretch-head); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-subtle); }
+@media (min-width: 720px) { .faq__topic { border-right: 1px solid var(--rule); padding-top: 26px; } }
+.acc__btn { min-height: 64px; padding: 20px 0; gap: 24px; }
+.acc__q { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-q); line-height: 1.3; letter-spacing: 0; }
+.acc__btn:hover .acc__q { text-decoration-color: currentColor; }
+.acc__mark { color: var(--fg-muted); stroke-linecap: square; }
+.acc__panel { padding: 0 64px 28px 0; font-size: var(--t-name-sm); line-height: 1.6; color: var(--fg-muted); }
+@media (max-width: 767px) { .acc__panel { padding-right: 0; font-size: var(--step-4); } }
+
+/* =====================================================================================
+   25. Selectors and switches: Archivo capitals on a hairline; age bands as scoreboard figures
+   ===================================================================================== */
+.seg { box-shadow: inset 0 -1px 0 var(--rule); }
+.seg button { font-family: var(--font-sans); font-size: var(--step-5); line-height: 1; font-weight: var(--w-chip); font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); text-transform: uppercase; color: var(--fg-muted); }
+.seg__ind { height: 2px; background: var(--fg); }
+.seg--select button .num { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-3); line-height: 0.86; letter-spacing: 0; }
+.seg--level button .num { font-family: var(--font-sans); font-weight: var(--w-chip); font-stretch: var(--stretch-ui); font-size: var(--step-5); letter-spacing: var(--track-crumb); }
+.seg__why { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); color: var(--fg-muted); }
+.select-label { font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.3; font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.filters button { border-radius: 0; border-color: var(--rule-strong); background: var(--bg); color: var(--fg);
+  font-family: var(--font-sans); font-size: var(--step-5); font-weight: var(--w-chip); font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); text-transform: uppercase; }
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters .num { font-size: var(--step-6); opacity: 1; }
+.inpage { border-bottom-color: var(--rule); }
+.inpage a { font-family: var(--font-sans); font-size: var(--step-5); font-weight: var(--w-chip); font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); text-transform: uppercase; color: var(--fg-muted); }
+.inpage a:hover, .inpage a[aria-current="true"] { box-shadow: inset 0 -1px 0 var(--fg); }
+
+/* =====================================================================================
+   26. Rows, cards and the price table (system.css 107-165): ruled entries, square cards, prices
+   as scoreboard figures
+   ===================================================================================== */
+.srows { border-top: 1px solid var(--rule-strong); }
+.srow { border-bottom-color: var(--rule); }
+.srow__what { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-sm); }
+.srow__when { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); color: var(--fg-muted); }
+.srow__price { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name-xl); line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.srow__price small { font-family: var(--font-sans); font-weight: 400; font-stretch: 100%; font-size: var(--step-6); }
+.lrows { border-top: 1px solid var(--rule-strong); }
+.lrow { padding: 26px 0; }
+.lrow__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.15; }
+.lrow__meta dt { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.lrow__meta dd { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); line-height: 1.4; color: var(--fg-muted); }
+.pcard { gap: 20px; padding: 28px; border: 1px solid var(--rule-strong); border-radius: 0; background: var(--bg); }
+.pcard__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.12; }
+.pcard__price { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: clamp(2rem, 1.6rem + 1vw, 2.5rem); line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.pcard__tax { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); color: var(--fg-subtle); }
+@media (max-width: 639px) { .pcard { padding: 20px; } }
+/* tiers as ledger columns: no box, an ink rule over each, the price the figure (system.css 125-139) */
+.tier { gap: 18px; padding: 20px 0 0; border: 0; border-top: 2px solid var(--fg); border-radius: 0; background: transparent; }
+.tier::before { content: none; }
+.tier__season { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); color: var(--fg-muted); padding-top: 0; }
+.tier__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-lg); line-height: 1.1; }
+.tier__who { font-size: var(--t-ui); color: var(--fg-muted); }
+.tier__prices { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.tier__price { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: clamp(2.25rem, 1.6rem + 1.4vw, 3rem); line-height: 1; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.tier__tax { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-ui); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); text-transform: uppercase; color: var(--fg); }
+.rates { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.rates caption { font-family: var(--font-sans); font-size: var(--step-5); color: var(--fg-subtle); }
+.rates th, .rates td { border-bottom-color: var(--rule); }
+.rates thead th, .rates th.tnum { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-chip); color: var(--fg-subtle); }
+.rates thead th { border-bottom-color: var(--rule-strong); }
+.rates td.tnum { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name); }
+.rates tbody th { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-4); }
+.rates tbody th span { font-family: var(--font-sans); font-stretch: 100%; font-weight: 400; font-size: var(--step-5); color: var(--fg-muted); }
+.rates-wrap:focus-visible { outline-offset: 4px; }
+.lcard { gap: 16px; padding: clamp(20px, 2.4vw, 28px); background: var(--bg); border: 1px solid var(--rule-strong); border-top: 2px solid var(--fg); border-radius: 0; }
+.lcard__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.12; }
+.lcard__test { font-size: var(--step-4); line-height: 1.5; color: var(--fg); }
+.lcard__plan .small { font-size: var(--t-sm); }
+.lcard--off { border: 1px dashed var(--rule-strong); border-top: 1px dashed var(--rule-strong); background: transparent; }
+.coach__role { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.coach__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.12; }
+.coach__bio { font-size: var(--step-4); line-height: 1.55; color: var(--fg-muted); }
+.coaches { row-gap: var(--sp-7); }
+.facts { border-top: 1px solid var(--rule-strong); }
+.facts__n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(3rem, 2rem + 3vw, 4.75rem); line-height: 0.86; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.facts__what { font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.35; font-weight: var(--w-chip); font-stretch: 108%; letter-spacing: var(--track-crumb); text-transform: uppercase; color: var(--fg-muted); }
+@media (max-width: 599px) { .facts__what { font-size: var(--step-6); } }
+.empty { border-top: 1px solid var(--fg); border-bottom: 1px solid var(--rule); }
+.empty__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); }
+.doclink__name, .doclink > span:first-child { font-family: var(--font-serif); }
+.doclink__meta { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); color: var(--fg-subtle); }
+.demo-banner { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); border-bottom-color: var(--rule-strong); }
+.stub__list .num { font-size: var(--step-5); }
+
+/* =====================================================================================
+   27. Forms (system.css 197-235): Archivo at its normal width, square fields, an ink rule on
+   error, the check a square box
+   ===================================================================================== */
+.form { gap: 24px; }
+.field__label { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); font-weight: 600; color: var(--fg); }
+.field__help { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); color: var(--fg-subtle); }
+.input, .select { min-height: 52px; padding: 0 14px; border: 1px solid var(--rule-strong); border-radius: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-sans); font-stretch: 100%; font-weight: 400; font-size: var(--step-4); line-height: 1.2; }
+.input::placeholder { color: var(--fg-subtle); }
+.input:hover, .select:hover { border-color: var(--fg-muted); }
+.input:focus-visible, .select:focus-visible { border-color: var(--fg); }
+.input[aria-invalid="true"] { border: 2px solid var(--fg); padding-left: 13px; }
+.select { padding-right: 48px; }
+.select-wrap .icon { width: 18px; height: 18px; }
+.field__error { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); font-weight: 600; color: var(--fg); }
+.check { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-4); min-height: var(--target); align-items: center; }
+.check input { border: 1px solid var(--fg-muted); border-radius: 0; }
+
+/* =====================================================================================
+   28. The camp family: the recreational camp on paper, the High Performance camps on the night
+   court; the Whites red rule above them becomes the chalk one
+   ===================================================================================== */
+.camp-status { gap: 10px; }
+.campcard__day { color: var(--fg-muted); }
+.campcard__sub { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); color: var(--fg-muted); }
+.campcards .pcard__title { font-size: var(--step-2); }
+.campcards__hp::before { background: var(--fg); height: 1px; }
+.campcards__hp-head { font-family: var(--font-serif); font-weight: var(--w-head); font-size: var(--t-split-name); line-height: 1.02; letter-spacing: -0.014em; text-transform: none; }
+.campcards__hp .pcard { background: var(--night-raised); border-color: var(--line-chalk-strong); }
+.campcards__hp-hint { font-family: var(--font-sans); font-stretch: 100%; }
+@media (max-width: 699px) {
+  .campcards__hp { background-image: linear-gradient(var(--fg), var(--fg)); background-size: 100% 1px; }
+  .campcards__hp-head { font-size: var(--t-name-xl); }
+  .campcards__hp .pcard__title { font-size: var(--t-name-lg); }
+  .campcard .pcard__price { font-size: var(--t-name-xl); }
+}
+.extras li { border-top-color: var(--rule-strong); }
+.policies__links { gap: 12px 32px; }
+
+/* =====================================================================================
+   29. Court plans, the rally and the order of play: the net is a line like the others (no red)
+   ===================================================================================== */
+.cplan__lines { stroke: var(--fg-muted); }
+.cplan__area { fill: var(--fg); fill-opacity: 0.06; stroke: var(--fg); }
+.cplan__net { stroke: var(--fg); stroke-width: 1px; }
+.who { fill: var(--fg); }
+.who--coach { fill: var(--bg); stroke: var(--fg); }
+.who__basket { stroke: var(--fg); }
+.rally__path, .rally__ball { stroke: var(--fg); }
+.tally__net { width: 1px; background: var(--fg); }
+.tally__ball { border-radius: 50%; background: var(--fg); }
+.oop__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-3); }
+.oop__board thead th:not(:first-child)::after { height: 1px; background: var(--fg); }
+.oop__dow, .oop__every { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.oop__date { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(1.75rem, 1.4rem + 1vw, 2.5rem); line-height: 0.86; letter-spacing: 0; }
+.oop__time { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name); }
+.oop__what, .oop__slot { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+.oop__days li::after { height: 1px; }
+.live-dot { width: 8px; height: 8px; background: var(--live); }
+
+/* =====================================================================================
+   30. The draw sheet in a hero's right half (Programs, Register): entries in the serif on strong
+   hairlines, the bracket's name as a ledger label
+   ===================================================================================== */
+@media (min-width: 1000px) {
+  .draw__lead { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); color: var(--fg-muted); }
+  .draw__entry { border-bottom-color: var(--rule-strong); }
+  .draw__name { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name-lg); line-height: 1.1; }
+  .draw__fact { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); color: var(--fg-muted); }
+  .draw__who { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg); }
+  .draw__to::before { border-right-color: var(--rule-strong); }
+}
+@media (min-width: 1000px) and (max-width: 1279px) { .draw__name { font-size: var(--step-3); } .draw__who { letter-spacing: var(--track-crumb); } }
+@media (min-width: 1280px) and (max-width: 1399px) { .draw__name { font-size: var(--t-name); } }
+
+/* 31. The News list page: in the W2c-news section at the end of this file. */
+.lcards { gap: var(--sp-4); }
+@media (min-width: 900px) { .lcards { gap: clamp(16px, 2vw, 28px); } }
+
+/* =====================================================================================
+   DI (25 Oct 2026, the orchestrator): the scoreboard figure the Dome templates write
+   (site/directions/dome/templates.py: the hero figures, the board, the step heads). ledger.css
+   1148 and 1150: Archivo at its narrowest and heaviest, tabular, lining.
+   ===================================================================================== */
+.fig { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); letter-spacing: 0; line-height: 0.86; font-variant-numeric: tabular-nums lining-nums; }
+.fig__unit { font-size: 0.42em; font-weight: var(--w-num); letter-spacing: 0.02em; vertical-align: top; margin-left: 0.08em; }
+
+/* ---------- DI hero: the Dome hero the templates write on Home and High Performance (ledger.css 1153-1255). ---------- */
+/* full-bleed Dome night. On phones and portrait tablets the
+   photograph comes first, whole, with the arc on it, the months and season names under it, then the
+   headline, lede, actions and the four figures. On a landscape desktop the photograph stands on the
+   ledger's baseline at the left, the ledger runs the full foot, the arc rises over the photograph
+   and the words stand under it. ---------- */
+.hero.hero--dome {
+  --strip: 84px; --ph: 56.25vw;
+  display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; align-items: start; gap: 0;
+  position: relative; isolation: isolate; overflow: hidden; padding: 0;
+}
+.hero--dome .hero__plate { grid-column: 1; grid-row: 1; position: relative; z-index: 0; width: 100%; margin: 0; }
+.hero.hero--dome .hero__plate .frame { --ar: 16 / 9 !important; margin: 0; }
+.hero--dome .hero__scrim { display: none; }
+.hero--dome .hero__season, .hero--dome .ledger--hero { display: contents; }
+.hero--dome .ledger--hero { --sky: calc(var(--ph) - 18px); }
+.hero--dome .ledger__sky { grid-column: 1; grid-row: 1; align-self: end; z-index: 1; margin-inline: var(--gutter); height: var(--sky); pointer-events: none; }
+.hero--dome .ledger__dome { color: var(--arc); }
+.hero--dome .ledger__dome svg path { stroke-width: 1.5; }
+.hero--dome .ledger__change { border-color: var(--line-chalk-strong); }
+.hero--dome .ledger__months { grid-column: 1; grid-row: 2; margin-inline: var(--gutter); border-top-color: var(--on-night); }
+.hero--dome .ledger__months li { color: var(--mist); padding-top: 8px; }
+.hero--dome .ledger__today { height: 24px; bottom: 0; }
+.hero--dome .ledger__today-label { padding: 4px 7px 3px; min-height: 0; background: var(--bg); color: var(--fg); }
+.hero--dome .ledger__today-label { font-stretch: var(--stretch-ui); letter-spacing: var(--track-ui); }
+/* phones: the tag stands in the open roof under the arc, clear of the racquet hand */
+.hero--dome .hero__plate .frame__tag { left: 57%; right: auto; top: 22%; bottom: auto; }
+.hero--dome .hero__content { grid-column: 1; grid-row: 4; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; padding: 16px var(--gutter) 20px; }
+.hero--dome .hero__title { margin: 0; max-width: none; padding: 0; font-size: var(--t-hero-dome-phone); line-height: 1.04; letter-spacing: -0.014em; }
+.hero--dome .hero__title .line { display: block; }
+.hero--dome .hero__title em { font-style: italic; font-weight: 320; }
+.hero--dome .hero__title .fig { font-size: 1.04em; line-height: 1; letter-spacing: -0.01em; font-style: normal; }
+.hero--dome .hero__lede { max-width: 40ch; margin: 0; padding: 8px 0 0; font-size: 0.9375rem; line-height: 1.42; }
+.hero--dome .hero__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; margin: 14px 0 0; padding: 0; }
+.hero--dome .hero__doors { grid-column: 1; grid-row: auto; width: 100%; margin: 16px 0 0; }
+.hero--dome .hero__court { grid-column: 1; grid-row: auto; margin: 6px 0 0; }
+.hero__figs { display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; gap: 8px; width: 100%; margin: 16px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line-chalk-strong); }
+.hero__figs div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 6px; min-width: 0; }
+.hero__figs dd { margin: 0; }
+.hero__figs .fig { font-size: clamp(1.75rem, 8.4vw, 3rem); color: var(--on-night); }
+.hero__figs .label { font-size: var(--step-6); letter-spacing: 0.04em; font-stretch: var(--stretch-fig); white-space: nowrap; color: var(--mist); line-height: 1.2; }
+/* phones: the two halves of the year named under their months (the changeover is drawn in the sky and
+   stays in the ledger's caption); the dates join them when the screen is tall enough */
+.hero--dome .ledger__legend { grid-column: 1; grid-row: 3; display: grid; grid-template-columns: 41.67% minmax(0, 1fr); gap: 0; margin: 0 var(--gutter); padding: 6px 0 0; }
+.hero--dome .ledger__seg { display: grid; gap: 2px; align-content: start; padding: 0 10px 0 0; border-top: 0; }
+.hero--dome .ledger__seg--change { display: none; }
+.hero--dome .ledger__seg--in { padding-left: 4px; }
+.hero--dome .ledger__name { font-size: 1rem; }
+.hero--dome .ledger__dates { display: none; font-size: var(--step-6); color: var(--mist); }
+@media (min-height: 720px) { .hero--dome .ledger__dates { display: block; } }
+@media (min-width: 480px) {
+  .hero--dome .hero__lede { font-size: var(--step-4); }
+  .hero--dome .hero__actions { grid-template-columns: repeat(2, max-content); gap: 12px; }
+}
+@media (min-width: 768px) {
+  .hero--dome .hero__content { padding: 28px var(--gutter) 40px; }
+  .hero--dome .hero__title { font-size: 3.5rem; }
+  .hero--dome .hero__lede { font-size: var(--step-3); padding-top: 12px; }
+  .hero--dome .hero__actions { margin-top: 20px; }
+  .hero__figs { margin-top: 28px; padding-top: 16px; justify-content: start; gap: 8px clamp(32px, 6vw, 72px); }
+  .hero__figs .fig { font-size: 3.5rem; }
+  .hero__figs .label { letter-spacing: var(--track-chip); font-stretch: var(--stretch-chip); }
+  .hero--dome .ledger__legend { padding-top: 10px; }
+  .hero--dome .ledger__dates { display: block; font-size: var(--step-5); }
+  .hero--dome .ledger__name { font-size: var(--t-name-sm); }
+}
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4) {
+  .hero.hero--dome {
+    --hh: max(100svh - var(--header-h), 556px);
+    --ph: min(var(--hh) - var(--strip), 46vw);
+    --pw: calc(var(--ph) * 16 / 9);
+    --lw: calc(100vw - 2 * var(--gutter));
+    display: block; height: var(--hh);
+  }
+  .hero--dome .hero__plate {
+    position: absolute; left: 0; bottom: var(--strip); top: auto; width: var(--pw); height: var(--ph);
+    -webkit-mask-image: linear-gradient(to right, var(--mask-solid) 64%, var(--mask-clear) 97%);
+    mask-image: linear-gradient(to right, var(--mask-solid) 64%, var(--mask-clear) 97%);
+  }
+  .hero--dome .hero__plate .frame, .hero--dome .hero__plate .frame__box { height: 100%; }
+  .hero.hero--dome .hero__plate .frame__box { aspect-ratio: auto !important; }
+  .hero--dome .hero__plate .frame__tag { left: var(--gutter); right: auto; bottom: auto; top: 11%; }
+  .hero--dome .ledger--hero { --sky: calc(var(--hh) - var(--strip) - 14px); }
+  .hero--dome .ledger__sky { position: absolute; left: var(--gutter); right: var(--gutter); bottom: var(--strip); margin: 0; }
+  .hero--dome .ledger__months { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(var(--hh) - var(--strip)); margin: 0; }
+  .hero--dome .ledger__months li { padding-top: 10px; }
+  .hero--dome .ledger__legend { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 0; margin: 0; padding: 0 0 16px; }
+  .hero--dome .ledger__seg { display: flex; gap: 4px 12px; }
+  .hero--dome .ledger__seg--in { padding-left: 8px; }
+  .hero--dome .ledger__name { font-size: var(--t-name-sm); }
+  .hero--dome .ledger__today { height: 44px; }
+  .hero--dome .ledger__today-label { background: none; padding: 0; }
+  /* under the arc: from 12% to 88% of the Dome's span the arc is above 79% of its height */
+  .hero--dome .hero__content {
+    --left: max(var(--pw) * 0.615, var(--gutter) + var(--lw) * 0.485);
+    position: absolute; z-index: 2; left: var(--left); right: calc(var(--gutter) + var(--lw) * 0.0822);
+    bottom: calc(var(--strip) + clamp(20px, 4.4vh, 56px)); padding: 0;
+  }
+  .hero--dome .hero__title { font-size: min(4.25rem, calc((100vw - var(--left) - var(--gutter) - var(--lw) * 0.0822) / 10.4)); line-height: 1.03; letter-spacing: -0.018em; }
+  .hero--dome .hero__title .line { white-space: nowrap; }
+  .hero--dome .hero__lede { max-width: 36ch; padding-top: 14px; font-size: var(--t-name-sm); }
+  .hero--dome .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; width: auto; }
+  .hero__figs { margin-top: clamp(20px, 3.6vh, 40px); padding-top: 14px; justify-content: space-between; gap: 8px 16px; }
+  .hero__figs .fig { font-size: clamp(2.75rem, 1rem + 4.6vh, 4.5rem); }
+  .hero__figs .label { letter-spacing: var(--track-ui); font-stretch: var(--stretch-ui); }
+}
+/* small laptops: the four figure labels keep one line each without touching */
+@media (min-width: 1024px) and (max-width: 1279px) and (min-aspect-ratio: 5/4) { .hero__figs .label { letter-spacing: 0.04em; font-stretch: 84%; } }
+
+
+/* =====================================================================================
+   W2c (25 Oct 2026). The inner page hero (templates.py page_hero, every hero--section page): Dome
+   night, the specimen's High Performance composition without the season ledger
+   (high-performance.html 1-60, ledger.css 1313-1378). Phones and portrait tablets: the photograph
+   whole (16:9) first, the breadcrumb, the words, then the page's key points as one ruled line.
+   Landscape desktop: the photograph whole at the left, the breadcrumb and the words beside it on the
+   night, the points as the ruled line across the foot, as the months rule the Home hero's foot.
+   The DI hero rules (above) set the shared parts; only what differs is here.
+   ===================================================================================== */
+.hero--page { --words-pad: clamp(32px, 4vw, 64px); }
+.hero--page .hero__plate .frame__tag { left: 6px; right: auto; top: 6px; bottom: auto; }
+.hero--page .hero__crumbs { grid-column: 1; grid-row: 2; margin: 0; padding: 10px var(--gutter) 0; }
+.hero--page .hero__crumbs li, .hero--page .hero__crumbs a { color: var(--mist); }
+.hero--page .hero__crumbs [aria-current="page"] { color: var(--on-night); }
+.hero--page .hero__crumbs li + li::before { background: var(--line-chalk-strong); }
+.hero--page .hero__content { grid-row: 3; padding: 6px var(--gutter) 18px; }
+.hero--page .hero__title { font-size: var(--t-hero-dome-phone); }
+.hero--page .hero__title .line { white-space: normal; text-wrap: balance; }
+.hero--page .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; width: auto; margin-top: 16px; }
+.hero--page .hero__actions .link { color: var(--on-night); }
+.hero--page .status-line { margin: 14px 0 0; color: var(--mist); }
+/* the key points as the ledger's foot line: a chalk baseline, a tick per entry, the label in the ledger's
+   capitals over the figure (or the words, in the serif) */
+.hero--page .hero__line {
+  grid-column: 1; grid-row: 4; display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); list-style: none;
+  margin: 0 var(--gutter) 0; padding: 0 0 20px; border-top: 1px solid var(--on-night);
+}
+.hero--page .hero__line li { position: relative; display: flex; min-width: 0; padding: 0; border: 0; }
+.hero--page .hero__line li::before { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 8px; background: var(--line-chalk-strong); }
+.hero--page .hero__line li + li { border: 0; padding: 0; }
+.hero--page .hero__line li > a, .hero--page .hero__line li > .hero__point-text { flex: 1 1 auto; min-width: 0; min-height: var(--target); padding: 10px 10px 4px 8px; }
+.hero--page .hero__line li > a { display: flex; align-items: flex-start; color: var(--on-night); text-decoration: none; }
+.hero--page .hero__line .hero__point-text { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.hero--page .hero__line .hero__point-label { display: flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.2; font-weight: var(--w-nav); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); text-transform: uppercase; color: var(--mist); }
+.hero--page .hero__line .hero__point-label .icon { width: 14px; height: 14px; margin: 0; }
+.hero--page .hero__line .hero__point-value { font-family: var(--font-serif); font-weight: 400; font-stretch: 100%; font-size: var(--t-ui); line-height: 1.25; letter-spacing: 0; color: var(--on-night); text-wrap: balance; }
+.hero--page .hero__line .hero__point-value--fig { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 6px; font-family: var(--font-sans); }
+.hero--page .hero__line .hero__point-value--fig .fig { font-size: var(--fig-3); color: var(--on-night); }
+.hero--page .hero__line .hero__fig-pre, .hero--page .hero__line .hero__fig-post { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-fig); letter-spacing: 0.04em; text-transform: uppercase; color: var(--mist); }
+.hero--page .hero__line li > a:hover .hero__point-value:not(.hero__point-value--fig), .hero--page .hero__line li > a:hover .fig { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.hero--page .hero__line a:focus-visible { outline: 2px solid var(--on-night); outline-offset: -2px; }
+/* four entries (the leagues) share two rows on a phone */
+@media (max-width: 599px) {
+  .hero--page .hero__line:is([style*="--n:4"], [style*="--n: 4"]) { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 0; }
+  .hero--page .hero__line:is([style*="--n:4"], [style*="--n: 4"]) li:nth-child(n+3) { border-top: 1px solid var(--line-chalk); }
+}
+@media (min-width: 768px) {
+  .hero--page .hero__crumbs { padding-top: 16px; }
+  .hero--page .hero__content { padding-top: 10px; padding-bottom: 28px; }
+  .hero--page .hero__title { font-size: var(--t-hero-inner); }
+  .hero--page .hero__line .hero__point-value { font-size: var(--step-4); }
+  .hero--page .hero__line .hero__point-value--fig .fig { font-size: var(--fig-4); }
+  .hero--page .hero__line { padding-bottom: 28px; }
+}
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4) {
+  .hero.hero--page {
+    --hh: max(540px, min(100svh - var(--header-h), 31.5vw + 96px)); --pw: 56vw;
+    display: grid; grid-template-columns: var(--pw) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto;
+    height: auto; min-height: var(--hh);
+  }
+  .hero--page .hero__plate {
+    grid-column: 1; grid-row: 1 / span 2; align-self: stretch; position: relative; left: auto; bottom: auto; width: auto; height: auto;
+    -webkit-mask-image: linear-gradient(to right, var(--mask-solid) 85%, var(--mask-clear) 100%);
+    mask-image: linear-gradient(to right, var(--mask-solid) 85%, var(--mask-clear) 100%);
+  }
+  .hero--page .hero__plate .frame, .hero--page .hero__plate .frame__box { height: 100%; }
+  .hero.hero--page .hero__plate .frame__box { aspect-ratio: auto !important; }
+  .hero--page .hero__plate .frame__tag { left: var(--gutter); right: auto; top: 16px; bottom: auto; }
+  .hero--page .hero__crumbs { grid-column: 2; grid-row: 1; padding: 20px var(--gutter) 0 var(--words-pad); }
+  .hero--page .hero__content { grid-column: 2; grid-row: 2; align-self: end; position: static; left: auto; right: auto; bottom: auto;
+    padding: 28px var(--gutter) clamp(32px, 5vh, 56px) var(--words-pad); }
+  .hero--page .hero__title { font-size: var(--t-hero-inner); line-height: 1.03; letter-spacing: -0.018em; }
+  .hero--page .hero__title .line { white-space: normal; }
+  .hero--page .hero__lede { max-width: 38ch; padding-top: 14px; font-size: var(--t-name-sm); }
+  .hero--page .hero__actions { margin-top: 22px; }
+  .hero--page .hero__line { grid-column: 1 / -1; grid-row: 3; padding-bottom: 22px; }
+  .hero--page .hero__line .hero__point-value--fig .fig { font-size: clamp(2.25rem, 1rem + 2.4vw, 3rem); }
+}
+
+/* ---------- W2c: the specimen's grounds as classes (ledger.css 183-193). templates.py ground() puts a
+   section on one of them; the section's own content and place stay the page's. ---------- */
+.section.ground-night, .ground-night {
+  --bg: var(--blazer); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--night-raised);
+  --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-soft: var(--line-chalk-soft); --rule-strong: var(--line-chalk-strong);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus); --logo-col: none; --logo-rev: block;
+  --ph-ground: var(--night-raised); --ph-line: var(--court-night); --ph-text: var(--on-night); --ph-muted: var(--mist);
+  background: var(--bg); color: var(--fg); color-scheme: dark; border-top: 0;
+}
+.section.ground-deep, .ground-deep {
+  --bg: var(--night-deep); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--night-raised);
+  --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-soft: var(--line-chalk-soft); --rule-strong: var(--line-chalk-strong);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus);
+  --ph-ground: var(--night-raised); --ph-line: var(--court-night); --ph-text: var(--on-night); --ph-muted: var(--mist);
+  background: var(--bg); color: var(--fg); color-scheme: dark;
+}
+.section.ground-fabric, .ground-fabric { --bg: var(--surface-alt); --ph-ground: var(--surface); background: var(--surface-alt); }
+.section.ground-paper, .ground-paper { --bg: var(--surface); --ph-ground: var(--surface-alt); background: var(--surface); }
+.ground-night .btn--ink, .ground-deep .btn--ink { --btn-fg: var(--ink); }
+.ground-night .inline-link, .ground-deep .inline-link { text-decoration-color: var(--line-chalk-strong); }
+/* in dark mode the night is the page's own ground: a hairline parts it from the paper section above */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .section.ground-night { border-top: 1px solid var(--line-chalk); } }
+:root[data-theme="dark"] .section.ground-night { border-top: 1px solid var(--line-chalk); }
+
+/* =====================================================================================
+   W2c: the scoreboard (templates.py courts, every doors--courts: Home and the Style Guide). DI wrote it
+   for Home (pages/home.css DI 2); moved here unchanged. It stands on a night ground.
+   ===================================================================================== */
+/* ---------- DI 2 (from pages/home.css). Programs: the scoreboard (1257-1311). Four rows on Dome night: the row number, the
+   name in the serif, one line, one figure with its label, the way on. The row is a door (its link
+   covers it; the chooser marks it), so the Whites door rules are reset here. ---------- */
+.board-sec .board__head { margin-bottom: clamp(40px, 1rem + 4vw, 80px); }
+.board { display: grid; list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--on-night); }
+.board .board__row {
+  position: relative; isolation: isolate; display: grid; align-items: center;
+  grid-template-columns: 56px minmax(0, 1fr) auto; column-gap: 16px; row-gap: 14px;
+  margin: 0; padding: 22px 0 20px; border-bottom: 1px solid var(--line-chalk-strong);
+}
+.board__plate { position: absolute; inset: 0; z-index: -1; background: var(--night-raised); opacity: 0; transition: opacity var(--dur-ui) var(--ease-ui); }
+.board__no { grid-column: 1; grid-row: 1; align-self: start; font-size: 2.25rem; color: var(--on-night-3); padding-top: 4px; }
+.board__who { grid-column: 2; grid-row: 1; display: grid; gap: 6px; min-width: 0; }
+.board__name { position: relative; font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name-lg); line-height: 1.08; letter-spacing: -0.01em; color: var(--on-night); }
+.board__link { color: inherit; text-decoration: none; }
+.board__serve { position: absolute; left: -18px; top: 0.42em; width: 9px; height: 9px; border-radius: 50%; background: var(--on-night); opacity: 0; transform: scale(0.4); transition: opacity var(--dur-ui) var(--ease-ui), transform var(--dur-ui) var(--ease-ui); }
+.board__desc { color: var(--mist); font-size: var(--t-read-sm); line-height: 1.45; max-width: 46ch; }
+.board__facts { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-label); font-stretch: var(--stretch-chip); letter-spacing: var(--track-crumb); text-transform: uppercase; color: var(--on-night-3); }
+.board__score { grid-column: 3; grid-row: 1; align-self: start; display: grid; justify-items: end; gap: 6px; margin: 0; text-align: right; }
+.board__score .fig { font-size: 3.25rem; color: var(--on-night); }
+.board__score .label { font-size: var(--step-6); letter-spacing: 0.1em; font-stretch: 108%; color: var(--mist); max-width: 15ch; line-height: 1.25; }
+.board__cta { grid-column: 2 / -1; grid-row: 2; justify-self: start; position: static; color: var(--on-night); }
+.board .door__link:focus-visible { outline: none; }
+.board .board__row:has(.door__link:focus-visible) { outline: 2px solid var(--on-night); outline-offset: -2px; }
+.board .board__row:has(.door__link:focus-visible) .board__serve { opacity: 1; transform: none; }
+.board .board__row.is-match .board__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+@media (hover: hover) and (pointer: fine) {
+  .board .board__row:hover .board__plate { opacity: 1; }
+  .board .board__row:hover .board__serve { opacity: 1; transform: none; }
+  .board .board__row:hover .link__text::after { transform: scaleX(1); transform-origin: 0 50%; }
+  .board .board__row:hover .link .icon { transform: translateX(4px); }
+}
+.board__unsure { margin-top: 8px; padding-top: 24px; color: var(--mist); }
+.board__unsure .chooser { max-width: 44rem; }
+@media (max-width: 479px) {
+  .board .board__row { grid-template-columns: 30px minmax(0, 1fr) auto; column-gap: 10px; }
+  .board__no { font-size: 1.75rem; }
+  .board__name { font-size: var(--t-name-lg); }
+  .board__score .fig { font-size: 2.75rem; }
+  .board__score .label { max-width: 12ch; letter-spacing: 0.04em; font-stretch: 92%; }
+  .board__serve { left: -13px; width: 7px; height: 7px; }
+}
+@media (min-width: 900px) {
+  .board .board__row { grid-template-columns: 88px minmax(0, 1fr) clamp(270px, 27vw, 400px) 236px; column-gap: clamp(24px, 3vw, 48px); padding: 30px 24px 28px 0; margin-top: 0; }
+  .board__no { align-self: center; padding: 0 0 0 24px; font-size: 3rem; }
+  .board__name { font-size: var(--t-name-2xl); }
+  .board__serve { left: -24px; width: 11px; height: 11px; }
+  .board__desc { font-size: var(--step-4); }
+  .board__score { align-self: center; grid-template-columns: clamp(132px, 14vw, 212px) minmax(0, 1fr); align-items: end; justify-items: start; gap: 16px; text-align: left; }
+  .board__score .fig { justify-self: end; text-align: right; white-space: nowrap; font-size: var(--fig-6); min-width: 1.5ch; }
+  .board__score .label { padding-bottom: 6px; max-width: 18ch; }
+  .board__cta { grid-column: 4; grid-row: 1; justify-self: end; }
+}
+@media (prefers-reduced-motion: reduce) { .board__plate, .board__serve { transition: none; } }
+
+
+/* =====================================================================================
+   W2c-news (25 Oct 2026): every news surface in the Dome's own language, on W2a's markup
+   (logs/w2a-news-design.md). The stories stay W2a's (a date set like a score, then the words);
+   the Dome sets them as its scoreboard:
+   - the date: the day a scoreboard figure (Archivo at its narrowest and heaviest, ledger.css
+     1146-1150), the month a ledger label over it, the year small under it, a hairline closing the
+     cell;
+   - the topic a quiet ledger label; Pinned a square ink outline; New the night chip with the ball
+     as its dot only (the site's rule: never ball-coloured text); Closed the ball out of play, an
+     empty ring, the day stepping back to muted;
+   - the net: red is Register now only, so the lead story's seam is one chalk (or ink) hairline,
+     the ruled column line of the Dome heroes (ledger.css 1036), once per surface;
+   - the grounds: the Home strip continues the hero's Dome night as its results board, the Home band
+     stands on Dome night as the club's notice board, the News page's lead is a night plate, every
+     article opens on Dome night like the inner pages.
+   ===================================================================================== */
+.ncount { border-radius: 0; font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-num); font-stretch: var(--stretch-fig); }
+
+/* ---------- The date, set like a score ---------- */
+.ndate { row-gap: 4px; }
+.ndate__m { font-family: var(--font-sans); font-size: var(--step-6); line-height: 1; font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); text-transform: uppercase; color: var(--fg-muted); }
+.ndate__d { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--nd); line-height: 0.86; letter-spacing: 0; color: var(--fg); font-variant-numeric: tabular-nums lining-nums; }
+.ndate__y { font-family: var(--font-sans); font-size: var(--step-6); line-height: 1.2; font-weight: 400; font-stretch: 100%; letter-spacing: 0.04em; color: var(--fg-subtle); }
+.ncard__date { border-right-color: var(--rule); }
+
+/* ---------- A story's words ---------- */
+.ncard__topic { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.ncard__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: clamp(1.25rem, 1.12rem + 0.45vw, 1.5rem); line-height: 1.2; letter-spacing: -0.004em; }
+@media (hover: hover) and (pointer: fine) { .ncard:hover .ncard__link { text-decoration-color: currentColor; } }
+
+/* ---------- The marks ---------- */
+.ncard__flag { min-height: 24px; padding: 0 8px; border-radius: 0; border-color: var(--rule-strong);
+  font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); color: var(--fg-muted); }
+.ncard__flag--new { background: var(--chip-live-bg); border-color: var(--chip-live-bg); color: var(--chip-live-fg); }
+.theme-night .ncard__flag--new, .ground-night .ncard__flag--new, .nstrip .ncard__flag--new, .nband .ncard__flag--new, .ncards--list .ncard--lead .ncard__flag--new, .nart__head .ncard__flag--new { background: var(--night-raised); border-color: var(--line-chalk-strong); color: var(--on-night); }
+.ncard__flag--pin { border-color: var(--fg); color: var(--fg); }
+
+/* ---------- The lead story: photograph, the seam, its words ---------- */
+.ncard--lead .ndate { --nd: 3rem; }
+.ncard--lead .ncard__title { font-weight: var(--w-head); font-size: clamp(1.5rem, 1.12rem + 1.5vw, 2.5rem); line-height: 1.08; letter-spacing: -0.012em; }
+.ncard--lead .ncard__sum { font-family: var(--font-serif); font-weight: 400; color: var(--fg-muted); }
+/* the seam: one hairline along the photograph's foot (phones, tablets), upright at its edge from 1000px; no posts */
+.ncard--lead > .frame::after { left: 0; right: 0; bottom: -12px; height: 1px; background: var(--rule-strong); }
+@media (min-width: 1000px) {
+  .ncard--lead .ndate { --nd: 4rem; }
+  .ncard--lead > .frame::after { left: auto; right: calc(-1 * clamp(22px, 2.5vw, 44px)); top: 0; bottom: 0; width: 1px; height: auto; background: var(--rule-strong); }
+}
+
+/* ---------- Results rows ---------- */
+.ncards--band .ncard:not(.ncard--lead), .ncards--list .ncard:not(.ncard--lead), .ncards--related .ncard { border-top-color: var(--rule-strong); }
+@media (max-width: 599px) {
+  .ncard .ndate { --nd: 2rem; }
+  .ncard:not(.ncard--lead) .ncard__title { font-size: var(--t-name); }
+  /* the 64px photograph's tag: on the 12px floor, one word a line inside the square */
+  .ncard:not(.ncard--lead) .frame__tag { left: 0; right: 0; bottom: 0; top: auto; justify-content: center; padding: 3px 2px; gap: 0; font-size: var(--step-6); font-stretch: 62%; letter-spacing: 0.02em; line-height: 1.05; white-space: normal; text-align: center; }
+  .ncard:not(.ncard--lead) .frame__tag-mark { display: none; }
+}
+@media (min-width: 600px) { .ncard:not(.ncard--lead) .frame__tag { left: 6px; bottom: 6px; top: auto; right: auto; padding: 5px 6px; gap: 5px; font-size: var(--step-6); font-stretch: 62%; letter-spacing: 0.03em; } }
+
+/* ---------- Home: the band on Dome night, the club's notice board ---------- */
+.nband {
+  --bg: var(--blazer); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--night-raised);
+  --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-soft: var(--line-chalk-soft); --rule-strong: var(--line-chalk-strong);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus);
+  --ph-ground: var(--night-raised); --ph-line: var(--court-night); --ph-text: var(--on-night); --ph-muted: var(--mist);
+  background: var(--bg); color: var(--fg); color-scheme: dark;
+}
+.nband .ncards--band { border-top: 2px solid var(--fg); padding-top: clamp(24px, 2.6vw, 40px); }
+.nband__head { align-items: end; }
+.nband__head .h2, .cband__head .h2 { position: relative; padding-top: 24px; }
+.nband__head .h2::before, .cband__head .h2::before { content: ""; position: absolute; left: 0; top: 0; width: 32px; height: 1px; background: var(--fg); }
+/* the band is night, the coaches paper: each keeps its own section gap (W2a joins them on one ground) */
+.nband:has(+ .cband) { padding-bottom: var(--section); }
+.nband + .cband { padding-top: var(--section); }
+.nband + .cband > .cband__grid { padding-top: 0; background: none; }
+
+/* ---------- The News page ---------- */
+.nlist__bar { box-shadow: inset 0 -1px 0 var(--rule); }
+.nlist__filters button { font-family: var(--font-sans); font-size: var(--step-5); line-height: 1; font-weight: var(--w-chip); font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); text-transform: uppercase; color: var(--fg-muted); }
+.nlist__filters button[aria-pressed="true"] { color: var(--fg); }
+.nlist__filters .num { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--step-5); letter-spacing: 0; }
+.nlist__status { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); color: var(--fg-muted); }
+/* the lead story as a night plate on the paper list */
+.ncards--list .ncard--lead {
+  --bg: var(--blazer); --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-strong: var(--line-chalk-strong); --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus);
+  --ph-ground: var(--night-raised); --ph-line: var(--court-night); --ph-text: var(--on-night); --ph-muted: var(--mist);
+  padding: clamp(16px, 2.4vw, 32px); margin-bottom: clamp(28px, 3vw, 44px); background: var(--blazer); color: var(--fg); color-scheme: dark;
+}
+.ncards--list .ncard--lead + .ncard { border-top: 0; padding-top: 0; }
+.npager__btn { border-radius: 0; border-color: var(--rule-strong); font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); }
+.npager__num { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-2); line-height: 1; letter-spacing: 0; }
+.npager__list li:first-child .npager__btn, .npager__list li:last-child .npager__btn { border-radius: 0; }
+
+/* ---------- Related posts ---------- */
+.ncards--related .ncard__title { font-size: var(--t-name); }
+@media (min-width: 1000px) { .ncards--related .ncard__title { font-size: var(--t-name-lg); } }
+
+/* ---------- The article: the head on Dome night, a club journal under it ---------- */
+.nart__head {
+  --bg: var(--blazer); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--night-raised);
+  --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-soft: var(--line-chalk-soft); --rule-strong: var(--line-chalk-strong);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus);
+  background: var(--bg); color: var(--fg); color-scheme: dark; margin-bottom: clamp(32px, 4vw, 64px);
+}
+.nart__head .crumbs li, .nart__head .crumbs a { color: var(--mist); }
+.nart__head .crumbs [aria-current="page"] { color: var(--on-night); }
+.nart__kicker a { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg); box-shadow: inset 0 -1px 0 var(--rule-strong); }
+.nart__title { font-weight: var(--w-display); letter-spacing: -0.016em; line-height: 1.04; }
+.nart__lede { color: var(--fg-muted); }
+dl.nart__meta { border-top: 1px solid var(--fg); }
+.nart__cell { border-bottom-color: var(--rule); }
+.nart__cell dt { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-muted); }
+.nart__cell dd { font-family: var(--font-serif); font-size: var(--step-4); color: var(--fg); }
+.nart__cell dd time { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name); letter-spacing: 0.01em; }
+p.nart__meta { font-family: var(--font-sans); font-stretch: 100%; }
+.nclosed { border-bottom-color: var(--rule); }
+.nclosed__mark { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); }
+.nclosed__when { font-family: var(--font-serif); color: var(--fg-muted); }
+.nclosed__when time { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); color: var(--fg); }
+.nart__cover .frame__cap { max-width: 60ch; }
+.nart__main > p:first-child { color: var(--fg); }
+.nart__h2 { font-weight: var(--w-name); line-height: 1.18; }
+.nart__list li::marker { font-family: var(--font-sans); font-stretch: var(--stretch-fig); font-weight: var(--w-num); color: var(--fg-muted); }
+.nart__list--steps { border-top: 1px solid var(--fg); }
+.nart__list--steps li { border-bottom-color: var(--rule); }
+.nart__list--steps li::before { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-3); line-height: 0.86; letter-spacing: 0; color: var(--fg); top: 16px; }
+.nart__list--pairs { border-top: 1px solid var(--fg); }
+.nart__k { font-weight: 400; }
+.nart__v { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name); letter-spacing: 0.01em; }
+.ngallery__cap { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); color: var(--fg-subtle); }
+.ngallery .frame__tag { font-size: var(--step-6); font-stretch: 62%; padding: 5px; gap: 4px; letter-spacing: 0.03em; }
+.nvideo__play { border-radius: 0; font-family: var(--font-sans); font-size: var(--step-5); font-weight: var(--w-ui); font-stretch: var(--stretch-ui); letter-spacing: var(--track-ui); }
+.nvideo__note, .nart__docnote { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); color: var(--fg-muted); }
+.nart__doc .doclink { border-radius: 0; border-color: var(--rule-strong); }
+.nart__doc .doclink .link__text { font-family: var(--font-serif); text-transform: none; letter-spacing: 0; font-weight: 400; font-stretch: 100%; }
+.nquote { border-left: 1px solid var(--fg); }
+.nquote p { font-family: var(--font-serif); font-weight: 400; }
+.nquote figcaption, .nart__label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.nabout { border-top-color: var(--fg); }
+.nabout__name { font-weight: var(--w-name); font-size: var(--t-name-lg); }
+.ntags li { border-radius: 0; border-color: var(--rule-strong); font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+
+/* ---------- The Home strip: the results board, continuing the hero's Dome night ---------- */
+.nstrip {
+  --bg: var(--blazer); --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-strong: var(--line-chalk-strong); --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus);
+  background: var(--bg); color: var(--fg); color-scheme: dark; border-top: 1px solid var(--line-chalk); border-bottom: 1px solid var(--line-chalk);
+}
+.nstrip__label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg); }
+.nstrip__all { color: var(--fg); }
+.nstrip__date { --nd: 1.75rem; border-right-color: var(--rule); }
+.nstrip__text { font-family: var(--font-serif); font-weight: 400; color: var(--fg); }
+.nstrip__text .ncard__flag { min-height: 20px; padding: 0 6px; font-size: var(--step-6); letter-spacing: var(--track-crumb); vertical-align: 2px; }
+.nstrip__item + .nstrip__item { border-left: 0; }
+@media (min-width: 768px) { .nstrip__item + .nstrip__item { padding-left: var(--sp-4); box-shadow: inset 1px 0 0 var(--rule); } }
+@media (min-width: 1440px) { .nstrip__head { border-right-color: var(--rule-strong); } }
+
+/* ---------- Home: Meet the Coaches, the nameplate under the portrait ---------- */
+.cband__text { color: var(--fg-muted); }
+.cband__plate { border-top: 1px solid var(--fg); }
+.cband__role { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.cband__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-lg); line-height: 1.12; }
+.cband__arrow { color: var(--fg); }
+
+/* ---------- The Home hero on short phones: the program links before the four figures, so they end inside
+   the first screen at 360x640 too (they ended at 688). Taller phones keep the specimen's order (figures
+   under the actions); at 390x844 the links end at 745 there. ---------- */
+@media (max-width: 767px) and (max-height: 700px) {
+  .hero--dome .hero__doors { order: 1; }
+  .hero--dome .hero__court { order: 2; }
+  .hero--dome .hero__figs { order: 3; }
+}
+/* the Home hero's tag, in the open roof under the arc on phones (DI): at the specimen's narrow width
+   (ledger.css 1040), so "Placeholder image" stays whole inside the photograph (it ran to 425px at 390) */
+@media (max-width: 767px) {
+  .hero--dome .hero__plate .frame__tag { padding: 5px; gap: 4px; font-size: var(--step-6); font-stretch: 62%; letter-spacing: 0.03em; }
+  .hero--dome .hero__plate .frame__tag-mark { width: 6px; height: 6px; }
+}

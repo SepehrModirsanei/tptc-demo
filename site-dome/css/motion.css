@@ -1,0 +1,81 @@
+/* TPTC motion: initial states, Chalk lines and the Turn (cross-document View Transitions).
+   Initial hidden states live only under html.motion, which the head script sets only when
+   the visitor has no reduced-motion preference and GSAP arrives. Without it, everything is
+   visible from the first paint (energy.md 3.2, 3.8). */
+
+/* ---------- Turn: cross-document View Transitions (energy.md 3.4) ---------- */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) { animation: 320ms cubic-bezier(0.76, 0, 0.24, 1) both tptc-leave; }
+::view-transition-new(root) { animation: 560ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both tptc-enter; }
+@keyframes tptc-leave { to   { opacity: 0; transform: translateY(-12px); } }
+@keyframes tptc-enter { from { opacity: 0; transform: translateY(24px); } }
+
+::view-transition-group(site-header) { animation-duration: 240ms; }
+
+::view-transition-group(prog-junior), ::view-transition-group(prog-adult),
+::view-transition-group(prog-hp), ::view-transition-group(prog-private),
+::view-transition-group(prog-camps), ::view-transition-group(camp-summer),
+::view-transition-group(camp-march), ::view-transition-group(camp-holiday) {
+  animation-duration: 640ms;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+}
+::view-transition-old(*), ::view-transition-new(*) { height: 100%; object-fit: cover; }
+
+/* The High Performance headline rides above the morph, so the flying photograph never covers it */
+.hero--hp .hero__words { view-transition-name: hp-words; }
+::view-transition-group(hp-words) { z-index: 5; animation: none; }
+::view-transition-new(hp-words) { animation: 560ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both tptc-enter; }
+::view-transition-old(hp-words) { animation: 320ms cubic-bezier(0.76, 0, 0.24, 1) both tptc-leave; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(hp-words) { animation: 180ms linear both tptc-fade-in; }
+  ::view-transition-old(hp-words) { animation: 180ms linear both tptc-fade-out; }
+}
+
+@keyframes tptc-fade-in  { from { opacity: 0; } }
+@keyframes tptc-fade-out { to   { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) { animation-name: none; }
+  ::view-transition-old(*) { animation: 180ms linear both tptc-fade-out; }
+  ::view-transition-new(*) { animation: 180ms linear both tptc-fade-in; }
+}
+
+/* ---------- Rise: headline lines (SplitText masks them) ---------- */
+html.motion [data-rise] { visibility: hidden; }
+html.motion [data-rise].is-split { visibility: visible; }
+/* Italic descender clearance (design-taste 4.1): each line's mask gets 0.14em of room below the
+   baseline, given back with a negative margin so the leading does not change. Without it the
+   tails of y, g, p and q in Spectral italic are cut by the mask. */
+[data-rise] .rise-line-mask { padding-bottom: 0.14em; margin-bottom: -0.14em; }
+
+/* ---------- Settle: blocks ---------- */
+html.motion [data-settle] { opacity: 0; }
+
+/* ---------- Unveil: frames (inner rises, media counter-moves) ---------- */
+html.motion .frame[data-unveil] .frame__inner { transform: translate3d(0, 100%, 0); }
+html.motion .frame[data-unveil] .frame__media { transform: translate3d(0, -100%, 0) scale(1.12); }
+
+/* ---------- Chalk: court lines draw themselves (transform only) ----------
+   Direction C's own primitive. A court is lined the way a groundskeeper does it: each line is
+   run from one end to the other (scale from the line's start, not its centre), baselines first,
+   then sidelines, service lines and the centre line; the posts go in, and the net is strung
+   last, post to post. 1100ms on --ease-out, staggered by --i, once. */
+html.motion [data-chalk] .cl-x, html.motion .cl-x[data-chalk-self] { transform: scaleX(0); }
+html.motion [data-chalk] .cl-y, html.motion .cl-y[data-chalk-self] { transform: scaleY(0); }
+html.motion [data-chalk] .cl-p { transform: scale(0); }
+html.motion [data-chalk] .cl-x, html.motion [data-chalk] .cl-y, html.motion [data-chalk] .cl-p,
+html.motion .cl-x[data-chalk-self], html.motion .cl-y[data-chalk-self] {
+  transition: transform 1100ms var(--ease-out) calc(var(--d, 0ms) + var(--i, 0) * 70ms);
+}
+html.motion [data-chalk].is-drawn .cl-x, html.motion [data-chalk].is-drawn .cl-y, html.motion [data-chalk].is-drawn .cl-p,
+html.motion .cl-x[data-chalk-self].is-drawn, html.motion .cl-y[data-chalk-self].is-drawn { transform: none; }
+
+/* Hold: without motion the rail is shown full */
+html:not(.motion) .rail__fill { transform: none; }
+html.motion .rail__fill { transform: scaleY(0); }
+
+/* Reduced motion: every hover and state change is instant; focus rings stay */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; scroll-behavior: auto !important; }
+  .live-dot { animation: none !important; }
+}

@@ -1,0 +1,124 @@
+/* TPTC Direction B, "Dome": the Style Guide (W2c D3, 25 Oct 2026). Loaded after css/system.css.
+   Source: specimens/B-ledger/system.html and css/system.css (line numbers below are that file's). The
+   sheet in the Dome: the head on paper under the night masthead, the direction at a glance on a Dome night
+   plate beside it (ds-glance, 330-342); the index as ledger labels on a hairline (ds-index, 9-12); every
+   chapter opens on a hairline with the ledger tick (ds-sec, 14); swatches square with their names in the
+   ledger's capitals (25-30); the type tests set the Dome's two voices, the serif and the scoreboard figure;
+   the spacing bars on Dome night (73); icons in a ruled grid (77-81); the switches square (305-309); the
+   court anatomy and the keyline with plain lines (red is Register now only); the scoreboard sample on a
+   night stage. The folded-year sample showed Whites' 19 | 51 at 104px from the middle and ran the page
+   past the phone (343 at 320, 363 at 360): it now shows the Dome's year figure inside its box. Tokens only. */
+
+/* ---------- The head and the direction at a glance ---------- */
+.sys-hero .display { font-weight: var(--w-display); letter-spacing: -0.018em; }
+.sys-hero .lede { color: var(--fg-muted); }
+.sys-hero .direction {
+  --fg: var(--on-night); --fg-muted: var(--mist); --rule: var(--line-chalk); --rule-strong: var(--line-chalk-strong);
+  align-self: stretch; padding: 24px 28px 28px; background: var(--blazer); color: var(--on-night); border-top: 0;
+}
+.direction li { font-family: var(--font-serif); font-size: var(--step-4); color: var(--fg); border-bottom-color: var(--rule); }
+.direction li:last-child { border-bottom: 0; }
+.direction li::before { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-1); line-height: 1.2; letter-spacing: 0; color: var(--fg-muted); }
+@media (max-width: 599px) { .sys-hero .direction { padding: 16px 16px 20px; } }
+
+/* ---------- The index ---------- */
+.sys__index ol { border-left: 1px solid var(--rule); padding-left: 0; }
+.sys__index a { gap: 12px; min-height: 36px; padding-left: 16px; margin-left: -1px; border-left: 1px solid transparent;
+  font-family: var(--font-sans); font-size: var(--step-5); font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); text-transform: uppercase; color: var(--fg-muted); }
+.sys__index a:hover, .sys__index a:focus-visible { color: var(--fg); border-left-color: var(--fg); }
+.sys__index .num { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--step-5); letter-spacing: 0; width: 22px; color: var(--fg-subtle); }
+@media (pointer: coarse) { .sys__index a { min-height: var(--target); } }
+
+/* ---------- Chapters ---------- */
+.sys-sec { border-top: 1px solid var(--rule); }
+.sys-sec > header .baseline { margin-bottom: 8px; }
+.sys-sec h2 { font-family: var(--font-serif); font-weight: var(--w-head); font-size: var(--step-1); line-height: 1.04; letter-spacing: -0.012em; }
+.sys-sec > header p:not(.eyebrow) { font-size: var(--step-4); color: var(--fg-muted); }
+.spec { border-top-color: var(--rule); }
+.spec__label { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.spec__label b { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); }
+.spec__stage { border-color: var(--rule); }
+.state__name { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-nav); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); text-transform: uppercase; color: var(--fg-subtle); }
+/* the scoreboard sample (the shared courts renderer) stands on Dome night, as on Home */
+.spec:has(> .board) {
+  --bg: var(--blazer); --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-strong: var(--line-chalk-strong); --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus);
+  padding: 16px clamp(16px, 3vw, 40px) 24px; background: var(--blazer); color: var(--on-night); color-scheme: dark;
+}
+
+/* ---------- Court anatomy and the ornaments ---------- */
+.anatomy line { stroke: var(--rule-strong); }
+.anatomy .net { stroke: var(--fg); stroke-width: 1; }
+.anatomy .tag { font-family: var(--font-sans); font-stretch: var(--stretch-chip); }
+.anatomy .dim { font-family: var(--font-sans); font-stretch: var(--stretch-fig); font-weight: var(--w-num); }
+.orn h3 { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); }
+.orn p { font-size: var(--t-read-sm); }
+.yeardemo__photo { background: var(--blazer); }
+.orn .yeardemo .year { left: 12px; right: auto; bottom: 14px; width: auto; max-width: calc(100% - 24px); --ys: clamp(3rem, 1.6rem + 4vw, 5rem); font-size: var(--ys); color: var(--fg); }
+
+/* ---------- Colour ---------- */
+.swatches { gap: 24px var(--gutter); background: none; border: 0; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 700px) { .swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .swatches { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.sw--derived { grid-column: 1 / -1; }
+@media (min-width: 1200px) { .sw--derived { grid-column: span 2; } }
+.sw { grid-template-rows: auto auto; gap: 8px; background: none; min-width: 0; }
+.sw__chip { aspect-ratio: 3 / 2; height: auto; border: 1px solid var(--rule); font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-chip); letter-spacing: var(--track-chip); }
+.sw__meta { padding: 0; gap: 4px; font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.sw__meta b { font-family: var(--font-sans); font-weight: 650; font-stretch: 90%; font-size: var(--t-ui); }
+.sw__meta code { font-family: var(--font-sans); font-variant-numeric: tabular-nums; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg-muted); }
+.contrast { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.contrast th { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-chip); color: var(--fg-subtle); border-bottom-color: var(--rule-strong); }
+.contrast .pair { border-color: var(--rule); font-family: var(--font-serif); font-weight: 400; }
+.contrast .pair--large { font-family: var(--font-serif); font-weight: 400; }
+
+/* ---------- Type: the serif and the scoreboard figure ---------- */
+.typeface { border-bottom-color: var(--rule); }
+.typeface__sample { font-weight: var(--w-display); }
+.typeface__meta { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.scale { border-top: 1px solid var(--fg); }
+.scale__row > span:first-child { font-family: var(--font-sans); font-weight: 650; font-stretch: 90%; font-size: var(--step-5); color: var(--fg-muted); }
+.test1951 span { font-family: var(--font-serif); font-weight: var(--w-display); }
+.test1951 span + span { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+
+/* ---------- Space: the bars on Dome night ---------- */
+.space__row { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.space__bar { height: 16px; background: var(--blazer); }
+.space__row:nth-child(n+8) .space__bar { background: var(--night-raised); }
+
+/* ---------- Motion and tokens ---------- */
+.prims { border-top: 1px solid var(--fg); }
+.prim h3 { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); }
+.prim p { font-size: var(--t-read-sm); }
+.prim p code, .tokens code { font-family: var(--font-sans); font-stretch: 80%; font-weight: 600; letter-spacing: 0.02em; }
+.demo-box { border-color: var(--rule); }
+.demo-lines { font-family: var(--font-serif); font-weight: var(--w-display); }
+.tokens { border-top: 1px solid var(--fg); font-family: var(--font-sans); font-stretch: 100%; }
+
+/* ---------- Icons ---------- */
+.icons figcaption { font-family: var(--font-sans); font-size: var(--step-6); font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); text-transform: uppercase; color: var(--fg-subtle); }
+.keyline svg.grid rect { stroke: var(--fg); }
+.icon-rule { font-family: var(--font-serif); font-weight: var(--w-display); }
+
+/* ---------- Logo, the night preview, the switches ---------- */
+.logos small { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.night__head h3 { font-family: var(--font-serif); font-weight: var(--w-name); }
+.theme-switch { border-radius: 0; }
+.theme-switch button { font-family: var(--font-sans); font-size: var(--step-5); font-weight: var(--w-chip); font-stretch: var(--stretch-ui); letter-spacing: var(--track-crumb); color: var(--fg-muted); }
+.theme-switch button[aria-pressed="true"] { color: var(--bg); }
+
+/* ---------- States ---------- */
+.states__cap { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.skel__bar { border-radius: 0; background: var(--rule); }
+.empty__court { stroke: var(--rule-strong); }
+.empty__court .net { stroke: var(--fg); stroke-width: 0.12; }
+.empty__title { font-family: var(--font-serif); font-weight: var(--w-name); }
+/* ---------- Wrappers ---------- */
+.ornaments { gap: var(--sp-6); }
+.icon-hero { gap: var(--sp-6); }
+.scroll-x:focus-visible { outline-offset: 4px; }
+.demo-block { background: var(--fg); }
+
+/* ---------- The Dome's own words (RA7, templates.py system_head and system_sections): each chapter the
+   specimen also has opens on its one plain sentence, set as the specimen's .ds-what (system.css 289) ---------- */
+.sys-sec > header .sys-what { max-width: 36ch; font-family: var(--font-serif); font-weight: var(--w-step); font-size: clamp(1.3125rem, 1.1rem + 0.7vw, 1.6875rem); line-height: 1.28; letter-spacing: -0.006em; color: var(--fg); text-wrap: pretty; }

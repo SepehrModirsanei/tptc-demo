@@ -1,0 +1,21 @@
+/* TPTC Direction B, "Dome": Programs (D2, 24 Oct 2026). Loaded after css/pages/programs.css.
+   The hub in the Dome: the words and the draw sheet on paper under the night masthead, then the five
+   doors as broadsheet columns (ledger.css 628-675), grouped under ledger labels on a bracket. The
+   audience labels stay the large capitals the owner asked for (b7), in Archivo at its expanded width.
+   Tokens only. */
+.prog-group { gap: 12px; border-bottom-color: var(--rule); }
+.prog-group .label { font-family: var(--font-sans); font-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem); line-height: 1.15; font-weight: var(--w-label); font-stretch: var(--stretch-label); letter-spacing: var(--track-crumb); color: var(--fg); }
+@media (min-width: 1100px) {
+  .prog-group__bracket { border-top-color: var(--fg); }
+  .prog-group__bracket::before, .prog-group__bracket::after { background: var(--fg); }
+  .prog-doors .door__title { font-size: clamp(1.375rem, 1.05rem + 0.55vw, 1.75rem); }
+  .prog-doors { column-gap: clamp(20px, 2.2vw, 36px); }
+}
+.prog-doors .door__facts { margin-top: 2px; }
+/* the draw sheet's bracket names keep the owner's size, in the ledger label's face */
+@media (min-width: 1000px) {
+  .draw__who { font-size: clamp(1rem, 0.9rem + 0.3vw, 1.125rem); font-weight: var(--w-label); font-stretch: var(--stretch-label); letter-spacing: var(--track-crumb); }
+  .draw__head .label { color: var(--fg-muted); }
+}
+@media (min-width: 1000px) and (max-width: 1279px) { .draw__who { font-size: var(--t-ui); font-stretch: var(--stretch-head); letter-spacing: 0.06em; } }
+.prog .door__cta { margin-top: 4px; }

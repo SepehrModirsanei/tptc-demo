@@ -1,0 +1,39 @@
+/* TPTC Direction B, "Dome": Junior Recreational (D2, 24 Oct 2026). Loaded after css/pages/junior.css.
+   The page in the Dome: the season as ruled rows with hand-entered dates, the age chosen on a hairline
+   of scoreboard figures, the court that grows with the child drawn on the Dome's day frame (the
+   specimen's frame--day ground, ledger.css 394), the levels as square cards ruled in ink, the placement
+   and locations as ledger entries. Tokens only. */
+
+/* ---------- This season ---------- */
+.jr-season__title { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.18; }
+.jr-season__rows .srow__when { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.jr-season__rows .srow__when strong { font-weight: 600; }
+.jr-season__rows .srow__price { font-family: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; }
+
+/* ---------- Step 1: the age and its court ---------- */
+.jr-age__words .h2 { margin-top: 18px; }
+.jr-age__select { gap: 12px; }
+.jr-age__hint { font-family: var(--font-sans); font-stretch: 100%; color: var(--fg-muted); }
+.jr-court__plan { background: var(--frame-day); border: 0; border-top: 1px solid var(--fg); }
+.jr-court .cplan__lines { stroke: var(--fg-muted); }
+.jr-court__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.12; }
+.jr-court__cap .small { font-size: var(--t-ui); }
+
+/* ---------- Step 2: the levels for that age ---------- */
+.jr-levels__head .body { color: var(--fg-muted); }
+.jr-levels__note { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); color: var(--fg-muted); }
+
+/* ---------- Placement and where ---------- */
+.jr-place__mail { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-4); text-decoration-color: var(--rule-strong); }
+.jr-place__mail:hover { text-decoration-color: currentColor; }
+.loc { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.loc .icon { color: var(--fg-muted); }
+.jr-where__rows .srow__price { font-family: var(--font-sans); font-stretch: 100%; font-weight: 400; font-size: var(--t-ui); line-height: 1.45; color: var(--fg-muted); }
+
+/* ---------- Level FAQ ---------- */
+.jr-faq__levels { border-top: 1px solid var(--fg); }
+.jr-faq__levels dt { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-sm); }
+.jr-faq__levels dd { color: var(--fg-muted); }
+
+/* ---------- The High Performance line ---------- */
+.jr-hp .next-door h3 { font-weight: 400; }

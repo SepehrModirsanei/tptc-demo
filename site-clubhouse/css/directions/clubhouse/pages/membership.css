@@ -1,0 +1,81 @@
+/* TPTC Direction A, "Clubhouse": Membership (D2, 24 Oct 2026). Loaded after css/pages/register.css
+   and css/pages/membership.css. No specimen page: in the specimen's language. The hero is the club
+   scoreboard on the blazer, its figures in Caslon Display; the membership card is a flat card of
+   the lifted blazer with a hairline court, no gradient, no sheen (the Whites sheen and shadow of
+   pages/membership.css 16, 51, 56 and 135 are raw colours: replaced here by tokens). The five
+   rates are hairline cards on the paper inside the chalk section; the join flow is the shared one
+   (components.css 31). */
+
+/* 1. The scoreboard */
+.mh { color: var(--on-dark); }
+.mh::before { content: none; }
+.mh__name { color: var(--on-dark); font-weight: 700; }
+.mh__score, .mh__season { color: var(--mist); }
+.mh__pct { font: 400 clamp(10rem, 3.6rem + 17vw, 19rem)/0.8 var(--font-display); letter-spacing: -0.04em; color: var(--on-dark); font-variant-numeric: lining-nums proportional-nums; }
+.mh__sign { font: 400 0.24em/1 var(--font-display); }
+.mh__fact { font: 400 clamp(1.75rem, 1.2rem + 2.2vw, 3.25rem)/1.08 var(--font-display); color: var(--on-dark); }
+.mh__status { color: var(--mist); }
+.mh__status .confirm, .mh__status .confirm__what { color: var(--on-dark); }
+
+/* The membership card: flat, the lifted blazer, a hairline edge, the print's shadow */
+.mh__cardwrap { border-color: var(--line-chalk-soft); border-radius: 18px; }
+.mcard {
+  border-radius: 12px; border-color: var(--line-chalk); color: var(--on-dark);
+  background: var(--night-raised); box-shadow: var(--print-shadow);
+}
+.mcard__sheen { display: none; }
+.mcard__court { stroke: var(--line-chalk-soft); }
+.mcard__since, .mcard__opt, .mcard__who, .mcard__foot .label { color: var(--mist); }
+.mcard__price { font: 400 clamp(2.75rem, 2rem + 2.6vw, 4.5rem)/0.95 var(--font-display); color: var(--on-dark); }
+.mcard__foot { border-top-color: var(--line-chalk); }
+.mcard__foot .num { color: var(--on-dark); }
+
+/* 2. What membership gives you: two figure cards on chalk, five tiles named in capitals */
+.mb__card { --mb-accent: var(--fg); background: var(--surface-alt); border-color: var(--rule); box-shadow: inset 0 0 0 6px var(--surface-alt), inset 0 0 0 7px var(--rule-soft); }
+.mb__fig { font: 400 clamp(3.5rem, 2.2rem + 4.4vw, 7rem)/0.9 var(--font-display); letter-spacing: -0.02em; }
+.mb__fig small { font-weight: 700; color: var(--fg-muted); }
+.mb__card .mb__h { font: 400 clamp(1.25rem, 1.05rem + 0.9vw, 2rem)/1.15 var(--font-display); }
+.mb__why { font-size: 0.9375rem; color: var(--fg-muted); }
+.mb__tile .mb__h { font: 400 clamp(1.25rem, 1.15rem + 0.3vw, 1.375rem)/1.2 var(--font-display); letter-spacing: 0; text-transform: none; }   /* over its 15px line (R2 defect 4) */
+.mb__tile .icon { stroke-width: 1.25; }
+@media (min-width: 900px) { .mb__tile { border-top-color: var(--rule-strong); } }
+
+/* 3. Five options: the 15 as a struck medal in Caslon; the rates as hairline cards on the paper */
+.mo__key-pct { font: 400 1.5rem/1 var(--font-display); }
+.mo__key strong { font-weight: 650; }
+.rc { padding: 0; border: 1px solid var(--rule); border-top-color: var(--rule-strong); border-radius: var(--radius); background: var(--surface); }
+.rc__core { border-radius: 0; background: none; box-shadow: none; }
+.rc__name { font: 400 var(--step-2)/1.05 var(--font-display); }
+.rc__who { font-family: var(--font-serif); font-style: italic; color: var(--fg-muted); }
+.rc__prices { border-top-color: var(--rule); }
+.rc__prices dt { color: var(--fg-subtle); }
+.rc__res dd { font: 400 clamp(1.875rem, 1.5rem + 1vw, 2.5rem)/1 var(--font-serif); letter-spacing: -0.01em; font-variant-numeric: tabular-nums lining-nums; }
+.rc__non dd { font-size: 1.0625rem; }
+.rc__gap { font-weight: 700; color: var(--fg-muted); }
+.rc__pick { font-weight: 700; }
+@media (max-width: 599px) { .rc__res dd { font-size: 1.85rem; } }
+.mem-rates__head { font: 400 var(--step-2)/var(--lh-head) var(--font-display); }
+.mo__year { border-top-color: var(--rule); }
+.mo__year-h { font: 400 var(--step-2)/1.1 var(--font-display); }
+
+/* 4. Join: the shared flow beside the live card; on a phone the card rides above as a strip */
+.mf__note, .mf__jbi { color: var(--fg-muted); }
+@media (max-width: 999px) { .mf__side .mcard { border-radius: 8px; } }
+
+/* 5. The fine print */
+.mem-terms { border-top-color: var(--rule-strong); }
+.mem-terms dt { font-weight: 700; color: var(--fg-subtle); }
+.mem-terms dd { font-size: 1rem; }
+
+/* Containers in the Clubhouse rhythm */
+.mw__title { max-width: 16ch; }
+.mt { column-gap: var(--gutter); }
+.rcs { gap: var(--gutter); }
+.mem-switch .select-label { color: var(--fg-subtle); }
+.mem-season { border-top: 0; }
+.mem-return { color: var(--fg-muted); }
+.mem-ledger { margin-top: var(--sp-4); }
+.mem-fine .sect-head .body { color: var(--fg-muted); }
+/* The photograph beside the two figure cards hangs as a print at its own height, top-aligned */
+.mw__photo .frame { height: auto; }
+.mw__photo { align-self: start; }

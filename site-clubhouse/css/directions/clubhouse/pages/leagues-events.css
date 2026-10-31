@@ -1,0 +1,42 @@
+/* TPTC Direction A, "Clubhouse": Leagues & Events (W2b, 25 Oct 2026). Loaded after
+   css/pages/leagues-events.css. No specimen page: composed in the specimen's language.
+   - The hero is the clubhouse wall with its plated print (components.css W2b).
+   - Each kind of play opens on its order-of-play numeral in Caslon Display over a hairline (as the
+     High Performance steps, tptc.css 1116), its name, its line, and its photograph hung as a plated
+     print; the leagues are ruled rows (components.css 24).
+   - The singles ladder is the club's ladder board, pinned on the clubhouse wall like its prints (the
+     shared notice: dark frame, white mat), the place you would take marked in ink.
+   - The season and type filters are the shared rate control and filter boxes. */
+.le-type__n { font: 400 clamp(2.5rem, 1.8rem + 2vw, 3.75rem)/0.85 var(--font-display); color: var(--fg-subtle); border-bottom-color: var(--rule-strong); }
+.le-type__lede { color: var(--fg-muted); }
+.le-notes { color: var(--fg-muted); }
+.le-desc { font-size: 0.9375rem; }
+.le-more .acc__q { font-size: 1.1875rem; }
+.le-format { border-top-color: var(--rule-strong); }
+.le-format dt { font-weight: 700; color: var(--fg-subtle); }
+.le-format dd { font-size: 1rem; }
+
+/* the ladder board */
+.le-rungs {
+  --fg: var(--plate-fg); --fg-muted: var(--plate-fg-2); --fg-subtle: var(--plate-fg-2); --bg: var(--mat);
+  --rule: var(--plate-line); --rule-strong: var(--plate-line-strong);
+  justify-self: start; width: 100%; max-width: 30rem; padding: clamp(14px, 2vw, 24px);
+  background: var(--mat); color: var(--plate-fg); border: 5px solid var(--wood); box-shadow: var(--print-shadow);
+}
+@media (max-width: 719px) { .le-rungs { border-width: 4px; padding: 12px; } }
+.le-rungs figcaption, .le-rungs .small { color: var(--plate-fg-2); }
+.le-rungs__list .num { font: 400 1.0625rem/1 var(--font-display); }
+.le-rungs__tag { font-weight: 700; }
+.le-ladder__rules li { font-size: 1rem; }
+.le-ladder__rules li::before { background: var(--fg-subtle); }
+
+/* Levels and the club's open questions */
+.le-ask__list li { border-top-color: var(--rule); color: var(--fg); }
+.le-ask__list li::before { background: var(--fg-subtle); }
+
+/* Containers in the Clubhouse rhythm */
+.le-bar { gap: var(--sp-5) var(--gutter); }
+.le-filters button { font-weight: 650; }
+.le-levels .sect-head .body { color: var(--fg-muted); }
+.le-rows { border-top-color: var(--rule-strong); }
+.le-side-note { color: var(--fg-muted); }

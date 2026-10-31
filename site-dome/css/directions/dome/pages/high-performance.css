@@ -1,0 +1,232 @@
+/* TPTC Direction B, "Dome": High Performance (D1, 24 Oct 2026). Loaded after css/pages/high-performance.css.
+   Source: specimens/B-ledger/high-performance.html and css/ledger.css (line numbers below). Grounds, top
+   to bottom, as the specimen: the hero on Dome night, the opening statement on paper, Which step on
+   Dome fabric, the pathway on night, the Pro National Academy on the deep night, How to join on paper,
+   the next doors on paper, the closing band on fabric. Tokens only. */
+
+/* ---------- Hero (1313-1378): the words on night, the photograph a plate, the three steps as a ruled row ---------- */
+.hero--hp .hero__title { font-size: var(--t-hero-inner); }
+.hero--hp .crumbs li { color: var(--fg-muted); }
+.hero--hp .crumbs a { color: var(--fg-muted); }
+.hero--hp .crumbs [aria-current="page"] { color: var(--fg); }
+.hero--hp .hero__actions { gap: 12px 28px; }
+.hero--hp .status-line { color: var(--fg-muted); }
+@media (min-width: 900px) {
+  /* the pathway's three steps under the actions, as the specimen's hero row (1331-1339, 1376-1377) */
+  .hero--hp .hero__points {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; width: 100%; max-width: 38rem;
+    margin: clamp(20px, 3.6vh, 40px) 0 0; padding: 14px 0 0; border-top: 1px solid var(--rule-strong);
+  }
+  .hero--hp .hero__points li { min-width: 0; }
+  .hero--hp .hero__points li + li { border-left: 1px solid var(--rule); }
+  .hero--hp .hero__points li > a { display: grid; gap: 8px; align-content: start; min-height: var(--target); padding: 0 12px 2px 18px; color: var(--fg); text-decoration: none; }
+  .hero--hp .hero__points li:first-child > a { padding-left: 0; }
+  .hero--hp .hero__point-text { display: grid; gap: 8px; }
+  .hero--hp .hero__point-label { display: flex; align-items: center; gap: 8px; font-size: var(--step-6); color: var(--fg-muted); }
+  .hero--hp .hero__point-label .icon { width: 14px; height: 14px; }
+  .hero--hp .hero__point-value { font-weight: var(--w-name); font-size: clamp(1rem, 0.6rem + 0.62vw, 1.3125rem); line-height: 1.15; white-space: nowrap; }
+  .hero--hp .hero__points a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+}
+@media (hover: hover) and (pointer: fine) { .hero--hp .hero__points a:hover .hero__point-value { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; } }
+@media (max-width: 899px) {
+  .page-hp .hero.hero--hp .hero__title { font-size: clamp(1.55rem, 7.4vw, 3rem); line-height: 1.04; letter-spacing: -0.014em; }
+}
+/* phones: the action set a width narrower, as the specimen's (1341) */
+@media (max-width: 479px) { .hero--hp .btn { font-stretch: 78%; letter-spacing: 0.04em; padding: 0 6px; } }
+
+/* ---------- Opening statement on paper (805-823) ---------- */
+.intro__statement { font-weight: var(--w-display); font-size: var(--t-statement); line-height: 1.2; letter-spacing: -0.01em; max-width: 30ch; }
+.intro__note { color: var(--fg-muted); }
+
+/* ---------- Which step, on Dome fabric (1460-1504) ---------- */
+.hpf-sec { --bg: var(--surface-alt); --ph-ground: var(--surface); background: var(--surface-alt); }
+.hpf .chooser__q legend { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-2); line-height: 1.2; color: var(--fg); margin-bottom: 14px; }
+.hpf .opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.hpf .opts.num { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.hpf .opts .opt span { width: 100%; min-height: 56px; height: 100%; padding: 12px 14px; font-size: var(--step-4); line-height: 1.25; }
+.hpf .opts.num .opt span { min-width: 0; justify-content: center; text-align: center; font-family: var(--font-sans); font-stretch: var(--stretch-fig); font-weight: var(--w-num); font-size: var(--fig-1); font-variant-numeric: tabular-nums lining-nums; }
+.hpf .opts .opt input:checked + span { padding: 11px 13px; }
+@media (max-width: 639px) { .hpf .opts { grid-template-columns: minmax(0, 1fr); } .hpf .opts.num { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.hpf__result { padding: 24px; background: var(--surface); border-left: 0; border-top: 3px solid var(--fg); }
+.hpf__top { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 8px 18px; }
+.hpf__n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: clamp(3.5rem, 2.8rem + 2vw, 4.5rem); line-height: 0.86; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.hpf__name { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-2); line-height: 1.15; margin-top: 6px; }
+.hpf__facts { border-top: 1px solid var(--rule); }
+.hpf__facts li { font-size: var(--t-ui); color: var(--fg-muted); }
+.hpf__facts .icon { color: var(--fg); }
+.hpf__note { font-family: var(--font-serif); font-style: italic; color: var(--fg-muted); }
+.hpf__how { color: var(--fg-muted); }
+@media (max-width: 639px) { .hpf__result { padding: 20px 16px; } }
+
+/* ---------- The pathway on Dome night (825-868) ---------- */
+#pathway {
+  --bg: var(--blazer); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--blazer);
+  --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-soft: var(--line-chalk-soft); --rule-strong: var(--line-chalk-strong);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus); --ph-ground: var(--night-raised); --ph-line: var(--court-night); --ph-text: var(--on-night); --ph-muted: var(--mist);
+  padding-top: var(--section); background: var(--bg); color: var(--fg); color-scheme: dark;
+}
+#pathway .btn--ink, .academy .btn--ink { --btn-fg: var(--ink); }
+.courtplan__svg { color: var(--fg); }
+.cp-net { stroke: var(--fg); stroke-width: 1px; }
+.courtplan__key { font-family: var(--font-sans); font-stretch: 100%; color: var(--fg-muted); }
+#pathway .small { color: var(--fg-muted); }
+#pathway .inline-link { text-decoration-color: var(--line-chalk-strong); }
+@media (max-width: 639px) {
+  .step__head::before { font-size: 4rem; }
+  /* phones: the three steps side by side, the figure over the name (the Whites rail lies down here) */
+  .pathway__steps-nav a { grid-template-columns: minmax(0, 1fr); row-gap: 6px; padding: 10px 0 6px; }
+  .pathway__steps-nav a > span.num { grid-row: auto; font-size: var(--fig-2); }
+  .pathway__steps-nav strong, .pathway__steps-nav a > em, .pathway__steps-nav a > em.num { grid-column: 1; }
+  .pathway__steps-nav strong { font-size: var(--step-4); }
+  .pathway__steps-nav li::before { left: 0; top: -20px; }
+  #pathway .pathway__nav .rail { background: var(--rule-strong); }
+}
+
+/* ---------- Pro National Academy on the deep night (870-896, 1455-1458) ---------- */
+.academy {
+  --bg: var(--night-deep); --bg-alt: var(--night-raised); --surface-alt: var(--night-raised); --surface: var(--night-deep);
+  --fg: var(--on-night); --fg-muted: var(--mist); --fg-subtle: var(--on-night-3);
+  --rule: var(--line-chalk); --rule-soft: var(--line-chalk-soft); --rule-strong: var(--line-chalk-strong);
+  --focus: var(--on-night); --focus-ring: var(--focus-w) solid var(--focus); --ph-ground: var(--night-raised); --ph-line: var(--court-night); --ph-text: var(--on-night); --ph-muted: var(--mist);
+  background: var(--bg); color: var(--fg); color-scheme: dark;
+}
+.academy__title { font-weight: var(--w-display); font-size: var(--t-academy); line-height: 1; letter-spacing: -0.012em; max-width: 16ch; }
+.academy .lede { color: var(--fg-muted); font-size: var(--step-3); }
+.academy__facts { border-top: 1px solid var(--rule-strong); }
+.academy__facts li { padding: 16px 0; border-bottom: 1px solid var(--rule); font-family: var(--font-serif); font-size: var(--step-4); line-height: 1.35; color: var(--fg); }
+.academy__facts .icon { color: var(--fg-muted); }
+.academy .inline-link { color: inherit; text-decoration-color: var(--line-chalk-strong); }
+
+/* ---------- How to join on paper (898-921) ---------- */
+#how-to-join .steps { gap: 32px; border-left: 1px solid var(--fg); padding-left: 24px; }
+#how-to-join .steps li { position: relative; grid-template-columns: 64px minmax(0, 1fr); gap: 0 16px; padding: 0; border: 0; }
+#how-to-join .steps li::before { content: ""; position: absolute; left: -31px; top: 0.7em; width: 13px; height: 1px; background: var(--fg); }
+#how-to-join .steps .step-n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-4); line-height: 0.86; letter-spacing: 0; color: var(--fg-subtle); }
+#how-to-join .steps h3 { font-family: var(--font-serif); font-weight: var(--w-head); font-size: var(--t-verb); line-height: 1.05; letter-spacing: -0.01em; }
+#how-to-join .steps p { color: var(--fg-muted); margin-top: 10px; }
+#how-to-join .steps li:last-child { border-bottom: 0; }
+
+/* ---------- The court plan on night: both courts in chalk, the lit one at full ink ---------- */
+.cp-full { color: var(--fg-muted); }
+.cp-three { color: var(--fg); }
+.cp-key { font-family: var(--font-sans); font-stretch: 100%; }
+.cp-key i { border-top-color: var(--fg-muted); }
+.cp-key--three i { border-top: 2px solid var(--fg); }
+
+/* =====================================================================================
+   DI (25 Oct 2026, the orchestrator): the specimen's own composition. The Dome template
+   (site/directions/dome/templates.py) writes this markup; these rules lay it out as
+   specimens/B-ledger/high-performance.html does (ledger.css line numbers below). The hero shares
+   the Home hero's rules (pages/home.css is not loaded here, so the shared part is repeated in
+   components.css "DI hero"); only what differs is here.
+   ===================================================================================== */
+
+/* ---------- DI 1. The hero (1313-1378): the night serve whole on the left at 3:2, the breadcrumb over
+   it, the words under the arc, the pathway's three steps as scoreboard figures under the actions ---------- */
+.hero.hero--steps { --ph: 66.667vw; }
+.hero.hero--steps .hero__plate .frame { --ar: 3 / 2 !important; }
+.hero--steps .hero__plate .frame__tag { left: 6px; right: auto; top: 6px; bottom: auto; }
+.hero--steps .hero__crumbs { grid-column: 1; grid-row: 4; margin: 0; padding: 6px var(--gutter) 0; }
+.hero--steps .hero__crumbs a, .hero--steps .hero__crumbs li { min-height: 40px; color: var(--mist); }
+.hero--steps .hero__crumbs a:hover, .hero--steps .hero__crumbs [aria-current="page"] { color: var(--on-night); }
+.hero--steps .hero__content { grid-row: 5; padding-top: 2px; }
+.hero--steps .hero__title { font-size: min(7.6vw, calc((100vw - 2 * var(--gutter)) / 11.2), 3.5rem); }
+.hero--steps .hero__title .line { white-space: nowrap; }
+.hero--steps .hero__title em { font-style: italic; }
+.hero--steps .status-line { margin: 14px 0 0; }
+.hero__steps { display: block; width: 100%; }
+.hero__steps .hero__figs { grid-template-columns: repeat(3, minmax(0, 1fr)); justify-content: stretch; gap: 0; list-style: none; padding-left: 0; }
+.hero__steps li { min-width: 0; }
+.hero__steps li + li { border-left: 1px solid var(--line-chalk); }
+.hero__steps a { display: grid; align-content: start; gap: 5px; min-height: 44px; padding: 0 8px 2px 10px; color: var(--on-night); text-decoration: none; }
+.hero__steps li:first-child a { padding-left: 0; }
+.hero__steps .fig { font-size: clamp(1.75rem, 8.4vw, 3rem); color: var(--on-night); }
+.hero__steps b { font-family: var(--font-serif); font-weight: var(--w-name); font-size: 0.9375rem; line-height: 1.15; letter-spacing: -0.005em; white-space: nowrap; }
+.hero__steps .hero__figs .label { white-space: nowrap; }
+.hero__steps a:focus-visible { outline: 2px solid var(--on-night); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) { .hero__steps a:hover b { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; } }
+@media (max-width: 479px) { .hero--steps .btn { font-stretch: 78%; letter-spacing: 0.04em; padding: 0 6px; } }
+@media (max-width: 374px) { .hero__steps b { font-size: 0.875rem; } .hero__steps a { padding-right: 4px; } }
+@media (min-width: 480px) { .hero__steps b { font-size: var(--step-4); } .hero__steps a { padding-inline: 16px; } }
+@media (min-width: 768px) {
+  .hero--steps .hero__crumbs { padding-top: 12px; }
+  .hero--steps .hero__content { padding-top: 12px; }
+  .hero__steps b { font-size: 1.25rem; }
+  .hero__steps .fig { font-size: 3.5rem; }
+}
+@media (min-width: 1024px) and (min-aspect-ratio: 5/4) {
+  .hero.hero--steps {
+    --crumb: 52px;
+    --hh: clamp(556px, 100svh - var(--header-h), calc(var(--crumb) + 42vw + var(--strip)));
+    --ph: min(var(--hh) - var(--strip) - var(--crumb), 42vw);
+    --pw: calc(var(--ph) * 3 / 2);
+  }
+  .hero.hero--steps .hero__plate {
+    -webkit-mask-image: linear-gradient(to right, var(--mask-solid) 85%, var(--mask-clear) 100%);
+    mask-image: linear-gradient(to right, var(--mask-solid) 85%, var(--mask-clear) 100%);
+  }
+  .hero--steps .hero__plate .frame__tag { left: var(--gutter); right: auto; top: 7%; bottom: auto; }
+  .hero--steps .hero__crumbs { position: absolute; z-index: 2; left: var(--gutter); top: 0; height: var(--crumb); padding: 0; display: flex; align-items: center; }
+  .hero--steps .ledger__today { height: 26px; }
+  .hero--steps .hero__content { --left: max(var(--pw) * 0.86, var(--gutter) + var(--lw) * 0.485); bottom: calc(var(--strip) + clamp(34px, 5vh, 56px)); }
+  .hero--steps .hero__title { font-size: min(4.25rem, calc((100vw - var(--left) - var(--gutter) - var(--lw) * 0.0822) / 11.2)); }
+  .hero--steps .hero__actions { flex-wrap: nowrap; }
+  .hero--steps .hero__actions .btn { flex: 0 1 auto; padding-inline: clamp(14px, 1.5vw, 24px); white-space: nowrap; }
+  .hero__steps a { gap: 8px; padding: 0 12px 0 18px; }
+  .hero__steps b { font-size: clamp(1rem, 0.6rem + 0.62vw, 1.3125rem); }
+  .hero__steps .fig { font-size: clamp(2.75rem, 1rem + 4.6vh, 4.5rem); }
+}
+
+/* ---------- DI 2. The pathway: each step opens on its scoreboard head (838-856): the numeral, the name,
+   the ages as a figure. The numeral is the template's own element now, so the counter steps aside. ---------- */
+.step__head:has(> .step__num)::before { content: none; }
+.step__head > .step__num { grid-column: 1; grid-row: 1 / span 3; align-self: end; margin: 0; font-size: var(--fig-7); line-height: 0.78; color: var(--fg); }
+.step__ages { display: flex; align-items: baseline; gap: 10px; margin: 0; }
+.step__ages .label { color: var(--fg-muted); }
+.step__ages .fig { font-size: var(--t-name-xl); color: var(--fg); }
+
+/* ---------- DI 3. The Pro National Academy as a band (870-896): the night photograph across the section
+   under the scrim, the name and its line over it; the facts, the open question and the action below ---------- */
+.academy.academy--band { padding: 0; }
+.academy--band .academy__stage { position: relative; isolation: isolate; overflow: clip; }
+.academy--band .academy__stage > .frame { position: absolute; inset: 0; z-index: -2; margin: 0; }
+.academy--band .academy__stage > .frame, .academy--band .academy__stage > .frame .frame__box { height: 100%; }
+.academy.academy--band .academy__stage > .frame .frame__box { aspect-ratio: auto !important; }
+.academy--band .hero__scrim { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0;
+  background: linear-gradient(to bottom, var(--scrim) 0, var(--scrim-soft) 180px), linear-gradient(to top, var(--scrim) 0%, var(--scrim-soft) 62%), linear-gradient(to right, var(--scrim) 0%, var(--scrim-soft) 70%); }
+.academy--band:has(.frame.has-img) .hero__scrim { opacity: 1; }
+.academy--band .academy__over { min-height: min(760px, 88svh); display: grid; align-content: end; padding-block: clamp(96px, 12vw, 176px) clamp(40px, 5vw, 64px); }
+.academy--band .academy__inner { gap: 20px; }
+.academy--band .academy__title { font-size: var(--t-academy); line-height: 1; max-width: 16ch; }
+.academy--band .academy__head .lede { font-family: var(--font-serif); font-weight: var(--w-display); font-style: normal; font-size: var(--t-split-tag); line-height: 1.25; color: var(--mist); max-width: 36ch; }
+.academy--band .academy__body { padding-block: clamp(40px, 5vw, 64px) clamp(56px, 7vw, 96px); }
+@media (min-width: 1000px) {
+  .academy--band .academy__side { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+  .academy--band .academy__facts { grid-column: 1 / span 7; grid-row: 1 / span 2; }
+  .academy--band .academy__side > div { grid-column: 9 / span 4; }
+}
+@media (max-width: 767px) {
+  .academy--band .academy__stage > .frame { position: relative; inset: auto; height: auto; }
+  .academy--band .academy__stage > .frame .frame__box { height: auto; }
+  .academy.academy--band .academy__stage > .frame .frame__box { aspect-ratio: var(--ar) !important; }
+  .academy--band .hero__scrim { display: none; }
+  .academy--band .academy__over { min-height: 0; padding-block: 32px 8px; }
+}
+/* the narrowest phones: the numeral column gives the gate chip ("Pre-approval required") the room it needs */
+@media (max-width: 374px) { .step__head:has(> .step__num) { column-gap: 12px; } }
+
+/* ---------- W2c: the academy band's tag and placeholder court (ledger.css 426, 873-875) ----------
+   The words stand at the band's lower left, so the Placeholder tag goes to the top right, clear of
+   them; a slot still waiting for its photograph draws its court on the right, the label top right. */
+@media (min-width: 768px) {
+  .academy--band .academy__stage > .frame .frame__tag { left: auto; bottom: auto; right: var(--gutter); top: 16px; }
+  .academy--band .academy__stage > .frame:not(.frame--due, .frame--photo, .has-img) .ph__court { left: 56%; width: 38%; top: 12%; height: 76%; inset: 12% auto auto 56%; }
+  .academy--band .academy__stage > .frame:not(.frame--due, .frame--photo, .has-img) .ph__label { left: auto; right: var(--gutter); top: 24px; bottom: auto; text-align: right; justify-items: end; max-width: 30ch; }
+}
+/* W2c: at 1024 to 1279 the column under the arc is too narrow for both actions on one line (the second is
+   the page's own "Register with a code"): they take two rows there, so nothing runs past the hero's edge */
+@media (min-width: 1024px) and (max-width: 1279px) and (min-aspect-ratio: 5/4) {
+  .hero--steps .hero__actions { flex-wrap: wrap; }
+  .hero--steps .hero__actions .btn { white-space: normal; }
+}

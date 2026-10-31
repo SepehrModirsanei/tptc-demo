@@ -1,0 +1,1232 @@
+/* TPTC demo site: the shared component library (batch 2).
+   Loaded on every page after site.css and before the page's own css/pages/<id>.css.
+   site.css holds the base, the shell (header, nav, footer), buttons, links, chips, confirm slots,
+   frames, breadcrumbs, sections, the net, heroes, doors, split, strengths, pathway and the CTA
+   band, as Direction C shipped them. This file holds everything the full site adds, plus the
+   components that used to live on the style guide only. Tokens only: no raw colours here.
+   Every component is documented, with copy-paste markup, in BUILD.md and on /system/. */
+
+/* =====================================================================================
+   From the style guide: price card, rate table, program card, league and schedule rows,
+   FAQ, form fields (Direction C, unchanged)
+   ===================================================================================== */
+/* Price and tier card */
+/* Option switcher: a quiet row of names on a hairline, the chosen one underlined like a baseline.
+   No filled pill: the comparison table beside it carries the full set. */
+.seg { position: relative; display: flex; column-gap: clamp(18px, 3vw, 28px); max-width: 100%; overflow-x: auto; box-shadow: inset 0 -1px 0 var(--rule); padding-inline: 2px; }
+.seg button { position: relative; z-index: var(--z-base); flex: none; min-height: var(--target); min-width: var(--target); padding: 0; background: none; border: 0; cursor: pointer; font: 500 15px/1 var(--font-sans); color: var(--fg-muted); white-space: nowrap; transition: color var(--dur-ui) var(--ease-ui); }
+.seg button[aria-checked="true"] { color: var(--fg); }
+.seg button:focus-visible { outline-offset: -2px; }
+.seg__ind { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--fg); z-index: 0; }
+@media (hover: hover) and (pointer: fine) { .seg button:hover { color: var(--fg); } }
+.seg.is-ready .seg__ind { transition: transform var(--dur-ui) var(--ease-ui), width var(--dur-ui) var(--ease-ui); }
+.tier { display: grid; gap: 22px; padding: clamp(22px, 3vw, 36px); border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); max-width: 560px; position: relative; }
+.tier::before { content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 7px; border-top: 1px solid var(--fg); border-bottom: 1px solid var(--rule); }
+.tier__season { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-size: 13px; color: var(--fg-muted); padding-top: 8px; }
+.tier__name { font-family: var(--font-serif); font-weight: 300; font-size: 40px; line-height: 1; }
+.tier__who { font-size: 15px; color: var(--fg-muted); margin-top: 6px; }
+.tier__prices { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.tier__prices > div { display: grid; gap: 6px; padding: 16px 0; }
+.tier__prices > div + div { padding-left: 20px; border-left: 1px solid var(--rule); }
+.tier__price { font: 300 clamp(30px, 1.6rem + 0.8vw, 40px)/1 var(--font-serif); letter-spacing: -0.01em; font-variant-numeric: lining-nums; }
+.tier__tax { font-size: 13px; color: var(--fg-muted); }
+.is-swapping { opacity: 0; transform: translateY(4px); }
+[data-tier-out] { display: inline-block; transition: opacity 140ms var(--ease-ui), transform 140ms var(--ease-ui); }
+.rates { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 520px; }
+.rates caption { text-align: left; font-size: 13px; color: var(--fg-muted); padding-bottom: 12px; }
+.rates th, .rates td { text-align: left; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--rule); }
+.rates thead th { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); border-bottom-color: var(--rule-strong); }
+.rates td.tnum { text-align: right; font-size: 19px; }
+.rates th.tnum { text-align: right; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: 0.14em; }
+.rates tbody th { font-weight: 500; }
+.rates tbody th span { display: block; font-weight: 400; font-size: 13px; color: var(--fg-muted); }
+
+/* Program card */
+.pcard { display: grid; gap: 18px; padding: clamp(22px, 3vw, 32px); border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); max-width: 560px; }
+.pcard__kicker { display: flex; flex-wrap: wrap; gap: 8px; }
+.pcard__title { font-family: var(--font-serif); font-weight: 300; font-size: 36px; line-height: 1.05; }
+.fields--compact > div { padding: 10px 0; }
+@media (min-width: 640px) { .fields--compact > div { grid-template-columns: 90px 1fr; } }
+.pcard .btn { justify-self: start; }
+
+/* League row and schedule row */
+.lrow { display: grid; gap: 12px 24px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+.lrows { border-top: 1px solid var(--rule-strong); }
+.lrow__name { font-family: var(--font-serif); font-weight: 300; font-size: 26px; line-height: 1.15; }
+.lrow__meta { display: grid; gap: 4px; font-size: 14.5px; }
+.lrow__meta dt { font: 600 var(--step-6)/1.4 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+.lrow__meta dd { font-size: 15px; }
+.lrow__cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; margin: 0; }
+.lrow__side { display: grid; gap: 12px; align-content: start; justify-items: start; }
+@media (min-width: 1000px) {
+  .lrow { grid-template-columns: 4fr 6fr 3fr; align-items: start; }
+  .lrow__cells { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.srows { border-top: 1px solid var(--rule-strong); }
+.srow { display: grid; grid-template-columns: 1fr auto; gap: 4px 24px; padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.srow__what { font-weight: 500; }
+.srow__when { color: var(--fg-muted); font-size: 15px; }
+.srow__price { font: 400 24px/1 var(--font-serif); font-variant-numeric: lining-nums; text-align: right; grid-row: span 2; align-self: center; }
+.srow__price small { display: block; font: 400 12px/1.2 var(--font-sans); color: var(--fg-muted); margin-top: 6px; }
+@media (min-width: 800px) { .srow { grid-template-columns: 220px 1fr auto; } .srow__price { grid-row: auto; } }
+
+/* FAQ accordion: no boxes, hairlines only */
+/* FAQ: filed by topic. The topic sits in a margin column in tracked capitals, the question is
+   Spectral light, the open mark is the icon family's plus at the court-line weight (1.5px, butt
+   caps): opening lifts the stem and leaves the line it stood on, the minus. */
+.acc { border-top: 1px solid var(--rule-strong); max-width: 980px; }
+.faq__group { display: grid; grid-template-columns: 1fr; border-bottom: 1px solid var(--rule); }
+/* b10: the topic is a heading, so it outranks the questions (21-25px) and answers (16px) it files */
+.faq__topic { margin: 18px 0 0; font: 300 var(--step-2)/1.12 var(--font-serif); letter-spacing: -0.005em; color: var(--fg); text-wrap: balance; }
+@media (min-width: 720px) {
+  .faq__group { grid-template-columns: 14rem minmax(0, 1fr); column-gap: 32px; }
+  .faq__topic { padding-right: 16px; }
+  .faq__topic { margin: 0; padding-top: 27px; border-right: 1px solid var(--rule); grid-row: 1 / span 99; }
+  /* Several questions under one topic: every answer keeps to the right-hand column. */
+  .faq__group > .acc__item { grid-column: 2; }
+}
+.acc__btn { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 14px 0 18px; background: none; border: 0; cursor: pointer; text-align: left; color: var(--fg); }
+@media (min-width: 720px) { .acc__btn { padding: 18px 0; } }
+.acc__q { font: 300 clamp(21px, 2.2vw, 25px)/1.25 var(--font-serif); letter-spacing: -0.005em; }
+.acc__btn:hover .acc__q { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: var(--rule-strong); }
+.acc__mark { width: 24px; height: 24px; flex: none; }
+.acc__stem { transform-box: fill-box; transform-origin: 50% 50%; transition: transform var(--dur-ui) var(--ease-ui); }
+.acc__btn[aria-expanded="true"] .acc__stem { transform: scaleY(0); }
+.acc__panel { display: grid; justify-items: start; gap: 12px; padding: 0 56px 26px 0; font-size: 16px; line-height: 1.6; color: var(--fg-muted); max-width: 64ch; }
+.acc__panel[hidden] { display: none; }
+.acc__panel .link { color: var(--fg); }
+.acc__panel:not([hidden]) { animation: acc-in var(--dur-ui) var(--ease-ui); }
+@keyframes acc-in { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .acc__panel:not([hidden]) { animation: none; } .acc__stem { transition: none; } }
+
+/* Form fields */
+.form { display: grid; gap: 28px; max-width: 520px; }
+.field { display: grid; gap: 8px; }
+.field__label { font-weight: 600; font-size: 14.5px; }
+/* b10: a label focuses its field, so it is a 24px tap target too */
+label.field__label { min-height: 24px; }
+.field__help { font-size: 13.5px; color: var(--fg-muted); }
+.input, .select {
+  width: 100%; min-height: 52px; padding: 0 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  background: var(--bg); color: var(--fg); font: 400 16px/1.2 var(--font-sans);
+  transition: border-color var(--dur-ui) var(--ease-ui);
+}
+.input::placeholder { color: var(--fg-muted); }
+.input:hover, .select:hover { border-color: var(--fg); }
+.input:focus-visible, .select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-color: var(--fg); }
+.input[aria-invalid="true"] { border-color: var(--fg); border-width: 2px; padding-left: 15px; }
+.input:disabled { background: var(--surface-alt); color: var(--fg-muted); border-color: var(--rule); cursor: not-allowed; }
+.select { appearance: none; -webkit-appearance: none; padding-right: 48px; cursor: pointer; }
+.select-wrap { position: relative; display: block; }
+.select-wrap .icon { position: absolute; right: 14px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); pointer-events: none; }
+.field__error { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; font-weight: 500; color: var(--fg); }
+.field__error .icon { width: 18px; height: 18px; margin-top: 1px; }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; cursor: pointer; }
+.check input { appearance: none; -webkit-appearance: none; flex: none; width: 22px; height: 22px; margin: 0; border: 1px solid var(--fg); border-radius: var(--radius); display: grid; place-content: center; background: var(--bg); cursor: pointer; }
+.check input::after { content: ""; width: 12px; height: 7px; border-left: 1.5px solid var(--bg); border-bottom: 1.5px solid var(--bg); transform: translateY(-1px) rotate(-45deg) scale(0); transition: transform var(--dur-ui) var(--ease-ui); }
+.check input:checked { background: var(--fg); }
+.check input:checked::after { transform: translateY(-1px) rotate(-45deg) scale(1); }
+.check input:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+
+/* =====================================================================================
+   The four serving courts (Direction A's doors, client-approved, in C's tokens)
+   Each door is one of the club's four courts in plan at the true 78 x 36 ft over its photograph:
+   white lines as they are painted, the red net strung post to post (C's one ornament), and the
+   club's red ball serving on it (js/serve.js). From 720px a door is a court; below, a compact row.
+   ===================================================================================== */
+.court { position: relative; container-type: inline-size; }
+.court .ph__court { display: none; }                       /* the door draws its own court */
+.court .frame.has-img .frame__media::after { content: ""; position: absolute; inset: 0; background: var(--scrim); opacity: 0.28; pointer-events: none; }
+.court__lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.court__surface { fill: color-mix(in srgb, var(--ph-ground), var(--ph-court-mix) var(--ph-court-amt, 100%)); }
+.court:has(.frame--due) .court__surface, .court:has(.frame.has-img) .court__surface { fill: none; }
+.court__paint { fill: none; stroke: var(--ph-line); stroke-width: 1; }
+/* vector-effect is not inherited: it is set on each painted line, so a line is 1px at any door size */
+.court__paint > * { vector-effect: non-scaling-stroke; }
+.court__net { fill: none; stroke: var(--red); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.court__post { fill: var(--red); }
+/* Over a photograph the court waits (batch 5): at rest the lines are a faint 1px trace, so the door
+   reads as a photograph of a place. The court is drawn in full only while its serve plays
+   (.is-serving, set by js/pages/home.js from the ball's own movement), or while the door is hovered
+   or holds keyboard focus. Full is 68% white, never solid. One resting state on all four doors,
+   and the same one under reduced motion, where the ball rests at its bounce mark (js/serve.js). */
+.court:has(.frame.has-img) .court__paint { stroke: var(--white); stroke-opacity: var(--court-rest, 0.3); transition: stroke-opacity 400ms var(--ease-out); }
+.court:has(.frame.has-img) .court__net, .court:has(.frame.has-img) .court__post { opacity: 0.62; transition: opacity 400ms var(--ease-out); }
+.court.is-serving:has(.frame.has-img) .court__paint,
+.door:hover .court:has(.frame.has-img) .court__paint,
+.door:has(.door__link:focus-visible) .court:has(.frame.has-img) .court__paint { stroke-opacity: var(--court-full, 0.68); }
+.court.is-serving .court__net, .court.is-serving .court__post,
+.door:hover .court__net, .door:hover .court__post,
+.door:has(.door__link:focus-visible) .court__net, .door:has(.door__link:focus-visible) .court__post { opacity: 1; }
+.court__ball { position: absolute; left: 0; top: 0; z-index: var(--z-base); width: clamp(12px, 2.6cqi, 20px); height: clamp(12px, 2.6cqi, 20px);
+  pointer-events: none; will-change: transform; transform: translate(calc(16.5cqi - 50%), calc(27cqi - 50%)); }
+.court__ball svg { display: block; width: 100%; height: 100%; }
+/* Height is read from the ground shadow, which meets the ball at the bounce */
+.court__shadow { position: absolute; left: 0; top: 0; width: clamp(12px, 2.6cqi, 20px); height: clamp(5px, 1.1cqi, 8px); border-radius: 50%;
+  background: var(--night-deep); opacity: 0.5; filter: blur(1.5px); pointer-events: none; will-change: transform, opacity;
+  transform: translate(calc(16.5cqi - 50%), calc(27cqi - 50%)); }
+.doors--courts .door .frame__img { transition: opacity 400ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .doors--courts .door:hover .frame__img { transform: none; } }
+@media (max-width: 719px) {
+  .doors--courts .court__lines, .doors--courts .court__ball, .doors--courts .court__shadow { display: none; }
+  .doors--courts .court .ph__court { display: block; }
+  .doors--courts .court .frame.has-img .frame__media::after { content: none; }
+}
+@media (min-width: 720px) {
+  .doors--courts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 4.4vw, 72px) clamp(20px, 2.4vw, 36px); border-top: 0; }
+  .doors--courts .door { grid-template-columns: 1fr; gap: 0; padding: 0; border-bottom: 0; margin-top: 0; align-content: start; }
+  .doors--courts .door:nth-child(even) { margin-top: 0; }
+  .doors--courts .door .frame { --ar: 2 / 1 !important; }
+  .doors--courts .door .frame__tag { top: 0; bottom: auto; left: auto; right: 0; padding: 7px 10px; font-size: 11px; letter-spacing: 0.12em; gap: 7px; }
+  .doors--courts .door .frame__tag-mark { display: block; }
+  .doors--courts .door__body { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: var(--sp-4); row-gap: 10px; padding-top: var(--sp-4); }
+  .doors--courts .door__title { grid-column: 1; grid-row: 1; }
+  .doors--courts .door__facts { grid-column: 2; grid-row: 1; justify-content: flex-end; font-size: 13px; color: var(--fg-muted); }
+  .doors--courts .door__text, .doors--courts .door__cta { grid-column: 1 / -1; }
+  .doors--courts .door__cta { display: inline-flex; justify-self: start; }
+}
+
+/* =====================================================================================
+   The season ledger (Direction B's signature, drawn from content/membership.json and club.json)
+   The club year as one ruled baseline, May to April, months at their true width. Over the indoor
+   months one hairline arc, the dome. The changeover in early October is a dashed bracket, the
+   site's mark for "not settled yet" (the dome goes up; the indoor start is to be confirmed).
+   Sessions are laid on the baseline like a court line. Today is a small live chip.
+   ===================================================================================== */
+.ledger { --sky: clamp(96px, 16vw, 210px); margin: 0; display: grid; color: var(--fg); min-width: 0; }
+.ledger__sky { position: relative; height: var(--sky); }
+.ledger__dome { position: absolute; left: var(--l); width: var(--w); bottom: 0; height: 100%; color: var(--fg); }
+.ledger__inflate { position: absolute; inset: 0; transform-origin: 50% 100%; }
+.ledger__inflate svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.ledger__change { position: absolute; left: var(--l); width: var(--w); bottom: 0; height: 30%; border: 1px dashed var(--rule-strong); border-bottom: 0; }
+.ledger__session { position: absolute; left: var(--l); width: var(--w); bottom: 0; height: 5px; background: var(--fg); }
+.ledger__session + .ledger__session { bottom: 7px; }
+.ledger__session-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ledger__today { position: absolute; left: var(--x); bottom: -9px; height: 72%; width: 1px; background: var(--fg); transform-origin: 50% 100%; }
+.ledger__today[hidden] { display: none; }
+.ledger__today-label { position: absolute; left: 8px; top: 0; display: inline-flex; align-items: center; gap: 8px; min-height: 26px; padding: 0 10px; white-space: nowrap;
+  background: var(--chip-live-bg); color: var(--chip-live-fg); font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; }
+.ledger__today.is-late .ledger__today-label { left: auto; right: 8px; }
+.ledger__today-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--live); flex: none; }
+.ledger__months { display: grid; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--fg); }
+.ledger__months li { position: relative; padding: 10px 0 0 7px; font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); min-width: 0; overflow: hidden; }
+.ledger__months li::before { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 8px; background: var(--rule-strong); }
+.ledger__m-short { display: none; }
+.ledger__legend { display: grid; gap: 10px 32px; margin-top: var(--sp-4); }
+.ledger__seg { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
+.ledger__name { font: italic 300 1.1875rem/1.2 var(--font-serif); color: var(--fg); }
+.ledger__dates { font-size: var(--step-5); line-height: 1.45; color: var(--fg-muted); }
+.ledger__dates .num { color: var(--fg); }
+.confirm--tight { margin-left: 8px; }
+.confirm--tight .confirm__what { font-size: var(--step-5); }
+@media (min-width: 900px) { .ledger__legend { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } }
+@media (max-width: 639px) {
+  /* Phone: single letters (M J J A ...) were ambiguous. Every month keeps its tick; every other month
+     is named in three letters, like the alternate lines of a scoreboard. */
+  .ledger__m-short { display: none; }
+  .ledger__months li { padding-left: 4px; letter-spacing: 0.06em; overflow: visible; }
+  .ledger__months li:nth-child(even) .ledger__m-long { display: none; }
+}
+.ledger--mini { --sky: clamp(64px, 9vw, 110px); }
+
+/* =====================================================================================
+   Selectors: age band and level (spec: segmented control, radio-group semantics)
+   The options sit on one hairline like the lines of a draw; the chosen one is underlined by a
+   2px baseline that slides to it. Age bands are set as numerals in Spectral, like a programme.
+   ===================================================================================== */
+.seg--select { column-gap: clamp(20px, 3.4vw, 40px); }
+.seg--select button .num { font: 300 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1 var(--font-serif); font-variant-numeric: lining-nums; }
+.seg--select button { min-height: 56px; color: var(--fg-muted); }
+.seg--select button[aria-checked="true"] { color: var(--fg); }
+.seg--select button[aria-disabled="true"] { color: var(--fg-muted); opacity: 0.55; cursor: not-allowed; text-decoration: line-through; text-decoration-thickness: 1px; }
+.seg--level button .num { font: 500 15px/1 var(--font-sans); letter-spacing: 0.02em; }
+.seg--level button { min-height: var(--target); }
+.seg__why { margin-top: 10px; color: var(--fg-muted); }
+.seg__why[hidden] { display: none; }
+.select-label { display: block; margin-bottom: 6px; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+
+/* =====================================================================================
+   Inner-page heroes (rule 1: breadcrumbs, H1, one-sentence lede, the one action)
+   section: words on paper, a photograph across the net (Home's seam, shorter).
+   performance: the same on Blazer, High Performance only (rule 10). compact: words only.
+   ===================================================================================== */
+.hero--inner .crumbs { margin-bottom: clamp(16px, 2.4vw, 32px); }
+.hero--inner .hero__title { margin-top: 0; font-size: clamp(2.4rem, 0.8rem + 3.4vw, 4.25rem); }
+.hero--inner .hero__words { padding-top: clamp(20px, 3vh, 40px); }
+.hero--inner .hero__actions { align-items: center; gap: 10px 28px; }
+.hero--performance .hero__media .frame { --ph-ground: var(--night-raised); }
+@media (min-width: 900px) {
+  .hero--section .hero__grid, .hero--performance .hero__grid { height: clamp(560px, calc(86svh - var(--header-h)), 820px); grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+}
+@media (max-width: 599px) { .hero--inner .hero__actions .btn { flex: 1 1 100%; } }
+@media (max-width: 899px) {
+  .hero--inner .hero__media { margin-top: var(--sp-6); }
+  .hero--inner .frame { --ar: 4 / 3 !important; }
+}
+.hero--nomedia .hero__grid { height: auto; display: block; padding: 0; }
+.hero--nomedia .hero__words { max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; padding: clamp(24px, 4vw, 56px) var(--gutter) clamp(48px, 6vw, 96px); }
+.hero--nomedia .hero__title { max-width: 18ch; }
+.hero--nomedia .hero__lede { max-width: 40rem; }
+/* The typographic-1951 hero (Club History): the year folded across the net, set like a date on a
+   programme, no photograph. Copy-paste markup in BUILD.md. */
+.hero--1951 .numeral { margin-top: var(--sp-5); font-size: clamp(5rem, 2rem + 10vw, 11rem); }
+.crumbs-bar { padding-top: clamp(16px, 2vw, 28px); }
+
+/* ---------- Inner heroes on phones and tablets (batch 4, client note of 4 Oct 2026) ----------
+   The first-screen rule: on a phone the first 600px show what the page is, its action or first
+   choice, and its key points. So below 900px a section hero is no longer a stack. It is Home's
+   composition: the page's words on our side, a tall crop of its photograph on the other, the net
+   standing between them, then the action, the status line and the key points ruled beneath.
+   Applies to hero--section, hero--performance and the hand-written hero--hp. Home keeps its own
+   rules (hero--home, site.css). The test is qa/b4/measure.py. */
+.hero__points { display: none; }
+@media (max-width: 899px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__grid {
+    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr; padding-left: var(--gutter);
+  }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__words { display: contents; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__words > * { grid-column: 1 / -1; padding-inline: 0; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .crumbs { grid-row: 1; padding-top: 6px; margin-bottom: 6px; padding-right: var(--gutter); }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__title {
+    grid-column: 1; grid-row: 2; margin-top: 0; padding-right: 12px;
+    font-size: clamp(1.625rem, 0.6rem + 4.4vw, 3rem); line-height: 1.06; text-wrap: balance;
+  }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__lede {
+    grid-column: 1; grid-row: 3; margin-top: 12px; padding: 0 14px 18px 0;
+    font-size: clamp(0.9375rem, 0.82rem + 0.5vw, 1.125rem); line-height: 1.45;
+  }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media {
+    grid-column: 2; grid-row: 2 / span 2; align-self: stretch; margin: 0; min-height: clamp(180px, 48vw, 420px);
+  }
+  /* the net stands upright between the words and the photograph, post to post */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline { top: 0; bottom: 0; left: -1px; right: auto; width: 2px; height: auto; transform-origin: 50% 0; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline__post { left: -2px; right: auto; top: auto; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline__post:first-child { top: 0; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline__post:last-child { bottom: -6px; }
+  html.motion .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__media .netline[data-chalk-self]:not(.is-drawn) { transform: scaleY(0); }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame--fill,
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame--fill .frame__box { height: 100%; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame--fill .frame__box { aspect-ratio: auto !important; }
+  /* the page's own crop; a page may set a phone crop on the hero: posphone="38% 30%" */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__img { object-position: var(--pos-phone, var(--pos, 50% 50%)); }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { font-size: 9px; padding: 6px 8px; gap: 6px; letter-spacing: 0.1em; }
+  /* RD4 (DI, 25 Oct 2026): the tag never runs wider than its photograph column (see the narrowest phones below) */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { max-width: 100%; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__desc { display: none; }
+  /* an empty slot in the narrow column: the plate keeps its court, its tag and its slot id, all inside the frame */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__label { left: 8px; right: 6px; bottom: 10px; padding: 0; gap: 4px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__label > span { padding-right: 4px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__kicker { font-size: 9px; letter-spacing: 0.1em; gap: 6px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .ph__id { font-size: 11px; overflow-wrap: anywhere; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .hero__actions { width: auto; margin-top: 14px; padding-right: var(--gutter); gap: 0 24px; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .status-line { margin-top: 12px; padding-right: var(--gutter); gap: 6px 12px; font-size: 14px; line-height: 1.35; }
+  .hero:is(.hero--section, .hero--performance, .hero--hp) { padding-bottom: clamp(20px, 5vw, 40px); }
+  /* the next section starts close enough that its first line shows as the cue to scroll */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) + .section { padding-top: clamp(32px, 8vw, 64px); }
+}
+/* The key points row (build.py hero points=, or <!--@points items=... /-->): two to four facts from
+   the content files, ruled like a line of the season ledger. A point that links is the page's first
+   choice and carries the red arrow. From 900px a photograph hero carries the same row under its words (QC round 1, end of file). */
+@media (max-width: 899px) {
+  .hero__points {
+    display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); grid-column: 1 / -1;
+    list-style: none; margin: 14px var(--gutter) 0 0; padding: 0; border-top: 1px solid var(--rule);
+  }
+  .hero--nomedia .hero__points { margin-right: 0; }
+  .hero__points li { display: flex; min-width: 0; border-bottom: 1px solid var(--rule); }
+  .hero__points li + li { padding-left: 12px; border-left: 1px solid var(--rule); }
+  .hero__points:is([style*="--n:2"], [style*="--n: 2"]) li:nth-child(odd) { padding-left: 0; border-left: 0; } /* the second form is how the browser rewrites the attribute once motion has touched it */
+  .hero__points li > a, .hero__points li > .hero__point-text { flex: 1 1 auto; min-width: 0; min-height: 48px; padding: 7px 8px 7px 0; }
+  .hero__points li > a { display: flex; align-items: center; justify-content: space-between; gap: 6px; color: var(--fg); text-decoration: none; }
+  .hero__points li > a:active { background: var(--surface-alt); }
+  .hero__points .icon { width: 14px; height: 14px; flex: none; color: currentColor; } /* QC round 1, 6 Oct: red is for Register now only */
+  .hero__point-text { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-width: 0; }
+  .hero__point-label { font: 600 0.6875rem/1.2 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-muted); }
+  .hero__point-value { font: 400 0.9375rem/1.2 var(--font-serif); color: var(--fg); text-wrap: balance; }
+  /* words-only heroes (compact, nomedia): the same rule, so the lede and the action close up */
+  .hero--nomedia .hero__words { padding-top: 6px; padding-bottom: clamp(24px, 6vw, 48px); }
+  .hero--nomedia .crumbs { margin-bottom: 6px; }
+  .hero--nomedia .hero__title { font-size: clamp(2rem, 0.9rem + 4.6vw, 3.25rem); line-height: 1.04; }
+  .hero--nomedia .hero__lede { margin-top: 12px; font-size: clamp(1rem, 0.86rem + 0.6vw, 1.1875rem); line-height: 1.45; }
+  .hero--nomedia .hero__actions { margin-top: 16px; gap: 0 24px; }
+  .hero--nomedia .status-line { margin-top: 12px; gap: 6px 12px; font-size: 14px; line-height: 1.35; }
+  .hero--nomedia + .section { padding-top: clamp(32px, 8vw, 64px); }
+}
+/* Buttons that name the thing ("Register for Intermediate 1 and 2") may be longer than a phone is
+   wide: the label wraps inside the button instead of pushing the page sideways. One-line labels are unchanged. */
+@media (max-width: 599px) {
+  .btn { max-width: 100%; white-space: normal; text-align: center; line-height: 1.25; padding-block: 10px; }
+}
+/* the narrowest phones: the placeholder tag stays on one line in the narrow photograph column */
+@media (max-width: 389px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { letter-spacing: 0.04em; padding: 6px 5px; gap: 4px; white-space: nowrap; }
+  /* batch 5: the mark stays, one size down, so the tag is the same tag on every screen */
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag-mark { width: 8px; height: 8px; }
+}
+/* RD4 (DI, 25 Oct 2026): under 375px the photograph column (107px at 320, 121px at 360) is narrower than the
+   one-line tag (126px), whose words ran past the screen's edge (High Performance 339 and 365 wide, ten section
+   pages 324 at 320). There the tag takes a second line inside its column; from 375px it stays on one line. */
+@media (max-width: 374px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { white-space: normal; }
+}
+
+/* =====================================================================================
+   Program card variants, price card, schedule and league rows live above (from the guide).
+   Additions: a row of cards, and the field order every program unit keeps (rule 19:
+   who, level, when, where, price, action).
+   ===================================================================================== */
+.pcards { display: grid; gap: var(--sp-4); }
+@media (min-width: 800px) { .pcards { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); } }
+.pcards .pcard { max-width: none; }
+.pcard__price { font: 300 clamp(28px, 1.4rem + 0.8vw, 36px)/1 var(--font-serif); font-variant-numeric: lining-nums; }
+.pcard__tax { display: block; margin-top: 6px; font: 400 13px/1.3 var(--font-sans); color: var(--fg-muted); }
+.tiers { display: grid; gap: var(--sp-4); }
+@media (min-width: 800px) { .tiers { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } .tiers .tier { max-width: none; } }
+.rates-wrap { overflow-x: auto; overscroll-behavior-x: contain; }
+.rates-wrap:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
+/* =====================================================================================
+   Coach card, with a real-shoot placeholder. The frame keeps the club's court plan and says
+   "To be photographed": these are portraits only a real session can make, never AI (slots.json).
+   ===================================================================================== */
+.coaches { display: grid; gap: var(--sp-6) var(--sp-4); }
+@media (min-width: 640px) { .coaches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .coaches { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.coach { display: grid; gap: var(--sp-3); align-content: start; }
+.coach .frame { --ar: 4 / 5; }
+.coach__role { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.coach__name { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.coach__bio { font-size: 16px; line-height: 1.55; color: var(--fg-muted); max-width: 46ch; }
+.coach--featured { gap: var(--sp-4); }
+@media (min-width: 1000px) { .coach--featured { grid-template-columns: 5fr 7fr; column-gap: var(--sp-6); align-items: end; } .coach--featured .coach__name { font-size: var(--step-1); } }
+
+/* =====================================================================================
+   Key facts strip: three or four large figures set like the numbers on a scoreboard card,
+   each with what it counts. Figures are Spectral 200, the club's numeral voice.
+   ===================================================================================== */
+.facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
+.facts li { display: grid; gap: 8px; align-content: start; padding: 22px 16px 22px 0; border-bottom: 1px solid var(--rule); }
+.facts__n { font: 200 clamp(3rem, 2rem + 3vw, 4.75rem)/0.9 var(--font-serif); letter-spacing: -0.02em; font-variant-numeric: lining-nums; }
+.facts__what { font-size: 15px; line-height: 1.45; color: var(--fg-muted); max-width: 22ch; }
+@media (min-width: 900px) { .facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } .facts li + li { padding-left: 24px; border-left: 1px solid var(--rule); } }
+
+/* Notice: an inline note in the reading column. A left rule, an icon, words; never red. */
+.notice { display: grid; grid-template-columns: 24px 1fr; gap: 12px; padding: 4px 0 4px 18px; border-left: 2px solid var(--fg); max-width: 60ch; font-size: 16px; line-height: 1.55; }
+.notice .icon { margin-top: 2px; }
+.notice--caution { border-left-style: dashed; }
+
+/* In-page nav: jump links for long pages. A sticky line of names on a hairline, the current one
+   underlined; on a phone it scrolls inside itself, never the page. */
+.inpage { position: sticky; top: var(--header-h); z-index: calc(var(--z-header) - 1); background: var(--bg); border-bottom: 1px solid var(--rule); }
+.inpage ol { display: flex; gap: clamp(18px, 3vw, 32px); list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.inpage a { display: inline-flex; align-items: center; min-height: 52px; white-space: nowrap; font: 500 15px/1 var(--font-sans); text-decoration: none; color: var(--fg-muted); box-shadow: inset 0 -2px 0 transparent; }
+.inpage a:hover, .inpage a[aria-current="true"] { color: var(--fg); box-shadow: inset 0 -2px 0 var(--fg); }
+
+/* Filter chips (leagues): the type filter with counts. Pressed state fills ink, like the chooser. */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { display: inline-flex; align-items: center; gap: 8px; min-height: var(--target); padding: 0 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--bg); color: var(--fg); font: 500 15px/1 var(--font-sans); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters .num { font-size: 13px; opacity: 0.75; }
+
+/* Empty state: a court with no one on it, and one line that says what to do next. */
+.empty { display: grid; gap: 14px; justify-items: start; padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.empty__title { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.empty p { color: var(--fg-muted); max-width: 46ch; }
+
+/* Document link: type and size beside the name (a PDF the club publishes) */
+.doclink { display: inline-flex; align-items: baseline; gap: 12px; min-height: var(--target); text-decoration: none; }
+.doclink__meta { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+
+/* Demo banner: the booking flow books nothing, and says so on every screen */
+.demo-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 12px var(--gutter); background: var(--surface-alt); border-bottom: 1px dashed var(--rule-strong); font-size: 15px; }
+.demo-banner .chip { border-style: dashed; }
+
+/* A stub: a spec page whose source is not written yet */
+.stub { display: grid; gap: var(--sp-5); max-width: 52rem; }
+.stub__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.stub__list li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 16px; color: var(--fg-muted); }
+.stub__list .num { font-weight: 600; font-size: 13px; letter-spacing: 0.06em; color: var(--fg); }
+
+/* Home: the season ledger under What's happening */
+.happen__ledger { margin-top: clamp(32px, 4vw, 56px); }
+
+/* Phone reading floor, last on purpose (as in site.css) */
+@media (max-width: 599px) {
+  .coach__bio, .facts__what, .notice, .ledger__dates { font-size: 1rem; }
+}
+
+
+/* =====================================================================================
+   Integration (2 Oct 2026): shared parts promoted from page CSS (logs/requests-*.md).
+   ===================================================================================== */
+
+/* Compact hero with a side block (marker <!--@hero variant=compact ...-->aside<!--@/hero-->):
+   the words on the left, a card, a control or a status block on the right. */
+.hero--aside .hero__words { display: block; }
+.hero--aside .hero__aside { max-width: calc(var(--page) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter) clamp(48px, 6vw, 96px); }
+@media (min-width: 900px) {
+  .hero--aside .hero__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--sp-8);
+    max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); align-items: end; }
+  .hero--aside .hero__words { max-width: none; margin: 0; padding-inline: 0; }
+  .hero--aside .hero__aside { max-width: none; margin: 0; padding: 0 0 clamp(48px, 6vw, 96px); }
+}
+
+/* Opening statement: eyebrow left, statement right (High Performance, Our Club). */
+.intro__grid { display: grid; gap: var(--sp-5); }
+.intro__statement { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.625rem, 1.2rem + 1.5vw, 2.5rem); line-height: 1.22; max-width: 30ch; text-wrap: pretty; }
+.intro__aside { display: grid; gap: var(--sp-3); align-content: start; }
+@media (min-width: 1000px) { .intro__grid { grid-template-columns: 3fr 9fr; column-gap: var(--sp-6); } }
+
+/* Requirement callout: a 2px line down the left like the sideline, the rule in caps
+   (assessment, pre-approval, members only). Quiet: a secondary note on the strong hairline. */
+.callout { display: grid; gap: 10px; padding: 4px 0 4px 22px; border-left: 2px solid var(--fg); align-content: start; }
+.callout__title { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.callout p { font-size: 16px; line-height: 1.55; max-width: 56ch; }
+.callout--quiet { border-left-color: var(--rule-strong); }
+
+/* A chip that carries a sentence wraps on phones instead of overflowing. */
+.chip--wrap { white-space: normal; height: auto; min-height: 28px; line-height: 1.35; padding-block: 5px; text-align: left; }
+
+/* ---------- The camp family (requests-camps 1, 2): status line, the four camps either side of
+   the net, extras, policies and the Order of Play, one copy for the three season pages. ---------- */
+.camp-status { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+
+/* ---------- The four camps, either side of the net ----------
+   Story: the net divides Recreational from High Performance, as on the Camps hub and across the
+   site. Recreational plays on paper, the three High Performance camps on the night court. */
+.campcards { display: grid; gap: var(--sp-6); margin-top: var(--sp-5); }
+.campcard__day { font-size: var(--step-4); line-height: var(--lh-body); color: var(--fg-muted); max-width: 52ch; }
+.campcard__sub { display: block; margin-top: 8px; font: 500 15px/1.3 var(--font-sans); color: var(--fg-muted); }
+.campcard__note { display: block; }
+.campcard__note .confirm--tight { margin-left: 4px; }
+.campcards .pcard__title { font-size: clamp(28px, 1.4rem + 0.8vw, 36px); }
+
+.campcards__hp { position: relative; display: grid; gap: var(--sp-4); padding: var(--sp-7) var(--gutter); margin-inline: calc(var(--gutter) * -1); }
+.campcards__hp::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--red); transform-origin: 0 50%; }
+.campcards__hp-head { font: 800 clamp(2rem, 1.5rem + 2vw, 3.25rem)/1 var(--font-sans); letter-spacing: var(--track-display-sans); text-transform: uppercase; }
+.campcards__hp .pcard { max-width: none; }
+.campcard--other { max-width: 720px; }
+
+@media (min-width: 900px) {
+  .campcard--rec { max-width: none; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(32px, 4vw, 72px); align-items: start; }
+  .campcard--rec > .pcard__kicker, .campcard--rec > .pcard__title, .campcard--rec > .campcard__day, .campcard--rec > .btn { grid-column: 1; }
+  .campcard--rec > .fields { grid-column: 2; grid-row: 1 / span 4; }
+  .campcards__hp { margin-inline: 0; padding: var(--sp-7) clamp(24px, 3vw, 48px); border-radius: var(--radius); }
+}
+@media (min-width: 1100px) {
+  .campcards__hp { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+  .campcards__hp-head { grid-column: 1 / -1; }
+  .campcards__hp .pcard { grid-template-rows: auto auto 1fr auto; }
+  .campcards__hp .fields--compact > div { grid-template-columns: 1fr; }
+}
+
+/* ---------- Extras ---------- */
+.extras { margin-top: var(--sp-6); }
+.extras li { align-content: start; }
+.extras p .confirm--tight { margin-left: 4px; }
+@media (min-width: 900px) {
+  .extras { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(24px, 3vw, 48px); border-top: 0; }
+  .extras li { border-top: 1px solid var(--rule-strong); border-bottom: 0; }
+}
+
+/* ---------- Policies: one line, then the full text ---------- */
+.policies { display: grid; gap: var(--sp-5); }
+.policies__body { display: grid; gap: var(--sp-4); }
+.policies__links { display: flex; flex-wrap: wrap; gap: 12px 32px; }
+@media (min-width: 900px) {
+  .policies { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(32px, 5vw, 96px); align-items: start; }
+}
+@media (max-width: 479px) { .camp-status .chip { white-space: normal; min-height: 28px; padding-block: 6px; line-height: 1.2; } }
+
+@media (min-width: 900px) {
+  .campcards__hp--two { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+  .campcards__hp--two .campcards__hp-head { grid-column: 1 / -1; }
+  .campcards__hp--two .pcard { grid-template-rows: auto auto 1fr auto; }
+}
+@media (min-width: 900px) { .extras--two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Phones: long register labels wrap inside the card instead of leaving it */
+@media (max-width: 479px) {
+  .campcard .btn { max-width: 100%; height: auto; min-height: 48px; padding-block: 12px; text-align: center; }
+  .campcard .btn__label > span { white-space: normal; text-wrap: balance; line-height: 1.4; }
+}
+
+/* ---------- The week as an order of play ----------
+   Story: a tournament pins up its Order of Play each morning, courts across and times down. Here
+   the days run across and the sessions down. Every day carries the same sessions, so a parent
+   picks days, not a week. Each day's heading rule chalks in, Monday to Friday, once. */
+.oop { margin: var(--sp-6) 0 0; display: grid; gap: var(--sp-4); }
+.oop__cap { display: grid; gap: 4px; }
+.oop__title { font: 400 var(--step-3)/1.3 var(--font-serif); }
+.oop__board { width: 100%; min-width: 600px; border-collapse: collapse; table-layout: fixed; }
+.oop__board th, .oop__board td { padding: 14px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.oop__board thead th { position: relative; padding-bottom: 16px; border-bottom: 0; }
+.oop__board thead th:first-child { width: 26%; }
+.oop__board thead th:not(:first-child)::after { content: ""; position: absolute; left: 12px; right: 0; bottom: 0; height: 2px; background: var(--fg); transform-origin: 0 50%; }
+html.motion .oop__board thead th::after { transition: transform 500ms var(--ease-out) calc(var(--i, 0) * 70ms); }
+html.motion .oop__board:not(.is-drawn) thead th::after { transform: scaleX(0); }
+.oop__dow { display: block; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.oop__date { display: block; margin-top: 4px; font: 300 clamp(1.75rem, 1.4rem + 1vw, 2.5rem)/1 var(--font-serif); font-variant-numeric: lining-nums; }
+.oop__time { display: block; font: 400 19px/1.2 var(--font-serif); font-variant-numeric: lining-nums; }
+.oop__what { display: block; margin-top: 4px; font-size: 14px; font-weight: 400; color: var(--fg-muted); }
+.oop__slot { display: block; font-size: 14px; line-height: 1.45; }
+.oop__late th, .oop__late td { border-top: 1px dashed var(--rule-strong); }
+.oop__key { color: var(--fg-muted); }
+.oop__gap { margin-top: var(--sp-5); }
+.oop__gap .confirm--tight { margin-left: 4px; }
+
+/* Phones: the same order of play, folded. The five days sit in one row with their chalked rules,
+   and the sessions are listed once below, since every day carries the same ones. */
+.oop__compact { display: grid; gap: var(--sp-4); }
+.oop__days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; list-style: none; margin: 0; padding: 0; }
+.oop__days li { position: relative; padding-bottom: 12px; }
+.oop__days li::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--fg); transform-origin: 0 50%; }
+html.motion .oop__days li::after { transition: transform 500ms var(--ease-out) calc(var(--i, 0) * 70ms); }
+html.motion .oop__compact:not(.is-drawn) .oop__days li::after { transform: scaleX(0); }
+.oop__every { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.oop__compact .srow { grid-template-columns: 1fr; }
+@media (max-width: 699px) { .oop__wide { display: none; } }
+@media (min-width: 700px) { .oop__compact { display: none; } }
+
+/* ---------- Court plan (.cplan, requests-programs 1): true 78 x 36 ft geometry, generated by
+   logs/programs-gen/gen.py; the net in club red; players (.who), the coach and the ball basket. ---------- */
+.cplan { display: block; width: 100%; height: auto; overflow: visible; }
+.cplan__ground { fill: none; }
+.cplan__lines { fill: none; stroke: var(--fg-muted); stroke-width: 0.32; vector-effect: non-scaling-stroke; }
+.cplan__lines * { vector-effect: non-scaling-stroke; stroke-width: 1px; }
+.cplan__area { fill: var(--fg); fill-opacity: 0.07; stroke: var(--fg); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+.cplan__net { stroke: var(--red); stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.who { fill: var(--fg); }
+.who--coach { fill: var(--surface); stroke: var(--fg); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+.who__basket { fill: none; stroke: var(--fg); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+
+/* ---------- Level card and rally count (.lcard, .tally, [data-rally], requests-programs 2).
+   site.js plays every [data-rally] once when it comes into view. ---------- */
+/* A rally: two players on the baselines of that age's court, one cross-court shot between them,
+   and the club's count under the court: the balls each player hits, either side of a red net.
+   Filled balls are the low end of the club's range, hollow ones its top (4-5 each). On view the
+   rally is played ball by ball, left, right, left, the order the balls are struck. */
+.rally__path { fill: none; stroke: var(--fg); stroke-width: 1.25px; stroke-dasharray: 2 3; vector-effect: non-scaling-stroke; }
+.rally__ball { fill: none; stroke: var(--fg); stroke-width: 1.25px; vector-effect: non-scaling-stroke; }
+.tally { display: grid; grid-template-columns: 1fr 2px 1fr; align-items: center; gap: 10px; min-height: 14px; }
+.tally__side { display: flex; gap: 6px; flex-wrap: wrap; }
+.tally__side:first-child { justify-content: flex-start; flex-direction: row-reverse; }
+.tally__net { width: 2px; height: 22px; background: var(--red); }
+.tally__ball { width: 10px; height: 10px; border-radius: 50%; background: var(--fg); }
+.tally__ball--range { background: transparent; box-shadow: inset 0 0 0 1.25px var(--fg); }
+@media (prefers-reduced-motion: no-preference) {
+  .motion [data-rally] .tally__ball { opacity: 0; transform: scale(0.4); transition: opacity 140ms var(--ease-out), transform 220ms var(--ease-out); transition-delay: calc(var(--i) * 70ms); }
+  .motion [data-rally].is-played .tally__ball { opacity: 1; transform: none; }
+}
+.lcards { display: grid; gap: var(--sp-4); }
+@media (min-width: 900px) { .lcards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); } }
+.lcard { display: grid; grid-template-rows: auto auto auto 1fr auto auto; gap: 16px; padding: clamp(20px, 2.4vw, 32px); background: var(--surface); border: 1px solid var(--rule); border-top: 2px solid var(--fg); }
+.lcard__kicker { display: flex; gap: 8px; flex-wrap: wrap; }
+.lcard__title { font: 300 var(--step-2)/1.1 var(--font-serif); }
+.lcard__plan { margin: 0; display: grid; gap: 8px; }
+.lcard__plan .small { font-size: 14px; }
+.lcard__test { font-size: 16px; line-height: 1.55; }
+.lcard .fields { align-self: end; }
+.lcard__btn { justify-self: start; }
+.lcard--off { align-self: start; border-top: 1px dashed var(--rule-strong); background: transparent; grid-template-rows: auto auto auto 1fr; }
+.lcard--off .lcard__title, .lcard--off .lcard__test { color: var(--fg-muted); }
+.lcard--off .cplan { opacity: 0.55; }
+
+
+/* ================= Batch 4 integration (4 Oct 2026): patterns hoisted from page CSS ================= */
+/* Key points row on phones: every label sits on the same line, like the head of a score sheet. */
+@media (max-width: 899px) {
+  .hero__points .hero__point-text { justify-content: flex-start; }
+  .hero__points li > a { align-items: flex-start; }
+  .hero__points li > a > .icon { margin-top: 17px; }
+  /* QC round 1: a linked point carries its arrow at the end of the label line; the value keeps the full cell */
+  .hero__points li > a > .hero__point-text { flex: 1 1 auto; }
+  .hero__points a .hero__point-label { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .hero__points a .hero__point-label { align-items: flex-start; } /* a two-line label keeps the arrow on its first line */
+  .hero__points .hero__point-label .icon { margin-block: 0 -4px; } /* the arrow never makes the label line taller */
+}
+
+/* ---------- Phones (batch 4): the level cards are one rail ----------
+   The three levels sit side by side, the way the club's courts do; the next card's edge shows so
+   the rail announces itself. Junior Recreational and Adult Programs share it. The hidden age sets stay hidden. */
+@media (max-width: 899px) {
+  .lcards:not([hidden]) { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+    scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .lcards::-webkit-scrollbar { display: none; }
+  .lcards .lcard { flex: 0 0 min(86%, 420px); scroll-snap-align: start; }
+}
+/* a not-at-this-age card stands as tall as the live card beside it */
+@media (max-width: 899px) { .lcards .lcard--off { align-self: stretch; } }
+/* QC round 1: on the rail only one card is in view, so each card is as tall as its own content;
+   no empty band between the description and the fields. Desktop keeps the aligned rows. */
+@media (max-width: 899px) {
+  .lcards:not([hidden]) { align-items: flex-start; }
+  .lcards .lcard:not(.lcard--off) { grid-template-rows: none; grid-auto-rows: auto; align-content: start; }
+  .lcards .lcard:not(.lcard--off) .fields { align-self: start; }
+}
+
+/* ---------- Batch 4, phones: the camp cards (same block on Summer, March Break and Holiday) ----------
+   Story: the recreational camp is the open court, one card on paper. The High Performance camps sit
+   across the net on Blazer, and on a phone they are read the way a draw sheet is: side by side,
+   one swipe from camp to camp, so a parent compares ages, level and price without a long scroll.
+   The card fields become ruled rows, label beside value, like the lines of a scoreboard.
+   The shared family lives in css/components.css; this block only recomposes it under 700px. */
+.campcards__hp-hint { display: none; }
+@media (max-width: 699px) {
+  .campcards { gap: var(--sp-5); }
+  .campcards .pcard { gap: 14px; padding: 20px 18px 22px; }
+  .campcard__day { font-size: 1rem; line-height: 1.5; }
+  .campcard .fields--compact > div { grid-template-columns: 58px minmax(0, 1fr); gap: 2px 12px; padding: 9px 0; align-items: baseline; }
+  .campcard .fields--compact > div:first-child { padding-top: 12px; }
+  .campcard .fields--compact dd { font-size: 0.9375rem; line-height: 1.45; }
+  .campcard .fields--compact dd .small { font-size: 0.875rem; margin-top: 2px; }
+  .campcard .pcard__price { font-size: 26px; }
+  .campcard .btn { justify-self: stretch; }
+
+  .campcards__hp {
+    grid-auto-flow: column; grid-template-rows: auto 1fr; grid-auto-columns: min(88%, 340px);
+    gap: var(--sp-4) 12px; padding-block: var(--sp-6);
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    background-image: linear-gradient(var(--red), var(--red)); background-size: 100% 2px; background-repeat: no-repeat;
+  }
+  .campcards__hp::-webkit-scrollbar { display: none; }
+  .campcards__hp::before { display: none; }
+  .campcards__hp-head { grid-row: 1; grid-column: 1; position: sticky; left: var(--gutter); width: calc(100vw - var(--gutter) * 2); display: grid; gap: 8px; font-size: 1.75rem; }
+  .campcards__hp-hint { display: block; font: 500 0.8125rem/1.3 var(--font-sans); letter-spacing: 0.02em; text-transform: none; color: var(--fg-muted); }
+  .campcards__hp .pcard { grid-row: 2; scroll-snap-align: start; grid-template-rows: auto auto 1fr auto; align-content: start; }
+  .campcards__hp .pcard__title { font-size: 26px; }
+  .campcards__hp .fields { align-content: start; }
+  /* the group head already says High Performance: the card keeps only its ages chip */
+  .campcards__hp .pcard__kicker .chip:first-child { display: none; }
+  .campcard__sub { margin-top: 6px; font-size: 14px; }
+}
+
+/* ---------- Batch 4, 1100px and up: the High Performance cards line up like a draw sheet ----------
+   Each card's chips, title, fields and action sit on the same four rows across the group (subgrid),
+   so the rule under every title and every register button align. A register label as long as its
+   camp's name wraps inside the button and never leaves the card. */
+.campcards__hp .campcard .btn { max-width: 100%; height: auto; min-height: 52px; padding-block: 12px; text-align: center; }
+.campcards__hp .campcard .btn__label > span { white-space: normal; text-wrap: balance; line-height: 1.4; }
+@media (min-width: 1100px) {
+  @supports (grid-template-rows: subgrid) {
+    .campcards__hp .pcard { grid-row: span 4; grid-template-rows: subgrid; row-gap: 18px; }
+    .campcards__hp .pcard__title { align-self: start; }
+    .campcards__hp .campcard .btn { align-self: end; justify-self: stretch; }
+  }
+}
+
+/* Placeholder tag on a hero photograph, phones: bottom-left, so it never sits over the subject's head. */
+@media (max-width: 899px) {
+  .hero:is(.hero--section, .hero--performance, .hero--hp) .frame__tag { top: auto; right: auto; bottom: 0; left: 0; }
+  /* Batch 5 lead review: the Home print too; at the top its tag sat on the player's head. */
+  .hero.hero--home .frame__tag { top: auto; right: auto; bottom: 0; left: 0; }
+}
+/* Breadcrumbs carry the full page name (glossary 1.2); under 400px the separators close up so a
+   four-step trail such as Home / Programs / Camps / March Break Camp stays on one line. */
+@media (max-width: 399px) { .crumbs ol { column-gap: 7px; } .crumbs li { gap: 7px; } }
+
+/* ---------- Batch 5 lead review: a door with no photograph (Camps, since camps-hero-01 was rejected) ----------
+   The door drew a filled court over the court frame's caption, so the slot id and the shot line
+   were cut by a second court. Now the frame is the court: the door's lines sit on it unfilled,
+   at the same faint resting trace and the same full state as the other three doors, and the
+   caption is the slot id alone, under the baseline (the shot line is on the Camps page's own hero). */
+@media (min-width: 900px) {
+  .court:has(.frame:not(.has-img, .frame--due)) .court__surface { fill: none; }
+  .court:has(.frame:not(.has-img, .frame--due)) .court__paint { stroke: var(--white); stroke-opacity: var(--court-rest, 0.3); transition: stroke-opacity 400ms var(--ease-out); }
+  .court:has(.frame:not(.has-img, .frame--due)) .court__net, .court:has(.frame:not(.has-img, .frame--due)) .court__post { opacity: 0.62; transition: opacity 400ms var(--ease-out); }
+  .court.is-serving:has(.frame:not(.has-img, .frame--due)) .court__paint,
+  .door:hover .court:has(.frame:not(.has-img, .frame--due)) .court__paint,
+  .door:has(.door__link:focus-visible) .court:has(.frame:not(.has-img, .frame--due)) .court__paint { stroke-opacity: var(--court-full, 0.68); }
+  .doors--courts .door .frame:not(.has-img) .ph__desc { display: none; }
+  .doors--courts .door .frame:not(.has-img) .ph__label { left: 16px; right: auto; bottom: 12px; padding: 0; }
+  .doors--courts .door .frame:not(.has-img) .ph__label::before { content: none; }
+  .doors--courts .door .frame:not(.has-img) .ph__id { font-size: 12px; }
+}
+
+
+/* ================= Batch 5, QC fixes round 1 (6 Oct 2026): the key points on a desktop =================
+   The first-screen rule holds on a desktop too: what the page is, its action, its key points. Until
+   now the key points row was phones and tablets only, and on 1440x900 and 1280x720 the facts
+   (Ages 4-18, the Dome's 19.5 C, the membership options) were below the fold. From 900px a hero
+   with a photograph or a court frame (hero--section) carries the row in its words column, ruled
+   like a line of the season ledger. Words-only heroes keep it hidden: their drawing, desk card or
+   1951 figure already carries the same facts (Programs, Our Coaches, FAQ, Contact, Register Now,
+   Club History). High Performance keeps its own three steps. Test: qa/b5-qc1/measure.py. */
+@media (min-width: 900px) {
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points {
+    display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); order: 9;
+    list-style: none; width: 100%; max-width: 38rem; margin: clamp(16px, 2.6vh, 28px) 0 0; padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li { display: flex; min-width: 0; border-bottom: 1px solid var(--rule); }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li + li { padding-left: 16px; border-left: 1px solid var(--rule); }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a,
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > .hero__point-text { flex: 1 1 auto; min-width: 0; min-height: 52px; padding: 9px 12px 9px 0; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; color: var(--fg); text-decoration: none; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a:hover .hero__point-value,
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a:hover > :not(.hero__point-text):not(.icon) { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points .icon { width: 14px; height: 14px; flex: none; margin-top: 3px; color: currentColor; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-text { display: flex; flex-direction: column; justify-content: flex-start; gap: 3px; min-width: 0; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-label { font: 600 0.6875rem/1.2 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-muted); }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__point-value { font: 400 1rem/1.25 var(--font-serif); color: var(--fg); text-wrap: balance; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a { font: 400 1rem/1.25 var(--font-serif); }
+  /* a linked point with a label: the arrow ends the label line, the value keeps the whole cell */
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points li > a > .hero__point-text { flex: 1 1 auto; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points a .hero__point-label { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .hero--inner.hero--section:not(.hero--nomedia) .hero__points .hero__point-label .icon { margin-block: 0 -4px; }
+  /* the hero may grow by the row: it is never cut by the photograph's foot */
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__grid { height: auto; min-height: clamp(560px, calc(86svh - var(--header-h)), 820px); }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__words { padding-bottom: 20px; }
+}
+/* A short desktop screen (1280x720, a laptop with its dock up): the same words, closer set, so the
+   row ends above the foot of the first screen. */
+@media (min-width: 900px) and (max-height: 800px) {
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .crumbs { margin-bottom: 14px; }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__lede { margin-top: 20px; }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__actions { margin-top: 24px; }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .status-line { margin-top: 22px; }
+  .hero--inner.hero--section:not(.hero--nomedia):has(.hero__points) .hero__points { margin-top: 14px; }
+}
+
+/* ---------- Draw sheet in a hero's right half, desktop (batch 5 on Programs; shared since b11, Register) ----------
+   Story: a draw sheet. On a tournament draw every entry stands on its own ruled line and a
+   bracket carries each section forward. Here the five programs are the entries and each bracket
+   carries its section to who it is for: three for children, one for adults, one for any age.
+   It answers the H1 in the first screen; the doors below add the photographs. */
+.hero--aside .hero__aside:has(.draw) { display: none; }
+@media (min-width: 1000px) {
+  .hero--aside .hero__aside:has(.draw) { display: block; }
+  .draw { --row: 54px; display: grid; gap: var(--sp-4); }
+  .draw__head { display: grid; gap: 8px; margin: 0; }
+  .draw__lead { font-size: var(--step-5); color: var(--fg-muted); }
+  .draw__sec { display: grid; grid-template-columns: minmax(0, 1fr) 9.5rem; }
+  .draw__entries { list-style: none; margin: 0; padding: 0; }
+  .draw__entry { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; box-sizing: border-box; height: var(--row); padding: 0 16px 9px 0; border-bottom: 1px solid var(--rule-strong); color: var(--fg); text-decoration: none; }
+  .draw__name { font: 400 1.5rem/1.1 var(--font-serif); white-space: nowrap; }
+  .draw__fact { font: 400 0.8125rem/1.3 var(--font-sans); color: var(--fg-muted); white-space: nowrap; text-align: right; }
+  .draw__entry:hover .draw__name { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+  .draw__entry:focus-visible { outline: var(--focus-w, 2px) solid var(--focus); outline-offset: -2px; }
+  /* The bracket: from the first entry's line to the last, then one line out to the section's name */
+  .draw__to { position: relative; margin: 0; }
+  .draw__to::before { content: ""; position: absolute; left: 0; top: calc(var(--row) - 1px); bottom: 0; border-right: 1px solid var(--rule-strong); }
+  .draw__who { position: absolute; left: 0; right: 0; bottom: calc((var(--k) - 1) * var(--row) / 2); box-sizing: border-box; height: var(--row); display: flex; align-items: flex-end; padding: 0 0 9px 16px; border-bottom: 1px solid var(--rule-strong);
+    font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+}
+
+/* Under 1000px the hero is the plain compact hero it was: the aside is not drawn, so the paired
+   form's two-column rules (shared, from 900px) are undone here. Phones keep their first screens. */
+@media (max-width: 999px) {
+  .hero--aside:has(.draw) .hero__grid { display: block; max-width: none; margin: 0; padding: 0; }
+  .hero--aside:has(.draw) .hero__words { display: flex; max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+}
+
+/* Batch 5, 1000 to 1279px: the half is narrow, so the sheet keeps the names and the brackets and
+   lets the one-fact notes go (the doors below carry them). Nothing runs into the bracket. */
+@media (min-width: 1000px) and (max-width: 1279px) {
+  .draw { --row: 48px; }
+  .draw__sec { grid-template-columns: minmax(0, 1fr) 7.25rem; }
+  .draw__name { font-size: 1.25rem; }
+  .draw__fact { display: none; }
+  .draw__who { padding-left: 12px; letter-spacing: 0.1em; }
+}
+/* 1280 to 1399px: the notes stay, the names and the bracket give them a little room. */
+@media (min-width: 1280px) and (max-width: 1399px) {
+  .draw__sec { grid-template-columns: minmax(0, 1fr) 8.75rem; }
+  .draw__name { font-size: 1.375rem; }
+}
+
+/* =====================================================================================
+   N1a (24 Oct 2026): club news, the New count, the Home coaches band, staff-changed media.
+   Whites only; the Clubhouse and Dome layers restyle these blocks (DIRECTIONS.md). Story: a
+   news card is a line in the club's order of play: the date and the topic first, as a draw
+   sheet lists the day and the event, then the match itself.
+   ===================================================================================== */
+
+/* ---------- The header row makes room for News (measured: qa/n1a/header_room.py) ---------- */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .nav__link { padding: 0 6px; letter-spacing: 0.05em; }
+  .nav__link::after { left: 6px; right: 6px; }
+}
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .nav__link { padding: 0 9px; letter-spacing: 0.1em; }
+  .nav__link::after { left: 9px; right: 9px; }
+}
+/* The count beside News: a scoreboard numeral in a small plate. It takes no width in the row:
+   it is set above the word's last letter, clear of the capitals of News and of the next link, so
+   the header never shifts when it appears. */
+.ncount { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--fg); color: var(--bg); font: 700 11px/1 var(--font-sans); letter-spacing: 0; font-variant-numeric: lining-nums tabular-nums; }
+.ncount[hidden] { display: none; }
+.nav__link .ncount { position: absolute; top: -2px; right: -6px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; font-size: 10px; }
+.mnav__link .ncount { margin-left: 10px; vertical-align: 2px; }
+
+/* =====================================================================================
+   W2a (25 Oct 2026): the news, set as the club's notice board by an editorial studio.
+   Whites only; the Clubhouse and Dome layers restyle these blocks (DIRECTIONS.md). Stories, one
+   per entity:
+   - The date is set like a score (.ndate): the month stands over the day the way a set label
+     stands over its games, the year small under it, and a hairline closes the cell, as a
+     scoreboard rules its columns. Every story on every news surface reads the same way: the
+     score cell, then the words.
+   - New is the ball (.ncard__flag--new): the 8px ball dot on an ink plate, the site's live chip.
+     It never bounces here: several can be in view, and only one ball may bounce in a view.
+   - Closed is the ball out of play: the same dot drawn as an empty ring, on a muted outline mark;
+     a closed story's day steps back to muted, as a finished match greys on the board.
+   - The net is the rule (.ncard--lead): the red net with its two posts stands between the lead
+     story's photograph and its words, the seam of the heroes and of the Home split; strung post to
+     post as the photograph is unveiled. One net per news surface.
+   Tokens only. Raw sizes are type and layout measures, as in the rest of this file.
+   ===================================================================================== */
+
+/* ---------- The date, set like a score ---------- */
+.ndate { --nd: 2.25rem; display: grid; justify-items: start; align-content: start; row-gap: 3px; color: var(--fg); font-variant-numeric: lining-nums tabular-nums; }
+.ndate__m { font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; }
+.ndate__d { font: 300 var(--nd)/0.92 var(--font-serif); letter-spacing: -0.01em; font-variant-numeric: lining-nums tabular-nums; }
+.ndate__y { font: 500 var(--step-6)/1.2 var(--font-sans); letter-spacing: 0.06em; color: var(--fg-muted); }
+
+/* ---------- A story: photograph, score cell, words ---------- */
+.ncards { display: grid; gap: var(--sp-5) var(--sp-4); }
+.ncard { --ndw: 3.25rem; position: relative; display: grid; gap: 18px; align-content: start; }
+.ncard[hidden] { display: none; }
+.ncard__body { display: grid; grid-template-columns: minmax(var(--ndw), max-content) minmax(0, 1fr); column-gap: 18px; align-items: stretch; }
+.ncard__date { padding-right: 14px; border-right: 1px solid var(--rule); }
+.ncard__text { display: grid; gap: 10px; align-content: start; justify-items: start; min-width: 0; }
+.ncard__kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; min-height: 22px; }
+.ncard__topic { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.ncard__title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.25rem, 1.12rem + 0.45vw, 1.5rem); line-height: 1.2; letter-spacing: -0.003em; text-wrap: pretty; }
+.ncard__link { color: inherit; text-decoration: none; }
+.ncard__link::after { content: ""; position: absolute; inset: 0; z-index: var(--z-base); }
+.ncard__link:focus-visible { outline: none; }
+.ncard:has(.ncard__link:focus-visible) { outline: var(--focus-ring); outline-offset: var(--focus-off); }
+.ncard__sum { display: none; }
+.ncard .frame__cap { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .ncard:hover .ncard__link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; text-decoration-color: var(--rule-strong); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .ncard .frame__img { transition: opacity 400ms var(--ease-out), transform 900ms var(--ease-out); }
+  .ncard:hover .frame__img { transform: scale(1.03); }
+}
+
+/* The marks, on the topic's line: New (the ball on an ink plate), Pinned (ink), Closed (an empty ring) */
+.ncard__flag { display: inline-flex; align-items: center; gap: 7px; min-height: 22px; padding: 0 8px; border: 1px solid var(--rule); border-radius: var(--radius); font: 600 11px/1 var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); white-space: nowrap; }
+.ncard__flag[hidden] { display: none; }
+.ncard__flag--new { background: var(--chip-live-bg); border-color: var(--chip-live-bg); color: var(--chip-live-fg); padding-left: 7px; }
+.ncard__flag--new::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--live); }
+.theme-night .ncard__flag--new { background: var(--night-raised); border-color: var(--line-chalk-strong); color: var(--chalk); }
+.ncard__flag--pin { border-color: var(--fg); color: var(--fg); }
+.ncard__flag--closed::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; border: 1px solid currentColor; }
+.ncard:has(.ncard__flag--closed:not([hidden])) .ncard__date .ndate__d,
+.nstrip__item:has(.ncard__flag--closed:not([hidden])) .ndate__d { color: var(--fg-muted); }
+
+/* ---------- The lead story: photograph | the net | its words ---------- */
+.ncard--lead { --ndw: 4rem; grid-column: 1 / -1; gap: 26px; }
+.ncard--lead .ndate { --nd: 3rem; }
+.ncard--lead .ncard__title { font-size: clamp(1.5rem, 1.12rem + 1.5vw, 2.5rem); line-height: 1.1; letter-spacing: -0.008em; text-wrap: balance; }
+.ncard--lead .ncard__text { gap: 14px; }
+.ncard--lead .ncard__sum { display: block; max-width: 34rem; font: 400 var(--step-3)/1.5 var(--font-serif); color: var(--fg-muted); text-wrap: pretty; }
+.ncard--lead > .frame .frame__tag { right: auto; left: 0; }
+/* The net, along the photograph's foot on phones and tablets */
+.ncard--lead > .frame::after {
+  content: ""; position: absolute; z-index: var(--z-mark); left: -6px; right: -6px; bottom: -4px; height: 6px; pointer-events: none;
+  background:
+    linear-gradient(var(--red), var(--red)) 0 50% / 6px 6px no-repeat,
+    linear-gradient(var(--red), var(--red)) 100% 50% / 6px 6px no-repeat,
+    linear-gradient(var(--red), var(--red)) 50% 50% / 100% 2px no-repeat;
+  transform-origin: 0 50%;
+}
+html.motion .ncard--lead > .frame::after { transition: transform 1100ms var(--ease-out) 120ms; }
+html.motion .ncard--lead > .frame[data-unveil]:not(.is-drawn)::after { transform: scaleX(0); }
+@media (min-width: 600px) and (max-width: 999px) {
+  .ncard--lead > .frame { --ar: 16 / 9 !important; }
+}
+@media (min-width: 1000px) {
+  .ncard--lead { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(44px, 5vw, 88px); align-items: start; }
+  .ncard--lead .ncard__body { padding-top: 2px; }
+  .ncard--lead { --ndw: 4.5rem; }
+  .ncard--lead .ndate { --nd: 3.5rem; }
+  /* From 1000px the net stands upright at the photograph's edge, a post beyond each end */
+  .ncard--lead > .frame::after {
+    left: auto; right: -4px; top: -6px; bottom: -6px; width: 6px; height: auto;
+    background:
+      linear-gradient(var(--red), var(--red)) 50% 0 / 6px 6px no-repeat,
+      linear-gradient(var(--red), var(--red)) 50% 100% / 6px 6px no-repeat,
+      linear-gradient(var(--red), var(--red)) 50% 50% / 2px 100% no-repeat;
+    transform-origin: 50% 0;
+  }
+  html.motion .ncard--lead > .frame[data-unveil]:not(.is-drawn)::after { transform: scaleY(0); }
+}
+
+/* ---------- Results rows: the words, then a small photograph ---------- */
+.ncards--band .ncard:not(.ncard--lead), .ncards--list .ncard:not(.ncard--lead) {
+  grid-template-columns: minmax(0, 1fr) 64px; grid-template-areas: "body photo"; column-gap: 14px; align-items: start;
+  padding-block: 20px; border-top: 1px solid var(--rule);
+}
+.ncards--band .ncard:not(.ncard--lead) > .frame, .ncards--list .ncard:not(.ncard--lead) > .frame { grid-area: photo; }
+.ncards--band .ncard:not(.ncard--lead) > .ncard__body, .ncards--list .ncard:not(.ncard--lead) > .ncard__body { grid-area: body; }
+@media (max-width: 599px) {
+  .ncard { --ndw: 2.75rem; }
+  .ncard .ndate { --nd: 1.875rem; }
+  .ncard .ncard__body { column-gap: 12px; }
+  .ncard .ncard__date { padding-right: 10px; }
+  .ncard--lead .ncard__sum { display: none; }
+  /* R2 (25 Oct): 88px, as in Clubhouse, so the Placeholder tag (which stays visible) fits inside the photo */
+  .ncards--band .ncard:not(.ncard--lead), .ncards--list .ncard:not(.ncard--lead), .ncards--related .ncard { grid-template-columns: minmax(0, 1fr) 88px; column-gap: 14px; }
+  .ncards--band .ncard:not(.ncard--lead) > .frame, .ncards--list .ncard:not(.ncard--lead) > .frame { --ar: 1 / 1 !important; }
+  .ncard:not(.ncard--lead) .frame__tag { top: auto; bottom: 0; left: 0; right: 0; justify-content: center; flex-wrap: wrap; text-align: center; line-height: 1.2; padding: 4px 2px; font-size: 9px; letter-spacing: 0.04em; gap: 2px 4px; white-space: normal; }
+  .ncard:not(.ncard--lead) .ph { display: none; }
+  .ncard:not(.ncard--lead) .frame__tag .frame__tag-mark { display: none; }  /* R2: the words stay; the 10px court mark does not fit 88px */
+  .ncard:not(.ncard--lead) .ncard__title { font-size: 1.1875rem; }
+}
+@media (min-width: 600px) {
+  .ncards--band .ncard:not(.ncard--lead), .ncards--list .ncard:not(.ncard--lead) { grid-template-columns: minmax(0, 1fr) 12rem; column-gap: var(--sp-4); padding-block: 24px; }
+  .ncard:not(.ncard--lead) .frame__tag { font-size: 9px; padding: 5px 7px; gap: 5px; letter-spacing: 0.08em; }
+}
+
+/* ---------- Home: the band ---------- */
+.nband__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--sp-3) var(--sp-5); margin-bottom: clamp(28px, 3.4vw, 52px); }
+.ncards--band { gap: 0; }
+.ncards--band .ncard--lead { padding-bottom: clamp(32px, 3.4vw, 52px); }
+@media (min-width: 1000px) {
+  .ncards--band { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(44px, 5vw, 88px); }
+  .ncards--band .ncard:not(.ncard--lead) { border-top-color: var(--rule-strong); padding-block: 28px 0; }
+}
+
+/* ---------- The News page ---------- */
+.nlist__bar { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px var(--sp-5); margin-bottom: clamp(32px, 3.4vw, 52px); box-shadow: inset 0 -1px 0 var(--rule); }
+/* The topics: a quiet row of names on a hairline, the chosen one underlined like a baseline (the
+   site's option switcher), each with its count in small lining figures. */
+.nlist__filters { display: flex; flex-wrap: wrap; column-gap: clamp(18px, 2.4vw, 32px); row-gap: 0; }
+.nlist__filters[hidden] { display: none; }
+.nlist__filters button { position: relative; display: inline-flex; align-items: baseline; gap: 6px; min-height: var(--target); padding: 12px 0 0; border: 0; background: none; color: var(--fg-muted); font: 500 15px/1 var(--font-sans); cursor: pointer; transition: color var(--dur-ui) var(--ease-ui); }
+.nlist__filters button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--fg); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-ui) var(--ease-ui); }
+.nlist__filters button[aria-pressed="true"] { color: var(--fg); }
+.nlist__filters button[aria-pressed="true"]::after { transform: scaleX(1); }
+.nlist__filters button:focus-visible { outline-offset: 2px; }
+.nlist__filters .num { font: 500 var(--step-6)/1 var(--font-sans); letter-spacing: 0.04em; font-variant-numeric: lining-nums tabular-nums; }
+@media (hover: hover) and (pointer: fine) { .nlist__filters button:hover { color: var(--fg); } }
+.nlist__status { min-height: 1.5em; padding-bottom: 12px; font-variant-numeric: lining-nums; }
+.ncards--list { gap: 0; }
+.ncards--list .ncard--lead { padding-bottom: clamp(32px, 3.4vw, 52px); }
+.ncards--list .ncard:not(.ncard--lead):nth-child(1 of :not([hidden])) { border-top: 0; padding-top: 0; }
+.ncards--list > .ncard:nth-last-child(1 of :not([hidden])) { border-bottom: 1px solid var(--rule); }
+@media (min-width: 1000px) {
+  .ncards--list .ncard:not(.ncard--lead) { --ndw: 4.5rem; grid-template-columns: minmax(0, 1fr) 15rem; column-gap: var(--sp-6); padding-block: 32px; }
+  .ncards--list .ncard:not(.ncard--lead) .ndate { --nd: 2.75rem; }
+  .ncards--list .ncard:not(.ncard--lead) .ncard__body { column-gap: 24px; }
+  .ncards--list .ncard:not(.ncard--lead) .ncard__date { padding-right: 20px; }
+  .ncards--list .ncard:not(.ncard--lead) .ncard__title { font-size: clamp(1.5rem, 1.2rem + 0.6vw, 1.875rem); line-height: 1.16; max-width: 30ch; }
+}
+.ncards--list[tabindex]:focus { outline: none; }
+/* The pager: the pages as cells on a scoreboard, the one in play filled */
+.npager { margin-top: clamp(36px, 4vw, 56px); }
+.npager[hidden] { display: none; }
+.npager__list { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0; }
+.npager__list li + li .npager__btn { margin-left: -1px; }
+.npager__btn { display: inline-flex; align-items: center; justify-content: center; min-width: var(--target); min-height: var(--target); padding: 0 14px; border: 1px solid var(--rule-strong); border-radius: 0; background: var(--bg); color: var(--fg); font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; cursor: pointer; }
+.npager__num { font: 300 1.25rem/1 var(--font-serif); letter-spacing: 0; text-transform: none; font-variant-numeric: lining-nums tabular-nums; }
+.npager__btn[aria-current="page"] { position: relative; z-index: var(--z-base); background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.npager__btn:disabled { color: var(--fg-muted); border-color: var(--rule); cursor: default; }
+.npager__list li:first-child .npager__btn { border-radius: var(--radius) 0 0 var(--radius); }
+.npager__list li:last-child .npager__btn { border-radius: 0 var(--radius) var(--radius) 0; }
+.nlist .empty { margin-top: 0; }
+
+/* ---------- Related posts (after an article): three across from 1000px ---------- */
+.ncards--related { gap: 0; }
+.ncards--related .ncard { grid-template-columns: minmax(0, 1fr) 64px; grid-template-areas: "body photo"; column-gap: 14px; align-items: start; padding-block: 20px; border-top: 1px solid var(--rule); }
+.ncards--related .ncard > .frame { grid-area: photo; --ar: 1 / 1 !important; }
+.ncards--related .ncard > .ncard__body { grid-area: body; }
+.ncards--related .ncard__title { font-size: 1.1875rem; }
+@media (max-width: 599px) { .ncards--related .ncard { grid-template-columns: minmax(0, 1fr) 88px; } }  /* R2: as the rows above */
+@media (min-width: 600px) and (max-width: 999px) {
+  .ncards--related .ncard { grid-template-columns: minmax(0, 1fr) 12rem; column-gap: var(--sp-4); }
+  .ncards--related .ncard > .frame { --ar: 3 / 2 !important; }
+}
+@media (min-width: 1000px) {
+  .ncards--related { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(32px, 3.4vw, 56px); }
+  .ncards--related .ncard { grid-template-columns: minmax(0, 1fr); grid-template-areas: "photo" "body"; row-gap: 22px; padding-block: 0; border-top: 0; }
+  .ncards--related .ncard > .frame { --ar: 3 / 2 !important; }
+  .ncards--related .ncard__title { font-size: 1.375rem; }
+}
+
+/* ---------- The article: a club journal ---------- */
+.nart__head { padding-block: clamp(20px, 2vw, 32px) clamp(32px, 4vw, 60px); }
+.nart__headin { display: grid; gap: 18px; justify-items: start; align-items: start; }
+.nart__headin > .crumbs { margin-bottom: 4px; }
+.nart__kicker a { display: inline-flex; align-items: center; gap: 12px; min-height: 24px; font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); text-decoration: none; box-shadow: inset 0 -1px 0 var(--rule-strong); }
+.nart__title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.875rem, 1.3rem + 2.7vw, 4rem); line-height: 1.06; letter-spacing: -0.012em; max-width: 21ch; text-wrap: balance; }
+.nart__lede { max-width: 38rem; color: var(--fg-muted); }
+.nart__facts { display: grid; gap: 0; width: 100%; max-width: 40rem; margin-top: 10px; }
+/* The scorecard line: Posted, Updated, Written by, as an umpire's card heads its sheet */
+dl.nart__meta { display: grid; width: 100%; margin: 0; border-top: 1px solid var(--rule-strong); }
+.nart__cell { display: grid; grid-template-columns: 7rem minmax(0, 1fr); align-items: baseline; column-gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.nart__cell dt { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.nart__cell dd { margin: 0; font: 400 1.0625rem/1.4 var(--font-serif); color: var(--fg); font-variant-numeric: lining-nums; }
+p.nart__meta { font-size: var(--step-5); color: var(--fg-muted); }
+/* Closed: the ball out of play, an empty ring; one sentence; where to go next */
+.nclosed { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px 24px; align-items: center; width: 100%; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.nclosed[hidden] { display: none; }
+.nclosed__text { display: grid; gap: 4px; }
+.nclosed__mark { display: inline-flex; align-items: center; gap: 10px; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+.nclosed__mark::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; border: 1px solid currentColor; }
+.nclosed__when { font: 400 1.0625rem/1.45 var(--font-serif); color: var(--fg-muted); font-variant-numeric: lining-nums; }
+.nclosed__next { justify-self: start; }
+@media (min-width: 600px) { .nclosed { grid-template-columns: minmax(0, 1fr) auto; } .nclosed__next { justify-self: end; } }
+.nart__demo { margin-top: 4px; }
+@media (min-width: 1000px) {
+  .nart__headin { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); column-gap: clamp(48px, 6vw, 112px); }
+  .nart__headin > * { grid-column: 1; }
+  .nart__headin > .crumbs, .nart__headin > .nart__demo { grid-column: 1 / -1; }
+  .nart__headin > .nart__facts { grid-column: 2; grid-row: 2 / span 3; align-self: end; margin-top: 0; max-width: none; }
+  .nart__cell { grid-template-columns: 6.5rem minmax(0, 1fr); }
+  .nclosed { grid-template-columns: minmax(0, 1fr); }
+  .nclosed__next { justify-self: start; }
+}
+.nart__cover { margin-bottom: clamp(40px, 5vw, 88px); }
+.nart__grid { display: grid; gap: clamp(40px, 5vw, 72px); padding-bottom: var(--section); }
+.nart__main { display: grid; gap: 24px; align-content: start; max-width: var(--measure); min-width: 0; font-size: 1.125rem; line-height: 1.68; }
+.nart__main > p, .nart__list { max-width: var(--measure); text-wrap: pretty; }
+.nart__main > p:first-child { font-size: 1.25rem; line-height: 1.6; color: var(--fg); }
+.nart__h2 { margin-top: 22px; font-family: var(--font-serif); font-weight: 300; font-size: var(--step-2); line-height: 1.15; letter-spacing: -0.005em; text-wrap: balance; scroll-margin-top: calc(var(--header-h) + 16px); }
+.nart__list { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; }
+.nart__list li::marker { font-variant-numeric: lining-nums; color: var(--fg-muted); }
+/* Numbered steps: a step flow, each number in its own column, ruled like the rows of a draw */
+.nart__list--steps { list-style: none; padding: 0; gap: 0; counter-reset: nstep; border-top: 1px solid var(--rule-strong); }
+.nart__list--steps li { position: relative; counter-increment: nstep; min-height: 52px; padding: 16px 0 16px 3.5rem; border-bottom: 1px solid var(--rule); }
+.nart__list--steps li::before { content: counter(nstep); position: absolute; left: 0; top: 14px; font: 300 2rem/1 var(--font-serif); font-variant-numeric: lining-nums tabular-nums; color: var(--fg); }
+/* Name and value lists (rates, times): ruled pairs, the figures set in the serif */
+.nart__list--pairs { list-style: none; padding: 0; gap: 0; border-top: 1px solid var(--rule-strong); }
+.nart__list--pairs li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 24px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.nart__k { font-weight: 500; }
+.nart__v { margin-left: auto; text-align: right; font-family: var(--font-serif); font-size: 1.1875rem; font-variant-numeric: lining-nums; }
+.nart__photo, .ngallery, .nvideo { margin-block: 14px; }
+.ngallery__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ngallery__grid li:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 700px) { .ngallery__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ngallery__grid li:first-child:nth-last-child(odd) { grid-column: auto; } }
+.ngallery__cap { margin-top: 12px; font-size: 13px; line-height: 1.5; color: var(--fg-muted); }
+.ngallery .frame__tag { font-size: 9px; padding: 5px 7px; gap: 5px; letter-spacing: 0.08em; }
+.nart__photo .frame__cap, .nvideo .frame__cap { display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.nvideo .frame__cap em { font-style: normal; font-weight: 600; color: var(--fg); }
+.nvideo__stage { position: relative; }
+.nvideo__play { position: absolute; z-index: var(--z-tag); left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 24px 0 16px; border: 0; border-radius: 28px; background: var(--fg); color: var(--bg); font: 600 var(--step-6)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; cursor: pointer; transition: transform var(--dur-press) var(--ease-ui); }
+.nvideo__play:active { transform: translate(-50%, -50%) scale(0.98); }
+.nvideo__icon { width: 24px; height: 24px; fill: currentColor; stroke: none; }
+.nvideo__note { margin-top: 10px; font-size: var(--step-5); color: var(--fg-muted); }
+html.js .nvideo__note:not(.is-shown) { display: none; }
+.nvideo__video, .vslot__video { display: block; width: 100%; aspect-ratio: 16 / 9; background: var(--night-deep); }
+.vslot__video { aspect-ratio: 4 / 3; }
+/* A document: one ruled row, the name in the serif, its type and size, the new-tab mark */
+.nart__doc { display: grid; gap: 8px; justify-items: stretch; max-width: 34rem; }
+.nart__doc .doclink { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 14px 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius); color: var(--fg); }
+.nart__doc .doclink .link__text { font: 400 1.1875rem/1.3 var(--font-serif); }
+.nart__doc .doclink .ext-mark { margin-left: auto; }
+.nart__docnote { max-width: 46ch; }
+.nart__btn { margin-top: 8px; }
+/* A quote is a line called from the umpire's chair: set off by a sideline */
+.nquote { margin-block: 14px; padding: 4px 0 4px clamp(20px, 2.6vw, 32px); border-left: 2px solid var(--fg); }
+.nquote blockquote { margin: 0; }
+.nquote p { font-family: var(--font-serif); font-style: italic; font-weight: 300; font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2.125rem); line-height: 1.3; color: var(--fg); text-wrap: pretty; }
+.nquote figcaption { display: flex; align-items: center; gap: 12px; margin-top: 16px; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.nquote figcaption::before { content: ""; flex: none; width: 24px; height: 1px; background: currentColor; }
+/* The margin: what the post is about, its tags */
+.nart__aside { display: grid; gap: 32px; align-content: start; }
+.nart__label { margin-bottom: 12px; font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.nabout { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: var(--target); padding: 16px 0; border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); color: var(--fg); text-decoration: none; }
+.nabout__name { font-family: var(--font-serif); font-weight: 300; font-size: 1.5rem; line-height: 1.15; }
+.nabout .icon { transition: transform var(--dur-ui) var(--ease-ui); }
+@media (hover: hover) and (pointer: fine) { .nabout:hover .icon { transform: translateX(4px); } .nabout:hover .nabout__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; } }
+.ntags { display: flex; flex-wrap: wrap; gap: 8px; }
+.ntags li { display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border: 1px solid var(--rule); border-radius: var(--radius); font: 500 var(--step-5)/1 var(--font-sans); }
+.nauthor { font-size: 16px; line-height: 1.5; }
+@media (min-width: 1000px) {
+  .nart__grid { grid-template-columns: minmax(0, 1fr) 17rem; column-gap: clamp(48px, 6vw, 112px); }
+  .nart__aside { position: sticky; top: calc(var(--header-h) + 24px); padding-top: 6px; }
+  .nart__main { max-width: 44rem; }
+}
+
+/* ---------- Home: Meet the Coaches ---------- */
+/* After the news band (both on paper) one hairline joins them, instead of two full section gaps */
+.nband:has(+ .cband) { padding-bottom: clamp(56px, 2rem + 5vw, 112px); }
+.nband + .cband { padding-top: 0; }
+.nband + .cband > .cband__grid { padding-top: clamp(48px, 1.5rem + 5vw, 104px); background: linear-gradient(var(--rule), var(--rule)) 50% 0 / calc(100% - 2 * var(--gutter)) 1px no-repeat; }
+.cband__grid { display: grid; gap: clamp(28px, 3vw, 48px); align-items: start; }
+.cband__head { display: grid; gap: 18px; justify-items: start; align-content: start; }
+.cband__list { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 46%); gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; padding-bottom: 6px; }
+.cband__list[style*="--n:1"], .cband__list[style*="--n: 1"] { grid-auto-columns: minmax(0, 18rem); overflow: visible; }
+.cband__link { display: grid; gap: 0; color: var(--fg); text-decoration: none; }
+.cband__link .frame { margin-bottom: 0; }
+/* The nameplate under the portrait: role over name, ruled like an entry on a draw sheet */
+.cband__plate { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 12px; row-gap: 6px; padding-top: 14px; margin-top: 14px; border-top: 1px solid var(--rule-strong); }
+.cband__role { grid-column: 1; font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.cband__name { grid-column: 1; font-family: var(--font-serif); font-weight: 300; font-size: 1.625rem; line-height: 1.1; }
+.cband__arrow { grid-column: 2; grid-row: 1 / span 2; align-self: end; width: 20px; height: 20px; margin-bottom: 4px; transition: transform var(--dur-ui) var(--ease-ui); }
+.cband__link:focus-visible { outline-offset: 6px; }
+@media (hover: hover) and (pointer: fine) {
+  .cband__link:hover .cband__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+  .cband__link:hover .cband__arrow { transform: translateX(4px); }
+}
+@media (min-width: 900px) {
+  .cband__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(48px, 6vw, 112px); }
+  .cband__list { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; padding-bottom: 0; }
+  .cband__list[style*="--n:1"], .cband__list[style*="--n: 1"] { grid-template-columns: minmax(0, 18rem); justify-content: end; }
+  .cband__list[style*="--n:2"], .cband__list[style*="--n: 2"] { grid-template-columns: repeat(2, minmax(0, 15rem)); justify-content: end; }
+  .cband__list[style*="--n:3"], .cband__list[style*="--n: 3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* One or two coaches: the heading sits on the nameplate's line, so words and portrait read as one */
+  .cband__grid:has(.cband__list[style*="--n:1"], .cband__list[style*="--n: 1"], .cband__list[style*="--n:2"], .cband__list[style*="--n: 2"]) { align-items: end; }
+}
+
+/* Phone reading floor for the news blocks */
+@media (max-width: 599px) {
+  .nart__main { font-size: 1.0625rem; }
+  .nart__main > p:first-child { font-size: 1.1875rem; }
+  .nclosed__when, .nart__cell dd { font-size: 1rem; }
+}
+
+/* ---------- The Home news strip, straight under the hero (25 Oct; W2a) ----------
+   Story: the results board at the gate. Each story is a date set like a score and its title, the
+   columns ruled like a scoreboard's. The label and All news make the line above the stories, and from
+   1440px the board's first column. One story under 768px, two to 1099px, three from 1100px. The whole
+   story is its link. */
+.nstrip { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--bg); }
+.nstrip[hidden] { display: none; }
+.nstrip__row { display: grid; grid-template-columns: minmax(0, 1fr); padding-block: 4px 14px; }
+.nstrip__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.nstrip__label { margin: 0; font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg); }
+.nstrip__all { min-height: 40px; white-space: nowrap; }
+.nstrip__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.nstrip__item { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: start; min-width: 0; }
+.nstrip__item + .nstrip__item { display: none; }
+.nstrip__date { --nd: 1.625rem; min-width: 2.75rem; padding-right: 12px; border-right: 1px solid var(--rule); align-self: stretch; white-space: nowrap; }
+.nstrip__date .ndate__y { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.nstrip__text { min-width: 0; padding-top: 1px; font: 300 1rem/1.38 var(--font-serif); color: var(--fg); text-wrap: pretty;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+.nstrip__text .ncard__flag { min-height: 19px; padding: 0 6px; margin-right: 8px; font-size: 10px; vertical-align: 2px; gap: 6px; }
+.nstrip__text .ncard__flag--new { padding-left: 5px; }
+.nstrip__text .ncard__flag--new::before { width: 7px; height: 7px; }
+.nstrip__link { color: inherit; text-decoration: none; }
+.nstrip__link::after { content: ""; position: absolute; inset: -4px -6px; z-index: var(--z-base); }
+.nstrip__link:focus-visible { outline: none; }
+.nstrip__item:has(.nstrip__link:focus-visible) { outline: var(--focus-ring); outline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) {
+  .nstrip__item:hover .nstrip__link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; text-decoration-color: var(--rule-strong); }
+}
+@media (min-width: 600px) { .nstrip__text { font-size: 1.0625rem; } }
+@media (min-width: 768px) {
+  .nstrip__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-5); }
+  .nstrip__item + .nstrip__item { display: grid; }
+  .nstrip__item:nth-child(n + 3) { display: none; }
+}
+@media (min-width: 1100px) {
+  .nstrip__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .nstrip__item:nth-child(n + 3) { display: grid; }
+}
+/* From 1440px the label and All news stand in the board's first column, ruled off like the names column */
+@media (min-width: 1440px) {
+  .nstrip__row { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-5); align-items: center; padding-block: 16px; }
+  .nstrip__head { flex-direction: column; align-items: flex-start; justify-content: center; gap: 0; padding-right: var(--sp-5); border-right: 1px solid var(--rule-strong); align-self: stretch; }
+  .nstrip__all { min-height: 36px; }
+  .nstrip__text { -webkit-line-clamp: 2; line-clamp: 2; }
+}

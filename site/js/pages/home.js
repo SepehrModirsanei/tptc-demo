@@ -120,3 +120,53 @@
   mark();
   setPlaying(playing);
 })();
+
+/* N1a: Meet the Coaches. The band is built from the same data as Our Coaches (content/coaches.json:
+   today the Head Pro, with the drawn frame "To be photographed", since the brief allows real
+   portraits only). The staff panel's Coaches screen keeps edits in this browser's localStorage
+   'tptc-coaches-v1' ({ v: 1, coaches: [{ id, name, role, portrait, origin }] }), which Our Coaches
+   already reads (js/pages/coaches.js); this band reads the same record: a changed name, role or
+   portrait on the Head Pro's tile, and a tile for each coach added in the panel, linking to that
+   coach's entry on Our Coaches. A coach with no portrait keeps the drawn frame. With no record,
+   nothing changes. --n (the number of coaches) lets the layout read well from one to eight. */
+(function () {
+  'use strict';
+  var list = document.querySelector('[data-coach-list]');
+  if (!list) return;
+  var data = null;
+  try { data = JSON.parse(localStorage.getItem('tptc-coaches-v1') || 'null'); } catch (e) { data = null; }
+  if (!data || data.v !== 1 || !Array.isArray(data.coaches)) return;
+  var HTTP = /^https?:$/.test(location.protocol);
+  var page = (document.documentElement.getAttribute('data-root') || '') + 'about/coaches/' + (HTTP ? '' : 'index.html');
+  var model = list.querySelector('[data-coach-tile]');
+  if (!model) return;
+  function portrait(tile, c) {
+    var fig = tile.querySelector('.frame'); if (!fig || !c.portrait) return;
+    var drift = fig.querySelector('.frame__drift'); if (!drift) return;
+    var img = fig.querySelector('img.frame__img');
+    if (!img) { img = document.createElement('img'); img.className = 'frame__img is-loaded'; img.decoding = 'async'; drift.appendChild(img); }
+    img.src = c.portrait; img.alt = 'Portrait of ' + c.name;
+    fig.classList.add('has-img');
+    var k = fig.querySelector('.ph__kicker'); if (k) k.hidden = true;
+  }
+  function fill(tile, c) {
+    var a = tile.querySelector('.cband__link'); if (a) a.href = page + '#' + encodeURIComponent(c.id);
+    var n = tile.querySelector('.cband__name'); if (n) n.textContent = c.name;
+    var r = tile.querySelector('.cband__role'); if (r) r.textContent = c.role || 'Coach';
+    tile.setAttribute('data-coach-tile', c.id);
+    portrait(tile, c);
+  }
+  var tiles = 0;
+  data.coaches.forEach(function (c) {
+    if (!c || !c.id || !c.name) return;
+    var tile = list.querySelector('[data-coach-tile="' + c.id.replace(/"/g, '') + '"]');
+    if (!tile && c.origin === 'added') {
+      tile = model.cloneNode(true);
+      var img = tile.querySelector('img.frame__img'); if (img) img.remove();
+      var fig = tile.querySelector('.frame'); if (fig) { fig.classList.remove('has-img'); fig.removeAttribute('data-slot'); }
+      list.appendChild(tile);
+    }
+    if (tile) { fill(tile, c); tiles++; }
+  });
+  list.style.setProperty('--n', String(list.children.length));
+})();

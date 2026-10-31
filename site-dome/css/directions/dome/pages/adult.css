@@ -1,0 +1,34 @@
+/* TPTC Direction B, "Dome": Adult Programs (D2, 24 Oct 2026). Loaded after css/pages/adult.css.
+   The six ways as square cards ruled in ink, numbered with scoreboard figures, the mark a square (no
+   circles in a square-cornered system); the sessions as ledger tiles with their figures; the facts
+   as ledger lines. Tokens only. */
+
+/* ---------- Six ways ---------- */
+.ad-ways__head .gloss { font-size: var(--t-sm); }
+.way { gap: 10px; padding: 24px; border: 1px solid var(--rule-strong); border-top: 2px solid var(--fg); border-radius: 0; background: var(--bg); }
+.way__mark { border-radius: 0; border-color: var(--rule-strong); }
+.way__n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-4); line-height: 0.86; letter-spacing: 0; color: var(--fg-subtle); font-variant-numeric: tabular-nums lining-nums; }
+.way__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-2); line-height: 1.12; }
+.way__line { font-size: var(--step-4); line-height: 1.5; color: var(--fg-muted); }
+.way__facts { border-top: 1px solid var(--rule); }
+.way__facts dd { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); line-height: 1.4; }
+@media (max-width: 719px) {
+  .way { padding: 16px 16px 8px; }
+  .way__n { font-size: var(--t-name-xl); }
+  .way__name { font-size: var(--t-name-lg); }
+}
+
+/* ---------- Group lessons ---------- */
+.sess__tile { padding: 24px 0 0; border-top: 2px solid var(--fg); background: transparent; }
+.sess__k { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.sess__name { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--t-name-lg); line-height: 1.2; }
+.sess__fig { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-4); line-height: 0.86; letter-spacing: 0; font-variant-numeric: tabular-nums lining-nums; }
+.sess__meta { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); color: var(--fg-muted); }
+.ad-facts { border-top: 1px solid var(--rule-strong); }
+.ad-facts li { font-size: var(--step-4); line-height: 1.45; }
+
+/* ---------- Sections ---------- */
+.ways { gap: var(--sp-4); }
+@media (min-width: 1100px) { .ways { gap: var(--sp-5) var(--gutter); } }
+.ad-group .sect-head .body { color: var(--fg-muted); }
+.ad-member .callout { max-width: 46rem; }

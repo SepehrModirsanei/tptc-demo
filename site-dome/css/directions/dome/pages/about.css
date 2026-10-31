@@ -1,0 +1,41 @@
+/* TPTC Direction B, "Dome": Our Club (W2c D3, 25 Oct 2026). Loaded after css/pages/about.css.
+   The Dome composition: the hero on Dome night (page_hero: 1951 and the four courts as figures on the
+   foot line); who we are as the statement over the club's figures (scoreboard figures, components.css
+   .facts); vision and mission as the two ends of one court with the net drawn as a plain ink line (red
+   is Register now only); the community photograph; the board moved onto Dome night (templates.py ground)
+   as the club's scoreboard: each seat numbered with a scoreboard figure, the role in the ledger's
+   capitals, the name in the serif; the three doors, the History door holding 1951 as the figure.
+   Tokens only. */
+
+/* ---------- Who we are ---------- */
+.about-letter .body { color: var(--fg-muted); }
+.about-facts .facts__n { font-size: var(--fig-6); }
+
+/* ---------- Vision and mission: the two ends, the net an ink line ---------- */
+.ends { border-block-color: var(--fg); }
+.ends__label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.ends__text p { font-family: var(--font-serif); font-weight: var(--w-display); font-size: var(--t-statement); line-height: 1.2; letter-spacing: -0.01em; }
+.ends__cord { background: var(--fg); }
+.ends__post { display: none; }
+
+/* ---------- Community ---------- */
+.about-community .frame__cap em { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: var(--t-name-sm); }
+
+/* ---------- The board on Dome night: the club's scoreboard ---------- */
+#board ol.board { border-top: 2px solid var(--fg); }
+#board ol.board li { padding: 20px 0; border-bottom: 1px solid var(--rule-strong); grid-template-columns: 3.5rem minmax(0, 1fr); align-items: baseline; }
+#board ol.board li::before { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-3); line-height: 0.86; letter-spacing: 0; color: var(--fg-subtle); }
+#board .board__role { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-muted); }
+#board .board__name { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name-lg); line-height: 1.15; color: var(--fg); }
+@media (min-width: 640px) { #board ol.board li { grid-template-columns: 4rem minmax(0, 15rem) minmax(0, 1fr); } }
+.docs__title { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+.docs__list { border-top-color: var(--rule); }
+.docs .doclink .link__text { font-family: var(--font-serif); font-size: var(--step-4); text-decoration-color: var(--rule-strong); }
+
+/* ---------- The three doors: History holds 1951 as the figure ---------- */
+.frame--year .frame__media { background: var(--blazer); color: var(--on-night); }
+.section--chalk .frame--year .frame__media { background: var(--blazer); }
+.numeral--door { color: var(--on-night); font-size: clamp(3rem, 1.6rem + 4vw, 7rem); }
+.door--year .numeral__net { background: var(--line-chalk-strong); }
+.board-grid { row-gap: var(--sp-7); }
+.board-head .sect-head .body { color: var(--fg-muted); }

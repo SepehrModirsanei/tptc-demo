@@ -1,0 +1,9 @@
+/* Clubhouse, News (W2b-news). The bulletin's masthead is centred under its provenance line, as the
+   article's is (components.css, the article head): crumbs, the two-line H1 in Caslon Display and the
+   lede on one axis. The topic switcher below keeps its own row (components.css, news). */
+.hero--compact .hero__words { text-align: center; justify-items: center; }
+.hero--compact .hero__words > .crumbs { align-self: center; justify-self: center; width: fit-content; margin-inline: auto; }
+.hero--compact .hero__words > .crumbs ol { justify-content: center; }
+.hero--compact .hero__title { margin-inline: auto; }
+.hero--compact .hero__title .line { display: block; }
+.hero--compact .hero__lede { margin-inline: auto; max-width: 38rem; }

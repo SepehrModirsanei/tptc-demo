@@ -162,6 +162,30 @@
   --court-width: 10.97;
   --court-singles: 8.23;
   --court-service: 6.40;
+
+  /* ---------- Fixed colours of drawn and printed things (DI, 25 Oct 2026: requests RD1, RA1) ----------
+     Values the shared CSS wrote raw, named so a direction re-colours them by token. The same in light
+     and dark (a picture does not change with the theme), so they are set once, here. */
+  --year-shadow:        rgba(10, 20, 42, 0.35);     /* site.css .year__b: the 51 lifted off the photograph */
+  --ph-court-line:      rgba(237, 241, 246, 0.84);  /* site.css: the court frame's lines */
+  --ph-court-text:      #EDF1F6;                    /* site.css: the court frame's caption */
+  --ph-court-night:     #16294F;                    /* site.css: the court frame's ground in dark mode */
+  --frame-light:        rgba(237, 241, 246, 0.15);  /* site.css: the dome's light falling on the court frame */
+  --frame-light-clear:  rgba(237, 241, 246, 0);
+  --frame-shade:        rgba(11, 19, 34, 0.42);     /* site.css: the shade in its far corner */
+  --frame-shade-clear:  rgba(11, 19, 34, 0);
+  --vslot-fg:           #EDF1F6;                    /* pages/home.css: the video slot's words */
+  --vslot-line:         rgba(237, 241, 246, 0.4);   /* its dashed edge */
+  --vslot-tag-bg:       #EDF1F6;                    /* its Club to supply tag */
+  --cb-member-fg:       #EDF1F6;                    /* pages/court-bookings.css: the member column's words */
+  --cb-member-rule:     rgba(237, 241, 246, 0.16);  /* its rules */
+  --mh-light:           rgba(237, 241, 246, 0.07);  /* pages/membership.css: the floodlight on the scoreboard */
+  --mh-light-clear:     rgba(237, 241, 246, 0);
+  --mcard-edge:         rgba(237, 241, 246, 0.12);  /* the member card's lit top edge */
+  --mcard-shadow:       rgba(0, 4, 12, 0.7);        /* its drop shadow */
+  --mcard-sheen:        rgba(237, 241, 246, 0.10);  /* the sheen that crosses it once */
+  --mcard-sheen-clear:  rgba(237, 241, 246, 0);
+  --rc-inner:           rgba(255, 255, 255, 0.5);   /* the rate card's inner highlight */
 }
 
 @media (min-width: 768px) {

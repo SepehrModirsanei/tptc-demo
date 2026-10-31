@@ -1,0 +1,38 @@
+/* TPTC Direction A, "Clubhouse": Register Now (D2, 24 Oct 2026). Loaded after css/pages/register.css.
+   No specimen page: in the specimen's language. The flow and the progress court are shared
+   (components.css 31: the court on the lawn, the red ball serving across it). This file sets the
+   page's own blocks: the hero line, How it works with its screenshots hung as prints, the dates
+   and prices with each date a Caslon figure, and the refund notice as figures. */
+
+.reg-hero__for { font: 400 var(--step-3)/1.35 var(--font-serif); }
+
+/* How it works: the screenshot of each step hangs as a small print */
+.how__shot { padding: 6px; border: 3px solid var(--wood); border-radius: 0; background: var(--mat); box-shadow: var(--print-shadow); }
+.how__shot img { outline: 1px solid var(--print-edge); }
+.how__n { font: 400 3rem/0.85 var(--font-display); }
+.how__words h3 { font: 400 1.375rem/1.25 var(--font-display); }
+.how__words p { font-size: 1rem; }
+
+/* Dates and prices: a hairline over each, the date as a figure */
+.open { border-top: 1px solid var(--rule-strong); }
+.open__name { font: 400 1.5rem/1.2 var(--font-display); }
+.open__date { font: 400 clamp(3rem, 2.4rem + 2vw, 4.25rem)/0.95 var(--font-display); }
+.open__line { font-size: 1rem; }
+.open__prices { border-top-color: var(--rule); }
+.open__prices li { border-right-color: var(--rule); font-size: var(--step-5); }
+.open__prices .num { font: 400 1.625rem/1.1 var(--font-serif); font-variant-numeric: tabular-nums lining-nums; }
+.open__tiers li { border-left-color: var(--rule-strong); }
+.open__tiers li::before { width: 2px; }
+.open__tiers .num { font: 400 clamp(1.75rem, 1.4rem + 1vw, 2.5rem)/1 var(--font-serif); font-variant-numeric: tabular-nums lining-nums; }
+
+/* Refunds: the notice you need as Caslon figures */
+.ref { border-top-color: var(--rule-strong); }
+.ref__fig { font: 400 clamp(3.25rem, 2.6rem + 2.4vw, 5rem)/0.9 var(--font-display); }
+.ref__what { font-size: 0.9375rem; }
+
+/* Containers: the dates and the refunds lists, the private-lesson and league routes, the JustBookIt line */
+.opens { gap: var(--sp-5) var(--gutter); }
+.refs { gap: var(--sp-5) var(--gutter); }
+.reg-fin__notes .notice { color: var(--fg-muted); }
+.reg-jbi { color: var(--fg-muted); }
+.reg-jbi .link { font-weight: 650; }

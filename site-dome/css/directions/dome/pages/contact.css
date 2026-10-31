@@ -1,0 +1,62 @@
+/* TPTC Direction B, "Dome": Contact (W2c D3, 25 Oct 2026). Loaded after css/pages/contact.css.
+   The Dome composition: the hero moved onto Dome night (templates.py ground) with the desk card as half a
+   court ruled in chalk, the front desk number as a hand-entered figure (ledger.css 1149); who to ask
+   about what as an order of play in ledger rows; the question queue fed over a plain net line (red is
+   Register now only); the plan of the crossing with the court's net a plain line; parking as ledger rows;
+   the hours moved onto Dome night as the club's scoreboard, every time a figure. Tokens only. */
+
+/* ---------- The hero: the desk card on night ---------- */
+.ct-hero .crumbs li, .ct-hero .crumbs a { color: var(--mist); }
+.ct-hero .crumbs [aria-current="page"] { color: var(--on-night); }
+.ct-hero .hero__lede { color: var(--mist); }
+.desk { border-top: 1px solid var(--on-night); border-bottom-color: var(--rule-strong); }
+.desk__label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-muted); }
+.desk__big { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); letter-spacing: 0.01em; color: var(--fg); }
+.desk__mail { font-family: var(--font-serif); text-decoration-color: var(--rule-strong); color: var(--fg); }
+.desk__note { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-sm); }
+.desk__addr { font-family: var(--font-serif); color: var(--fg); }
+@media (max-width: 699px) {
+  .desk__label { font-size: var(--step-6); letter-spacing: var(--track-crumb); font-stretch: 100%; }
+  .desk__big { font-size: clamp(1.375rem, 0.6rem + 3.6vw, 1.75rem); }
+  .desk__mail { font-size: var(--step-6); }
+}
+
+/* ---------- Who to ask about what ---------- */
+.routes { border-top: 1px solid var(--fg); }
+.route__what h3 { font-family: var(--font-serif); font-weight: var(--w-name); font-size: var(--step-3); }
+.route__what p { font-size: var(--t-read-sm); }
+.route__label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); }
+.route__name { font-family: var(--font-serif); font-size: var(--step-4); }
+.route__line { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-4); }
+@media (max-width: 899px) { .route__label { font-size: var(--step-6); } .route__what h3 { font-size: var(--t-name); } }
+
+/* ---------- The question queue ---------- */
+.feed__court { border-bottom-color: var(--fg); }
+.feed__net, .feed__net::after { background: var(--fg); }
+.feed__net { width: 1px; }
+.feed__cap { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+
+/* ---------- The plan of the crossing ---------- */
+.plan__svg { background: var(--frame-day); border-color: var(--rule); }
+.plan__street, .plan__north text { font-family: var(--font-sans); font-stretch: var(--stretch-chip); }
+.plan__sub { font-family: var(--font-sans); font-stretch: 100%; }
+.plan__court { fill: var(--surface); }
+.plan__netline { stroke: var(--fg); stroke-width: 1; }
+.plan__cap { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+
+/* ---------- Parking ---------- */
+.parkrules { border-top: 1px solid var(--fg); }
+.parkrules__who { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); }
+
+/* ---------- Hours on Dome night: the scoreboard ---------- */
+#hours .srows { border-top: 2px solid var(--fg); }
+#hours .srow { border-bottom-color: var(--rule-strong); }
+#hours .srow__what { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name-sm); }
+#hours .srow__price, #hours .srow__when { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--t-name); color: var(--fg); }
+.social { border-top: 1px solid var(--fg); }
+.social a { border-bottom-color: var(--rule); }
+.social__name { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-3); }
+.social__handle { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+/* ---------- Section wrappers ---------- */
+.ct-ticket .h2, .ct-loc .h2, .ct-park .h2, .ct-hours .h2 { max-width: 18ch; }
+.ct-park__lead { color: var(--fg-muted); }

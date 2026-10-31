@@ -1,0 +1,52 @@
+/* TPTC Direction A, "Clubhouse": Facilities (W2b, 25 Oct 2026). Loaded after css/pages/facilities.css.
+   No specimen page: composed in the specimen's language.
+   - The hero is the clubhouse wall with its plated print (components.css W2b).
+   - The spec sheet: four Caslon figures (components.css 23), then ruled fields; the courts hang as a
+     plated print.
+   - Two seasons, one drawing: the elevation keeps its story (the dome rising over the four nets), the
+     court slab in the lawn's court green (tptc.css 47-49), the nets and the dome's arc in ink; the
+     temperature in Caslon Display.
+   - Off court as the strengths ledger rows; the hand-over hour as one ink line (the buzzer marked in
+     ink too: red is the logo, the ball and Register now only); three locations, the club's own ruled in
+     ink, each named in Caslon Display. */
+.spec { border-top-color: var(--rule-strong); }
+.spec dt { font-weight: 700; color: var(--fg-subtle); }
+
+.elev__court { fill: var(--lawn-court); }
+.elev__mesh { fill: var(--fg); fill-opacity: 0.1; }
+.elev__cord { stroke: var(--fg); stroke-width: 1; }
+.elev__arc { stroke: var(--fg); }
+.seasons__temp, .seasons__sky { font: 400 clamp(1.75rem, 1.2rem + 2vw, 3.25rem)/1 var(--font-display); }
+.seasons__sky { font-family: var(--font-serif); font-style: italic; }
+.seasons__now, .seasons__cap { color: var(--fg-muted); }
+
+.handover__line, .handover__tick { background: var(--fg); }
+.handover__line { height: 1px; }
+.handover__tick--buzz { background: var(--fg); width: 1px; }
+.handover__t { font: 400 var(--step-3)/1.2 var(--font-display); }
+.handover__mark { font-size: 1rem; }
+@media (min-width: 800px) {
+  .handover__mark--buzz, .handover__mark--out { border-right-width: 1px; }
+  .handover__mark--buzz { border-right-color: var(--fg); }
+}
+@media (max-width: 799px) {
+  .handover .handover__marks { border-left-width: 1px; }
+  .handover__mark::before, .handover__mark--buzz::before { height: 1px; background: var(--fg); }
+}
+.rules { border-top-color: var(--rule-strong); }
+.rules__k { font-weight: 700; color: var(--fg-subtle); }
+
+.loc { border-top-color: var(--rule-strong); }
+.loc--home { border-top: 1px solid var(--fg); }
+.loc__n { font: 400 var(--step-3)/1 var(--font-display); color: var(--fg-subtle); }
+.loc__name { font: 400 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.15 var(--font-display); }
+.loc__what, .loc__addr { font-size: 1rem; }
+
+/* Containers in the Clubhouse rhythm */
+.spec-facts { margin-top: clamp(32px, 4vw, 56px); }
+.courts-photo { margin-top: clamp(40px, 5vw, 72px); }
+.season-panel { margin-top: clamp(40px, 5vw, 64px); }
+.season-fields { border-top-color: var(--rule-strong); }
+.season-more { color: var(--fg-muted); }
+.amen .strengths { border-top-color: var(--rule-strong); }
+.locs { gap: var(--sp-4) var(--gutter); }

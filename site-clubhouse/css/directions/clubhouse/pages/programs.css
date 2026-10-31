@@ -1,0 +1,39 @@
+/* TPTC Direction A, "Clubhouse": Programs (D2, 24 Oct 2026). Loaded after css/pages/programs.css.
+   No specimen page: designed in the specimen's language (specimens/A-clubhouse/system.html,
+   tptc.css). The hub is a wall of five portrait prints, hung level, grouped by who they are for:
+   each group named in Caslon Display over a hairline bracket; under each print its plate of
+   facts, its name and one line, centred like the courts on Home. The draw sheet beside the H1 is
+   the shared component (components.css 27). */
+
+/* The hero: words on the left, the draw sheet on the right; the H1's second line in Caslon Text
+   italic (components.css 1) */
+.hero--aside:has(.draw) .hero__lede { color: var(--fg-muted); }
+@media (min-width: 1000px) {
+  .draw__who { font: 700 clamp(0.9375rem, 0.85rem + 0.25vw, 1.0625rem)/1.3 var(--font-sans); letter-spacing: 0.12em; }
+}
+@media (min-width: 1000px) and (max-width: 1279px) { .draw__who { font-size: 0.875rem; letter-spacing: 0.08em; } }
+
+/* The groups: a heading in the club's voice over its bracket (B7: the owner asked for the three
+   audience names to read as headings) */
+.prog-group .label { font: 400 clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem)/1.15 var(--font-display); letter-spacing: 0; text-transform: none; color: var(--fg); }
+.prog-group { border-bottom-color: var(--rule); }
+.prog-group__bracket { border-top-color: var(--rule-strong); }
+
+/* The doors: prints hung level (no alternate step), a narrower mat for a narrow print */
+.prog-doors .door .frame { --mat-w: clamp(8px, 0.9vw, 14px); }
+.prog-doors .door:nth-of-type(even), .prog-doors .door:nth-child(even) { margin-top: 0; }
+@media (min-width: 900px) {
+  .prog-doors .door__body { justify-items: center; text-align: center; }
+  .prog-doors .door__facts { justify-content: center; }
+  .prog-doors .door__text { max-width: 28ch; }
+}
+@media (min-width: 1100px) {
+  .prog-doors { column-gap: clamp(16px, 1.8vw, 28px); }
+  .prog-doors .door__title { font-size: clamp(1.5rem, 1.1rem + 0.6vw, 2rem); }
+}
+/* Phones and tablets: each door a row, a small print beside the words */
+@media (max-width: 899px) {
+  .prog-doors .door .frame { --mat-w: 5px; border-width: 3px; }
+  .prog-doors .door { border-bottom-color: var(--rule); }
+}
+.prog { padding-top: 0; }

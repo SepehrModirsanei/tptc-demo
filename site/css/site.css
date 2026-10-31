@@ -448,7 +448,7 @@ html.js .frame__img:not(.is-loaded) { opacity: 0; }
 .ph__court .net { stroke: var(--red); stroke-opacity: 1; stroke-width: 1.5; }
 .ph__court rect.cl-p { fill: var(--red); transform-box: fill-box; transform-origin: center; }
 /* A court is a coloured surface with white lines: Blazer by day, a lifted navy at night */
-.ph__court .cl-surface { fill: color-mix(in srgb, var(--ph-ground), var(--ph-court-mix, #14254A) var(--ph-court-amt, 100%)); }
+.ph__court .cl-surface { fill: color-mix(in srgb, var(--ph-ground), var(--ph-court-mix, var(--blazer)) var(--ph-court-amt, 100%)); }
 .ph__label {
   position: absolute; left: clamp(12px, 5cqi, 40px); right: clamp(12px, 5cqi, 40px); bottom: clamp(12px, 5cqi, 36px);
   display: grid; gap: clamp(4px, 1.4cqi, 10px); max-width: 40ch; justify-items: start;
@@ -511,7 +511,7 @@ html.motion .netline[data-chalk-self] { transition: transform 1100ms var(--ease-
   font: italic 300 clamp(1.25rem, 0.8rem + 1.1vw, 1.875rem)/1.1 var(--font-serif); letter-spacing: 0; color: var(--fg); padding-bottom: 0.12em; }
 .year span { position: absolute; bottom: 0; white-space: nowrap; }
 .year__a { right: 0.12em; color: var(--fg); }
-.year__b { left: 0.12em; color: var(--on-photo); text-shadow: 0 2px 28px rgba(10, 20, 42, 0.35); }
+.year__b { left: 0.12em; color: var(--on-photo); text-shadow: 0 2px 28px var(--year-shadow); }
 /* Until the hero photograph has arrived, 51 is set in ink on the plain ground, so it never vanishes */
 .hero:not(:has(.frame.has-img)) .year--hero .year__b { color: var(--fg); text-shadow: none; }
 
@@ -992,19 +992,19 @@ html[data-reg="own"] [data-reg-mode="jbi"] { display: none !important; }
    same "Placeholder image" tag, in the same corner, as every photograph. Same in light and dark:
    a picture does not change with the theme. */
 .frame:not(.frame--due, .frame--photo, .has-img) {
-  --ph-ground: var(--blazer); --ph-line: rgba(237, 241, 246, 0.84); --ph-text: #EDF1F6; --ph-muted: var(--mist);
+  --ph-ground: var(--blazer); --ph-line: var(--ph-court-line); --ph-text: var(--ph-court-text); --ph-muted: var(--mist);
   --ph-court-amt: 0%;
 }
 /* on the navy grounds the court lifts one step so the frame still has an edge */
 .theme-night .frame:not(.frame--due, .frame--photo, .has-img), .hero--hp .frame:not(.frame--due, .frame--photo, .has-img), .hero--performance .frame:not(.frame--due, .frame--photo, .has-img) { --ph-ground: var(--night-raised); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .frame:not(.frame--due, .frame--photo, .has-img) { --ph-ground: #16294F; } }
-:root[data-theme="dark"] .frame:not(.frame--due, .frame--photo, .has-img) { --ph-ground: #16294F; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .frame:not(.frame--due, .frame--photo, .has-img) { --ph-ground: var(--ph-court-night); } }
+:root[data-theme="dark"] .frame:not(.frame--due, .frame--photo, .has-img) { --ph-ground: var(--ph-court-night); }
 .frame:not(.frame--due, .frame--photo, .has-img) .ph__court { height: 100%; scale: 1.62; transform-origin: 15% 62%; }
 .frame:not(.frame--due, .frame--photo, .has-img) .frame__drift::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(120% 95% at 14% 0%, rgba(237, 241, 246, 0.15), rgba(237, 241, 246, 0) 62%),
-    radial-gradient(90% 80% at 100% 100%, rgba(11, 19, 34, 0.42), rgba(11, 19, 34, 0) 70%),
+    radial-gradient(120% 95% at 14% 0%, var(--frame-light), var(--frame-light-clear) 62%),
+    radial-gradient(90% 80% at 100% 100%, var(--frame-shade), var(--frame-shade-clear) 70%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .36 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 .frame:not(.frame--due, .frame--photo, .has-img) .ph__ratio { display: none; }

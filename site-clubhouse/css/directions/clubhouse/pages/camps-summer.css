@@ -1,0 +1,42 @@
+/* TPTC Direction A, "Clubhouse": Summer Camps (W2b, 25 Oct 2026). Loaded after css/pages/camps-summer.css.
+   No specimen page: composed in the specimen's language.
+   - The hero is the clubhouse wall with its plated print (components.css W2b).
+   - Where and when: the court sheet is the club's notice pinned on the clubhouse wall, so it hangs as a
+     print does (the dark frame, the white mat, a hairline round the sheet, tptc.css 1652-1660), its
+     places in Caslon Display, a ball mark in ink where a camp runs. On a phone the folded list hangs the
+     same way.
+   - Twelve weeks, the three price windows and the rates: hairlines, Caslon figures and names.
+   - The camp cards, extras, policies and the Order of Play are the shared components. */
+
+/* the pinned sheet is the shared notice (components.css W2b); here its own cells */
+.sheet { font-size: 0.9375rem; }
+.sheet caption { color: var(--plate-fg-2); }
+.sheet th, .sheet td { border-color: var(--plate-line); }
+.sheet thead th { border-bottom: 1px solid var(--plate-line-strong); }
+.sheet__place { font: 400 clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)/1.15 var(--font-display); }
+.sheet__sub, .sheet thead th:first-child { font-weight: 700; color: var(--plate-fg-2); }
+.sheet tbody th { font-weight: 650; }
+.sheet__on .num { font: 400 1.1875rem/1.2 var(--font-serif); font-variant-numeric: tabular-nums lining-nums; }
+.sheet__mark { background: var(--plate-fg); }
+.sheet-list__name { font: 400 1.5rem/1.15 var(--font-display); border-bottom: 1px solid var(--plate-line-strong); }
+.sheet-list__name span { font-weight: 700; color: var(--plate-fg-2); }
+.sheet-list__cap { color: var(--plate-fg-2); }
+.sheet-list li { border-bottom-color: var(--plate-line); }
+
+/* Twelve weeks of summer: the scoreboard of weeks, named in Caslon */
+.weeks__title { font: 400 var(--step-3)/1.3 var(--font-display); }
+.weeks__head { font-weight: 650; color: var(--fg-subtle); }
+.weeks__place strong { font: 650 1rem/1.3 var(--font-sans); }
+.weeks__box { border-color: var(--rule-strong); }
+
+/* Prices: three windows on one hairline, each date in Caslon Display */
+.windows::before { background: var(--rule-strong); }
+.windows__tick { border-color: var(--fg); }
+.windows__name { font-weight: 700; color: var(--fg-subtle); }
+.windows__when { font: 400 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.15 var(--font-display); }
+.windows__note { font-size: 0.9375rem; }
+.camp-rates__group th { font: 400 clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)/1.2 var(--font-display); }
+.camp-rates td.tnum { font-family: var(--font-serif); font-variant-numeric: tabular-nums lining-nums; }
+@media (max-width: 699px) { .camp-rates td.tnum::before { font-weight: 700; color: var(--fg-subtle); } }
+.agenote { color: var(--fg-subtle); }
+.where-notes { column-gap: var(--gutter); color: var(--fg-muted); }

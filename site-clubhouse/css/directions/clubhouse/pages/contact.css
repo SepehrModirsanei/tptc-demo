@@ -1,0 +1,75 @@
+/* TPTC Direction A, "Clubhouse": Contact (W2b, 25 Oct 2026). Loaded after css/pages/contact.css.
+   No specimen page: composed in the specimen's language.
+   - The hero: the provenance line over the H1 (templates.py with_prov); the desk card, half a court
+     (the two service boxes, the backcourt), hangs as the club's card pinned at the desk: the print's
+     dark frame and white mat, the plate's day inks inside; the phone number in Caslon Display.
+   - Who to ask about what, ruled like an order of play, each question in Caslon Display.
+   - The ticket queue fed one ball at a time over an ink net (red is the logo, the ball and Register
+     now only).
+   - The plan: the crossing on the chalk ground, the club marked by its court drawn on the lawn (court
+     green, white lines and a white net, tptc.css 1690-1700): the red net line is gone.
+   - Parking, hours and the club's channels in the shared rows. */
+
+/* The desk card */
+.desk {
+  --fg: var(--plate-fg); --fg-muted: var(--plate-fg-2); --fg-subtle: var(--plate-fg-2); --bg: var(--mat);
+  --rule: var(--plate-line); --rule-strong: var(--plate-line-strong); --focus: var(--plate-fg); --focus-ring: var(--focus-w) solid var(--focus);
+  padding: 0 clamp(16px, 2.2vw, 28px); background: var(--mat); color: var(--plate-fg);
+  border: 5px solid var(--wood); box-shadow: var(--print-shadow);
+}
+@media (max-width: 719px) { .desk { border-width: 4px; padding-inline: 14px; } }
+.desk__back { border-top-color: var(--plate-line-strong); }
+.desk__label { font-weight: 700; color: var(--plate-fg-2); }
+.desk__big { font: 400 clamp(1.875rem, 1.4rem + 1.4vw, 2.5rem)/1.1 var(--font-display); color: var(--plate-fg); }
+.desk__mail { font: 400 1.0625rem/1.35 var(--font-serif); color: var(--plate-fg); text-decoration-color: var(--plate-line-strong); }
+.desk__note { font-size: 0.9375rem; color: var(--plate-fg-2); }
+.desk__addr { font: 400 var(--step-3)/1.4 var(--font-serif); color: var(--plate-fg); }
+
+/* Who to ask about what */
+.routes { border-top-color: var(--rule-strong); }
+.route__what h3 { font: 400 var(--step-3)/1.3 var(--font-display); }
+.route__what p { font-size: 0.9375rem; }
+.route__label { font-weight: 700; }
+.route__name { font-size: 1rem; color: var(--fg-muted); }
+.route__line { font-size: 1.0625rem; }
+.route__line .icon { color: var(--fg-subtle); }
+.route__line span { text-underline-offset: 0.2em; }
+
+/* The ticket queue */
+.feed__court { border-bottom-color: var(--fg); }
+.feed__net, .feed__net::after { background: var(--fg); }
+.feed__net { width: 1px; }
+.feed__cap { color: var(--fg-muted); }
+
+/* The plan */
+.plan__svg { background: var(--surface-alt); border-color: var(--rule); }
+.plan__street { font-weight: 700; fill: var(--fg-subtle); }
+.plan__label { font: 400 22px/1 var(--font-display); }
+.plan__court { fill: var(--lawn-court); stroke: var(--lawn-line); }
+.plan__lines { stroke: var(--lawn-line); }
+.plan__netline { stroke: var(--lawn-line); stroke-width: 1; }
+.plan__cap { color: var(--fg-muted); }
+
+/* Parking, hours and the club's channels */
+.parkrules { border-top-color: var(--rule-strong); }
+.parkrules__who { font-weight: 700; }
+.parkrules p { font-size: 1rem; }
+.social { border-top-color: var(--rule-strong); }
+.social__name { font: 400 var(--step-3)/1.25 var(--font-display); }
+.social__handle { color: var(--fg-muted); }
+.plan__ring { fill: var(--lawn); stroke: var(--fg); }
+/* the frame and mat must not widen the hero's column on a phone */
+@media (max-width: 999px) { .ct-hero .hero__words.ct-hero__grid { grid-template-columns: minmax(0, 1fr); } }
+.desk { min-width: 0; max-width: 100%; }
+.desk__mail { overflow-wrap: anywhere; }
+
+/* W2b: the hero is the wall; its centrepiece is the desk card pinned between the H1's two lines */
+.hero--wall-inner .hero__frame:has(.desk) { width: min(100%, 36rem); }
+@media (min-width: 1000px) { .hero--wall-inner .hero__frame:has(.desk) { width: min(42vw, 36rem); } }
+.hero--wall-inner .desk { text-align: left; }
+
+/* Containers in the Clubhouse rhythm */
+.ct-ticket__words .body, .ct-ticket__small { color: var(--fg-muted); }
+.ct-loc__words .fields { border-top-color: var(--rule-strong); }
+.ct-park__lead { color: var(--fg-muted); }
+.ct-hours__more { color: var(--fg-muted); }

@@ -758,5 +758,2912 @@ window.TPTC_CONTENT = {
     "The programs they lead, linked"
    ]
   ]
+ },
+ "posts": {
+  "note": "N1a (24 Oct 2026): the club's news as the new site publishes it, the one source for the Home news band, the News page, every article page and the staff panel's News editor (site/build.py and site/panel/build.py both read this file). Every post is the club's own post from its current site (data/raw-pages.json, crawled Aug 2026), its words lightly trimmed: shouted capitals set in sentence case, the crawl's lost spaces put back, the JustBookIt steps shortened. Nothing is invented. Photos are library ids from content/media.json: the site's labelled stand-ins and the club's own four Majors photos. The summer camp post is the sample article: the same post with every block the editor offers.",
+  "date_rule": "published: the date the club put up this text. Most posts sit at older addresses the club reuses each year, so the news listing shows the older post's date (for example 'Aug. 12, 2023' on a post about August 2026); for those, published is the page's last-modified date from the crawl. Where the listing date matches the text (the summer camp post) it is used, and the later modified date is the Updated date.",
+  "topics": [
+   {
+    "id": "camps",
+    "label": "Camps"
+   },
+   {
+    "id": "lessons",
+    "label": "Lessons"
+   },
+   {
+    "id": "membership",
+    "label": "Membership"
+   },
+   {
+    "id": "leagues",
+    "label": "Leagues"
+   },
+   {
+    "id": "club-life",
+    "label": "Club life"
+   }
+  ],
+  "authors": [
+   {
+    "id": "club",
+    "name": "Thornhill Park Tennis Club",
+    "kind": "club",
+    "note": "How the club signs its posts."
+   },
+   {
+    "id": "management",
+    "name": "Management",
+    "kind": "club",
+    "note": "How the club signs operational notices (Indoor public hours post)."
+   },
+   {
+    "id": "josh-borenstein",
+    "name": "Josh Borenstein",
+    "kind": "coach",
+    "role": "Head Pro",
+    "anchor": "josh-borenstein",
+    "note": "A coach as author links to their entry on Our Coaches."
+   }
+  ],
+  "posts": [
+   {
+    "id": "fall-outdoor-lessons-2026",
+    "slug": "fall-outdoor-group-lessons-registration-opens-aug-6",
+    "title": "Fall outdoor recreational group lessons: registration opens Aug 6 at 10am",
+    "summary": "Registration for the end of August and September outdoor session opens Thursday, August 6 at 10am. The session runs 7 weeks from August 21, at Yonge and Centre.",
+    "topic": "lessons",
+    "tags": [
+     "Group lessons",
+     "Outdoor",
+     "All ages"
+    ],
+    "published": "2026-08-05",
+    "updated": null,
+    "show_updated": false,
+    "author": "club",
+    "cover": {
+     "media": "adult-group-lesson-01",
+     "alt": "Two people playing tennis in daylight.",
+     "focal": "50% 50%"
+    },
+    "program": "junior",
+    "related": [
+     "spring-lessons-2026",
+     "summer-lessons-2026",
+     "winter-lessons-2026"
+    ],
+    "pinned": false,
+    "ends": "2026-10-08",
+    "ends_note": "The session ran Aug 21 to Oct 8, 2026 (content/programs.json).",
+    "event": null,
+    "seo": {
+     "title": "Fall outdoor group lessons 2026: registration Aug 6",
+     "description": "Outdoor recreational group lessons at Yonge and Centre for kids, teens and adults: 7 weeks from August 21, 2026. Registration opened August 6 at 10am."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/september-outdoor-group-lessons-registration-opens-aug-15th-at-10-am/",
+    "date_source": "Last modified 2026-08-05 (crawl); the listing shows Aug. 12, 2023, the older post at this address.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Registration for our end of August and September session of outdoor recreational group lessons will be live on our website on August 6 at 10am!\n\nWe are offering lessons at our Yonge and Centre club. This outdoor session will run from August 21 for a total of 7 weeks.\n\nWe are offering recreational group lessons (Beginner 1/2, Intermediate 1/2, Advanced) for all ages: kids, teenagers and adults!\n\nShould you have any questions, or if you would like to schedule an assessment, please contact the Head Pro, Josh Borenstein, at jborenstein26@live.ca.\n\nWe can't wait to see you all there!"
+     },
+     {
+      "type": "button",
+      "label": "See Junior Recreational",
+      "href": "@junior",
+      "kind": "ink"
+     }
+    ]
+   },
+   {
+    "id": "indoor-membership-2026",
+    "slug": "fall-winter-indoor-membership-registration-opens-august-1",
+    "title": "Fall & Winter indoor club membership registration opens August 1",
+    "summary": "Fall & Winter 2026/2027 indoor club membership registration opens August 1, 2026. Space is limited and fills fast: sign up as soon as you can.",
+    "topic": "membership",
+    "tags": [
+     "Indoor season",
+     "Membership",
+     "Vaughan residents"
+    ],
+    "published": "2026-07-28",
+    "updated": null,
+    "show_updated": false,
+    "author": "club",
+    "cover": {
+     "media": "site-membership-hero-01",
+     "alt": "Four adults playing doubles on a blue hard court in evening light, seen from above.",
+     "focal": "50% 50%"
+    },
+    "program": "membership",
+    "related": [
+     "fall-outdoor-lessons-2026",
+     "winter-lessons-2026",
+     "opening-day-2026"
+    ],
+    "pinned": true,
+    "ends": null,
+    "ends_note": "The club closes indoor membership when it reaches capacity; no closing date is published.",
+    "event": null,
+    "seo": {
+     "title": "Indoor membership 2026/27: registration from August 1",
+     "description": "Fall & Winter 2026/27 indoor membership opened August 1, 2026: rates for Vaughan residents and non-residents, and how to register."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/fall-winter-indoor-membership-registration-now-open/",
+    "date_source": "Last modified 2026-07-28 (crawl); the listing shows Jul. 30, 2023, the older post at this address.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Dear valued clients,\n\nFall & Winter 2026/2027 indoor club membership registration opens August 1, 2026. Membership space is limited and spots are filling up fast! We close indoor membership soon once we reach capacity. Sign up as soon as possible to ensure you get a spot!\n\nThe indoor season will likely start on October 12 this year. All registration must be completed online. If you are having difficulties signing up online, our staff can walk you through it over the phone."
+     },
+     {
+      "type": "heading",
+      "text": "How to register"
+     },
+     {
+      "type": "text",
+      "text": "1. Follow the link to Membership Registration.\n2. Select TPTC Membership Renewal (for returning members) or TPTC Membership Registration (for new members).\n3. Select one of the 3 options: Single, Couple, or Family (2 adults and children under 18 years).\n4. Then select one of the category options."
+     },
+     {
+      "type": "heading",
+      "text": "Membership rates"
+     },
+     {
+      "type": "text",
+      "text": "Vaughan residents get a 15% discount, included in their rates. Add HST to the rates. Ages apply as of January 1, 2025.\n\n- Adult (ages 18-64): $368.50 Vaughan residents, $433.53 non-residents\n- Couple (married): $637.75, $750.29\n- Family (same household): $756.90, $890.47\n- Junior (ages 17 and under): $143.50, $168.82\n- Senior (ages 65 and over): $258.50, $304.12\n- Sunday night intercounty matches only (must be pre-approved, no discount): $90"
+     },
+     {
+      "type": "button",
+      "label": "See membership and rates",
+      "href": "@membership",
+      "kind": "ink"
+     }
+    ]
+   },
+   {
+    "id": "summer-lessons-2026",
+    "slug": "summer-group-lessons-registration-opens-june-11",
+    "title": "Summer group lessons registration opens June 11 at 10am",
+    "summary": "Summer group lessons registration opens Thursday, June 11 at 10am, at two locations: Yonge & Centre and Garnet Williams Community Centre.",
+    "topic": "lessons",
+    "tags": [
+     "Group lessons",
+     "Summer",
+     "Two locations"
+    ],
+    "published": "2026-06-01",
+    "updated": null,
+    "show_updated": false,
+    "author": "club",
+    "cover": {
+     "media": "private-hero-01",
+     "alt": "Two people with racquets standing on a tennis court.",
+     "focal": "50% 50%"
+    },
+    "program": "junior",
+    "related": [
+     "spring-lessons-2026",
+     "fall-outdoor-lessons-2026",
+     "summer-camp-2026"
+    ],
+    "pinned": false,
+    "ends": null,
+    "ends_note": "The post gives no session dates.",
+    "event": null,
+    "seo": {
+     "title": "Summer group lessons 2026: registration June 11",
+     "description": "Summer group tennis lessons at Yonge & Centre and Garnet Williams Community Centre. Registration opened Thursday, June 11 at 10am."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/spring-group-lessons-registration-opens-april-12th-2024/",
+    "date_source": "Last modified 2026-06-01 (crawl); the listing shows Mar. 15, 2024, the older post at this address.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Our summer group lessons registration will be opening Thursday, June 11 at 10am! Keep your eyes out for the email blast to ensure you get your spot!\n\nWe have 2 locations and more lessons! This summer you can choose from the following locations: Yonge & Centre or Garnet Williams Community Centre.\n\nJoin our Academy this summer for an unforgettable tennis experience! For any questions, please email info@thornhillparktennisclub.ca."
+     },
+     {
+      "type": "button",
+      "label": "See Junior Recreational",
+      "href": "@junior",
+      "kind": "ink"
+     }
+    ]
+   },
+   {
+    "id": "opening-day-2026",
+    "slug": "opening-day-bbq-and-round-robin-sunday-may-3",
+    "title": "Outdoor season: Opening Day BBQ & round robin, Sunday May 3 at 10am",
+    "summary": "Spring & Summer members are welcome on Sunday, May 3 from 10am to 1pm for the opening day BBQ, tennis drills and a round robin. Members only.",
+    "topic": "club-life",
+    "tags": [
+     "Opening Day",
+     "Members only",
+     "Round robin"
+    ],
+    "published": "2026-04-18",
+    "updated": null,
+    "show_updated": false,
+    "author": "club",
+    "cover": {
+     "media": "leagues-junior-events-01",
+     "alt": "A player moves to the ball on a green outdoor court.",
+     "focal": "50% 50%"
+    },
+    "program": "leagues-events",
+    "related": [
+     "summer-lessons-2026",
+     "indoor-membership-2026",
+     "majors-first-place-2022"
+    ],
+    "pinned": false,
+    "ends": "2026-05-03",
+    "ends_note": "The day of the event; sign-up was by form.",
+    "event": {
+     "name": "Opening Day BBQ & round robin",
+     "start": "2026-05-03T10:00:00-04:00",
+     "end": "2026-05-03T13:00:00-04:00",
+     "place": "club",
+     "audience": "Spring & Summer members"
+    },
+    "seo": {
+     "title": "Opening Day BBQ and round robin, Sunday May 3, 2026",
+     "description": "Spring & Summer members: Opening Day on Sunday, May 3, 2026, 10am to 1pm, with drills, a round robin, a BBQ and prize giveaways."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/opening-day-bbq-clinic-sun-may-7th-12pm/",
+    "date_source": "Last modified 2026-04-18 (crawl); the listing shows Apr. 18, 2023, the older post at this address.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Dear Spring & Summer members,\n\nWe welcome you to join us on Sunday, May 3 from 10am to 1pm for our opening day BBQ and tennis drills. We will also have some amazing prize giveaways.\n\nWe will start off with some tennis drills and a round robin at 10am with our Head Pro, Josh Borenstein, then start the BBQ around 11:30am and play tennis throughout.\n\nThis is a Spring/Summer member only event: you must be a member in order to attend. Please fill out the registration form if you plan on attending.\n\nLooking forward to seeing everyone there! If you have any questions, please email info@thornhillparktennisclub.ca."
+     },
+     {
+      "type": "button",
+      "label": "See Leagues & Events",
+      "href": "@leagues-events",
+      "kind": "ink"
+     }
+    ]
+   },
+   {
+    "id": "spring-lessons-2026",
+    "slug": "spring-group-lessons-registration-opens-april-6",
+    "title": "Spring group lessons registration opens April 6 at 10am",
+    "summary": "Outdoor spring group lessons registration opens Monday, April 6 at 10am. The packaged session runs May 1 to June 25, 2026 (8 weeks), at three locations.",
+    "topic": "lessons",
+    "tags": [
+     "Group lessons",
+     "Spring",
+     "Three locations"
+    ],
+    "published": "2026-03-20",
+    "updated": null,
+    "show_updated": false,
+    "author": "club",
+    "cover": {
+     "media": "junior-hero-01",
+     "alt": "A boy and his coach on a tennis court.",
+     "focal": "50% 50%"
+    },
+    "program": "junior",
+    "related": [
+     "summer-lessons-2026",
+     "fall-outdoor-lessons-2026",
+     "winter-lessons-2026"
+    ],
+    "pinned": false,
+    "ends": "2026-06-25",
+    "ends_note": "The session ran May 1 to June 25, 2026.",
+    "event": null,
+    "seo": {
+     "title": "Spring group lessons 2026: registration April 6",
+     "description": "Outdoor spring group tennis lessons, May 1 to June 25, 2026 (8 weeks), at Yonge & Centre, Garnet Williams and North Thornhill. Registration opened April 6."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/spring-group-lessons-registration-opens-april-3rd-2023/",
+    "date_source": "Last modified 2026-03-20 (crawl); the listing shows Mar. 20, 2023, the older post at this address.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Outdoor spring group lessons registration opens Monday, April 6 at 10am. The packaged session is from May 1 to June 25, 2026 (8 weeks)!\n\nWe will have three locations and more lessons! This spring you can choose from these 3 locations: Yonge & Centre, Garnet Williams, and North Thornhill.\n\nJoin our Academy this spring for an unforgettable tennis experience! For any questions, please email jborenstein26@live.ca or info@thornhillparktennisclub.ca."
+     },
+     {
+      "type": "button",
+      "label": "See Junior Recreational",
+      "href": "@junior",
+      "kind": "ink"
+     }
+    ]
+   },
+   {
+    "id": "march-break-camp-2026",
+    "slug": "march-break-kids-camp-2026-registration-opens-february-26",
+    "title": "March Break kids camp 2026: registration opens February 26 at 10am",
+    "summary": "March Break kids tennis camp registration opens Thursday, February 26 at 10am. Recreational and High Performance/Pro National camps run Monday March 16 to Friday March 20, 2026, booked day by day.",
+    "topic": "camps",
+    "tags": [
+     "March Break",
+     "Day by day",
+     "Ages 4-18"
+    ],
+    "published": "2026-02-18",
+    "updated": null,
+    "show_updated": false,
+    "author": "club",
+    "cover": {
+     "media": "camps-march-break-hero-01",
+     "alt": "A girl in the ready position across from her coach on an indoor court under a dome.",
+     "focal": "30% 50%"
+    },
+    "program": "camps-march-break",
+    "related": [
+     "summer-camp-2026",
+     "winter-lessons-2026",
+     "spring-lessons-2026"
+    ],
+    "pinned": false,
+    "ends": "2026-03-20",
+    "ends_note": "The last day of the camp.",
+    "event": {
+     "name": "March Break Kids Camp 2026",
+     "start": "2026-03-16T09:30:00-04:00",
+     "end": "2026-03-20T16:30:00-04:00",
+     "place": "club",
+     "audience": "Children and teens"
+    },
+    "seo": {
+     "title": "March Break Camp 2026: registration February 26",
+     "description": "March Break kids tennis camp at Yonge and Centre, March 16 to 20, 2026: Recreational and Pro National, full or half days, booked day by day."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/march-break-camp-2023-registration-now-open/",
+    "date_source": "Last modified 2026-02-18 (crawl); the listing shows Feb. 27, 2023, the older post at this address.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Hello everyone,\n\nMarch Break kids tennis camp registration opens Thursday, February 26 at 10am! We are offering Recreational and High Performance/Pro National tennis camps.\n\nThe March Break Camp will take place from Monday, March 16 to Friday, March 20, 2026! Camp registration will be done on a day by day basis (not a weekly registration).\n\nWe will be offering full day (9:30am-4:30pm), morning (9:30am-12:30pm) and afternoon (1:30pm-4:30pm) options for the week! We will also be offering a 4+ UTR Pro National 4:30pm-6:30pm timeslot option for the week.\n\nReserve your spot now, as spots fill up quick! Please contact jborenstein26@live.ca for any questions."
+     },
+     {
+      "type": "heading",
+      "text": "How to register"
+     },
+     {
+      "type": "text",
+      "text": "1. Go to Camps, then March Break Camp 2026, and choose the March Break sign up button.\n2. New to our camps? Choose First time camp registration: it creates your account in JBI, our online booking system. Taken camps with us before? Log in to your JBI account.\n3. In JBI, choose Program registration, then Camps in the left-hand menu, and tick Select beside each day you want.\n4. Agree to the terms and conditions, choose Enroll and pay. A confirmation email with your receipt follows shortly after."
+     },
+     {
+      "type": "button",
+      "label": "See March Break Camp",
+      "href": "@camps-march-break",
+      "kind": "ink"
+     }
+    ]
+   },
+   {
+    "id": "summer-camp-2026",
+    "slug": "kids-summer-camp-2026-registration-opens-february-16",
+    "title": "Kids Summer Camp 2026: registration opens February 16 with a super early bird special",
+    "summary": "Summer tennis camp registration (ages 4-17) opens February 16, with a super early bird special from February 16 at 10am to February 23 at 5pm, and prizes every week.",
+    "sample": true,
+    "sample_note": "The sample article: the club's own post with every block the editor offers (headings, text, photo, gallery, video, PDF link, button, quote), an Updated date, author, tags, related posts, the program it is about, sharing card fields and the closed banner.",
+    "topic": "camps",
+    "tags": [
+     "Summer Camps",
+     "Early bird",
+     "Ages 4-17",
+     "Prizes"
+    ],
+    "published": "2026-01-13",
+    "updated": "2026-02-22",
+    "show_updated": true,
+    "author": "club",
+    "cover": {
+     "media": "site-camps-summer-hero-01",
+     "alt": "A young girl in a pink cap sets up a forehand on a green outdoor court.",
+     "focal": "45% 40%"
+    },
+    "program": "camps-summer",
+    "related": [
+     "march-break-camp-2026",
+     "summer-lessons-2026",
+     "spring-lessons-2026"
+    ],
+    "pinned": false,
+    "ends": "2026-09-04",
+    "ends_note": "The last summer camp week ended Sep 4, 2026 (content/camps.json).",
+    "event": {
+     "name": "Kids Summer Camp 2026",
+     "start": "2026-06-15T09:00:00-04:00",
+     "end": "2026-09-04T16:00:00-04:00",
+     "place": "club",
+     "audience": "Children and teens, ages 4-17"
+    },
+    "seo": {
+     "title": "Kids Summer Camp 2026: registration and early bird",
+     "description": "Summer tennis camp 2026 for ages 4-17 at Thornhill Park Tennis Club: registration from February 16, a one-week super early bird special and prizes every week."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/summer-camp-2026-registration-is-open/",
+    "date_source": "Listing date Jan. 13, 2026 (the address and the text are both 2026); last modified 2026-02-22 (crawl), shown as Updated.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Exciting news! Summer tennis camp (ages 4-17) registration opens on February 16!\n\nWe are offering a super early bird special from February 16 at 10am until February 23 at 5pm! Go to our Camps page for more information on our various camp levels and programs."
+     },
+     {
+      "type": "quote",
+      "text": "Make sure to register as soon as possible to secure your spot, and join our amazing staff for an unforgettable summer!",
+      "cite": "Thornhill Park Tennis Club"
+     },
+     {
+      "type": "heading",
+      "text": "Prizes every week"
+     },
+     {
+      "type": "text",
+      "text": "We will be offering amazing prizes, including Nike products and weekly racquet giveaways at the end of every week, and one lucky camper will win National Bank Open tennis tickets to see the pros play!"
+     },
+     {
+      "type": "photo",
+      "media": "site-facilities-courts-01",
+      "alt": "Blue hard courts in a green surround seen from above, two white benches beside the net.",
+      "caption": "Placeholder until the club's own camp photograph."
+     },
+     {
+      "type": "heading",
+      "text": "Three locations"
+     },
+     {
+      "type": "text",
+      "text": "Camp locations are listed in this order: (1) Yonge and Centre, (2) North Thornhill and (3) Garnet Williams."
+     },
+     {
+      "type": "gallery",
+      "caption": "Placeholders until the club's own camp photographs.",
+      "items": [
+       {
+        "media": "site-camps-hero-01",
+        "alt": "A girl in the ready position and her coach with a basket of balls on an indoor court under a dome.",
+        "focal": "50% 50%"
+       },
+       {
+        "media": "site-camps-holiday-hero-01",
+        "alt": "A boy and his coach at the net on an indoor court.",
+        "focal": "50% 50%"
+       },
+       {
+        "media": "site-hp-little-champs-01",
+        "alt": "A young boy takes his racquet back for a forehand on an indoor court under a dome.",
+        "focal": "50% 50%"
+       }
+      ]
+     },
+     {
+      "type": "video",
+      "title": "Summer camp on film",
+      "poster": "site-hp-transition-tour-01",
+      "alt": "A girl sets up a forehand on a green hard court, seen through the fence.",
+      "src": null,
+      "caption": "A short film of camp goes here once the club supplies one.",
+      "transcript": null
+     },
+     {
+      "type": "heading",
+      "text": "How to register"
+     },
+     {
+      "type": "text",
+      "text": "1. Go to Camps, then Summer Camps 2026, and choose the Summer camp online registration button.\n2. New to our camps? Choose First time camp registration: it creates your account in JBI, our online booking system. Taken camps with us before? Log in to your JBI account.\n3. In JBI, choose Program registration, then Camps in the left-hand menu, and tick Select beside each camp you want.\n4. Agree to the terms and conditions, choose Enroll and pay. You will receive an email confirmation with a receipt shortly after registration."
+     },
+     {
+      "type": "pdf",
+      "href": "https://0dda63c7-5ef2-4c41-9eb9-eab56eb2b664.filesusr.com/ugd/21bafb_30daa3b5ffdc4775bf67f857fc4f7f4b.pdf",
+      "label": "Booking instructions",
+      "meta": "PDF, 4 pages",
+      "note": "The club's own instructions for JBI, its online booking system, as linked from Court Bookings."
+     },
+     {
+      "type": "button",
+      "label": "See Summer Camps",
+      "href": "@camps-summer",
+      "kind": "ink"
+     }
+    ]
+   },
+   {
+    "id": "winter-lessons-2026",
+    "slug": "winter-indoor-group-lessons-session-2-registration-opens-dec-1",
+    "title": "2026 winter indoor group lessons, session 2: registration opens Dec 1 at 10am",
+    "summary": "Registration for session 2 of the 2026 winter indoor group lessons opens December 1 at 10am. The session runs January 15 to April 26, 2026.",
+    "topic": "lessons",
+    "tags": [
+     "Group lessons",
+     "Indoor",
+     "High Performance"
+    ],
+    "published": "2025-11-23",
+    "updated": null,
+    "show_updated": false,
+    "author": "club",
+    "cover": {
+     "media": "junior-indoor-01",
+     "alt": "A lesson on an indoor court under a dome.",
+     "focal": "50% 50%"
+    },
+    "program": "junior",
+    "related": [
+     "indoor-membership-2026",
+     "spring-lessons-2026",
+     "march-break-camp-2026"
+    ],
+    "pinned": false,
+    "ends": "2026-04-26",
+    "ends_note": "The session ran Jan 15 to Apr 26, 2026.",
+    "event": null,
+    "seo": {
+     "title": "Winter indoor group lessons 2026, session 2",
+     "description": "Indoor group tennis lessons under the Dome, January 15 to April 26, 2026: Recreational, High Performance and Pro National. Registration opened December 1."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/2024-winter-indoor-group-lessons-registration-opens-dec-14th-at-10am/",
+    "date_source": "Last modified 2025-11-23 (crawl); the listing shows Nov. 20, 2023, the older post at this address.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Hello everyone,\n\nExciting news! Registration for our 2026 winter indoor group tennis lessons, session 2, will open on December 1 at 10am! This session will be starting on January 15, 2026 and goes until April 26, 2026.\n\nWe will be offering Recreational (Beginner 1/2, Intermediate 1/2, Advanced), High Performance (Little Champs & Future Elite), as well as Pro National group lessons!\n\nShould you have any questions, or if you would like to schedule an assessment, please contact our Head Pro, Josh Borenstein, at jborenstein26@live.ca.\n\nMake sure to sign up as soon as possible to reserve your spot! We can't wait to see you all there!"
+     },
+     {
+      "type": "button",
+      "label": "See Junior Recreational",
+      "href": "@junior",
+      "kind": "ink"
+     }
+    ]
+   },
+   {
+    "id": "intercounty-tryouts-2025",
+    "slug": "summer-outdoor-intercounty-tryouts-registration",
+    "title": "Summer outdoor intercounty tryouts: registration now open",
+    "summary": "The club is organizing its summer intercounty teams. Tryouts are indoors on April 6: B/C 8am-10am and Majors/A 7pm-9pm, $15 per person.",
+    "topic": "leagues",
+    "tags": [
+     "Intercounty",
+     "Tryouts",
+     "Adults"
+    ],
+    "published": "2025-03-16",
+    "updated": null,
+    "show_updated": false,
+    "author": "club",
+    "cover": {
+     "media": "site-leagues-hero-01",
+     "alt": "Evening tennis on several blue hard courts in low golden light, seen from above.",
+     "focal": "50% 50%"
+    },
+    "program": "leagues-events",
+    "related": [
+     "majors-first-place-2022",
+     "opening-day-2026",
+     "indoor-membership-2026"
+    ],
+    "pinned": false,
+    "ends": "2025-04-06",
+    "ends_note": "The tryout day. The post gives April 6 with no year; it was last modified March 16, 2025, so the year is read as 2025.",
+    "event": {
+     "name": "Summer intercounty tryouts",
+     "start": "2025-04-06T08:00:00-04:00",
+     "end": "2025-04-06T21:00:00-04:00",
+     "place": "club",
+     "audience": "Adult intercounty players"
+    },
+    "seo": {
+     "title": "Summer intercounty tryouts: B/C and Majors/A",
+     "description": "Thornhill Park Tennis Club summer intercounty teams: indoor tryouts on April 6, B/C 8am to 10am and Majors/A 7pm to 9pm, $15 per person."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/summer-intercounty-tryouts-registration/",
+    "date_source": "Last modified 2025-03-16 (crawl); the post is not on the first page of the listing.",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "With the nice weather approaching, we are getting ready to organize our summer intercounty teams. If you are interested in joining one of our teams, please register and attend the appropriate tryout below."
+     },
+     {
+      "type": "heading",
+      "text": "Indoor tryouts, April 6"
+     },
+     {
+      "type": "text",
+      "text": "The league is outdoors, but the tryouts are indoors.\n\n- B/C: 8am-10am\n- Majors/A: 7pm-9pm\n\nThe indoor tryout fee is $15 per person. Please fill out the registration form if you will be attending tryouts.\n\nAnyone who played on one of our teams last year is not obligated to attend tryouts, but please do still fill out the form to let us know if you intend on playing this season."
+     },
+     {
+      "type": "button",
+      "label": "See Leagues & Events",
+      "href": "@leagues-events",
+      "kind": "ink"
+     }
+    ]
+   },
+   {
+    "id": "majors-first-place-2022",
+    "slug": "our-majors-team-takes-1st-place",
+    "title": "Our Majors team takes 1st place! Big congratulations!",
+    "summary": "A big round of applause to our Majors team for going all the way and winning 1st place in the toughest intercounty division.",
+    "topic": "leagues",
+    "tags": [
+     "Intercounty",
+     "Majors",
+     "Club photos"
+    ],
+    "published": "2022-08-31",
+    "updated": null,
+    "show_updated": false,
+    "author": "club",
+    "cover": {
+     "media": "majors-team-trophy",
+     "alt": "The Majors team with their first place trophy, intercounty division, 2022.",
+     "focal": "50% 50%"
+    },
+    "program": "leagues-events",
+    "related": [
+     "intercounty-tryouts-2025",
+     "opening-day-2026",
+     "indoor-membership-2026"
+    ],
+    "pinned": false,
+    "ends": null,
+    "ends_note": null,
+    "event": null,
+    "seo": {
+     "title": "Our Majors team takes 1st place in intercounty",
+     "description": "Thornhill Park Tennis Club's Majors team won 1st place in the toughest intercounty division in August 2022."
+    },
+    "status": "published",
+    "source": "https://www.thornhillparktennisclub.ca/news/our-majors-team-takes-1st-place-big-congratulations/",
+    "date_source": "Last modified 2022-08-31 (crawl), the night the photos were taken (assets/photos/manifest.json).",
+    "blocks": [
+     {
+      "type": "text",
+      "text": "Hey everyone,\n\nWe just want to give a big round of applause to our Majors team for going all the way and winning 1st place in the toughest intercounty division. That's truly an amazing accomplishment! We are so proud to have you all representing Thornhill Park Tennis Club!"
+     },
+     {
+      "type": "gallery",
+      "caption": "Club photographs, August 2022.",
+      "items": [
+       {
+        "media": "majors-team-group",
+        "alt": "The Majors team after winning first place in their intercounty division, posed on a floodlit court at night, 2022.",
+        "focal": "50% 50%"
+       },
+       {
+        "media": "majors-team-celebration",
+        "alt": "The Majors team celebrating first place in their intercounty division, 2022.",
+        "focal": "50% 50%"
+       },
+       {
+        "media": "majors-team-selfie",
+        "alt": "Two members of the Majors team with the first place trophy, 2022.",
+        "focal": "50% 40%"
+       }
+      ]
+     },
+     {
+      "type": "text",
+      "text": "We appreciate all our intercounty teams' hard work this season. Can't wait till next year!"
+     },
+     {
+      "type": "button",
+      "label": "See Leagues & Events",
+      "href": "@leagues-events",
+      "kind": "ink"
+     }
+    ]
+   }
+  ]
+ },
+ "media": {
+  "note": "N1a (24 Oct 2026): the media library the demo starts with. Photos: the site's licensed stand-ins (each wears the Placeholder image tag on the site; licences and status from TPTC-CONTENT-CHECKLIST.html part two and assets/img/CREDITS.md) and the club's own four Majors photos (assets/photos/manifest.json). PDFs: the club's three published documents, linked where they live today. Videos: none yet; the club film is waiting for the club. Never the camp flyer, never the two removed photos (assets/img/_rejected/). Uploads in the staff panel are kept in that browser only. Files are relative to demo/assets/.",
+  "photos": [
+   {
+    "id": "home-hero-01",
+    "kind": "photo",
+    "file": "img/home-hero-01.jpg",
+    "width": 2880,
+    "height": 1620,
+    "title": "A player at a hitting wall",
+    "alt": "A woman in black shirt and shorts playing a game of tennis.",
+    "credit": "Brenda Rossato",
+    "source": "https://unsplash.com/photos/a-woman-in-black-shirt-and-shorts-playing-a-game-of-tennis-iB-u276WdQg",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "rossato",
+    "cut_for": "home-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "home-split-rec-01",
+    "kind": "photo",
+    "file": "img/home-split-rec-01.jpg",
+    "width": 1800,
+    "height": 2250,
+    "title": "A girl on an outdoor court",
+    "alt": "A young girl playing tennis on a tennis court.",
+    "credit": "Laura Marks",
+    "source": "https://unsplash.com/photos/a-young-girl-playing-tennis-on-a-tennis-court-mfFVeuItimI",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "marks",
+    "cut_for": "home-split-rec-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-camps-summer-hero-01",
+    "kind": "photo",
+    "file": "img/site-camps-summer-hero-01.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "The same girl, a second crop",
+    "alt": "A young girl in a pink cap sets up a forehand on a green outdoor court.",
+    "credit": "Laura Marks",
+    "source": "https://unsplash.com/photos/a-young-girl-playing-tennis-on-a-tennis-court-mfFVeuItimI",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "marks",
+    "cut_for": "camps-summer-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "junior-indoor-01",
+    "kind": "photo",
+    "file": "img/junior-indoor-01.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "A lesson under a dome",
+    "alt": "A couple of men stand on a tennis court.",
+    "credit": "Rezli",
+    "source": "https://unsplash.com/photos/a-couple-of-men-stand-on-a-tennis-court-QWDaiPfly5k",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "rezli-a",
+    "cut_for": "junior-indoor-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-hp-little-champs-01",
+    "kind": "photo",
+    "file": "img/site-hp-little-champs-01.jpg",
+    "width": 1200,
+    "height": 1500,
+    "title": "The same lesson, a second crop",
+    "alt": "A young boy takes his racquet back for a forehand on an indoor court under a dome.",
+    "credit": "Rezli",
+    "source": "https://unsplash.com/photos/a-couple-of-men-stand-on-a-tennis-court-QWDaiPfly5k",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "rezli-a",
+    "cut_for": "hp-little-champs-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "hp-pro-national-02",
+    "kind": "photo",
+    "file": "img/hp-pro-national-02.jpg",
+    "width": 1200,
+    "height": 1500,
+    "title": "A player with ball and racquet",
+    "alt": "Woman holding tennis ball and racket.",
+    "credit": "Renith R",
+    "source": "https://unsplash.com/photos/woman-holding-tennis-ball-and-racket-MLU_X1d3ofQ",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "renith",
+    "cut_for": "hp-pro-national-02",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "hp-hero-01",
+    "kind": "photo",
+    "file": "img/hp-hero-01.jpg",
+    "width": 2880,
+    "height": 1620,
+    "title": "A player with a racquet",
+    "alt": "A man holding a tennis racquet on top of a tennis court.",
+    "credit": "Fei Chao",
+    "source": "https://unsplash.com/photos/a-man-holding-a-tennis-racquet-on-top-of-a-tennis-court-IaRe1EGaMRc",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "chao",
+    "cut_for": "hp-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-hp-pro-national-01",
+    "kind": "photo",
+    "file": "img/site-hp-pro-national-01.jpg",
+    "width": 3024,
+    "height": 1296,
+    "title": "A night forehand",
+    "alt": "A player hits a forehand at night under the lights, the rest of the frame in darkness.",
+    "credit": "Abror Alarice",
+    "source": "https://unsplash.com/photos/a-tennis-player-hitting-a-ball-at-night-4GKwTRFlFac",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "alarice",
+    "cut_for": "hp-pro-national-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-hp-transition-tour-01",
+    "kind": "photo",
+    "file": "img/site-hp-transition-tour-01.jpg",
+    "width": 1200,
+    "height": 1500,
+    "title": "A player on court",
+    "alt": "A girl sets up a forehand on a green hard court, seen through the fence.",
+    "credit": "Toa Heftiba",
+    "source": "https://unsplash.com/photos/woman-playing-tennis-on-court-8N0-G_EftOA",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "heftiba",
+    "cut_for": "hp-transition-tour-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "leagues-junior-events-01",
+    "kind": "photo",
+    "file": "img/leagues-junior-events-01.jpg",
+    "width": 1200,
+    "height": 800,
+    "title": "The same player, a second crop",
+    "alt": "Woman playing tennis on court.",
+    "credit": "Toa Heftiba",
+    "source": "https://unsplash.com/photos/woman-playing-tennis-on-court-8N0-G_EftOA",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "heftiba",
+    "cut_for": "leagues-junior-events-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "junior-hero-01",
+    "kind": "photo",
+    "file": "img/junior-hero-01.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "A boy with a coach",
+    "alt": "A boy and his coach on a tennis court.",
+    "credit": "安 崔士",
+    "source": "https://unsplash.com/photos/two-men-playing-tennis-on-a-tennis-court-kFcVDudabOk",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "cui",
+    "cut_for": "junior-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-camps-holiday-hero-01",
+    "kind": "photo",
+    "file": "img/site-camps-holiday-hero-01.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "The same lesson, a second crop",
+    "alt": "A boy and his coach at the net on an indoor court.",
+    "credit": "安 崔士",
+    "source": "https://unsplash.com/photos/two-men-playing-tennis-on-a-tennis-court-kFcVDudabOk",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "cui",
+    "cut_for": "camps-holiday-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "adult-hero-01",
+    "kind": "photo",
+    "file": "img/adult-hero-01.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "A player in action",
+    "alt": "A female tennis player in action on the court.",
+    "credit": "Jim Weatherford",
+    "source": "https://unsplash.com/photos/a-female-tennis-player-in-action-on-the-court-lqU8diyO3WU",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "weatherford",
+    "cut_for": "adult-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "adult-group-lesson-01",
+    "kind": "photo",
+    "file": "img/adult-group-lesson-01.jpg",
+    "width": 1600,
+    "height": 1067,
+    "title": "Two people playing in daylight",
+    "alt": "Two people playing tennis in daylight.",
+    "credit": "Sicong Li",
+    "source": "https://unsplash.com/photos/two-person-playing-tennis-during-daytime-btr4w-vpsVo",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "li",
+    "cut_for": "adult-group-lesson-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-leagues-round-robin-01",
+    "kind": "photo",
+    "file": "img/site-leagues-round-robin-01.jpg",
+    "width": 1600,
+    "height": 1067,
+    "title": "The same game, a second crop",
+    "alt": "Two players rallying on a blue hard court in daylight, seen from above.",
+    "credit": "Sicong Li",
+    "source": "https://unsplash.com/photos/two-person-playing-tennis-during-daytime-btr4w-vpsVo",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "li",
+    "cut_for": "leagues-round-robin-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "private-hero-01",
+    "kind": "photo",
+    "file": "img/private-hero-01.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "Two people with racquets",
+    "alt": "A couple of people standing on a tennis court holding racquets.",
+    "credit": "Ahmed",
+    "source": "https://unsplash.com/photos/a-couple-of-people-standing-on-a-tennis-court-holding-racquets-rCm6KqHtmyY",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "ahmed",
+    "cut_for": "private-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "camps-march-break-hero-01",
+    "kind": "photo",
+    "file": "img/camps-march-break-hero-01.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "A coach and a girl under a dome",
+    "alt": "A girl in the ready position across from her coach on an indoor court under a dome.",
+    "credit": "Rezli",
+    "source": "https://unsplash.com/photos/a-couple-of-people-play-tennis-WgqEXkbrvOg",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "rezli-b",
+    "cut_for": "camps-march-break-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-camps-hero-01",
+    "kind": "photo",
+    "file": "img/site-camps-hero-01.jpg",
+    "width": 2400,
+    "height": 1350,
+    "title": "The same lesson, a second crop",
+    "alt": "A girl in the ready position and her coach with a basket of balls on an indoor court under a dome.",
+    "credit": "Rezli",
+    "source": "https://unsplash.com/photos/a-couple-of-people-play-tennis-WgqEXkbrvOg",
+    "licence": "Unsplash Licence",
+    "status": "replace",
+    "status_label": "Legal, but replace before launch",
+    "origin": "stand-in",
+    "original": "rezli-b",
+    "cut_for": "camps-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-facilities-courts-01",
+    "kind": "photo",
+    "file": "img/site-facilities-courts-01.jpg",
+    "width": 2400,
+    "height": 1350,
+    "title": "Blue courts from above",
+    "alt": "Blue hard courts in a green surround seen from above, two white benches beside the net.",
+    "credit": "Wil Seaman (Unsplash, via Wikimedia Commons)",
+    "source": "https://commons.wikimedia.org/wiki/File:Courts_(Unsplash).jpg",
+    "licence": "CC0 (public domain)",
+    "status": "can-stay",
+    "status_label": "Can stay",
+    "origin": "stand-in",
+    "original": "seaman",
+    "cut_for": "facilities-courts-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-about-hero-01b",
+    "kind": "photo",
+    "file": "img/site-about-hero-01b.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "The same courts, a second crop",
+    "alt": "Blue hard courts and green surrounds seen from above, two white benches by the net.",
+    "credit": "Wil Seaman (Unsplash, via Wikimedia Commons)",
+    "source": "https://commons.wikimedia.org/wiki/File:Courts_(Unsplash).jpg",
+    "licence": "CC0 (public domain)",
+    "status": "can-stay",
+    "status_label": "Can stay",
+    "origin": "stand-in",
+    "original": "seaman",
+    "cut_for": "about-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-facilities-hero-01",
+    "kind": "photo",
+    "file": "img/site-facilities-hero-01.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "Inside a dome at night",
+    "alt": "Inside an air-supported tennis dome at night: blue courts under white fabric and hanging lamps.",
+    "credit": "Ben Schumin",
+    "source": "https://commons.wikimedia.org/wiki/File:Germantown_Tennisplex_(50847645851).png",
+    "licence": "CC BY-SA 2.0",
+    "status": "credit",
+    "status_label": "Can stay with a credit",
+    "origin": "stand-in",
+    "original": "schumin",
+    "cut_for": "facilities-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-leagues-hero-01",
+    "kind": "photo",
+    "file": "img/site-leagues-hero-01.jpg",
+    "width": 2400,
+    "height": 1600,
+    "title": "Evening play on public courts",
+    "alt": "Evening tennis on several blue hard courts in low golden light, seen from above.",
+    "credit": "The Town of Ajax",
+    "source": "https://commons.wikimedia.org/wiki/File:Aerial_Photograph_of_Tennis_Courts_in_Ajax_-_Discover_The_Town_Of_Ajax_(01m14s).jpg",
+    "licence": "CC BY 3.0",
+    "status": "credit",
+    "status_label": "Can stay with a credit",
+    "origin": "stand-in",
+    "original": "ajax",
+    "cut_for": "leagues-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "site-membership-hero-01",
+    "kind": "photo",
+    "file": "img/site-membership-hero-01.jpg",
+    "width": 1600,
+    "height": 1200,
+    "title": "A doubles game in the evening",
+    "alt": "Four adults playing doubles on a blue hard court in evening light, seen from above.",
+    "credit": "The Town of Ajax",
+    "source": "https://commons.wikimedia.org/wiki/File:Aerial_Photograph_of_Tennis_Courts_in_Ajax_-_Discover_The_Town_Of_Ajax_(01m14s).jpg",
+    "licence": "CC BY 3.0",
+    "status": "credit",
+    "status_label": "Can stay with a credit",
+    "origin": "stand-in",
+    "original": "ajax",
+    "cut_for": "membership-hero-01",
+    "tag": "Placeholder image"
+   },
+   {
+    "id": "majors-team-group",
+    "kind": "photo",
+    "file": "photos/majors-team-group-1600.jpg",
+    "width": 1600,
+    "height": 1148,
+    "sizes": {
+     "900": "photos/majors-team-group-900.jpg",
+     "1600": "photos/majors-team-group-1600.jpg",
+     "2400": "photos/majors-team-group-2400.jpg"
+    },
+    "title": "The Majors team, posed at night",
+    "alt": "The Majors team after winning first place in their intercounty division, posed on a floodlit court at night, 2022.",
+    "credit": "The club's own photograph, August 2022",
+    "source": "https://www.thornhillparktennisclub.ca/news/our-majors-team-takes-1st-place-big-congratulations/",
+    "licence": "The club's own (photographer and consent to confirm)",
+    "status": "club",
+    "status_label": "Your own photo",
+    "origin": "club",
+    "original": "majors-team-group",
+    "tag": null,
+    "note": "Yours to use once the club says who took them and has consent from the people shown (three may be under 18)."
+   },
+   {
+    "id": "majors-team-trophy",
+    "kind": "photo",
+    "file": "photos/majors-team-trophy-1600.jpg",
+    "width": 1600,
+    "height": 1200,
+    "sizes": {
+     "900": "photos/majors-team-trophy-900.jpg",
+     "1600": "photos/majors-team-trophy-1600.jpg",
+     "2400": "photos/majors-team-trophy-2400.jpg"
+    },
+    "title": "The Majors team with the trophy",
+    "alt": "The Majors team with their first place trophy, intercounty division, 2022.",
+    "credit": "The club's own photograph, August 2022",
+    "source": "https://www.thornhillparktennisclub.ca/news/our-majors-team-takes-1st-place-big-congratulations/",
+    "licence": "The club's own (photographer and consent to confirm)",
+    "status": "club",
+    "status_label": "Your own photo",
+    "origin": "club",
+    "original": "majors-team-trophy",
+    "tag": null,
+    "note": "Yours to use once the club says who took them and has consent from the people shown (three may be under 18)."
+   },
+   {
+    "id": "majors-team-celebration",
+    "kind": "photo",
+    "file": "photos/majors-team-celebration-1600.jpg",
+    "width": 1600,
+    "height": 1200,
+    "sizes": {
+     "900": "photos/majors-team-celebration-900.jpg",
+     "1600": "photos/majors-team-celebration-1600.jpg",
+     "2400": "photos/majors-team-celebration-2400.jpg"
+    },
+    "title": "The Majors team celebrating",
+    "alt": "The Majors team celebrating first place in their intercounty division, 2022.",
+    "credit": "The club's own photograph, August 2022",
+    "source": "https://www.thornhillparktennisclub.ca/news/our-majors-team-takes-1st-place-big-congratulations/",
+    "licence": "The club's own (photographer and consent to confirm)",
+    "status": "club",
+    "status_label": "Your own photo",
+    "origin": "club",
+    "original": "majors-team-celebration",
+    "tag": null,
+    "note": "Yours to use once the club says who took them and has consent from the people shown (three may be under 18)."
+   },
+   {
+    "id": "majors-team-selfie",
+    "kind": "photo",
+    "file": "photos/majors-team-selfie-1600.jpg",
+    "width": 1200,
+    "height": 1600,
+    "sizes": {
+     "900": "photos/majors-team-selfie-900.jpg",
+     "1600": "photos/majors-team-selfie-1600.jpg",
+     "2400": "photos/majors-team-selfie-2400.jpg"
+    },
+    "title": "Two players with the trophy",
+    "alt": "Two members of the Majors team with the first place trophy, 2022.",
+    "credit": "The club's own photograph, August 2022",
+    "source": "https://www.thornhillparktennisclub.ca/news/our-majors-team-takes-1st-place-big-congratulations/",
+    "licence": "The club's own (photographer and consent to confirm)",
+    "status": "club",
+    "status_label": "Your own photo",
+    "origin": "club",
+    "original": "majors-team-selfie",
+    "tag": null,
+    "note": "Yours to use once the club says who took them and has consent from the people shown (three may be under 18)."
+   }
+  ],
+  "videos": [],
+  "pdfs": [
+   {
+    "id": "pdf-booking-instructions",
+    "kind": "pdf",
+    "title": "Booking instructions",
+    "meta": "PDF, 4 pages",
+    "href": "https://0dda63c7-5ef2-4c41-9eb9-eab56eb2b664.filesusr.com/ugd/21bafb_30daa3b5ffdc4775bf67f857fc4f7f4b.pdf",
+    "origin": "club",
+    "note": "Linked from the club's current site (an old Wix host); moves into the club's own storage at launch."
+   },
+   {
+    "id": "pdf-constitution",
+    "kind": "pdf",
+    "title": "Club Constitution",
+    "meta": "PDF, 10 pages",
+    "href": "https://0dda63c7-5ef2-4c41-9eb9-eab56eb2b664.filesusr.com/ugd/21bafb_53aad3f82c8a499fa7b45cfa35682f5f.pdf",
+    "origin": "club",
+    "note": "Linked from the club's current site; moves into the club's own storage at launch."
+   },
+   {
+    "id": "pdf-articles-of-amendment",
+    "kind": "pdf",
+    "title": "Articles of Amendment",
+    "meta": "PDF, 3 pages",
+    "href": "https://thornhillparktennisclub.ca/wp-content/uploads/2025/02/Articles-of-Amendment.pdf",
+    "origin": "club",
+    "note": "Linked from the club's current site; moves into the club's own storage at launch."
+   }
+  ],
+  "video_wanted": {
+   "slot": "home-video",
+   "what": "A short club film for Home, Why TPTC?, 30 to 90 seconds (MP4, 1080p or better), or a YouTube link.",
+   "source": "TPTC-CONTENT-CHECKLIST.html, part one"
+  }
+ },
+ "slots": {
+  "note": "Generated by panel/build.py from the built Whites pages (site/**/index.html): every data-slot.",
+  "slots": [
+   {
+    "id": "home-hero-01",
+    "kind": "photo",
+    "media": "home-hero-01",
+    "ratio": "16x9",
+    "pos": "58% 50%",
+    "club": false,
+    "own_label": false,
+    "alt": "A woman in black shirt and shorts playing a game of tennis.",
+    "ratios": [
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "junior-hero-01",
+    "kind": "photo",
+    "media": "junior-hero-01",
+    "ratio": "2x1",
+    "pos": "38% 50%",
+    "club": false,
+    "own_label": false,
+    "alt": "A boy and his coach on a tennis court.",
+    "ratios": [
+     "2x1",
+     "3x4",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "What are you looking for?"
+     },
+     {
+      "page": "programs",
+      "where": "The five programs"
+     },
+     {
+      "page": "junior",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "hp-hero-01",
+    "kind": "photo",
+    "media": "hp-hero-01",
+    "ratio": "2x1",
+    "pos": "40% 30%",
+    "club": false,
+    "own_label": false,
+    "alt": "A man holding a tennis racquet on top of a tennis court.",
+    "ratios": [
+     "2x1",
+     "3x4",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "What are you looking for?"
+     },
+     {
+      "page": "programs",
+      "where": "The five programs"
+     },
+     {
+      "page": "high-performance",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "adult-hero-01",
+    "kind": "photo",
+    "media": "adult-hero-01",
+    "ratio": "2x1",
+    "pos": "50% 35%",
+    "club": false,
+    "own_label": false,
+    "alt": "A female tennis player in action on the court.",
+    "ratios": [
+     "2x1",
+     "3x4",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "What are you looking for?"
+     },
+     {
+      "page": "programs",
+      "where": "The five programs"
+     },
+     {
+      "page": "adult",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "camps-hero-01",
+    "kind": "photo",
+    "media": "site-camps-hero-01",
+    "ratio": "2x1",
+    "pos": "22% 50%",
+    "club": false,
+    "own_label": false,
+    "alt": "A girl in the ready position and her coach with a basket of balls on an indoor court under a dome.",
+    "ratios": [
+     "2x1",
+     "3x4",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "What are you looking for?"
+     },
+     {
+      "page": "programs",
+      "where": "The five programs"
+     },
+     {
+      "page": "camps",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "home-split-rec-01",
+    "kind": "photo",
+    "media": "home-split-rec-01",
+    "ratio": "4x5",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A young girl playing tennis on a tennis court.",
+    "ratios": [
+     "4x5"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Recreational tennis"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "hp-pro-national-02",
+    "kind": "photo",
+    "media": "hp-pro-national-02",
+    "ratio": "4x5",
+    "pos": "50% 35%",
+    "club": false,
+    "own_label": false,
+    "alt": "Woman holding tennis ball and racket.",
+    "ratios": [
+     "4x5"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "High Performance"
+     },
+     {
+      "page": "high-performance",
+      "where": "All three steps"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "home-why-01",
+    "kind": "photo",
+    "media": "majors-team-celebration",
+    "ratio": "4x3",
+    "pos": null,
+    "club": true,
+    "own_label": false,
+    "alt": "The Majors team celebrating first place in their intercounty division, 2022.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Why TPTC?"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "home-why-02",
+    "kind": "photo",
+    "media": "majors-team-trophy",
+    "ratio": "4x3",
+    "pos": null,
+    "club": true,
+    "own_label": false,
+    "alt": "The Majors team with their first place trophy, intercounty division, 2022.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Why TPTC?"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "home-why-03",
+    "kind": "photo",
+    "media": "site-facilities-hero-01",
+    "ratio": "4x3",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Inside an air-supported tennis dome at night: blue courts under white fabric and hanging lamps.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Why TPTC?"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "home-why-04",
+    "kind": "photo",
+    "media": "site-about-hero-01b",
+    "ratio": "4x3",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Blue hard courts and green surrounds seen from above, two white benches by the net.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Why TPTC?"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "home-video",
+    "kind": "video",
+    "media": null,
+    "ratio": "4x3",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": null,
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Why TPTC?"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "junior-indoor-01",
+    "kind": "photo",
+    "media": "junior-indoor-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A couple of men stand on a tennis court.",
+    "ratios": [
+     "3x2"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "What’s happening at TPTC?"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "news-indoor-membership-2026-cover",
+    "kind": "photo",
+    "media": "site-membership-hero-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Four adults playing doubles on a blue hard court in evening light, seen from above.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Latest news"
+     },
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-indoor-membership-2026",
+      "where": "Hero"
+     },
+     {
+      "page": "news-opening-day-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-winter-lessons-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-intercounty-tryouts-2025",
+      "where": "Related news"
+     },
+     {
+      "page": "news-majors-first-place-2022",
+      "where": "Related news"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-fall-outdoor-lessons-2026-cover",
+    "kind": "photo",
+    "media": "adult-group-lesson-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Two people playing tennis in daylight.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Latest news"
+     },
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-fall-outdoor-lessons-2026",
+      "where": "Hero"
+     },
+     {
+      "page": "news-indoor-membership-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-summer-lessons-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-spring-lessons-2026",
+      "where": "Related news"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-summer-lessons-2026-cover",
+    "kind": "photo",
+    "media": "private-hero-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Two people with racquets standing on a tennis court.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Latest news"
+     },
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-fall-outdoor-lessons-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-summer-lessons-2026",
+      "where": "Hero"
+     },
+     {
+      "page": "news-opening-day-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-spring-lessons-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Related news"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "coaches-head-pro-01",
+    "kind": "photo",
+    "media": null,
+    "ratio": "4x5",
+    "pos": null,
+    "club": false,
+    "own_label": true,
+    "alt": null,
+    "ratios": [
+     "4x5",
+     "3x4"
+    ],
+    "pages": [
+     {
+      "page": "home",
+      "where": "Meet the Coaches"
+     },
+     {
+      "page": "about",
+      "where": "The people, the courts, the years."
+     },
+     {
+      "page": "coaches",
+      "where": "Hero"
+     }
+    ],
+    "managed": "coaches"
+   },
+   {
+    "id": "private-hero-01",
+    "kind": "photo",
+    "media": "private-hero-01",
+    "ratio": "3x4",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A couple of people standing on a tennis court holding racquets.",
+    "ratios": [
+     "3x4",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "programs",
+      "where": "The five programs"
+     },
+     {
+      "page": "private-lessons",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "adult-group-lesson-01",
+    "kind": "photo",
+    "media": "adult-group-lesson-01",
+    "ratio": "21x9",
+    "pos": "50% 0%",
+    "club": false,
+    "own_label": false,
+    "alt": "Two people playing tennis in daylight.",
+    "ratios": [
+     "21x9"
+    ],
+    "pages": [
+     {
+      "page": "adult",
+      "where": "Group lessons for adults"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "hp-little-champs-01",
+    "kind": "photo",
+    "media": "site-hp-little-champs-01",
+    "ratio": "4x5",
+    "pos": "50% 22%",
+    "club": false,
+    "own_label": false,
+    "alt": "A young boy takes his racquet back for a forehand on an indoor court under a dome.",
+    "ratios": [
+     "4x5"
+    ],
+    "pages": [
+     {
+      "page": "high-performance",
+      "where": "All three steps"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "hp-transition-tour-01",
+    "kind": "photo",
+    "media": "site-hp-transition-tour-01",
+    "ratio": "4x5",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A girl sets up a forehand on a green hard court, seen through the fence.",
+    "ratios": [
+     "4x5"
+    ],
+    "pages": [
+     {
+      "page": "high-performance",
+      "where": "All three steps"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "hp-pro-national-01",
+    "kind": "photo",
+    "media": "site-hp-pro-national-01",
+    "ratio": "21x9",
+    "pos": "80% 50%",
+    "club": false,
+    "own_label": false,
+    "alt": "A player hits a forehand at night under the lights, the rest of the frame in darkness.",
+    "ratios": [
+     "21x9"
+    ],
+    "pages": [
+     {
+      "page": "high-performance",
+      "where": "All three steps"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "camps-summer-hero-01",
+    "kind": "photo",
+    "media": "site-camps-summer-hero-01",
+    "ratio": "3x4",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A young girl in a pink cap sets up a forehand on a green outdoor court.",
+    "ratios": [
+     "3x4",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "camps",
+      "where": "Three seasons, every school break."
+     },
+     {
+      "page": "camps-summer",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "camps-march-break-hero-01",
+    "kind": "photo",
+    "media": "camps-march-break-hero-01",
+    "ratio": "3x4",
+    "pos": "20% 50%",
+    "club": false,
+    "own_label": false,
+    "alt": "A girl in the ready position across from her coach on an indoor court under a dome.",
+    "ratios": [
+     "3x4",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "camps",
+      "where": "Three seasons, every school break."
+     },
+     {
+      "page": "camps-march-break",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "camps-holiday-hero-01",
+    "kind": "photo",
+    "media": "site-camps-holiday-hero-01",
+    "ratio": "3x4",
+    "pos": "50% 45%",
+    "club": false,
+    "own_label": false,
+    "alt": "A boy and his coach at the net on an indoor court.",
+    "ratios": [
+     "3x4",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "camps",
+      "where": "Three seasons, every school break."
+     },
+     {
+      "page": "camps-holiday",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "membership-hero-01",
+    "kind": "photo",
+    "media": "site-membership-hero-01",
+    "ratio": "4x3",
+    "pos": "68% 40%",
+    "club": false,
+    "own_label": false,
+    "alt": "Four adults playing doubles on a blue hard court in evening light, seen from above.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "membership",
+      "where": "What membership gives you."
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "leagues-hero-01",
+    "kind": "photo",
+    "media": "site-leagues-hero-01",
+    "ratio": "16x9",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Evening tennis on several blue hard courts in low golden light, seen from above.",
+    "ratios": [
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "leagues-events",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "leagues-round-robin-01",
+    "kind": "photo",
+    "media": "site-leagues-round-robin-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Two players rallying on a blue hard court in daylight, seen from above.",
+    "ratios": [
+     "3x2"
+    ],
+    "pages": [
+     {
+      "page": "leagues-events",
+      "where": "Round robins"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "leagues-events-majors-team-group",
+    "kind": "photo",
+    "media": "majors-team-group",
+    "ratio": "3x2",
+    "pos": null,
+    "club": true,
+    "own_label": false,
+    "alt": "The club’s Majors intercounty team after winning first place in their division, posed on a floodlit court at night, August 2022.",
+    "ratios": [
+     "3x2"
+    ],
+    "pages": [
+     {
+      "page": "leagues-events",
+      "where": "Interclub and intercounty"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "leagues-junior-events-01",
+    "kind": "photo",
+    "media": "leagues-junior-events-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Woman playing tennis on court.",
+    "ratios": [
+     "3x2"
+    ],
+    "pages": [
+     {
+      "page": "leagues-events",
+      "where": "Junior events"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "about-hero-01",
+    "kind": "photo",
+    "media": "site-about-hero-01b",
+    "ratio": "16x9",
+    "pos": "50% 55%",
+    "club": false,
+    "own_label": false,
+    "alt": "Blue hard courts and green surrounds seen from above, two white benches by the net.",
+    "ratios": [
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "about",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "about-majors-team-group",
+    "kind": "photo",
+    "media": "majors-team-group",
+    "ratio": "4x3",
+    "pos": null,
+    "club": true,
+    "own_label": false,
+    "alt": "The Majors team after winning first place in their intercounty division, posed on a floodlit court at night, 2022.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "about",
+      "where": "A club that plays as a team."
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "facilities-hero-01",
+    "kind": "photo",
+    "media": "site-facilities-hero-01",
+    "ratio": "3x4",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Inside an air-supported tennis dome at night: blue courts under white fabric and hanging lamps.",
+    "ratios": [
+     "3x4",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "about",
+      "where": "The people, the courts, the years."
+     },
+     {
+      "page": "facilities",
+      "where": "Hero"
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "coaches-team-01",
+    "kind": "photo",
+    "media": null,
+    "ratio": "4x5",
+    "pos": null,
+    "club": false,
+    "own_label": true,
+    "alt": null,
+    "ratios": [
+     "4x5"
+    ],
+    "pages": [
+     {
+      "page": "coaches",
+      "where": "Every coach, by name."
+     }
+    ],
+    "managed": "coaches"
+   },
+   {
+    "id": "facilities-courts-01",
+    "kind": "photo",
+    "media": "site-facilities-courts-01",
+    "ratio": "16x9",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Blue hard courts in a green surround seen from above, two white benches beside the net.",
+    "ratios": [
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "facilities",
+      "where": "Four courts, by the numbers."
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "history-majors-team-selfie",
+    "kind": "photo",
+    "media": "majors-team-selfie",
+    "ratio": "4x5",
+    "pos": null,
+    "club": true,
+    "own_label": false,
+    "alt": "Two members of the Majors team with the first place trophy, 2022.",
+    "ratios": [
+     "4x5"
+    ],
+    "pages": [
+     {
+      "page": "history",
+      "where": "One night in August 2022."
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "history-majors-team-celebration",
+    "kind": "photo",
+    "media": "majors-team-celebration",
+    "ratio": "4x3",
+    "pos": null,
+    "club": true,
+    "own_label": false,
+    "alt": "The Majors team celebrating first place in their intercounty division, 2022.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "history",
+      "where": "One night in August 2022."
+     }
+    ],
+    "managed": "photos"
+   },
+   {
+    "id": "news-opening-day-2026-cover",
+    "kind": "photo",
+    "media": "leagues-junior-events-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A player moves to the ball on a green outdoor court.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-indoor-membership-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-opening-day-2026",
+      "where": "Hero"
+     },
+     {
+      "page": "news-intercounty-tryouts-2025",
+      "where": "Related news"
+     },
+     {
+      "page": "news-majors-first-place-2022",
+      "where": "Related news"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-spring-lessons-2026-cover",
+    "kind": "photo",
+    "media": "junior-hero-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A boy and his coach on a tennis court.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-fall-outdoor-lessons-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-summer-lessons-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-spring-lessons-2026",
+      "where": "Hero"
+     },
+     {
+      "page": "news-march-break-camp-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-winter-lessons-2026",
+      "where": "Related news"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-march-break-camp-2026-cover",
+    "kind": "photo",
+    "media": "camps-march-break-hero-01",
+    "ratio": "3x2",
+    "pos": "30% 50%",
+    "club": false,
+    "own_label": false,
+    "alt": "A girl in the ready position across from her coach on an indoor court under a dome.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-march-break-camp-2026",
+      "where": "Hero"
+     },
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-winter-lessons-2026",
+      "where": "Related news"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-summer-camp-2026-cover",
+    "kind": "photo",
+    "media": "site-camps-summer-hero-01",
+    "ratio": "3x2",
+    "pos": "45% 40%",
+    "club": false,
+    "own_label": false,
+    "alt": "A young girl in a pink cap sets up a forehand on a green outdoor court.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-summer-lessons-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-march-break-camp-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Hero"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-winter-lessons-2026-cover",
+    "kind": "photo",
+    "media": "junior-indoor-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A lesson on an indoor court under a dome.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-fall-outdoor-lessons-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-indoor-membership-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-spring-lessons-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-march-break-camp-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-winter-lessons-2026",
+      "where": "Hero"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-intercounty-tryouts-2025-cover",
+    "kind": "photo",
+    "media": "site-leagues-hero-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Evening tennis on several blue hard courts in low golden light, seen from above.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-intercounty-tryouts-2025",
+      "where": "Hero"
+     },
+     {
+      "page": "news-majors-first-place-2022",
+      "where": "Related news"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-majors-first-place-2022-cover",
+    "kind": "photo",
+    "media": "majors-team-trophy",
+    "ratio": "3x2",
+    "pos": null,
+    "club": true,
+    "own_label": false,
+    "alt": "The Majors team with their first place trophy, intercounty division, 2022.",
+    "ratios": [
+     "3x2",
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "news",
+      "where": "All posts, newest first"
+     },
+     {
+      "page": "news-opening-day-2026",
+      "where": "Related news"
+     },
+     {
+      "page": "news-intercounty-tryouts-2025",
+      "where": "Related news"
+     },
+     {
+      "page": "news-majors-first-place-2022",
+      "where": "Hero"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-summer-camp-2026-photo-5",
+    "kind": "photo",
+    "media": "site-facilities-courts-01",
+    "ratio": "3x2",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "Blue hard courts in a green surround seen from above, two white benches beside the net.",
+    "ratios": [
+     "3x2"
+    ],
+    "pages": [
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Prizes every week"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-summer-camp-2026-gallery-8-1",
+    "kind": "photo",
+    "media": "site-camps-hero-01",
+    "ratio": "4x3",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A girl in the ready position and her coach with a basket of balls on an indoor court under a dome.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Three locations"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-summer-camp-2026-gallery-8-2",
+    "kind": "photo",
+    "media": "site-camps-holiday-hero-01",
+    "ratio": "4x3",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A boy and his coach at the net on an indoor court.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Three locations"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-summer-camp-2026-gallery-8-3",
+    "kind": "photo",
+    "media": "site-hp-little-champs-01",
+    "ratio": "4x3",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A young boy takes his racquet back for a forehand on an indoor court under a dome.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Three locations"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-summer-camp-2026-video-9",
+    "kind": "video",
+    "media": null,
+    "ratio": "16x9",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": null,
+    "ratios": [
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Three locations"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-summer-camp-2026-video-9-poster",
+    "kind": "photo",
+    "media": "site-hp-transition-tour-01",
+    "ratio": "16x9",
+    "pos": null,
+    "club": false,
+    "own_label": false,
+    "alt": "A girl sets up a forehand on a green hard court, seen through the fence.",
+    "ratios": [
+     "16x9"
+    ],
+    "pages": [
+     {
+      "page": "news-summer-camp-2026",
+      "where": "Three locations"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-majors-first-place-2022-gallery-2-1",
+    "kind": "photo",
+    "media": "majors-team-group",
+    "ratio": "4x3",
+    "pos": null,
+    "club": true,
+    "own_label": false,
+    "alt": "The Majors team after winning first place in their intercounty division, posed on a floodlit court at night, 2022.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "news-majors-first-place-2022",
+      "where": "Hero"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-majors-first-place-2022-gallery-2-2",
+    "kind": "photo",
+    "media": "majors-team-celebration",
+    "ratio": "4x3",
+    "pos": null,
+    "club": true,
+    "own_label": false,
+    "alt": "The Majors team celebrating first place in their intercounty division, 2022.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "news-majors-first-place-2022",
+      "where": "Hero"
+     }
+    ],
+    "managed": "news"
+   },
+   {
+    "id": "news-majors-first-place-2022-gallery-2-3",
+    "kind": "photo",
+    "media": "majors-team-selfie",
+    "ratio": "4x3",
+    "pos": "50% 40%",
+    "club": true,
+    "own_label": false,
+    "alt": "Two members of the Majors team with the first place trophy, 2022.",
+    "ratios": [
+     "4x3"
+    ],
+    "pages": [
+     {
+      "page": "news-majors-first-place-2022",
+      "where": "Hero"
+     }
+    ],
+    "managed": "news"
+   }
+  ],
+  "pages": [
+   {
+    "page": "home",
+    "title": "Home",
+    "route": "",
+    "article": null,
+    "slots": [
+     "home-hero-01",
+     "junior-hero-01",
+     "hp-hero-01",
+     "adult-hero-01",
+     "camps-hero-01",
+     "home-split-rec-01",
+     "hp-pro-national-02",
+     "home-why-01",
+     "home-why-02",
+     "home-why-03",
+     "home-why-04",
+     "home-video",
+     "junior-indoor-01",
+     "news-indoor-membership-2026-cover",
+     "news-fall-outdoor-lessons-2026-cover",
+     "news-summer-lessons-2026-cover",
+     "coaches-head-pro-01"
+    ]
+   },
+   {
+    "page": "programs",
+    "title": "Programs",
+    "route": "programs/",
+    "article": null,
+    "slots": [
+     "junior-hero-01",
+     "hp-hero-01",
+     "camps-hero-01",
+     "adult-hero-01",
+     "private-hero-01"
+    ]
+   },
+   {
+    "page": "junior",
+    "title": "Junior Recreational",
+    "route": "programs/junior/",
+    "article": null,
+    "slots": [
+     "junior-hero-01"
+    ]
+   },
+   {
+    "page": "adult",
+    "title": "Adult Programs",
+    "route": "programs/adult/",
+    "article": null,
+    "slots": [
+     "adult-hero-01",
+     "adult-group-lesson-01"
+    ]
+   },
+   {
+    "page": "high-performance",
+    "title": "High Performance",
+    "route": "programs/high-performance/",
+    "article": null,
+    "slots": [
+     "hp-hero-01",
+     "hp-little-champs-01",
+     "hp-transition-tour-01",
+     "hp-pro-national-02",
+     "hp-pro-national-01"
+    ]
+   },
+   {
+    "page": "private-lessons",
+    "title": "Private Lessons",
+    "route": "programs/private-lessons/",
+    "article": null,
+    "slots": [
+     "private-hero-01"
+    ]
+   },
+   {
+    "page": "camps",
+    "title": "Camps",
+    "route": "programs/camps/",
+    "article": null,
+    "slots": [
+     "camps-hero-01",
+     "camps-summer-hero-01",
+     "camps-march-break-hero-01",
+     "camps-holiday-hero-01"
+    ]
+   },
+   {
+    "page": "camps-summer",
+    "title": "Summer Camps",
+    "route": "programs/camps/summer/",
+    "article": null,
+    "slots": [
+     "camps-summer-hero-01"
+    ]
+   },
+   {
+    "page": "camps-march-break",
+    "title": "March Break Camp",
+    "route": "programs/camps/march-break/",
+    "article": null,
+    "slots": [
+     "camps-march-break-hero-01"
+    ]
+   },
+   {
+    "page": "camps-holiday",
+    "title": "Holiday Camps",
+    "route": "programs/camps/holiday/",
+    "article": null,
+    "slots": [
+     "camps-holiday-hero-01"
+    ]
+   },
+   {
+    "page": "membership",
+    "title": "Membership",
+    "route": "membership/",
+    "article": null,
+    "slots": [
+     "membership-hero-01"
+    ]
+   },
+   {
+    "page": "leagues-events",
+    "title": "Leagues & Events",
+    "route": "leagues-events/",
+    "article": null,
+    "slots": [
+     "leagues-hero-01",
+     "leagues-round-robin-01",
+     "leagues-events-majors-team-group",
+     "leagues-junior-events-01"
+    ]
+   },
+   {
+    "page": "about",
+    "title": "Our Club",
+    "route": "about/",
+    "article": null,
+    "slots": [
+     "about-hero-01",
+     "about-majors-team-group",
+     "coaches-head-pro-01",
+     "facilities-hero-01"
+    ]
+   },
+   {
+    "page": "coaches",
+    "title": "Our Coaches",
+    "route": "about/coaches/",
+    "article": null,
+    "slots": [
+     "coaches-head-pro-01",
+     "coaches-team-01"
+    ]
+   },
+   {
+    "page": "facilities",
+    "title": "Facilities",
+    "route": "about/facilities/",
+    "article": null,
+    "slots": [
+     "facilities-hero-01",
+     "facilities-courts-01"
+    ]
+   },
+   {
+    "page": "history",
+    "title": "Club History",
+    "route": "about/history/",
+    "article": null,
+    "slots": [
+     "history-majors-team-selfie",
+     "history-majors-team-celebration"
+    ]
+   },
+   {
+    "page": "news",
+    "title": "News",
+    "route": "news/",
+    "article": null,
+    "slots": [
+     "news-indoor-membership-2026-cover",
+     "news-fall-outdoor-lessons-2026-cover",
+     "news-summer-lessons-2026-cover",
+     "news-opening-day-2026-cover",
+     "news-spring-lessons-2026-cover",
+     "news-march-break-camp-2026-cover",
+     "news-summer-camp-2026-cover",
+     "news-winter-lessons-2026-cover",
+     "news-intercounty-tryouts-2025-cover",
+     "news-majors-first-place-2022-cover"
+    ]
+   },
+   {
+    "page": "news-fall-outdoor-lessons-2026",
+    "title": "Fall outdoor recreational group lessons: registration opens Aug 6 at 10am",
+    "route": "news/fall-outdoor-group-lessons-registration-opens-aug-6/",
+    "article": "fall-outdoor-lessons-2026",
+    "slots": [
+     "news-fall-outdoor-lessons-2026-cover",
+     "news-spring-lessons-2026-cover",
+     "news-summer-lessons-2026-cover",
+     "news-winter-lessons-2026-cover"
+    ]
+   },
+   {
+    "page": "news-indoor-membership-2026",
+    "title": "Fall & Winter indoor club membership registration opens August 1",
+    "route": "news/fall-winter-indoor-membership-registration-opens-august-1/",
+    "article": "indoor-membership-2026",
+    "slots": [
+     "news-indoor-membership-2026-cover",
+     "news-fall-outdoor-lessons-2026-cover",
+     "news-winter-lessons-2026-cover",
+     "news-opening-day-2026-cover"
+    ]
+   },
+   {
+    "page": "news-summer-lessons-2026",
+    "title": "Summer group lessons registration opens June 11 at 10am",
+    "route": "news/summer-group-lessons-registration-opens-june-11/",
+    "article": "summer-lessons-2026",
+    "slots": [
+     "news-summer-lessons-2026-cover",
+     "news-spring-lessons-2026-cover",
+     "news-fall-outdoor-lessons-2026-cover",
+     "news-summer-camp-2026-cover"
+    ]
+   },
+   {
+    "page": "news-opening-day-2026",
+    "title": "Outdoor season: Opening Day BBQ & round robin, Sunday May 3 at 10am",
+    "route": "news/opening-day-bbq-and-round-robin-sunday-may-3/",
+    "article": "opening-day-2026",
+    "slots": [
+     "news-opening-day-2026-cover",
+     "news-summer-lessons-2026-cover",
+     "news-indoor-membership-2026-cover",
+     "news-majors-first-place-2022-cover"
+    ]
+   },
+   {
+    "page": "news-spring-lessons-2026",
+    "title": "Spring group lessons registration opens April 6 at 10am",
+    "route": "news/spring-group-lessons-registration-opens-april-6/",
+    "article": "spring-lessons-2026",
+    "slots": [
+     "news-spring-lessons-2026-cover",
+     "news-summer-lessons-2026-cover",
+     "news-fall-outdoor-lessons-2026-cover",
+     "news-winter-lessons-2026-cover"
+    ]
+   },
+   {
+    "page": "news-march-break-camp-2026",
+    "title": "March Break kids camp 2026: registration opens February 26 at 10am",
+    "route": "news/march-break-kids-camp-2026-registration-opens-february-26/",
+    "article": "march-break-camp-2026",
+    "slots": [
+     "news-march-break-camp-2026-cover",
+     "news-summer-camp-2026-cover",
+     "news-winter-lessons-2026-cover",
+     "news-spring-lessons-2026-cover"
+    ]
+   },
+   {
+    "page": "news-summer-camp-2026",
+    "title": "Kids Summer Camp 2026: registration opens February 16 with a super early bird special",
+    "route": "news/kids-summer-camp-2026-registration-opens-february-16/",
+    "article": "summer-camp-2026",
+    "slots": [
+     "news-summer-camp-2026-cover",
+     "news-summer-camp-2026-photo-5",
+     "news-summer-camp-2026-gallery-8-1",
+     "news-summer-camp-2026-gallery-8-2",
+     "news-summer-camp-2026-gallery-8-3",
+     "news-summer-camp-2026-video-9",
+     "news-summer-camp-2026-video-9-poster",
+     "news-march-break-camp-2026-cover",
+     "news-summer-lessons-2026-cover",
+     "news-spring-lessons-2026-cover"
+    ]
+   },
+   {
+    "page": "news-winter-lessons-2026",
+    "title": "2026 winter indoor group lessons, session 2: registration opens Dec 1 at 10am",
+    "route": "news/winter-indoor-group-lessons-session-2-registration-opens-dec-1/",
+    "article": "winter-lessons-2026",
+    "slots": [
+     "news-winter-lessons-2026-cover",
+     "news-indoor-membership-2026-cover",
+     "news-spring-lessons-2026-cover",
+     "news-march-break-camp-2026-cover"
+    ]
+   },
+   {
+    "page": "news-intercounty-tryouts-2025",
+    "title": "Summer outdoor intercounty tryouts: registration now open",
+    "route": "news/summer-outdoor-intercounty-tryouts-registration/",
+    "article": "intercounty-tryouts-2025",
+    "slots": [
+     "news-intercounty-tryouts-2025-cover",
+     "news-majors-first-place-2022-cover",
+     "news-opening-day-2026-cover",
+     "news-indoor-membership-2026-cover"
+    ]
+   },
+   {
+    "page": "news-majors-first-place-2022",
+    "title": "Our Majors team takes 1st place! Big congratulations!",
+    "route": "news/our-majors-team-takes-1st-place/",
+    "article": "majors-first-place-2022",
+    "slots": [
+     "news-majors-first-place-2022-cover",
+     "news-majors-first-place-2022-gallery-2-1",
+     "news-majors-first-place-2022-gallery-2-2",
+     "news-majors-first-place-2022-gallery-2-3",
+     "news-intercounty-tryouts-2025-cover",
+     "news-opening-day-2026-cover",
+     "news-indoor-membership-2026-cover"
+    ]
+   }
+  ]
  }
 };

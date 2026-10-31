@@ -1,0 +1,304 @@
+/* TPTC Direction A, "Clubhouse": the token layer (D0, 24 Oct 2026).
+
+   Loaded on every Clubhouse page straight after css/tokens.css (python3 build.py --direction
+   clubhouse), so site.css, components.css and every page CSS read Clubhouse values through the
+   site's own token names. Source of every value: specimens/A-clubhouse/css/tptc.css (line numbers
+   below). Custom properties only, every rule scoped to html[data-direction="clubhouse"]: the file
+   styles no property and does nothing on another direction. Contract: site/DIRECTIONS.md.
+
+   The page is a clubhouse wall: ivory by day, a warm near-black after dark, never white and navy.
+   Caslon carries the voice, Hanken Grotesk the interface; red is the logo and Register now only.
+
+   Mapping (light). "=" means the site's value already equals the specimen's, so it is not repeated.
+   site token            Clubhouse value                               specimen (tptc.css)
+   --------------------  --------------------------------------------  -------------------------------
+   --white               #FFFFFF                                       61 --white (fixed white)        =
+   --dome                #E9E5D8                                       36 --chalk (the tinted ground)
+   --blazer              #1F2421                                       39 --blazer (the dark panel)
+   --ink                 #171B18                                       33 --ink
+   --red                 #DF3124                                       56 --red                         =
+   --night-deep          #141714                                       41 --night
+   --ball                #CFEE3A                                       58 --live
+   --stone               #454C46                                       34 --ink-2 (body and lede text)
+   --mist                #C9CCC4                                       43 --on-dark-2
+   --line-ink            rgba(23, 27, 24, 0.16)                        37 --rule
+   --line-ink-soft       rgba(23, 27, 24, 0.08)                        no specimen value: half of --rule
+   --line-ink-strong     rgba(23, 27, 24, 0.38)                        38 --rule-strong
+   --line-chalk          rgba(255, 255, 255, 0.18)                     44 --on-dark-rule
+   --line-chalk-soft     rgba(255, 255, 255, 0.09)                     no specimen value: half of it
+   --line-chalk-strong   rgba(255, 255, 255, 0.42)                     196 .theme-blazer --line-strong
+   --night-raised        #363D38                                       40 --blazer-2
+   --scrim               rgba(20, 23, 20, 0.55)                        75 --scrim (20, 23, 20); the site's alpha
+   --surface             #F4F1E8                                       32 --paper (the page ground)
+   --surface-alt         var(--dome)                                   36 --chalk                       =
+   --on-photo            #FFFFFF                                       61 --white                       =
+   --tag-bg              rgba(255, 255, 255, 0.92)                     71 --tag-bg
+   --tag-fg              #171B18                                       62 --ink-fixed
+   --chip-live-bg        #171B18                                       73 --live-ground (ink)
+   --chip-live-fg        #F4F1E8                                       74 --live-ground-fg (paper)
+   --photo-filter        none                                          76 --photo-filter                =
+   --shadow-tint         rgba(31, 36, 33, 0.10)                        no specimen value (no shadows): blazer at 10%
+   --focus               #171B18                                       85 --focus: var(--ink) (the site's is red)
+   --focus-w / -off      2px / 3px                                     243 :focus-visible               =
+   --ph-ground           var(--dome)                                   86 --frame-bg: var(--chalk)      =
+   --ph-line             rgba(23, 27, 24, 0.18)                        87 --frame-line
+   --ph-court-amt        0%                                            the specimen frame draws lines only, no court fill
+   --ph-text             #171B18                                       88 --frame-fg (ink)              =
+   --ph-muted            #596059                                       35 --ink-3
+   --font-serif          "Caslon Text" stack                           92 --f-serif
+   --font-sans           "Hanken Grotesk" stack                        93 --f-sans
+   --step-display        clamp(3.125rem, 1.9rem + 4.7vw, 6.5rem)       95 --t-d2 (the serif H1)
+   --step-1              clamp(2rem, 1.45rem + 2.3vw, 3.25rem)         96 --t-h2
+   --step-2              clamp(1.375rem, 1.24rem + 0.55vw, 1.75rem)    97 --t-h3
+   --step-3              clamp(1.1875rem, 1.12rem + 0.3vw, 1.375rem)   98 --t-lede                      =
+   --step-4 / -5 / -6    1.0625rem / 0.875rem / 0.75rem                99-101 --t-body, --t-small, --t-label =
+   --lh-display          1.02                                          283 .h-display line-height
+   --lh-head             1.08                                          291 .h2 line-height              =
+   --lh-body             1.6                                           227 body line-height            =
+   --track-label         0.16em                                        279 .eyebrow letter-spacing
+   --track-display-sans  -0.045em                                      287 .h-caps letter-spacing
+   --sp-1 to --sp-10     4 8 16 24 32 48 64 96 128 160px               104-105 --s-1,2,4,5,...,11       =
+   --section             clamp(72px, 6vw + 40px, 136px)                109 --section
+   --gutter              clamp(16px, 2.2vw, 32px)                      106 --gutter (all widths)
+   --page                82rem                                         107 --max
+   --measure             40rem                                         304 .body max-width
+   --header-h            76px; 64px under 720px                        110 --header-h; 186
+   --radius / --hair / --target  2px / 1px / 44px                      111 --r; .link min-height        =
+   --z-*                 the site's scale, kept                        layering is structure, not look
+   --ease-*, --dur-*, --stagger-*  as the site                         114-123                          =
+   Court geometry        as the site                                   ITF                              =
+
+   Clubhouse tokens with no site name (read only by this direction's own CSS):
+   --font-display "Caslon Display" stack (91 --f-display: H1, H2, door and card names, dates),
+   --step-caps (94 --t-d1, display capitals in Hanken 800), --fg-subtle (35 --ink-3, captions),
+   --on-dark (42; text on the dark panel), --red-press (57), --lawn, --lawn-court, --lawn-line
+   (47-49, the four drawn courts), --mat and --wood (50-51, a print's white mat and dark frame),
+   --plate-fg, --plate-fg-2 (52-53, the caption plate), --frame-night-bg (69).
+   D1 added (each from tptc.css, values in the light block below): --btn-ink-fill (65, 146), --frame-dark-bg
+   (70, 149), --print-edge (1660), --print-shadow (1812), --plate-line, --plate-line-strong (1664),
+   --plate-rule (1675), --chip-live-bd (687, 693), --chip-night-bd (688), --ball-shade (819),
+   --vslot-ring (1895). The night scope also re-resolves --focus-ring (the site computes it on :root)
+   and sets --fg-subtle (194). At night --chip-live-bg is transparent (693: a hairline chip).
+
+   Dark (the dome at night, tptc.css 132-182) and the night ground (.theme-night = the specimen's
+   .theme-blazer, 191-205) are mapped the same way below; each value names its specimen token.
+   The palette keeps the site's rule: --dome and --chalk stay light in dark mode (they are also
+   text on the dark panel); the dark tinted ground is --surface-alt. */
+
+@font-face {
+  font-family: "Caslon Display";
+  src: url("../../../fonts/directions/clubhouse/libre-caslon-display-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Caslon Text";
+  src: url("../../../fonts/directions/clubhouse/libre-caslon-text-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Caslon Text";
+  src: url("../../../fonts/directions/clubhouse/libre-caslon-text-latin-400-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("../../../fonts/directions/clubhouse/hanken-grotesk-latin-wght-normal.woff2") format("woff2-variations"),
+       url("../../../fonts/directions/clubhouse/hanken-grotesk-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+
+/* ---------- Light (paper) ---------- */
+:root[data-direction="clubhouse"] {
+  /* palette */
+  --dome:   #E9E5D8;
+  --blazer: #1F2421;
+  --ink:    #171B18;
+  --night-deep: #141714;
+  --ball:   #CFEE3A;
+  --stone:  #454C46;
+  --mist:   #C9CCC4;
+  --line-ink:        rgba(23, 27, 24, 0.16);
+  --line-ink-soft:   rgba(23, 27, 24, 0.08);
+  --line-ink-strong: rgba(23, 27, 24, 0.38);
+  --line-chalk:        rgba(255, 255, 255, 0.18);
+  --line-chalk-soft:   rgba(255, 255, 255, 0.09);
+  --line-chalk-strong: rgba(255, 255, 255, 0.42);
+  --night-raised: #363D38;
+  --scrim: rgba(20, 23, 20, 0.55);
+
+  /* semantic */
+  --surface: #F4F1E8;
+  --tag-bg:  rgba(255, 255, 255, 0.92);
+  --tag-fg:  #171B18;
+  --chip-live-bg: #171B18;
+  --chip-live-fg: #F4F1E8;
+  --shadow-tint: rgba(31, 36, 33, 0.10);
+  --focus: #171B18;
+  --ph-line: rgba(23, 27, 24, 0.18);
+  --ph-court-amt: 0%;
+  --ph-muted: #596059;
+
+  /* type */
+  --font-display: "Caslon Display", "Libre Caslon Display", "Iowan Old Style", Georgia, serif;
+  --font-serif: "Caslon Text", "Libre Caslon Text", "Iowan Old Style", Georgia, serif;
+  --font-sans:  "Hanken Grotesk", "Helvetica Neue", system-ui, sans-serif;
+  --step-caps:    clamp(2.75rem, 1.05rem + 6.9vw, 7.75rem);
+  --step-display: clamp(3.125rem, 1.9rem + 4.7vw, 6.5rem);
+  --step-1:       clamp(2rem, 1.45rem + 2.3vw, 3.25rem);
+  --step-2:       clamp(1.375rem, 1.24rem + 0.55vw, 1.75rem);
+  --lh-display: 1.02;
+  --track-label: 0.16em;
+  --track-display-sans: -0.045em;
+
+  /* space and frame */
+  --section: clamp(72px, 6vw + 40px, 136px);
+  --gutter: clamp(16px, 2.2vw, 32px);
+  --page: 82rem;
+  --measure: 40rem;
+  --header-h: 76px;
+
+  /* Clubhouse only */
+  --fg-subtle: #596059;
+  --on-dark: #FAF8F2;
+  --red-press: #B4271C;
+  --lawn: #2F6D49;
+  --lawn-court: #3A7D55;
+  --lawn-line: #FFFFFF;
+  --mat: #FDFCF8;
+  --wood: #1B1F1C;
+  --plate-fg: #171B18;
+  --plate-fg-2: #555C56;
+  --frame-night-bg: #232925;
+
+  /* D1 (direction-only): values the Clubhouse components read, each from tptc.css */
+  --btn-ink-fill: #363D38;                   /* 65 --btn-ink-fill (blazer-2): the ink button's rise */
+  --frame-dark-bg: #171A17;                  /* 70: the video slot and the dark band */
+  --print-edge: rgba(0, 0, 0, 0.2);          /* 1660: the hairline that closes a picture in its mat */
+  --print-shadow: 0 1px 0 rgba(0, 0, 0, 0.18), 0 22px 34px -22px rgba(0, 0, 0, 0.42);  /* 1812 */
+  --plate-line: rgba(23, 27, 24, 0.16);      /* 1664: rules on the mat (always day ink) */
+  --plate-line-strong: rgba(23, 27, 24, 0.38);
+  --plate-rule: rgba(23, 27, 24, 0.3);       /* 1675: the divider before "Placeholder image" */
+  --chip-live-bd: #171B18;                   /* 687: the live chip's edge (ink by day) */
+  --chip-night-bd: rgba(255, 255, 255, 0.5); /* 688: the live chip on a night ground */
+  --ball-shade: rgba(0, 0, 0, 0.42);         /* 819: the serving ball's ground shadow */
+  --vslot-ring: rgba(255, 255, 255, 0.6);    /* 1895: the video slot's play ring */
+}
+@media (max-width: 719px) {
+  :root[data-direction="clubhouse"] { --header-h: 64px; }
+}
+
+/* ---------- Night ground (.theme-night: the High Performance hero and header) ----------
+   The specimen's .theme-blazer: on-dark type, white rules, an on-dark focus ring. */
+[data-direction="clubhouse"] .theme-night {
+  --fg: var(--on-dark);
+  --fg-subtle: var(--mist);                  /* 194 --fg-3: var(--on-dark-2) */
+  --focus: var(--on-dark);
+  --focus-ring: var(--focus-w) solid var(--focus);  /* re-resolved here, or the ring keeps the day ink */
+  --ph-ground: #262C28;                      /* 198 --frame-bg */
+  --ph-line: rgba(255, 255, 255, 0.15);      /* 199 --frame-line */
+  --ph-court-mix: var(--on-dark);
+  --ph-court-amt: 0%;
+  --ph-text: var(--on-dark);
+  --ph-muted: var(--mist);
+}
+
+/* ---------- The court frame (a slot with no photograph) ----------
+   site.css writes this scope's tokens as raw Whites values (a Blazer court, chalk lines, #16294F
+   at night). In the Clubhouse the club's court seen from above is the lawn of its four drawn
+   courts: lawn surround, lawn-court surface, white lines (tptc.css 47-49). Tokens only. */
+:root[data-direction="clubhouse"] .frame:not(.frame--due, .frame--photo, .has-img) {
+  --ph-ground: var(--lawn);
+  --ph-court-mix: var(--lawn-court);
+  --ph-court-amt: 100%;
+  --ph-line: var(--lawn-line);
+  --ph-text: var(--on-dark);
+  --ph-muted: var(--mist);
+}
+
+/* ---------- Dark: the dome at night (tptc.css 132-182) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root[data-direction="clubhouse"]:not([data-theme="light"]) {
+    --blazer: #242A25;                      /* 142 */
+    --night-raised: #353C36;                /* 143 --blazer-2 */
+    --night-deep: #0A0C0A;                  /* 144 --night */
+    --scrim: rgba(10, 12, 10, 0.55);        /* 153 */
+    --surface:     #121512;                 /* 135 --paper */
+    --surface-alt: #1B1F1B;                 /* 139 --chalk */
+    --tag-bg: rgba(18, 21, 18, 0.9);        /* 150 */
+    --tag-fg: #EFEDE6;                      /* 136 --ink */
+    --chip-live-bg: transparent;            /* 693: at night the live chip is a hairline on the ground */
+    --chip-live-fg: #EFEDE6;                /* 152 */
+    --photo-filter: brightness(0.86) contrast(1.04) saturate(0.94);  /* 154 */
+    --logo: #EFEDE6;
+    --logo-ball: var(--red);
+    --logo-col: none; --logo-rev: block;    /* 156 --logo-light none, --logo-dark block */
+    --shadow-tint: rgba(0, 0, 0, 0.40);     /* no specimen value */
+    --bg: var(--surface);
+    --bg-alt: var(--surface-alt);
+    --fg: #EFEDE6;                          /* 136 */
+    --fg-muted: #C2C4BC;                    /* 137 --ink-2 */
+    --rule: rgba(239, 237, 230, 0.14);      /* 140 */
+    --rule-soft: rgba(239, 237, 230, 0.07); /* half of 140 */
+    --rule-strong: rgba(239, 237, 230, 0.36); /* 141 */
+    --focus: #EFEDE6;
+    --ph-ground: #1B1F1B;                   /* 139 --chalk (the frame ground) */
+    --ph-line: rgba(239, 237, 230, 0.22);   /* 147 --frame-day-line */
+    --ph-court-mix: #EFEDE6;
+    --ph-court-amt: 0%;
+    --ph-text: #EFEDE6;
+    --ph-muted: #A4A79F;                    /* 138 --ink-3 */
+    --fg-subtle: #A4A79F;
+    --on-dark: #F4F2EC;                     /* 145 */
+    --lawn: #26583B; --lawn-court: #2F6947; --lawn-line: #F1F1EC; --mat: #DDDAD0; --wood: #050605;  /* 155 */
+    --btn-ink-fill: #D0D2CA;                /* 146 */
+    --frame-dark-bg: #0E110E;               /* 149 */
+    --frame-night-bg: #1A1F1B;              /* 148 */
+    --chip-live-bd: rgba(239, 237, 230, 0.36);  /* 693: a hairline chip at night */
+    color-scheme: dark;
+  }
+  :root[data-direction="clubhouse"]:not([data-theme="light"]) .frame:not(.frame--due, .frame--photo, .has-img) {
+    --ph-ground: var(--lawn);
+  }
+}
+:root[data-direction="clubhouse"][data-theme="dark"] {
+  --blazer: #242A25;
+  --night-raised: #353C36;
+  --night-deep: #0A0C0A;
+  --scrim: rgba(10, 12, 10, 0.55);
+  --surface:     #121512;
+  --surface-alt: #1B1F1B;
+  --tag-bg: rgba(18, 21, 18, 0.9);
+  --tag-fg: #EFEDE6;
+  --chip-live-bg: transparent;
+  --chip-live-fg: #EFEDE6;
+  --photo-filter: brightness(0.86) contrast(1.04) saturate(0.94);
+  --logo: #EFEDE6;
+  --logo-ball: var(--red);
+  --logo-col: none; --logo-rev: block;
+  --shadow-tint: rgba(0, 0, 0, 0.40);
+  --bg: var(--surface);
+  --bg-alt: var(--surface-alt);
+  --fg: #EFEDE6;
+  --fg-muted: #C2C4BC;
+  --rule: rgba(239, 237, 230, 0.14);
+  --rule-soft: rgba(239, 237, 230, 0.07);
+  --rule-strong: rgba(239, 237, 230, 0.36);
+  --focus: #EFEDE6;
+  --ph-ground: #1B1F1B;
+  --ph-line: rgba(239, 237, 230, 0.22);
+  --ph-court-mix: #EFEDE6;
+  --ph-court-amt: 0%;
+  --ph-text: #EFEDE6;
+  --ph-muted: #A4A79F;
+  --fg-subtle: #A4A79F;
+  --on-dark: #F4F2EC;
+  --lawn: #26583B; --lawn-court: #2F6947; --lawn-line: #F1F1EC; --mat: #DDDAD0; --wood: #050605;
+  --btn-ink-fill: #D0D2CA;
+  --frame-dark-bg: #0E110E;
+  --frame-night-bg: #1A1F1B;
+  --chip-live-bd: rgba(239, 237, 230, 0.36);
+  color-scheme: dark;
+}
+:root[data-direction="clubhouse"][data-theme="dark"] .frame:not(.frame--due, .frame--photo, .has-img) {
+  --ph-ground: var(--lawn);
+}

@@ -1,0 +1,76 @@
+/* TPTC Direction A, "Clubhouse": Court Bookings (D2, 24 Oct 2026). Loaded after
+   css/pages/court-bookings.css. No specimen page: in the specimen's language. The booking window
+   is the club's court sheet in hairlines, its dates in Caslon Display; the member and non-member
+   duel keeps the member column on the blazer (the raw dome-white text and chalk rule of court-bookings.css
+   203, 205 and 226 replaced by tokens); every figure is a Caslon numeral; the rules are a
+   programme ruled in hairlines, each group named in Caslon Display. */
+
+/* The hero: the two booking actions stay large (B7), in the Clubhouse button */
+.cb-hero__actions .btn { min-height: 56px; padding-inline: 28px; font-size: 0.875rem; letter-spacing: 0.12em; }
+.cb-hero__how { color: var(--fg-muted); }
+.cb-hero__how a { text-underline-offset: 0.2em; text-decoration-color: var(--rule-strong); }
+.cb-pdf, .cb-docs .doclink__meta { font-weight: 700; color: var(--fg-subtle); }
+.cb-docs .doclink .link__text { text-underline-offset: 0.2em; }
+
+/* The booking window: days as a court sheet, the bars as dimension lines */
+.cb-window__dow { font-weight: 700; color: var(--fg-subtle); }
+.cb-window__d { font: 400 clamp(1.05rem, 0.7rem + 1vw, 1.5rem)/1.1 var(--font-display); }
+.cb-window__bar dt { font-weight: 700; }
+
+/* Members and non-members */
+.cb-compare { border-top-color: var(--rule-strong); }
+.cb-compare__q { font-weight: 700; color: var(--fg-subtle); }
+.cb-compare__who { font: 400 var(--step-2)/1.1 var(--font-display); }
+.cb-dim__n { font-weight: 700; }
+
+/* The four duels: the member column on the blazer, a Caslon figure in each answer */
+.cbx__q { font-weight: 700; letter-spacing: 0.12em; border-top-color: var(--rule); }
+.cbx__who { font: 400 var(--step-2)/1.1 var(--font-display); }
+.cbx__who--m, .cbx__a--m {
+  --fg: var(--on-dark); --fg-muted: var(--mist); --fg-subtle: var(--mist);
+  --rule: var(--line-chalk); --rule-strong: var(--line-chalk-strong); --focus: var(--on-dark); --focus-ring: var(--focus-w) solid var(--focus);
+  background: var(--blazer); color: var(--on-dark);
+}
+.cbx__big { font: 400 clamp(2.75rem, 2rem + 3vw, 4.5rem)/0.95 var(--font-display); letter-spacing: -0.01em; }
+.cbx__big small { font-weight: 700; }
+.cbx__big--word { font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.75rem); line-height: 1.05; }
+.cbx__why { color: var(--fg-muted); }
+.cbx__both { color: var(--fg-muted); }
+@media (min-width: 800px) { .cbx__a--m { border-top-color: var(--line-chalk); } }
+
+/* The court day: the fee in Caslon Text, the prime band in ink */
+.cb-day__label { font-weight: 700; color: var(--fg-subtle); }
+.cb-day__fee { font: 400 1rem/1 var(--font-serif); font-variant-numeric: tabular-nums lining-nums; }
+@media (min-width: 800px) { .cb-day__fee { font-size: 1.125rem; } }
+.cb-day__axis span { color: var(--fg-subtle); }
+.cb-sub { color: var(--fg-subtle); }
+.cb-out__head { font: 400 var(--step-2)/var(--lh-head) var(--font-display); }
+
+/* The rules: a programme in hairlines, each group named in Caslon Display */
+.cb-rules { border-top-color: var(--rule-strong); }
+.cb-rule__h { font: 400 var(--step-3)/1.25 var(--font-display); }
+.cb-rule__list li { font-size: 1rem; }
+.cb-rule__list li::before { border-color: var(--fg-subtle); }
+.cb-all__list li::marker { color: var(--fg-subtle); }
+
+/* Friday public hours: the head beside its times reads from the left */
+.cb-public__when { font: 400 var(--step-3)/1.3 var(--font-serif); }
+@media (min-width: 900px) {
+  .wrap.cb-public > .sect-head { text-align: left; justify-items: start; margin-inline: 0; }
+  .wrap.cb-public > .sect-head .h2, .wrap.cb-public > .sect-head .body { margin-inline: 0; }
+  .wrap.cb-public > .sect-head::after { margin-left: 0; }
+}
+
+/* The season switch and its ledger: the shared rate control and year line (components.css 16, 22) */
+.cb-switch .select-label { color: var(--fg-subtle); }
+.cb-season { border-top: 0; }
+.cb-ledger { margin-top: var(--sp-5); }
+.cb-fees .srow__price { font-family: var(--font-sans); }
+.cb-fees__notes .notice { color: var(--fg-muted); }
+
+/* Phones: the duel's two columns are narrow; its words wrap inside them */
+@media (max-width: 599px) {
+  .cbx__a { padding: 14px 12px; }
+  .cbx__big--word { font-size: 1.5rem; overflow-wrap: anywhere; }
+  .cbx__why { overflow-wrap: anywhere; }
+}

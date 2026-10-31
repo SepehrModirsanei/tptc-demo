@@ -1,0 +1,209 @@
+/* Our Coaches only. Tokens only; no raw colour values. */
+
+/* 1. The Head Pro.
+   Story: the club names one coach, so he stands alone, portrait first, as a featured entry. His
+   portrait is the frame the About door opened (Turn), so the door's picture becomes the man. */
+.coach--lead { margin-top: var(--sp-2); }
+.lead__body { display: grid; gap: var(--sp-4); align-content: end; }
+.lead__name { font-size: clamp(2.5rem, 1.6rem + 3vw, 4.5rem) !important; line-height: 1; letter-spacing: -0.01em; }
+.lead__bio { font: 300 clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem)/1.45 var(--font-serif); max-width: 40ch; text-wrap: pretty; }
+.coach__role .confirm { margin-left: 10px; text-transform: none; letter-spacing: 0; font-weight: 400; }
+.lead__fields { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--rule-strong); }
+.lead__fields > div { display: grid; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.lead__fields dt { font: 600 var(--step-6)/1.3 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.lead__fields dd { margin: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
+@media (min-width: 640px) { .lead__fields > div { grid-template-columns: 11rem minmax(0, 1fr); align-items: baseline; } }
+
+/* "Coaches in": the gap no other club fills, a coach linked to the programs they lead. Each link
+   is a ruled tab, like a court booking slip, and fills with ink on hover. */
+.coach-in { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--rule-strong);
+  color: var(--fg); text-decoration: none; font: 500 15px/1.2 var(--font-sans);
+  transition: background-color var(--dur-ui) var(--ease-ui), color var(--dur-ui) var(--ease-ui); }
+.coach-in:hover { background: var(--fg); color: var(--bg); }
+.coach-in:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* His playing record, set like a line in a draw: the figure in Spectral, then what it counts.
+   Story: a ranking is read off a draw sheet, so the record is ruled like one. */
+.record { margin-top: clamp(48px, 6vw, 96px); display: grid; gap: var(--sp-5); }
+.record__head { display: grid; gap: 8px; align-content: start; }
+/* R2 (25 Oct): a heading, larger than the 15px source line under it (was a 12px capital label) */
+.record__title { font: 300 var(--step-3)/1.2 var(--font-serif); letter-spacing: -0.005em; color: var(--fg); }
+.record__src { font-size: 15px; line-height: 1.5; color: var(--fg-muted); display: grid; gap: 8px; justify-items: start; }
+.record__list { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--rule-strong); }
+.record__list li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.record__n { font: 200 clamp(1.75rem, 1.3rem + 1.4vw, 2.75rem)/1 var(--font-serif); font-variant-numeric: lining-nums; letter-spacing: -0.01em; }
+.record__what { font-size: 16px; line-height: 1.45; color: var(--fg); max-width: 34ch; }
+@media (min-width: 1000px) {
+  .record { grid-template-columns: 3fr 9fr; column-gap: var(--sp-6); }
+  .record__list { grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 0; }
+  .record__list li { grid-template-columns: none; align-content: start; gap: 12px; padding: 20px 24px 20px 0; border-bottom: 0; border-top: 1px solid var(--rule-strong); }
+  .record__list li + li { padding-left: 24px; border-left: 1px solid var(--rule); }
+}
+
+/* 2. The team: one example entry, the format every named coach gets, beside one Club to confirm
+   box. Story: a draw sheet prints the format of a line before the names are in; the example is set
+   like the Head Pro's ruled fields, with what goes in each field written in, not "To confirm". */
+.team { display: grid; gap: var(--sp-5); margin-top: var(--sp-6); align-items: start; }
+@media (min-width: 900px) { .team { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--sp-6); } }
+.coach--format { display: grid; gap: 16px; padding: 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--surface); }
+@media (min-width: 640px) { .coach--format { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); column-gap: var(--sp-5); align-items: start; padding: 20px; } }
+.coach--format .frame { margin: 0; }
+.format__body { display: grid; gap: 6px; align-content: start; }
+.format__name { color: var(--fg-muted); font-style: italic; padding-bottom: 10px; border-bottom: 1px solid var(--rule-strong); }
+.format__fields { margin: 0; display: grid; }
+.format__fields > div { display: grid; grid-template-columns: minmax(7.5rem, 2fr) minmax(0, 3fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: 15px; line-height: 1.4; }
+.format__fields dt { color: var(--fg); font-weight: 500; }
+.format__fields dd { margin: 0; color: var(--fg-muted); }
+
+/* 3. How we coach: three numbered rules, the first drawn as the three courts of Progressive
+   Training. Story: the court grows with the player, half, three-quarter, full. Each plan lines
+   itself in lining order (Chalk), and the playing area is shaded the way a red or orange
+   court is painted inside a full one. */
+.approach { display: grid; gap: var(--sp-6); }
+@media (min-width: 1000px) { .approach { grid-template-columns: 4fr 8fr; column-gap: var(--sp-8); align-items: start; } }
+.ways { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
+.way { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 16px; padding: 28px 0; border-bottom: 1px solid var(--rule); }
+.way__n { font: 300 var(--step-3)/1.3 var(--font-serif); color: var(--fg-muted); font-variant-numeric: lining-nums tabular-nums; }
+.way__body { display: grid; gap: 10px; }
+.way__title { font: 300 clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)/1.15 var(--font-serif); }
+.way__body p { font-size: 16px; line-height: 1.55; color: var(--fg-muted); max-width: 52ch; }
+
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 2vw, 24px); margin-top: var(--sp-3); }
+.plans__one { margin: 0; display: grid; gap: 10px; }
+.plans__court { aspect-ratio: 26.57 / 13.77; }
+.plans figcaption { display: grid; gap: 2px; font: 500 14px/1.3 var(--font-sans); color: var(--fg); }
+.plans figcaption span + span { font-weight: 400; color: var(--fg-muted); }
+.plan { display: block; width: 100%; height: 100%; overflow: visible; }
+.plan__surround { fill: var(--surface-alt); }
+.plan__area { fill: var(--surface); }
+.plan line { stroke: var(--fg); stroke-width: 1; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: 0 0; }
+.plan line.plan__ghost { stroke: var(--fg-muted); stroke-opacity: 0.45; }
+.plan line.plan__on { stroke-width: 1.5; }
+.plan line.net { stroke: var(--red); stroke-width: 1.5; }
+.plan rect.cl-p { fill: var(--red); transform-box: fill-box; transform-origin: center; }
+@media (max-width: 599px) {
+  .plans { grid-template-columns: minmax(0, 1fr); max-width: 22rem; }
+  .plans__one { grid-template-columns: 9rem minmax(0, 1fr); align-items: center; gap: 14px; }
+  .way { grid-template-columns: 2.25rem minmax(0, 1fr); }
+}
+
+/* On a phone the example entry stays short: a small portrait frame beside the name, then the
+   ruled fields across the full width. */
+@media (max-width: 639px) {
+  .coach--format { grid-template-columns: 6.5rem minmax(0, 1fr); column-gap: 16px; row-gap: 6px; }
+  .coach--format .frame { grid-column: 1; grid-row: 1 / span 2; align-self: start; }
+  .coach--format .ph__desc, .coach--format .ph__ratio, .coach--format .ph__id { display: none; }
+  .coach--format .ph__label { left: 6px; right: 6px; bottom: 6px; min-width: 0; }
+  .coach--format .ph__kicker { font-size: 9px; letter-spacing: 0.06em; white-space: normal; line-height: 1.25; }
+  .coach--format .format__body { display: contents; }
+  .coach--format .coach__role { grid-column: 2; grid-row: 1; align-self: end; margin: 0; }
+  .format__name { font-size: var(--step-3); }
+  .coach--format .format__name { grid-column: 2; grid-row: 2; align-self: start; }
+  .format__fields { grid-column: 1 / -1; grid-row: 3; }
+  .format__fields > div { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+}
+
+/* Batch 4, phones: the Head Pro comes up. Below 640px his portrait no longer takes a whole screen
+   before his name. It stands beside the name, the way a player's card is set in a program: picture
+   left, title and name right, then the bio and the ruled fields across the full width. */
+@media (max-width: 639px) {
+  .coach--lead { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 16px; row-gap: 0; align-items: end; }
+  .coach--lead > .frame { grid-column: 1; grid-row: 1 / span 2; align-self: stretch; margin: 0; }
+  .coach--lead .lead__body { display: contents; }
+  .coach--lead .coach__role { grid-column: 2; grid-row: 1; align-self: end; margin: 0; display: grid; gap: 8px; justify-items: start; }
+  .coach--lead .coach__role .confirm { margin-left: 0; }
+  .coach--lead .lead__name { grid-column: 2; grid-row: 2; align-self: end; margin: 10px 0 0; font-size: clamp(2rem, 1rem + 5.2vw, 2.5rem) !important; }
+  .coach--lead .lead__bio, .coach--lead .lead__fields { grid-column: 1 / -1; }
+  .coach--lead .lead__bio { margin-top: var(--sp-5); font-size: 1.125rem; }
+  .coach--lead .lead__fields { margin-top: var(--sp-4); }
+  .coach--lead .ph__desc, .coach--lead .ph__ratio { display: none; }
+  .coach--lead .ph__label { left: 8px; right: 8px; bottom: 8px; min-width: 0; }
+  .coach--lead .ph__kicker { font-size: 9.5px; letter-spacing: 0.08em; white-space: normal; line-height: 1.25; }
+  .coach--lead .ph__id { font-size: 10px; overflow-wrap: anywhere; }
+  .record { margin-top: var(--sp-6); }
+  .record__list li { grid-template-columns: 5.5rem minmax(0, 1fr); padding: 14px 0; }
+}
+/* B7: a stray closing brace stood here; the browser then dropped the next rule (the hero card
+   hidden under 1000px), so phones drew the Head Pro's portrait twice. Removed. */
+
+/* ---------- Batch 5: the first coach card fills the hero's right half (desktop) ----------
+   Story: "who will be on court with you" is answered by a person, so the Head Pro's card is in the
+   first screen: his portrait frame (a baseline to baseline court until he is photographed) and a
+   nameplate set against its foot, the way a player's name sits by the court on an order of play.
+   The featured entry below keeps the words and gives up its own copy of the frame. */
+.hero--aside .hero__aside:has(.procard) { display: none; }
+@media (min-width: 1000px) {
+  .hero--aside .hero__aside:has(.procard) { display: block; }
+  .procard { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--sp-4); align-items: end; }
+  .procard .frame { --ar: 4 / 5; margin: 0; width: 100%; max-height: min(52svh, 30rem); aspect-ratio: 4 / 5; justify-self: end; }
+  .procard__plate { display: grid; gap: 10px; justify-items: start; padding-bottom: 2px; border-top: 1px solid var(--rule-strong); padding-top: 14px; }
+  .procard__plate p { margin: 0; }
+  .procard__name { font: 300 clamp(2rem, 1.2rem + 1.3vw, 2.75rem)/1.02 var(--font-serif); letter-spacing: -0.01em; }
+  .procard__line { font-size: 15px; line-height: 1.45; color: var(--fg-muted); max-width: 22ch; }
+  .procard__plate .link { margin-top: 6px; }
+  /* The featured entry without its frame: name left, the bio and the fields right */
+  .coach--lead > .frame { display: none; }
+  .coach--featured.coach--lead { grid-template-columns: minmax(0, 1fr); }
+  .coach--lead .lead__body { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--sp-6); align-content: start; grid-template-rows: auto 1fr auto; }
+  .coach--lead .coach__role { grid-column: 1; grid-row: 1; }
+  .coach--lead .lead__name { grid-column: 1; grid-row: 2; align-self: start; }
+  .coach--lead .lead__bio { grid-column: 2; grid-row: 1 / span 2; max-width: 44ch; }
+  .coach--lead .lead__fields { grid-column: 2; grid-row: 3; }
+}
+
+/* Under 1000px the hero is the plain compact hero it was: the aside is not drawn, so the paired
+   form's two-column rules (shared, from 900px) are undone here. Phones keep their first screens. */
+@media (max-width: 999px) {
+  .hero--aside:has(.procard) .hero__grid { display: block; max-width: none; margin: 0; padding: 0; }
+  .hero--aside:has(.procard) .hero__words { display: flex; max-width: calc(var(--page) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+}
+
+/* Batch 5, 1000 to 1199px: the card is narrow, so the frame keeps its kicker and slot id and lets
+   the shot line go, and the nameplate takes an even half. */
+@media (min-width: 1000px) and (max-width: 1199px) {
+  .procard { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--sp-3); }
+  .procard .ph__desc { display: none; }
+  .procard .ph__kicker { letter-spacing: 0.1em; gap: 6px; line-height: 1.25; align-items: baseline; }
+  .procard__name { font-size: 1.75rem; }
+  .procard__line { font-size: 14px; }
+}
+
+/* Batch 5 lead review: on a short phone (360x640) the Head Pro's frame began 40px above the
+   foot of the first screen and was cut by it. The hero now takes the whole first screen there,
+   so the card arrives whole on the first scroll. Taller phones already show the card whole. */
+@media (max-width: 899px) and (max-height: 700px) {
+  .page-coaches .hero { min-height: calc(100svh - var(--header-h)); }
+}
+
+/* ---------- B7: anchors, and entries from the staff panel demo ----------
+   Every coach entry has a stable id (#josh-borenstein) so other pages link straight to the coach;
+   the sticky header must not cover the name when they do. */
+.coach[id] { scroll-margin-top: calc(var(--header-h) + 24px); }
+
+/* A short line under an entry the panel changed or added: it is shown in this browser only. */
+.coach-demo { margin: 0; padding: 8px 0 0; border-top: 1px dashed var(--rule-strong); font-size: 14px; line-height: 1.45; color: var(--fg-muted); max-width: 52ch; }
+.coach--lead .coach-demo { grid-column: 1 / -1; }
+
+/* Added coaches, set in the entry format above the format example: portrait left, the fields right. */
+.roster { display: grid; gap: var(--sp-5); margin-top: var(--sp-6); }
+.roster[hidden] { display: none; }
+.roster__title { font: 600 var(--step-6)/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-muted); }
+.coach--entry { display: grid; gap: 16px; padding: 16px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: var(--surface); }
+@media (min-width: 640px) { .coach--entry { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); column-gap: var(--sp-5); padding: 20px; } }
+@media (min-width: 900px) { .coach--entry { max-width: calc(7 / 12 * 100%); } }
+.roster__pic { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); background: var(--ph-ground); max-width: 22rem; }
+.roster__img { display: block; width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); }
+.roster__ph { display: grid; align-items: end; height: 100%; padding: 12px; background: color-mix(in oklab, var(--ph-ground), var(--ph-court-mix) var(--ph-court-amt)); }
+.roster__ph span { font: 600 11px/1.2 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-photo); }
+.roster__body { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.roster__body .coach__role { margin: 0; }
+.roster__name { font: 300 clamp(1.75rem, 1.4rem + 1vw, 2.25rem)/1.1 var(--font-serif); overflow-wrap: anywhere; padding-bottom: 10px; border-bottom: 1px solid var(--rule-strong); }
+.roster__bio { font-size: 16px; line-height: 1.55; max-width: 52ch; overflow-wrap: anywhere; }
+.roster__fields { margin: 0; display: grid; }
+.roster__fields > div { display: grid; grid-template-columns: minmax(7.5rem, 2fr) minmax(0, 3fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: 15px; line-height: 1.4; }
+.roster__fields dt { color: var(--fg); font-weight: 500; }
+.roster__fields dd { margin: 0; color: var(--fg); display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; overflow-wrap: anywhere; }
+.roster__in > div, .roster__fields > .roster__in { align-items: start; }
+@media (max-width: 479px) { .roster__fields > div { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+/* On a phone an added entry keeps its portrait small, beside nothing: a 9rem frame, then the words */
+@media (max-width: 639px) { .coach--entry .roster__pic { max-width: 9rem; } }

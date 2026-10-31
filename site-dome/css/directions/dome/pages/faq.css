@@ -1,0 +1,53 @@
+/* TPTC Direction B, "Dome": FAQ (D2, 24 Oct 2026). Loaded after css/pages/faq.css.
+   The specimen's FAQ (system.css 169-191): a ledger of questions. The topics stand as an index of
+   ledger labels, each with a scoreboard figure for how many questions it holds; the questions are
+   filed under them in the serif; the rally net is a plain line (red is Register now only); the
+   scorecard in the hero counts in Archivo figures. Tokens only. */
+
+/* ---------- Topic index ---------- */
+.faqidx { border-bottom-color: var(--rule); }
+.faqidx a { font-family: var(--font-sans); font-size: var(--step-5); font-weight: 600; font-stretch: var(--stretch-head); letter-spacing: var(--track-crumb); text-transform: uppercase; }
+.faqidx__n { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-1); line-height: 0.86; letter-spacing: 0; color: var(--fg-muted); }
+@media (min-width: 1000px) {
+  .faqidx__label { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); color: var(--fg-subtle); }
+  .faqidx ol { border-left-color: var(--fg); }
+  .faqidx a { font-size: var(--step-6); letter-spacing: var(--track-label); }
+  .faqidx__n { font-size: var(--fig-2); }
+}
+
+/* ---------- Search ---------- */
+.faqsearch__status { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+.faqsearch__input { font-family: var(--font-sans); font-stretch: 100%; }
+
+/* ---------- Groups ---------- */
+.faqx .faq__topic { font-family: var(--font-sans); font-size: var(--step-5); font-weight: 600; font-stretch: var(--stretch-head); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--fg-subtle); padding-top: 16px; border-top: 1px solid var(--fg); }
+.faqx .faq__group:first-child .faq__topic { border-top: 0; padding-top: 0; }
+.faq__count { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--step-5); letter-spacing: 0; color: var(--fg-muted); }
+.faqx .acc__item::before { height: 1px; }
+.faqx mark { background: var(--tag-bg); color: var(--tag-fg); border-radius: 0; }
+.faq-copy { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-ui); font-stretch: var(--stretch-ui); letter-spacing: var(--track-ui); text-transform: uppercase; }
+
+/* ---------- Inside an answer ---------- */
+.minirows { border-top: 1px solid var(--fg); }
+.minirows dt { font-family: var(--font-serif); font-size: var(--step-4); }
+.minirows dd { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.rules li::before { background: var(--fg); }
+.rally { border-top-color: var(--fg); }
+.rally__name { font-family: var(--font-serif); font-weight: 400; font-size: var(--t-name); }
+.rally__test { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--t-ui); }
+.rally__net, .rally__net::before { background: var(--fg); }
+.rally__net { width: 1px; }
+
+/* ---------- The six topics (phones) and the scorecard (desktop) ---------- */
+.faq-topics ol { border-top: 1px solid var(--fg); }
+.faq-topics__name { font-family: var(--font-serif); font-weight: 400; font-size: var(--step-4); }
+.faq-topics__n { font-family: var(--font-sans); font-weight: var(--w-num); font-stretch: var(--stretch-fig); font-size: var(--step-5); }
+@media (min-width: 1000px) {
+  .faq-topics__lead { font-family: var(--font-sans); font-stretch: 100%; font-size: var(--step-5); }
+  .faq-topics a::before { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-1); line-height: 0.86; letter-spacing: 0; color: var(--fg-subtle); }
+  .faq-topics__name { font-size: var(--step-3); }
+  .faq-topics__n { font-size: var(--t-name-sm); color: var(--fg); }
+  .faq-topics__total { font-family: var(--font-sans); font-size: var(--step-6); font-weight: var(--w-chip); font-stretch: var(--stretch-head); letter-spacing: var(--track-label); border-top-color: var(--fg); }
+  .faq-topics__total .num { font-family: var(--font-sans); font-weight: var(--w-fig); font-stretch: var(--stretch-board); font-size: var(--fig-3); line-height: 0.86; }
+}
+.faq-hero .hero__lede { max-width: 40ch; }
